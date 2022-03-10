@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-/* Styles */
+/* Main style */
 import './assets/css/index.css';
-/* Components */
+/* Root Component */
 import { App } from './App';
 
 ReactDOM.render(
