@@ -1,4 +1,6 @@
-/* My tailwind.config.js */
+/**
+ * My tailwind.config.js
+ */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -6,7 +8,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'background-body': '#E5E5E5',
         'primary-color': '#00ADEF',
         'text-color': '#475564'
       },
