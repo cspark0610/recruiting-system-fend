@@ -1,7 +1,7 @@
 # Getting Started with WorkArt FullTimeForce
 
 ## Preview
-![First Advance](https://user-images.githubusercontent.com/101351095/157770123-68067a3c-9c5a-4dd7-9e5c-69bb689d96b3.jpg)
+![2022-03-11 180335](https://user-images.githubusercontent.com/101351095/157986084-8074cf73-e989-4bdd-ad63-fb74577dd749.jpg)
 
 ## To start this project
 - git clone https://github.com/OliverFulltimeforce/WorkAt.git
