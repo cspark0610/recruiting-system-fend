@@ -1,4 +1,3 @@
-import { BlueBtn } from '../../components/button/BlueBtn'
 import { FrmData } from '../../components/FrmData'
 
 export function Data() {
@@ -8,7 +7,6 @@ export function Data() {
                 <img src="https://fulltimeforce.com/wp-content/themes/ftf-2020/images/fulltimeforce-logo.svg" alt="FullTimeForce.png" className='w-44 h-20' />
                 <h2 className='font-Raleway font-normal text-text-color text-xl my-5'>Sebastian Montenegro Abad</h2>
                 <FrmData />
-                <BlueBtn name="Next" link="./tasks" />
             </div>
         </div>
     )

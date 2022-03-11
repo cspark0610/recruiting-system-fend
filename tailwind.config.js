@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       colors: {
         'primary-color': '#00ADEF',
-        'text-color': '#475564'
+        'text-color': '#475564',
+        'tooltip-color': '#F84D44'
       },
       fontFamily: {
         'Raleway': ['Raleway', 'sans-serif']

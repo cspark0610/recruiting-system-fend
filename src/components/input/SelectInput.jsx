@@ -12,7 +12,7 @@ export function SelectInput(props) {
             <label className="block text-sm font-normal text-text-color font-Raleway">
                 {props.label}
             </label>
-            <Listbox value={selectedValue} onChange={setSelectedValue} className="font-Raleway">
+            <Listbox value={selectedValue} onChange={setSelectedValue} className="font-Raleway" name="floating_email">
                 <div className="relative">
                     <Listbox.Button className="relative w-full text-left bg-gray-200 text-gray-700 border border-gray-200 rounded focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-2 py-3 px-4 leading-tight">
                         <span className="block truncate">{selectedValue.name}</span>
