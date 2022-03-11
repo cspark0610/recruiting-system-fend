@@ -1,4 +1,4 @@
-export function InputCheckBox() {
+export function CheckInput() {
     return (
         <div className="w-full grid place-items-center mt-6">
             <label className="font-Raleway font-light w-auto text-sm">

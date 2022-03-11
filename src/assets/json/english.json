@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Advanced"
+    },
+    {
+        "id": 2,
+        "name": "Intermediate"
+    },
+    {
+        "id": 3,
+        "name": "Basic"
+    },
+    {
+        "id": 4,
+        "name": "Native"
+    }
+]

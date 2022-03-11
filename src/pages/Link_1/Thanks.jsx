@@ -1,6 +1,6 @@
 export function Thanks() {
     return (
-        <div className="mx-auto grid place-items-center h-screen bg-clouds bg-no-repeat bg-cover bg-center">
+        <div className="grid place-items-center h-screen bg-clouds bg-no-repeat bg-cover bg-center">
             <div className="container mx-auto grid place-items-center">
                 <img src="https://fulltimeforce.com/wp-content/themes/ftf-2020/images/fulltimeforce-logo.svg" alt="FullTimeForce.png" className='w-28' />
                 <span className='font-Raleway text-text-color font-semibold my-8'>Your application has been sent!</span>
