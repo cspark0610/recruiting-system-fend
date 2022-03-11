@@ -13,6 +13,9 @@ module.exports = {
       },
       fontFamily: {
         'Raleway': ['Raleway', 'sans-serif']
+      },
+      backgroundImage: {
+        'clouds': "url(https://bit.ly/background-cloud)"
       }
     },
   },
