@@ -1,0 +1,144 @@
+:root {
+  --var-font-color: #00adef;
+  --var-input-bg: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container img {
+  margin-top: 80px;
+}
+
+.form {
+  margin-top: 80px;
+}
+
+.form p {
+  color: var(--var-font-color);
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.form input,
+select {
+  background-color: var(--var-input-bg);
+  width: 440px;
+  height: 54px;
+  border: 0px;
+  border-radius: 10px;
+  margin: 7px;
+  padding: 20px;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form input:valid {
+  border: 2px solid green;
+}
+
+.form input:invalid:not(:focus):not(:placeholder-shown) {
+  border: 2px solid red;
+}
+
+.form select {
+  padding: 10px;
+  height: 54px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.form .selectLabel {
+  position: relative;
+  transform: translate(-753%, -70%);
+}
+
+#progressBar {
+  margin-top: 10px;
+}
+
+.form .cvInput {
+  display: none;
+}
+
+.form .cvUploadBtn {
+  background-color: #fff;
+  border: 2px solid var(--var-font-color);
+  border-radius: 10px;
+  width: 890px;
+  height: 54px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--var-font-color);
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-left: 8px;
+  transition: background-color 0.3s;
+}
+
+.form .cvUploadBtn:hover {
+  cursor: pointer;
+  background-color: var(--var-font-color);
+  color: #fff;
+  transition: ease 0.3s;
+}
+
+.cvUploadError {
+  text-align: center;
+  transform: translateY(20px);
+}
+
+.termsSection {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.termsSection .checkbox {
+  position: relative;
+  height: 16px;
+  left: 75px;
+  top: 28px;
+}
+
+.termsSection .termsText {
+  color: black;
+  font-weight: normal;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.submitBtn {
+  margin-left: 400px;
+  margin-top: 30px;
+  background-color: var(--var-btn-bg);
+  color: white;
+  border: 0;
+  border-radius: 15px;
+  width: 120px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 18px 36px 18px 36px;
+  filter: drop-shadow(0 12px 10px var(--var-shadow-color));
+  -webkit-filter: drop-shadow(0 12px 10px var(--var-shadow-color));
+  transition: transform 0.3s;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: ease-in-out 0.3s;
+}

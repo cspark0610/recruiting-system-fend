@@ -1,0 +1,9 @@
+.footerSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerSection #companyName {
+  font-weight: 600;
+}
