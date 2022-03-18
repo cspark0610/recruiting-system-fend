@@ -2,16 +2,17 @@ import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const BackBtn: React.FC = () => {
+interface BackBtnProps {
+  link: string;
+}
+
+const BackBtn: React.FC<BackBtnProps> = (props) => {
   return (
-    <div className="container cursor-pointer w-9/12">
-      <Link to="./survey">
-        <span className="flex items-center text-font-color font-raleway font-semibold text-sm">
-          <FaArrowLeft className="mr-3 h-3 w-3" />
-          Back
-        </span>
-      </Link>
-    </div>
+    <Link to={props.link} className="container w-9/12 mt-4">
+      <span className="flex items-center text-font-color font-raleway font-semibold text-sm">
+        <FaArrowLeft className="h-3 w-3" /> &nbsp;Back
+      </span>
+    </Link>
   );
 };
 

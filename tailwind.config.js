@@ -8,12 +8,13 @@ module.exports = {
         "font-color": "#475564",
         "text-red": "#F84D44",
         "text-gray": "#9CA3B6",
+        "color-light": "#F5F5F5",
       },
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },
       backgroundImage: {
-        clouds: "url(https://bit.ly/background-cloud)",
+        clouds: "url(https://bit.ly/backgroundCloud)",
       },
     },
   },

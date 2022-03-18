@@ -8,7 +8,7 @@ interface BlueBtnProps {
 
 const BlueBtn: React.FC<BlueBtnProps> = (props) => {
   return (
-    <div className="w-full grid place-items-center mt-4">
+    <div className="flex justify-center">
       <Link to={props.link}>
         <input
           type="submit"

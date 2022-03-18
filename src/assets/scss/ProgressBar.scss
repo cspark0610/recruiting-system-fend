@@ -23,7 +23,7 @@
 }
 
 .progress-bar .step .circle span {
-  color: $whiteColor;
+  color: white;
   font-family: $fontRaleway;
   font-weight: 700;
   font-size: 15px;
@@ -83,7 +83,7 @@
   font-size: 12px;
   transform: translate(-50%, -50%);
   display: none;
-  color: $whiteColor;
+  color: white;
 }
 
 .progress-bar .step .check.active {

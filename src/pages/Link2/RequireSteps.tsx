@@ -1,16 +1,18 @@
 import React from "react";
-import FrmApplication from "../../components/forms/FrmApplication";
+import BackBtn from "../../components/buttons/BackBtn";
+import FrmRequired from "../../components/forms/FrmRequired";
 import Title from "../../components/title/Title";
 
-const Main: React.FunctionComponent = () => {
+const Survey: React.FunctionComponent = () => {
   return (
     <div className="bg-clouds bg-no-repeat bg-center">
       <div className="container mx-auto h-screen grid place-items-center">
         <Title />
-        <FrmApplication />
+        <BackBtn link="./rules" />
+        <FrmRequired />
       </div>
     </div>
   );
 };
 
-export default Main;
+export default Survey;

@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { SelectorIcon } from "@heroicons/react/solid";
+import { RiAddLine } from "react-icons/ri";
 
 interface InputValue {
   id: number;
@@ -32,16 +33,10 @@ const SelectInput: React.FC<SelectInputProps> = (props) => {
       >
         {({ open }) => (
           <>
-            <Listbox.Label
-              htmlFor={props.for}
-              className="block text-sm font-medium text-gray-700"
-            >
-              {props.label}
-            </Listbox.Label>
             <div className="relative">
               <Listbox.Button className="relative w-full bg-gray-200 border border-gray-200 text-gray-700 rounded py-3 px-4 leading-tight text-left font-raleway cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 <span className="flex items-center">
-                  <span className="block truncate">
+                  <span className="block truncate text-sm font-light text-font-color">
                     {selected?.name || props.placeholder}
                   </span>
                 </span>
@@ -60,27 +55,24 @@ const SelectInput: React.FC<SelectInputProps> = (props) => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                  {props.data &&
-                    props.data.map(
-                      (data: {
-                        id: React.Key | null | undefined;
-                        name:
-                          | boolean
-                          | React.ReactChild
-                          | React.ReactFragment
-                          | React.ReactPortal
-                          | null
-                          | undefined;
-                      }) => (
+                <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-2 overflow-auto focus:outline-none">
+                  <Listbox.Label
+                    htmlFor={props.for}
+                    className="font-raleway text-primary-color text-sm ml-3 font-normal w-full"
+                  >
+                    {props.label}
+                  </Listbox.Label>
+                  <div className="grid grid-cols-2 gap-2 p-2">
+                    {props.data &&
+                      props.data.map((data: { id: number; name: string }) => (
                         <Listbox.Option
                           key={data.id}
                           className={({ active }) =>
                             classNames(
                               active
-                                ? "text-white bg-primary-color"
-                                : "text-gray-900",
-                              "cursor-default select-none relative py-2 pl-3 pr-9"
+                                ? "text-white bg-primary-color/70"
+                                : "text-font-color",
+                              "cursor-default select-none relative py-2 px-3 text-xs font-raleway border-font-color border-x border-y rounded-2xl w-full"
                             )
                           }
                           value={data}
@@ -100,8 +92,8 @@ const SelectInput: React.FC<SelectInputProps> = (props) => {
                             </>
                           )}
                         </Listbox.Option>
-                      )
-                    )}
+                      ))}
+                  </div>
                 </Listbox.Options>
               </Transition>
             </div>
