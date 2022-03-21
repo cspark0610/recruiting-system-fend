@@ -1,54 +1,30 @@
 import React from "react";
-/* Router DOM */
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-/* Pages */
-import Main from "./pages/Link1/Main";
-import Thanks from "./pages/Link1/Thanks";
-import Welcome from "./pages/Link2/Welcome";
-import RequireSteps from "./pages/Link2/RequireSteps";
-import Details from "./pages/Link2/Details";
-import WebCamTask from "./pages/Link2/WebCamTask";
-import NotFound from "./pages/404/NotFound";
-import ModalExit from "./components/modal/ModalExit";
-import EmployeeDetails from "./pages/Employees/EmployeeDetails";
-import Rules from "./pages/Link2/Rules";
+import { Routes, Route } from "react-router-dom";
+import NotFound from "./views/Error/NotFound";
+import Data from "./views/link1/Data";
+import ThankYou from "./views/link1/ThankYou";
+import Completed from "./views/link2/Completed";
+import Details from "./views/link2/Details";
+import RequiredSteps from "./views/link2/RequiredSteps";
+import Rules from "./views/link2/Rules";
+import Start from "./views/link2/Start";
+import Testing from "./views/link2/Testing";
+import Welcome from "./views/link2/Welcome";
 
 const App: React.FunctionComponent = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route path="/thanks">
-          <Thanks />
-        </Route>
-        <Route path="/welcome">
-          <Welcome />
-        </Route>
-        <Route path="/rules">
-          <Rules />
-        </Route>
-        <Route path="/RequireSteps">
-          <RequireSteps />
-        </Route>
-        <Route path="/details">
-          <Details />
-        </Route>
-        <Route path="/webcam">
-          <WebCamTask />
-        </Route>
-        <Route path="/exit">
-          <ModalExit />
-        </Route>
-        <Route path="/employee">
-          <EmployeeDetails />
-        </Route>
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Data />}></Route>
+      <Route path="/thankyou" element={<ThankYou />}></Route>
+      <Route path="/welcome" element={<Welcome />}></Route>
+      <Route path="/rules" element={<Rules />}></Route>
+      <Route path="/requiredsteps" element={<RequiredSteps />}></Route>
+      <Route path="/details" element={<Details />}></Route>
+      <Route path="/beforestarting" element={<Start />}></Route>
+      <Route path="/taskcompleted" element={<Completed />}></Route>
+      <Route path="/testing" element={<Testing />}></Route>
+      <Route path="*" element={<NotFound />}></Route>
+    </Routes>
   );
 };
 

@@ -2,19 +2,18 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      /* colours */
+      /* colors */
       colors: {
-        "primary-color": "#00ADEF",
-        "font-color": "#475564",
-        "text-red": "#F84D44",
-        "text-gray": "#9CA3B6",
-        "color-light": "#F5F5F5",
+        "cyan-color": "#00ADEF",
+        "gray-color": "#475564",
+        "red-color": "#F84D44",
+        "light-color": "#F5F5F5",
       },
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },
       backgroundImage: {
-        clouds: "url(https://bit.ly/backgroundCloud)",
+        cloud: "url(https://bit.ly/backgroundCloud)",
       },
     },
   },

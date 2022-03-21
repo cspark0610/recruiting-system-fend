@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-/* Root Component */
+import { BrowserRouter } from "react-router-dom";
+import "./assets/sass/index.scss";
 import App from "./App";
-/* Tailwind CSS */
-import "./assets/css/index.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
