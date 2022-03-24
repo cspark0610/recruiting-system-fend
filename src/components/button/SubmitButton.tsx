@@ -1,14 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+/* import { Link } from "react-router-dom"; */
 
 interface Props {
   name: string;
-  link?: string;
 }
 
 const SubmitButton: React.FC<Props> = ({ name }) => {
   return (
-    /* <Link to="/thankyou"> */
     <div className="flex justify-center">
       <input
         type="submit"
@@ -16,7 +14,6 @@ const SubmitButton: React.FC<Props> = ({ name }) => {
         value={name}
       />
     </div>
-    /* </Link> */
   );
 };
 

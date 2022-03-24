@@ -1,5 +1,5 @@
 import React from "react";
-import SubmitButton from "../../components/button/SubmitButton";
+import NextButton from "../../components/button/NextButton";
 import Slider from "../../components/extra/Slider";
 import Logo from "../../components/logo/Logo";
 
@@ -15,7 +15,7 @@ const Welcome: React.FC = () => {
           </span>
         </div>
         <Slider />
-        <SubmitButton name="Next" />
+        <NextButton name="Next" link="/rules" />
       </section>
     </div>
   );

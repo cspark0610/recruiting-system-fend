@@ -2,18 +2,19 @@
 
 .container-tooltip {
   position: absolute;
-  z-index: 1;
+  top: -32px;
+  z-index: 10;
 }
 
 .tooltip {
   background-color: $red-color;
-  border-radius: 5px;
+  border-radius: 10px;
   color: white;
   font-family: $fontRaleway;
-  font-size: 12px;
+  font-size: 11px;
   padding: 0.1rem;
   text-align: center;
-  width: 180px;
+  width: 150px;
 }
 
 .vector {

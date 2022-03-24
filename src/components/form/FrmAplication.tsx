@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { ErrorMessage } from "@hookform/error-message";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import SelectInput from "../input/SelectInput";
 import TextInput from "../input/TextInput";
 import FileButton from "../button/FileButton";
@@ -8,64 +6,42 @@ import RadioInput from "../input/RadioInput";
 import SubmitButton from "../button/SubmitButton";
 import EnglishLevel from "../../assets/json/EnglishLevels.json";
 import Countries from "../../assets/json/Countries.json";
-
-interface PropsValid {
-  nameError: string;
-  emailError: string;
-  phoneError: string;
-  linkedinError: string;
-  portfolioError: string;
-}
+import { render } from "@testing-library/react";
 
 const FrmApplication: React.FC = () => {
   /* useState to assign an specific json file data */
-  const [selected, setSelected] = useState({
+  const [selected] = useState({
     country: Countries,
     english: EnglishLevel,
   });
 
   const { country, english } = selected;
 
-  /* validation form */
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<PropsValid>({ criteriaMode: "all" });
-
-  const onSubmit = (data: PropsValid) => console.log(JSON.stringify(data));
-
   /* Validation inputs for specific data */
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [portfolio, setPortfolio] = useState("");
+  const [name, setName] = useState({ field: "", isInputValid: null });
+  const [email, setEmail] = useState({ field: "", isInputValid: null });
+  const [phone, setPhone] = useState({ field: "", isInputValid: null });
+  const [idiom, setIdiom] = useState({ field: "", isSelectValid: false });
+  const [nation, setNation] = useState({ field: "", isSelectValid: false });
+  const [linkedin, setLinkedin] = useState({ field: "", isInputValid: null });
+  const [portfolio, setPortfolio] = useState({ field: "", isInputValid: null });
+  const [isFormValid, setIsFormValid] = useState<boolean>(true);
 
-  /* functions for validation */
-  const onlyNumber = (evt: any) => {
-    const value = evt.target.value.replace(/\D/g, "");
-    setPhone(value);
+  /* Regular Expressions */
+  const RegExp = {
+    general: /^[a-zA-Z0-9_-]{4,16}$/,
+    characters: /[0-9]/g,
+    numbers: /\D/g,
   };
 
-  const NameValue = (evt: any) => {
-    const value = evt.target.value.replace(/[0-9]/g, "");
-    setName(value);
-  };
+  const onSubmit = (evt: any) => {
+    evt.preventDefault();
 
-  const EmailValue = (evt: any) => {
-    const value = evt.target.value;
-    setEmail(value);
-  };
-
-  const LinkedinValue = (evt: any) => {
-    const value = evt.target.value;
-    setLinkedin(value);
-  };
-
-  const PortfolioValue = (evt: any) => {
-    const value = evt.target.value;
-    setPortfolio(value);
+    if (idiom.isSelectValid || nation.isSelectValid) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
   };
 
   return (
@@ -73,61 +49,79 @@ const FrmApplication: React.FC = () => {
       <h2 className="font-raleway font-semibold text-2xl text-cyan-color mb-8">
         Senior Designer
       </h2>
-      <form className="w-8/12 bg-white">
+      <form className="w-8/12 bg-white" onSubmit={onSubmit}>
         <div className="flex flex-wrap -mx-3 mb-10">
           <TextInput
-            type="text"
             id="name"
+            messageError="This field is required"
             placeholder="Name"
-            width="md:w-1/2"
-            value={name}
-            onChange={NameValue}
-          />
-          <TextInput
-            type="email"
-            id="email"
-            placeholder="Email"
-            width="md:w-1/2"
-            value={email}
-            onChange={EmailValue}
-          />
-          <TextInput
+            RegExp={RegExp.characters}
+            setValue={setName}
             type="text"
+            value={name}
+            width="md:w-1/2"
+          />
+          <TextInput
+            id="email"
+            messageError="This field is required"
+            placeholder="Email"
+            RegExp={""}
+            setValue={setEmail}
+            type="email"
+            value={email}
+            width="md:w-1/2"
+          />
+          <TextInput
             id="phone"
+            messageError="This field is required"
             placeholder="Phone"
-            width="md:w-1/3"
+            RegExp={RegExp.numbers}
+            setValue={setPhone}
+            type="text"
             value={phone}
-            onChange={onlyNumber}
+            width="md:w-1/3"
           />
           <SelectInput
+            data={english}
             for="english"
             label="Choose your english level"
-            data={english}
+            messageError="This field is required"
             placeholder="English level"
             width="md:w-1/3"
+            value={idiom}
+            setValue={setIdiom}
+            showAlert={isFormValid}
           />
           <SelectInput
+            data={country}
             for="country"
             label="Choose your country"
-            data={country}
+            messageError="This field is required"
             placeholder="Country"
             width="md:w-1/3"
+            value={nation}
+            setValue={setNation}
+            showAlert={isFormValid}
           />
           <TextInput
-            type="text"
             id="linkedin"
+            messageError="This field is required"
             placeholder="Linkedin"
-            width="md:w-1/2"
+            RegExp={""}
+            setValue={setLinkedin}
+            type="text"
             value={linkedin}
-            onChange={LinkedinValue}
+            width="md:w-1/2"
           />
           <TextInput
-            type="text"
             id="portfolio"
+            messageError="This field is required"
             placeholder="Portfolio Link"
-            width="md:w-1/2"
+            RegExp={""}
+            setValue={setPortfolio}
+            type="text"
             value={portfolio}
-            onChange={PortfolioValue}
+            width="md:w-1/2"
           />
           <FileButton />
           <RadioInput />

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import SelectInput from "../input/SelectInput";
 import CoinInput from "../input/CoinInput";
 import TextInput from "../input/TextInput";
@@ -8,36 +7,28 @@ import AreaInput from "../input/AreaInput";
 import Trainings from "../../assets/json/Trainings.json";
 import Skills from "../../assets/json/Skills.json";
 
-interface PropsValid {
-  currencyError: string;
-  availableError: string;
-  areaError: string;
-}
-
 const FrmData: React.FC = () => {
-  const [selected, setSelected] = useState({
+  const [selected] = useState({
     Training: Trainings,
     Skill: Skills,
   });
 
   const { Training, Skill } = selected;
 
-  /* validation form */
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<PropsValid>({ criteriaMode: "all" });
-
-  const onSubmit = (data: PropsValid) => console.log(JSON.stringify(data));
-
   /* Validation inputs for specific data */
-  const [available, setAvailable] = useState("");
+  const [available, setAvailable] = useState({ field: "", isInputValid: null });
+  const [college, setCollege] = useState({ field: "", isSelectValid: false });
+  const [ability, setAbility] = useState({ field: "", isSelectValid: false });
+  const [isFormValid, setIsFormValid] = useState<boolean>(true);
 
-  /* function for validation */
-  const AvailableValue = (evt: any) => {
-    const value = evt.target.value;
-    setAvailable(value);
+  const onSubmit = (evt: any) => {
+    evt.preventDefault();
+
+    if (college.isSelectValid || ability.isSelectValid) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
   };
 
   return (
@@ -45,7 +36,7 @@ const FrmData: React.FC = () => {
       <h2 className="font-raleway font-semibold text-xl text-gray-color w-8/12 mb-2">
         Hello Sebastian Montenegro Abad
       </h2>
-      <form className="w-8/12 bg-white">
+      <form className="w-8/12 bg-white" onSubmit={onSubmit}>
         <div className="flex flex-wrap -mx-3 mb-10">
           <SelectInput
             for="training"
@@ -53,15 +44,21 @@ const FrmData: React.FC = () => {
             data={Training}
             placeholder="Academic training"
             width="md:w-1/2"
+            value={college}
+            setValue={setCollege}
+            showAlert={isFormValid}
+            messageError="This field is required"
           />
           <CoinInput placeholder="Salary expectation" width="md:w-1/2" />
           <TextInput
-            type="text"
             id="available"
+            messageError="This field is required"
             placeholder="Available from..."
-            width="md:w-1/2"
+            RegExp={""}
+            setValue={setAvailable}
+            type="text"
             value={available}
-            onChange={AvailableValue}
+            width="md:w-1/2"
           />
           <SelectInput
             for="skills"
@@ -69,6 +66,10 @@ const FrmData: React.FC = () => {
             data={Skill}
             placeholder="Skills"
             width="md:w-1/2"
+            value={ability}
+            setValue={setAbility}
+            showAlert={isFormValid}
+            messageError="This field is required"
           />
           <AreaInput />
         </div>

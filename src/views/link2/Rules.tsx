@@ -2,7 +2,7 @@ import React from "react";
 import BackButton from "../../components/button/BackButton";
 import Logo from "../../components/logo/Logo";
 import { RiCheckboxCircleFill } from "react-icons/ri";
-import SubmitButton from "../../components/button/SubmitButton";
+import NextButton from "../../components/button/NextButton";
 
 const Rules: React.FC = () => {
   return (
@@ -37,7 +37,7 @@ const Rules: React.FC = () => {
         <span className="font-raleway font-bold text-base text-gray-color">
           Are you ready?
         </span>
-        <SubmitButton name="Get Started" />
+        <NextButton name="Get Started" link="/requiredsteps" />
       </div>
     </div>
   );

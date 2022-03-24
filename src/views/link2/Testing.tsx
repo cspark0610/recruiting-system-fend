@@ -1,14 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../../components/extra/Modal";
 
 const Testing: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const toggleModal = () => {
-    setOpen(!open);
-  };
-
-  const onRefreshing = () => {
     setOpen(!open);
   };
 

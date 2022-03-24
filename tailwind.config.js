@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         "cyan-color": "#00ADEF",
         "gray-color": "#475564",
-        "red-color": "#F84D44",
+        "red-color": "#FF5B45",
         "light-color": "#F5F5F5",
       },
       fontFamily: {

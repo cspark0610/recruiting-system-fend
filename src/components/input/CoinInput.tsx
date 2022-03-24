@@ -8,7 +8,7 @@ interface Props {
 
 const CoinInput: React.FC<Props> = ({ width, placeholder }) => {
   return (
-    <div className={`${width} w-full p-3`}>
+    <div className={`${width} w-full p-3 mt-auto mb-3`}>
       <CurrencyInput
         id="salary"
         placeholder={placeholder}

@@ -2,13 +2,6 @@ import React from "react";
 import SubmitButton from "../../components/button/SubmitButton";
 import Logo from "../../components/logo/Logo";
 import VideoStream from "../../components/video/VideoStream";
-import {
-  FaCopy,
-  FaMailBulk,
-  FaMapMarkerAlt,
-  FaPaperclip,
-  FaPhoneAlt,
-} from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
 
 const Completed: React.FC = () => {

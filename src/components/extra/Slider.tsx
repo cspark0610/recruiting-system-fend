@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DataSlider from "../../assets/json/DataSlider.json";
 import "../../assets/sass/Slider.scss";
 import SliderButton from "../button/SliderButton";
