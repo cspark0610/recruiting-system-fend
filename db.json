@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "name": "Cesar",
+      "email": "cesar50872809@gmail.com",
+      "phone": "9872654135",
+      "idiom": {
+        "id": 3,
+        "name": "Advanced"
+      },
+      "nation": {
+        "id": 1,
+        "name": "Peru"
+      },
+      "linkedin": "http://localhost:3000/",
+      "portfolio": "http://localhost:3000/",
+      "terms": "false",
+      "id": 1
+    }
+  ],
+  "candidates": [
+    {
+      "college": {
+        "id": 3,
+        "name": "Middle School"
+      },
+      "salary": "1200",
+      "available": {
+        "id": 1,
+        "name": "1 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "Me gustaría trabajar con ustedes por las siguientes razones...",
+      "id": 1
+    },
+    {
+      "college": {
+        "id": 2,
+        "name": "University"
+      },
+      "salary": "900",
+      "available": {
+        "id": 3,
+        "name": "5 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "Hola Mundo",
+      "id": 2
+    },
+    {
+      "college": {
+        "id": 3,
+        "name": "Middle School"
+      },
+      "salary": "450",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "Hola LoLo",
+      "id": 3
+    },
+    {
+      "college": {
+        "id": 2,
+        "name": "University"
+      },
+      "salary": "850",
+      "available": {
+        "id": 3,
+        "name": "5 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "",
+      "id": 4
+    },
+    {
+      "college": {
+        "id": 3,
+        "name": "Middle School"
+      },
+      "salary": "850",
+      "available": {
+        "id": 3,
+        "name": "5 day"
+      },
+      "skill": {
+        "id": 3,
+        "name": "Ilustrador Intermidiate"
+      },
+      "description": "I would like to work with you.",
+      "id": 5
+    }
+  ]
+}

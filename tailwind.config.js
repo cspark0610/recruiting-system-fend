@@ -2,7 +2,6 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      /* colors */
       colors: {
         "cyan-color": "#00ADEF",
         "gray-color": "#475564",

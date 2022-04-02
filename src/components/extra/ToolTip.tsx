@@ -1,20 +1,30 @@
-import React from "react";
-import { ValidateResult } from "react-hook-form";
-import "../../assets/sass/ToolTip.scss";
+import { Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import "../../assets/scss/ToolTip.scss";
 
 interface Props {
-  key: string;
-  message: ValidateResult;
+  message: string;
 }
 
-const ToolTip: React.FC<Props> = ({ key, message }) => {
+const ToolTip: React.FC<Props> = ({ message }) => {
   return (
-    <div className="container-tooltip">
-      <div className="tooltip">
-        <p key={key}>{message}</p>
+    <Transition
+      show={true}
+      as={Fragment}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0 scale-95"
+      enterTo="opacity-100 scale-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100 scale-100"
+      leaveTo="opacity-0 scale-95"
+    >
+      <div className="container-tooltip">
+        <div className="tooltip" data-tooltip="tooltip-test">
+          <p>{message}</p>
+        </div>
+        <div className="vector"></div>
       </div>
-      <div className="vector"></div>
-    </div>
+    </Transition>
   );
 };
 

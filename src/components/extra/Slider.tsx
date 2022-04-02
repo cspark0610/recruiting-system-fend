@@ -1,15 +1,14 @@
-import React from "react";
-import DataSlider from "../../assets/json/DataSlider.json";
-import "../../assets/sass/Slider.scss";
-import SliderButton from "../button/SliderButton";
+import SliderData from "../../assets/json/SliderData.json";
+import SliderButton from "../buttons/SliderButton";
 import { useSlider } from "../../hooks/useSlider";
+import "../../assets/scss/Slider.scss";
 
-const Slider: React.FC = () => {
+const Slider = () => {
   const { nextSlide, prevSlide, moveDot, slideIndex } = useSlider();
 
   return (
-    <div className="container-slider">
-      {DataSlider.map((obj, index) => {
+    <div className="container-slider mt-10">
+      {SliderData.map((obj, index) => {
         return (
           <div
             key={obj.id}
@@ -29,6 +28,7 @@ const Slider: React.FC = () => {
       <div className="container-dots">
         {Array.from({ length: 2 }).map((item, index) => (
           <div
+            key={index}
             onClick={() => moveDot(index + 1)}
             className={slideIndex === index + 1 ? "dot active" : "dot"}
           ></div>

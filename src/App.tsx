@@ -1,30 +1,69 @@
-import React from "react";
+/* React router */
 import { Routes, Route } from "react-router-dom";
-import NotFound from "./views/Error/NotFound";
-import Data from "./views/link1/Data";
-import ThankYou from "./views/link1/ThankYou";
-import Completed from "./views/link2/Completed";
-import Details from "./views/link2/Details";
-import RequiredSteps from "./views/link2/RequiredSteps";
-import Rules from "./views/link2/Rules";
-import Start from "./views/link2/Start";
-import Testing from "./views/link2/Testing";
-import Welcome from "./views/link2/Welcome";
+import FrmInfoEdit from "./components/forms/FrmInfoEdit";
 
-const App: React.FunctionComponent = () => {
+/* Components */
+import Header from "./components/header/Header";
+import NotFound from "./views/Error/NotFound";
+import Data from "./views/FirstLink/Data";
+import ThankYou from "./views/FirstLink/ThankYou";
+import Details from "./views/SecondLink/Details";
+import Instructions from "./views/SecondLink/Instructions";
+import Required from "./views/SecondLink/Required";
+import StartVideo from "./views/SecondLink/StartVideo";
+import VideoCompleted from "./views/SecondLink/VideoCompleted";
+import Welcome from "./views/SecondLink/Welcome";
+
+const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Data />}></Route>
-      <Route path="/thankyou" element={<ThankYou />}></Route>
-      <Route path="/welcome" element={<Welcome />}></Route>
-      <Route path="/rules" element={<Rules />}></Route>
-      <Route path="/requiredsteps" element={<RequiredSteps />}></Route>
-      <Route path="/details" element={<Details />}></Route>
-      <Route path="/beforestarting" element={<Start />}></Route>
-      <Route path="/taskcompleted" element={<Completed />}></Route>
-      <Route path="/testing" element={<Testing />}></Route>
-      <Route path="*" element={<NotFound />}></Route>
-    </Routes>
+    <div className="bg-cloud bg-no-repeat bg-center h-screen">
+      <Header />
+      <div className="container mx-auto my-5">
+        <Routes>
+          <Route path="/" element={<Data />}></Route>
+          <Route
+            path="/home/thank-you"
+            element={
+              <ThankYou
+                title="Your application has been sent!"
+                firstline="We appreciate your time and interest,"
+                secondline="We will be comunicating with you."
+              />
+            }
+          ></Route>
+          <Route path="/welcome" element={<Welcome />}></Route>
+          <Route
+            path="/welcome/instructions"
+            element={<Instructions />}
+          ></Route>
+          <Route path="/welcome/required-steps" element={<Required />}></Route>
+          <Route path="/welcome/details" element={<Details />}></Route>
+          <Route
+            path="/welcome/before-starting"
+            element={<StartVideo />}
+          ></Route>
+          <Route
+            path="/welcome/video-completed"
+            element={<VideoCompleted />}
+          ></Route>
+          <Route
+            path="/welcome/required-steps/edit"
+            element={<FrmInfoEdit />}
+          ></Route>
+          <Route
+            path="/welcome/thank-you"
+            element={
+              <ThankYou
+                title="Thank You!"
+                firstline="Thank you for applying. We will evaluate your application"
+                secondline="and will contact you about what's next."
+              />
+            }
+          ></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </div>
+    </div>
   );
 };
 
