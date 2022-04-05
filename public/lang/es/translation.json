@@ -1,0 +1,39 @@
+{
+    "data": {
+        "name": "Nombre",
+        "email": "Correo electrónico",
+        "phone": "Celular",
+        "idiom": {
+            "label": "Elija su nivel de inglés",
+            "placeholder": "Nivel de inglés"
+        },
+        "nation": {
+            "label": "Elija su país",
+            "placeholder": "País"
+        },
+        "linkedin": "Linkedin",
+        "portfolio": "Link de portafolio"
+    },
+    "thank_you_title": "Su aplicación ha sido enviada!",
+    "thank_you_description": {
+        "part_1": "Agradecemos su tiempo e interés,",
+        "part_2": "Nos comunicaremos con usted"
+    },
+    "file_title": "Subir CV",
+    "term_description": {
+        "part_1": "Debe aceptar los",
+        "part_2": "términos y condiciones"
+    },
+    "alert_message": "Este campo es obligatorio.",
+    "modal": {
+        "title": "¡Advertencia!",
+        "message": "Debe completar todos los campos vacíos.",
+        "buttons": {
+            "cancel": "Cancelar",
+            "ok": "Aceptar"
+        }
+    },
+    "submit_button": {
+        "name": "Siguiente"
+    }
+}

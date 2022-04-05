@@ -1,0 +1,39 @@
+{
+    "data": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "idiom": {
+            "label": "Choose your English level",
+            "placeholder": "English level"
+        },
+        "nation": {
+            "label": "Choose your country",
+            "placeholder": "Country"
+        },
+        "linkedin": "Linkedin",
+        "portfolio": "Link's portfolio"
+    },
+    "thank_you_title": "Your application has been sent!",
+    "thank_you_description": {
+        "part_1": "We appreciate your time and interest,",
+        "part_2": "We will be comunicating with you"
+    },
+    "file_title": "Upload CV",
+    "term_description": {
+        "part_1": "You must agree to",
+        "part_2": "terms and conditions"
+    },
+    "alert_message": "This field is required.",
+    "modal": {
+        "title": "Warning!",
+        "message": "You must to complete all empty fields.",
+        "buttons": {
+            "cancel": "Cancel",
+            "ok": "OK"
+        }
+    },
+    "submit_button": {
+        "name": "Next"
+    }
+}

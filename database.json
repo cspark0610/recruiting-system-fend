@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "name": "Scott Thayson",
+      "email": "scott_thayson@gmail.com",
+      "phone": "987654321",
+      "idiom": {
+        "id": 2,
+        "name": "Intermediate"
+      },
+      "nation": {
+        "id": 1,
+        "name": "Peru"
+      },
+      "linkedin": "http://localhost:3000/",
+      "portfolio": "http://localhost:3000/",
+      "terms": true,
+      "id": 1
+    }
+  ],
+  "candidates": []
+}

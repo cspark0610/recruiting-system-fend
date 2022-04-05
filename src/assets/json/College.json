@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Bachelor"
+    },
+    {
+        "id": 2,
+        "name": "University"
+    },
+    {
+        "id": 3,
+        "name": "Middle School"
+    },
+    {
+        "id": 4,
+        "name": "No studies"
+    }
+]

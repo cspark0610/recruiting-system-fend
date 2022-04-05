@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "title": "Rule 1",
+        "description": "Fill out a form"
+    },
+    {
+        "id": 2,
+        "title": "Rule 2",
+        "description": "Film yourself on video answering some questions"
+    }
+]
