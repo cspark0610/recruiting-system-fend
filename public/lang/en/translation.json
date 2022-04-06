@@ -14,6 +14,7 @@
         "linkedin": "Linkedin",
         "portfolio": "Link's portfolio"
     },
+    "senior_designer": "Senior Designer",
     "thank_you_title": "Your application has been sent!",
     "thank_you_description": {
         "part_1": "We appreciate your time and interest,",
@@ -24,6 +25,61 @@
         "part_1": "You must agree to",
         "part_2": "terms and conditions"
     },
+    "slider": {
+        "description": "For this process you will have to perfom some steps:"
+    },
+    "instructions": {
+        "title": "Other things to know",
+        "rules": {
+            "part_1": "You will need about 30’ to fill out this application",
+            "part_2": {
+                "l1": "You will have 2’ to record your answers and only",
+                "l2": "one chance"
+            },
+            "part_3": "If you have any problems in between and you can’t finish your application, write to your recluter, explain what happened and you will get a new application form to re-do it"
+        },
+        "are_you_ready": "Are you ready?",
+        "get_started": "Get Started"
+    },
+    "info": {
+        "title": "Hello {{name_user}}",
+        "idiom": {
+            "label": "Choose your academic training",
+            "placeholder": "Academic training"
+        },
+        "available": {
+            "label": "Choose your availability",
+            "placeholder": "Available from..."
+        },
+        "skill": {
+            "label": "Skill according your knowladge",
+            "placeholder": "Skill"
+        }
+    },
+    "details": {
+        "title": "Time to Record your videos!",
+        "sub-title": {
+            "line_1": "Remember that you will have 2' to",
+            "line_2": "record your answers"
+        },
+        "rules": {
+            "line_1": "Make sure you have a stable internet connection.",
+            "line_2": "Feel comfortable and free to express yourself as you wish.",
+            "line_3": "The questions will be shown ones you start each video.",
+            "line_4": "Check your videos and continue if you’re sure with the result"
+        }
+    },
+    "404": {
+        "line_1": {
+            "p1": "Unfortunately, this page does",
+            "p2": "not exist or is disabled"
+        },
+        "line_2": {
+            "p1": "We invite you to use the upper",
+            "p2": "menu or return to the main page"
+        },
+        "home_page": "Homepage"
+    },
     "alert_message": "This field is required.",
     "modal": {
         "title": "Warning!",
@@ -32,6 +88,12 @@
             "cancel": "Cancel",
             "ok": "OK"
         }
+    },
+    "text_area": {
+        "label": "Why are you interested in working with us:"
+    },
+    "back_button": {
+        "name": "Back"
     },
     "submit_button": {
         "name": "Next"

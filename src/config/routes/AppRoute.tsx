@@ -1,10 +1,23 @@
 import { useTranslation } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
 
-import { VIEW_HOME, VIEW_HOME_THANKS } from "./paths";
+import {
+  VIEW_404,
+  VIEW_DETAILS,
+  VIEW_HOME,
+  VIEW_HOME_THANKS,
+  VIEW_INSTRUCTIONS,
+  VIEW_REQUIRED_STEPS,
+  VIEW_WELCOME,
+} from "./paths";
 
 import Data from "../../views/first_link/Data";
 import Thanks from "../../views/first_link/Thanks";
+import Welcome from "../../views/second_link/Welcome";
+import Instructions from "../../views/second_link/Instructions";
+import Required from "../../views/second_link/Required";
+import NotFound from "../../views/error/NotFound";
+import Details from "../../views/second_link/Details";
 
 const AppRoute = () => {
   /*  */
@@ -13,6 +26,7 @@ const AppRoute = () => {
   return (
     <>
       <Routes>
+        {/* First Link */}
         <Route path={VIEW_HOME} element={<Data />} />
         <Route
           path={VIEW_HOME_THANKS}
@@ -24,6 +38,12 @@ const AppRoute = () => {
             />
           }
         />
+        {/* Second Link */}
+        <Route path={VIEW_WELCOME} element={<Welcome />} />
+        <Route path={VIEW_INSTRUCTIONS} element={<Instructions />} />
+        <Route path={VIEW_REQUIRED_STEPS} element={<Required />} />
+        <Route path={VIEW_DETAILS} element={<Details />} />
+        <Route path={VIEW_404} element={<NotFound />} />
       </Routes>
     </>
   );

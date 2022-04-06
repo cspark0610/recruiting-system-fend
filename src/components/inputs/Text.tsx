@@ -27,6 +27,7 @@ const Text: React.FC<Props> = ({
   const onChange = (evt: any) => {
     setValue(evt.target.value.replace(RegExp, ""));
   };
+
   return (
     <div className={`${width} w-full p-3 mt-auto mb-3`}>
       <div className="relative">

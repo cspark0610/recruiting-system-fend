@@ -10,3 +10,6 @@ export const VIEW_DETAILS = "/welcome/details";
 export const VIEW_BEFORE_STARTING = "/welcome/before-starting";
 export const VIEW_VIDEO_COMPLETED = "/welcome/video-completed";
 export const VIEW_WELCOME_THANKS = "/welcome/thank-you";
+
+/* PATH FROM ERROR PAGE */
+export const VIEW_404 = "*";

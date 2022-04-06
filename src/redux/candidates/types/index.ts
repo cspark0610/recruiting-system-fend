@@ -1,0 +1,5 @@
+export const ADD_CANDIDATE = "ADD_CANDIDATE";
+export const ADD_CANDIDATE_SUCCESS = "ADD_CANDIDATE_SUCCESS";
+export const ADD_CANDIDATE_ERROR = "ADD_CANDIDATE_ERROR";
+
+export const GET_ID = "GET_ID";

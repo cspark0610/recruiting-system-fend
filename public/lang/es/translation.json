@@ -14,6 +14,7 @@
         "linkedin": "Linkedin",
         "portfolio": "Link de portafolio"
     },
+    "senior_designer": "Diseñador Senior",
     "thank_you_title": "Su aplicación ha sido enviada!",
     "thank_you_description": {
         "part_1": "Agradecemos su tiempo e interés,",
@@ -24,6 +25,61 @@
         "part_1": "Debe aceptar los",
         "part_2": "términos y condiciones"
     },
+    "slider": {
+        "description": "Para este proceso tendrás que realizar algunos pasos:"
+    },
+    "instructions": {
+        "title": "Otras cosas que hay que saber",
+        "rules": {
+            "part_1": "Necesitará unos 30 minutos para rellenar esta solicitud",
+            "part_2": {
+                "l1": "Tendrá 2 minutos para grabar sus respuestas y",
+                "l2": "sólo una oportunidad"
+            },
+            "part_3": "Si tiene algún problema y no puede terminar su solicitud, escriba a su reclutador, explique lo sucedido y obtendrá un nuevo formulario de solicitud para rehacerlo"
+        },
+        "are_you_ready": "Está listo?",
+        "get_started": "Empezemos"
+    },
+    "info": {
+        "title": "Hola {{name_user}}",
+        "idiom": {
+            "label": "Elija su formación académica",
+            "placeholder": "Formación académica"
+        },
+        "available": {
+            "label": "Elija su disponibilidad",
+            "placeholder": "Disponible en..."
+        },
+        "skill": {
+            "label": "Habilidad según sus conocimientos",
+            "placeholder": "Habilidades"
+        }
+    },
+    "details": {
+        "title": "¡Hora de grabar los vídeos!",
+        "sub-title": {
+            "line_1": "Recuerda que tendrás 2 minutos para ",
+            "line_2": "grabar tus respuestas"
+        },
+        "rules": {
+            "line_1": "Asegúrate de tener una conexión a Internet estable.",
+            "line_2": "Sientete cómodo y libre de expresarte como desees.",
+            "line_3": "Las preguntas se mostrarán al comienzo de cada vídeo.",
+            "line_4": "Comprueba tus vídeos y continúa si estás seguro del resultado"
+        }
+    },
+    "404": {
+        "line_1": {
+            "p1": "Lamentablemente, esta página",
+            "p2": "no existe o está desactivada"
+        },
+        "line_2": {
+            "p1": "Le invitamos a utilizar el menú",
+            "p2": "superior o a volver a la página principal"
+        },
+        "home_page": "Página principal"
+    },
     "alert_message": "Este campo es obligatorio.",
     "modal": {
         "title": "¡Advertencia!",
@@ -32,6 +88,12 @@
             "cancel": "Cancelar",
             "ok": "Aceptar"
         }
+    },
+    "text_area": {
+        "label": "¿Por qué está interesado en trabajar con nosotros?:"
+    },
+    "back_button": {
+        "name": "Volver"
     },
     "submit_button": {
         "name": "Siguiente"

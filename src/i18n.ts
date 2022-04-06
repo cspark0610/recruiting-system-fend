@@ -17,7 +17,6 @@ i18n
     backend: {
       loadPath: "/lang/{{lng}}/translation.json",
     },
-    react: { useSuspense: false },
   });
 
 export default i18n;

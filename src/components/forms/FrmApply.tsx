@@ -113,7 +113,7 @@ const FrmApply = () => {
   return (
     <section className="grid place-items-center">
       <h2 className="font-raleway font-semibold text-cyan-color mb-5 text-xl sm:text-2xl">
-        Senior Designer
+        {t("senior_designer")}
       </h2>
       <form action="" onSubmit={onSubmit} className="w-8/12 bg-white p-2">
         <div className="flex flex-wrap -mx-3 mb-5">
