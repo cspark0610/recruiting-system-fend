@@ -16,17 +16,19 @@ const TextArea: React.FC<Props> = ({ id, value, setValue }) => {
 
   return (
     <div className="relative w-full p-3">
-      <div className="bg-gray-200 border border-gray-200 p-4 rounded-2xl">
+      <div className="mb-2">
         <label className="text-sm font-normal text-gray-color font-raleway">
           {t("text_area.label")} <br />
-          <textarea
-            className="mt-4 border-none bg-transparent resize-none w-full h-16 focus-visible:outline-none"
-            id={id}
-            maxLength={200}
-            value={value}
-            onChange={onChange}
-          />
         </label>
+      </div>
+      <div>
+        <textarea
+          className="resize-none bg-gray-200 border-gray-200 border focus:bg-white focus:outline-none focus:border-cyan-color rounded-2xl w-full py-3 px-4 leading-tight font-raleway text-gray-color"
+          id={id}
+          maxLength={280}
+          value={value}
+          onChange={onChange}
+        />
       </div>
     </div>
   );
