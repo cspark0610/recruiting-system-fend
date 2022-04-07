@@ -1,35 +1,43 @@
-import { useTranslation } from "react-i18next";
-
 interface Props {
+  classes?: string;
+  direction?: string;
+  htmlFor: string;
+  message: string;
   value: any;
   setValue: any;
+  width: string;
 }
 
-const Checkbox: React.FC<Props> = ({ value, setValue }) => {
+const Checkbox: React.FC<Props> = ({
+  classes,
+  direction,
+  htmlFor,
+  value,
+  setValue,
+  message,
+  width,
+}) => {
   /*  */
-  const { t } = useTranslation();
-
   const onChange = (evt: any) => {
     setValue(evt.target.checked);
   };
 
   return (
-    <div className="grid md:place-items-center place-items-start w-full mt-6">
-      <label
-        className="font-raleway font-light w-auto text-sm"
-        htmlFor="agreetment"
-      >
+    <div className={`grid ${classes} w-full mt-6`}>
+      <div className={`flex ${direction} items-center pl-2 pr-4`}>
         <input
           className="ml-2 mr-2 focus:outline-none"
           type="checkbox"
           checked={value}
           onChange={onChange}
         />
-        <span className="text-gray-color">{t("term_description.part_1")} </span>
-        <span className="text-gray-color font-bold">
-          {t("term_description.part_2")}
-        </span>
-      </label>
+        <label
+          className={`${width} font-raleway font-light text-sm`}
+          htmlFor={htmlFor}
+        >
+          <span className="text-gray-color">{message}</span>
+        </label>
+      </div>
     </div>
   );
 };

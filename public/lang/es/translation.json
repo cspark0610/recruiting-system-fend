@@ -21,17 +21,14 @@
         "part_2": "Nos comunicaremos con usted"
     },
     "thank_you_video": {
-        "title": "Thank You!",
+        "title": "¡Gracias!",
         "description": {
-            "line_1": "Thank you for applying. We will evaluate your application",
-            "line_2": "and will contact you about what's next"
+            "line_1": "Gracias por postular. Evaluaremos su solicitud",
+            "line_2": "y nos pondremos en contacto con usted para informarle los siguientes pasos"
         }
     },
     "file_title": "Subir CV",
-    "term_description": {
-        "part_1": "Debe aceptar los",
-        "part_2": "términos y condiciones"
-    },
+    "term_description": "Debe aceptar los términos y condiciones",
     "welcome": "¡Bienvenido!",
     "slider": {
         "description": "Para este proceso tendrás que realizar algunos pasos:"

@@ -193,7 +193,14 @@ const FrmApply = () => {
             width="md:w-1/2"
           />
           <File value={resume} setValue={setResume} />
-          <Checkbox value={terms} setValue={setTerms} />
+          <Checkbox
+            classes="place-items-center"
+            htmlFor="agreetment"
+            message={t("term_description")}
+            value={terms}
+            setValue={setTerms}
+            width="w-auto"
+          />
         </div>
         <Submit name={t("submit_button.name")} width="w-full" />
       </form>

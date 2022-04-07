@@ -5,6 +5,7 @@ import {
   VIEW_404,
   VIEW_BEFORE_STARTING,
   VIEW_DETAILS,
+  VIEW_DIALOG,
   VIEW_HOME,
   VIEW_HOME_THANKS,
   VIEW_INSTRUCTIONS,
@@ -23,6 +24,7 @@ import NotFound from "../../views/error/NotFound";
 import Details from "../../views/second_link/Details";
 import VideoStart from "../../views/second_link/VideoStart";
 import VideoCompleted from "../../views/second_link/VideoCompleted";
+import UserView from "../../components/dialog/UserView";
 
 const AppRoute = () => {
   /*  */
@@ -61,6 +63,8 @@ const AppRoute = () => {
           }
         />
         <Route path={VIEW_404} element={<NotFound />} />
+        {/* User view */}
+        <Route path={VIEW_DIALOG} element={<UserView />} />
       </Routes>
     </>
   );

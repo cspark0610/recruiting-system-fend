@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BsFillRecordFill, BsStopFill } from "react-icons/bs";
 import { MdRestartAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";

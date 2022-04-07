@@ -28,10 +28,7 @@
         }
     },
     "file_title": "Upload CV",
-    "term_description": {
-        "part_1": "You must agree to",
-        "part_2": "terms and conditions"
-    },
+    "term_description": "You must agree to terms and conditions",
     "welcome": "Welcome!",
     "slider": {
         "description": "For this process you will have to perfom some steps:"
