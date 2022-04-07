@@ -20,11 +20,19 @@
         "part_1": "Agradecemos su tiempo e interés,",
         "part_2": "Nos comunicaremos con usted"
     },
+    "thank_you_video": {
+        "title": "Thank You!",
+        "description": {
+            "line_1": "Thank you for applying. We will evaluate your application",
+            "line_2": "and will contact you about what's next"
+        }
+    },
     "file_title": "Subir CV",
     "term_description": {
         "part_1": "Debe aceptar los",
         "part_2": "términos y condiciones"
     },
+    "welcome": "¡Bienvenido!",
     "slider": {
         "description": "Para este proceso tendrás que realizar algunos pasos:"
     },
@@ -46,6 +54,9 @@
         "idiom": {
             "label": "Elija su formación académica",
             "placeholder": "Formación académica"
+        },
+        "currency": {
+            "placeholder": "Expectativa salarial"
         },
         "available": {
             "label": "Elija su disponibilidad",
@@ -97,5 +108,6 @@
     },
     "submit_button": {
         "name": "Siguiente"
-    }
+    },
+    "currency_value": "S/. "
 }

@@ -18,5 +18,151 @@
       "id": 1
     }
   ],
-  "candidates": []
+  "candidates": [
+    {
+      "college": {
+        "id": 1,
+        "name": "Bachelor"
+      },
+      "salary": "930",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": "",
+      "description": "Lorem ipsum",
+      "id": 1
+    },
+    {
+      "college": {
+        "id": 2,
+        "name": "University"
+      },
+      "salary": "1200",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": [
+        {
+          "value": 2,
+          "label": "Ilustrador Basic"
+        },
+        {
+          "value": 1,
+          "label": "Ilustrador Advance"
+        },
+        {
+          "value": 3,
+          "label": "Ilustrador Intermidiate"
+        }
+      ],
+      "description": "Hola Mundo",
+      "id": 2
+    },
+    {
+      "college": {
+        "id": 2,
+        "name": "University"
+      },
+      "salary": "1200",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": [
+        {
+          "value": 1,
+          "label": "Ilustrador Advance"
+        }
+      ],
+      "description": "Hola Mundo",
+      "id": 3
+    },
+    {
+      "college": {
+        "id": 3,
+        "name": "Middle School"
+      },
+      "salary": "50",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": {
+        "id": 2,
+        "name": "Ilustrador Basic"
+      },
+      "description": "Hola Mundo",
+      "id": 4
+    },
+    {
+      "college": {
+        "id": 2,
+        "name": "University"
+      },
+      "salary": "930",
+      "available": {
+        "id": 4,
+        "name": "7 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "id": 5
+    },
+    {
+      "college": {
+        "id": 1,
+        "name": "Bachelor"
+      },
+      "salary": "1200",
+      "available": {
+        "id": 1,
+        "name": "1 day"
+      },
+      "skill": {
+        "id": 6,
+        "name": "Photoshop Intermidiate"
+      },
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "id": 6
+    },
+    {
+      "college": {
+        "id": 1,
+        "name": "Bachelor"
+      },
+      "salary": "500",
+      "available": {
+        "id": 2,
+        "name": "3 day"
+      },
+      "skill": {
+        "id": 6,
+        "name": "Photoshop Intermidiate"
+      },
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "id": 7
+    },
+    {
+      "college": {
+        "id": 4,
+        "name": "No studies"
+      },
+      "salary": "5",
+      "available": {
+        "id": 4,
+        "name": "7 day"
+      },
+      "skill": {
+        "id": 1,
+        "name": "Ilustrador Advance"
+      },
+      "description": "",
+      "id": 8
+    }
+  ]
 }

@@ -31,7 +31,11 @@ const NotFound = () => {
             </p>
           </div>
           <div className="grid place-content-start w-full">
-            <Next name={t("home_page")} link={VIEW_WELCOME} width="w-auto" />
+            <Next
+              name={t("404.home_page")}
+              link={VIEW_WELCOME}
+              width="w-auto"
+            />
           </div>
         </div>
       </section>

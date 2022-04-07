@@ -111,8 +111,8 @@ const FrmApply = () => {
   };
 
   return (
-    <section className="grid place-items-center">
-      <h2 className="font-raleway font-semibold text-cyan-color mb-5 text-xl sm:text-2xl">
+    <section className="grid place-items-center h-full">
+      <h2 className="font-raleway font-semibold text-cyan-color mb-5 text-xl sm:text-2xl 2xl:text-3xl">
         {t("senior_designer")}
       </h2>
       <form action="" onSubmit={onSubmit} className="w-8/12 bg-white p-2">

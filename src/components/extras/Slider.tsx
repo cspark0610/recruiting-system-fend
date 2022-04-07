@@ -18,6 +18,7 @@ const Slider = () => {
             <img
               src={process.env.PUBLIC_URL + `/images/Rule ${index + 1}.png`}
               alt={obj.description}
+              className="2xl:w-80 2xl:h-60 2xl:object-fill"
             />
           </div>
         );

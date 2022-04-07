@@ -15,7 +15,7 @@ const Details = () => {
     <>
       <Back link={VIEW_REQUIRED_STEPS} />
       <div className="grid justify-items-center ">
-        <section className="grid place-items-center content-center gap-28 grid-rows-1 md:grid-cols-2 mt-10">
+        <section className="grid place-items-center content-center gap-28 grid-rows-1 md:grid-cols-2 md:px-5 mt-10">
           <div>
             <CameraOn />
           </div>

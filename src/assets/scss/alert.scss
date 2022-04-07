@@ -3,6 +3,10 @@
 .container-tooltip {
   position: absolute;
   top: -32px;
+
+  @media (min-width: 640px) {
+    top: -30px;
+  }
 }
 
 .tooltip {
@@ -14,6 +18,14 @@
   padding: 0.1rem;
   text-align: center;
   width: 150px;
+
+  @media (min-width: 640px) {
+    font-size: 10.5px;
+  }
+
+  @media (min-width: 1536px) {
+    font-size: 12.5px;
+  }
 }
 
 .vector {

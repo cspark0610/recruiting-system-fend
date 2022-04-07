@@ -13,13 +13,11 @@ import "./i18n";
 
 ReactDOM.render(
   <Suspense fallback={<Loading />}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </Suspense>,
   document.getElementById("root")
 );

@@ -5,22 +5,26 @@ import { render } from "@testing-library/react";
 
 /* Components */
 import Modal from "../extras/Modal";
+import Loading from "../extras/Loading";
+import Submit from "../buttons/Submit";
+import SingleSelect from "../inputs/SingleSelect";
+import TextArea from "../inputs/TextArea";
+import Currency from "../inputs/Currency";
 
 /* Paths */
 import { VIEW_DETAILS } from "../../config/routes/paths";
 
 /* Json files */
-import Skills from "../../assets/json/Skills.json";
 import Training from "../../assets/json/College.json";
 import Available from "../../assets/json/Available.json";
+import Skills from "../../assets/json/Skills.json";
 
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { AddCandidate } from "../../redux/candidates/actions/CandidateAction";
-import Loading from "../extras/Loading";
-import Submit from "../buttons/Submit";
-import SingleSelect from "../inputs/SingleSelect";
-import TextArea from "../inputs/TextArea";
+import {
+  AddCandidate,
+  DataSaveEdit,
+} from "../../redux/candidates/actions/CandidateAction";
 
 const FrmData = () => {
   /*  */
@@ -35,19 +39,21 @@ const FrmData = () => {
 
   /* json file information */
   const [optionValues] = useState({
-    skills: Skills,
     training: Training,
     time: Available,
+    skills: Skills,
   });
 
   const { skills, training, time } = optionValues;
 
+  const DataToEdit = useSelector((state: any) => state.info.user);
+
   /* States from the component */
-  const [college, setCollege] = useState("");
-  const [salary, setSalary] = useState("");
-  const [available, setAvailable] = useState("");
-  const [skill, setSkill] = useState("");
-  const [description, setDescription] = useState("");
+  let [college, setCollege] = useState(DataToEdit.college);
+  let [salary, setSalary] = useState(DataToEdit.salary);
+  let [available, setAvailable] = useState(DataToEdit.available);
+  let [skill, setSkill] = useState(DataToEdit.skill);
+  let [description, setDescription] = useState(DataToEdit.description);
 
   /* Values which will be validated */
   const [isCollegeValid, setIsCollegeValid] = useState(false);
@@ -57,7 +63,7 @@ const FrmData = () => {
   /*  */
   const AddNewCandidate = (user: any) => dispatch(AddCandidate(user));
   const loading = useSelector((state: any) => state.info.loading);
-  const error = useSelector((state: any) => state.info.error);
+  //const error = useSelector((state: any) => state.info.error);
 
   /* Function to store validation */
   const isFormValid = () => {
@@ -96,11 +102,15 @@ const FrmData = () => {
   const name_user = "Sebastian Montenegro Abad";
 
   return (
-    <section className="grid place-items-center mt-2">
-      <h2 className="font-raleway font-semibold text-gray-color text-xl sm:text-2xl mb-2 w-8/12">
+    <section className="grid place-items-center mt-4 2xl:mt-8">
+      <h2 className="font-raleway font-semibold text-gray-color text-xl sm:text-2xl mb-2 w-8/12 2xl:w-7/12">
         {t("info.title", { name_user })}
       </h2>
-      <form action="" onSubmit={onSubmit} className="w-8/12 bg-white p-2">
+      <form
+        action=""
+        onSubmit={onSubmit}
+        className="w-8/12 2xl:w-7/12 bg-white p-2"
+      >
         <div className="flex flex-wrap -mx-3 mb-5">
           <SingleSelect
             data={training}
@@ -113,14 +123,15 @@ const FrmData = () => {
             value={college}
             width="md:w-1/2"
           />
-          {/* <SalaryInput
-            placeholder="Salary expectation"
+          <Currency
+            id="salary"
+            placeholder={t("info.currency.placeholder")}
             RegExp={RegExp.numbers}
             setValue={setSalary}
             showAlert={isSalaryValid}
             value={salary}
             width="md:w-1/2"
-          /> */}
+          />
           <SingleSelect
             data={time}
             for="available"
@@ -133,8 +144,8 @@ const FrmData = () => {
           />
           <SingleSelect
             data={skills}
-            for="skill"
-            id="skill"
+            for="skills"
+            id="skills"
             label={t("info.skill.label")}
             placeholder={t("info.skill.placeholder")}
             setValue={setSkill}

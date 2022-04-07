@@ -1,0 +1,45 @@
+@import "./variables.scss";
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  margin-top: -65px;
+  background-color: #fff;
+}
+
+.progress-bar .step {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.progress-bar .step .circle {
+  background-color: rgba(0, 173, 239, 0.5);
+  position: relative;
+  height: 33px;
+  width: 33px;
+  display: inline-block;
+  border-radius: 50%;
+  transition: 0.2s;
+  margin-right: 1rem;
+}
+
+.progress-bar .step .circle span {
+  color: white;
+  font-family: $fontRaleway;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 30px;
+}
+
+.progress-bar .step .circle.active {
+  border-color: $cyan-color;
+  background: $cyan-color;
+}
+
+.progress-bar .step .circle span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -23,7 +23,7 @@ const TextArea: React.FC<Props> = ({ id, value, setValue }) => {
       </div>
       <div>
         <textarea
-          className="resize-none bg-gray-200 border-gray-200 border focus:bg-white focus:outline-none focus:border-cyan-color rounded-2xl w-full py-3 px-4 leading-tight font-raleway text-gray-color"
+          className="resize-none bg-gray-200 border-gray-200 border focus:bg-white focus:outline-none focus:border-cyan-color rounded-2xl w-full py-3 px-4 leading-tight font-raleway text-gray-color h-28"
           id={id}
           maxLength={280}
           value={value}
