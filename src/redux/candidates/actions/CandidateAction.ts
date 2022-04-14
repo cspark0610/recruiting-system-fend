@@ -1,3 +1,12 @@
+import { Dispatch } from 'redux';
+import axios from 'axios';
+
+import { ActionTypes } from '../types/index';
+import {
+  GetCandidatesAction,
+  GetCandidatesResponse,
+} from '../reducers/interfaces.interface';
+
 import {
   ADD_CANDIDATE,
   ADD_CANDIDATE_SUCCESS,
@@ -10,8 +19,21 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
-import ClientAxios from "../../../config/api/axios";
+} from './../types';
+import ClientAxios from '../../../config/api/axios';
+
+export function GetAllCandidates() {
+  return async function (dispatch: Dispatch) {
+    const { data } = await axios.get<GetCandidatesResponse>(
+      'https://fulltimeforce-video-interview.herokuapp.com/candidate',
+    );
+
+    return dispatch<GetCandidatesAction>({
+      type: ActionTypes.GET_CANDIDATES,
+      payload: data.allCandidates,
+    });
+  };
+}
 
 export function AddCandidate(user: any) {
   return async (dispatch: any) => {
@@ -20,7 +42,7 @@ export function AddCandidate(user: any) {
     try {
       const {
         data: { id },
-      } = await ClientAxios.post("/candidates", user);
+      } = await ClientAxios.post('/candidates', user);
       dispatch(AddCandidateSuccess(user));
       dispatch(GetID(id));
     } catch (error) {
