@@ -18,4 +18,4 @@ export const VIEW_404 = '*';
 export const VIEW_DIALOG = '/user-view';
 
 /* PATH TO KANBAN DASHBOARD */
-export const VIEW_KANBAN = '/home/dashboard';
+export const VIEW_KANBAN = 'admin/dashboard/candidate-status';

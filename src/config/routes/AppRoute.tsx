@@ -26,7 +26,7 @@ import Details from '../../views/second_link/Details';
 import VideoStart from '../../views/second_link/VideoStart';
 import VideoCompleted from '../../views/second_link/VideoCompleted';
 import UserView from '../../components/dialog/UserView';
-import Home from '../../views/dashboard/Home/Home';
+import CandidateStatus from '../../views/admin/dashboard/CandidateStatus/CandidateStatus';
 import Navbar from '../../components/navbar/kanban/Navbar';
 
 const AppRoute = () => {
@@ -66,8 +66,8 @@ const AppRoute = () => {
           }
         />
         {/* Company dashboard */}
-        <Route path="/home" element={<Navbar userName="Juan" />} />
-        <Route path={VIEW_KANBAN} element={<Home />} />
+        <Route path="/admin" element={<Navbar userName="Juan" />} />
+        <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
         <Route path={VIEW_404} element={<NotFound />} />
         {/* User view */}
         <Route path={VIEW_DIALOG} element={<UserView />} />
