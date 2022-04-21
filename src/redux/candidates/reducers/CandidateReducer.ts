@@ -13,22 +13,71 @@ import {
 } from './../types';
 
 import { ActionTypes } from '../types/index';
-import { Action, InitialState } from './interfaces.interface';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
-  candidates: [],
+  candidates: {
+    interested: [],
+    applying: [],
+    meeting: [],
+    chosen: [],
+  },
   userId: null,
-  loading: null,
-  error: null,
+  loading: false,
+  error: {
+    status: 400,
+    message: '',
+  },
 };
 
 function CandidateReducer(state = initialState, action: Action) {
   switch (action.type) {
-    case ActionTypes.GET_CANDIDATES:
+    case ActionTypes.GET_CANDIDATES: {
       return {
         ...state,
-        candidates: state.candidates.concat(action.payload),
+        candidates: action.payload,
       };
+    }
+
+    case ActionTypes.GET_CANDIDATES_FILTERED: {
+      return {
+        ...state,
+        candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_IS_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_LOADING: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+
+    case ActionTypes.SET_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+
+    case ActionTypes.CLEAN_ERROR: {
+      return {
+        ...state,
+        error: {
+          status: 400,
+          message: '',
+        },
+      };
+    }
+
     default: {
       return state;
     }
