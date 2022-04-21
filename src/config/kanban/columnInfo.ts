@@ -35,10 +35,10 @@ export const MeetingInfo: IColumnInfo = {
 
 export const ChosenInfo: IColumnInfo = {
   main_text:
-    'This is the last step for the candidates application process. They will be evaluated by the CEO or client to complete the process',
+    'This is the last step for the candidates application process. They will be evaluated by the CEO and/or client to complete the process',
   status_info: [
     'CEO has to arrange a meeting with the candidate',
-    'CEO had the meeting and has aproved the candidate. The assigned recruiter will be contacted to complete the process',
+    'CEO had the meeting and has aproved the candidate.',
     'CEO had the meeting and is in doubt to continue the process with a candidate',
     'CEO had the meeting and the candidate is dismissed to continue',
   ],
