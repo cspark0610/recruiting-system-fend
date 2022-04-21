@@ -1,5 +1,5 @@
 import { RiArrowRightSLine, RiArrowLeftSLine } from "react-icons/ri";
-import "./../../assets/scss/slider.scss";
+import "./../../assets/scss/Slider.scss";
 
 interface Props {
   direction: string;
@@ -10,11 +10,11 @@ const SliderControl: React.FC<Props> = ({ direction, moveSlide }) => {
   return (
     <button
       onClick={moveSlide}
-      className={
+      className={`${
         direction === "next"
           ? "btn-slide next focus:outline-none"
           : "btn-slide prev focus:outline-none"
-      }
+      }`}
     >
       <div>
         {direction === "next" ? (

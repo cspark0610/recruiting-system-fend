@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { render } from "@testing-library/react";
 
 /* Components */
-import Modal from "../extras/Modal";
 import Loading from "../extras/Loading";
 import Submit from "../buttons/Submit";
 import SingleSelect from "../inputs/SingleSelect";
@@ -25,6 +23,7 @@ import {
   AddCandidate,
   DataSaveEdit,
 } from "../../redux/candidates/actions/CandidateAction";
+import MultipleSelect from "../inputs/MultipleSelect";
 
 const FrmData = () => {
   /*  */
@@ -52,7 +51,8 @@ const FrmData = () => {
   let [college, setCollege] = useState(DataToEdit.college);
   let [salary, setSalary] = useState(DataToEdit.salary);
   let [available, setAvailable] = useState(DataToEdit.available);
-  let [skill, setSkill] = useState(DataToEdit.skill);
+  //let [skill, setSkill] = useState(DataToEdit.skill);
+  let [skill, setSkill] = useState<string[]>();
   let [description, setDescription] = useState(DataToEdit.description);
 
   /* Values which will be validated */
@@ -63,13 +63,12 @@ const FrmData = () => {
   /*  */
   const AddNewCandidate = (user: any) => dispatch(AddCandidate(user));
   const loading = useSelector((state: any) => state.info.loading);
-  //const error = useSelector((state: any) => state.info.error);
 
   /* Function to store validation */
   const isFormValid = () => {
     college === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
     salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
-    skill === "" ? setIsSkillValid(true) : setIsSkillValid(false);
+    //skill === [""] ? setIsSkillValid(true) : setIsSkillValid(false);
   };
 
   /* OnSubmit */
@@ -78,15 +77,8 @@ const FrmData = () => {
 
     isFormValid();
 
-    if (!college || !salary || !skill) {
-      render(
-        <Modal
-          key={Math.random()}
-          title={t("modal.title")}
-          message={t("modal.message")}
-          hide="hidden"
-        />
-      );
+    if (!college || !salary) {
+      return;
     } else {
       AddNewCandidate({
         college,
@@ -102,17 +94,14 @@ const FrmData = () => {
   const name_user = "Sebastian Montenegro Abad";
 
   return (
-    <section className="grid place-items-center mt-4 2xl:mt-8">
-      <h2 className="font-raleway font-semibold text-gray-color text-xl sm:text-2xl mb-2 w-8/12 2xl:w-7/12">
+    <section className="grid place-items-center h-full mt-10 bg-white mobile:p-5">
+      <h2 className="font-raleway text-gray-color mobile:text-sm laptop:text-xl mb-3 mobile:w-full laptop:w-9/12">
         {t("info.title", { name_user })}
       </h2>
-      <form
-        action=""
-        onSubmit={onSubmit}
-        className="w-8/12 2xl:w-7/12 bg-white p-2"
-      >
-        <div className="flex flex-wrap -mx-3 mb-5">
+      <section className="laptop:w-9/12 mobile:w-full tablet:w-11/12 bg-white">
+        <div className="flex flex-wrap -mx-3">
           <SingleSelect
+            display="hidden"
             data={training}
             for="college"
             id="college"
@@ -121,18 +110,20 @@ const FrmData = () => {
             setValue={setCollege}
             showAlert={isCollegeValid}
             value={college}
-            width="md:w-1/2"
+            width="laptop:w-1/3 mobile:w-full tablet:w-1/2"
           />
           <Currency
             id="salary"
+            label={t("info.currency.placeholder")}
             placeholder={t("info.currency.placeholder")}
             RegExp={RegExp.numbers}
             setValue={setSalary}
             showAlert={isSalaryValid}
             value={salary}
-            width="md:w-1/2"
+            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/2"
           />
           <SingleSelect
+            display="hidden"
             data={time}
             for="available"
             id="available"
@@ -140,18 +131,13 @@ const FrmData = () => {
             placeholder={t("info.available.placeholder")}
             setValue={setAvailable}
             value={available}
-            width="md:w-1/2"
+            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/2"
           />
-          <SingleSelect
+          <MultipleSelect
             data={skills}
-            for="skills"
-            id="skills"
-            label={t("info.skill.label")}
-            placeholder={t("info.skill.placeholder")}
-            setValue={setSkill}
+            display="flex"
             showAlert={isSkillValid}
-            value={skill}
-            width="md:w-1/2"
+            width="laptop:w-full mobile:w-full tablet:w-1/2"
           />
           <TextArea
             id="description"
@@ -159,8 +145,12 @@ const FrmData = () => {
             value={description}
           />
         </div>
-        <Submit name={t("submit_button.name")} width="w-4/12" />
-      </form>
+        <Submit
+          name={t("submit_button.name")}
+          width="w-full tablet:w-28"
+          onSubmit={onSubmit}
+        />
+      </section>
       {loading && <Loading />}
     </section>
   );

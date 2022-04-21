@@ -1,18 +1,18 @@
 [
     {
         "id": 1,
-        "name": "1 day"
+        "name": "1 week"
     },
     {
         "id": 2,
-        "name": "3 day"
+        "name": "2 weeks"
     },
     {
         "id": 3,
-        "name": "5 day"
+        "name": "3 weeks"
     },
     {
         "id": 4,
-        "name": "7 day"
+        "name": "1 month"
     }
 ]

@@ -15,4 +15,4 @@ export const VIEW_WELCOME_THANKS = "/welcome/thank-you";
 export const VIEW_404 = "*";
 
 /* LINK TO DIALOG OR USER VIEW */
-export const VIEW_DIALOG = "/user-view";
+export const VIEW_USER_DIALOG = "/admin/user-view";

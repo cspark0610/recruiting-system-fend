@@ -1,14 +1,10 @@
-import Header from "./components/header/Header";
 import AppRoute from "./config/routes/AppRoute";
 
 const App = () => {
   return (
-    <div className="bg-cloud bg-no-repeat bg-center bg-cover h-screen">
-      <Header />
-      <div className="max-w-screen-xl mx-auto 2xl:max-w-screen-2xl">
-        <div className="container mx-auto my-5">
-          <AppRoute />
-        </div>
+    <div className="mobile:bg-mobile tablet:bg-cloud laptop:bg-cloud bg-no-repeat bg-center bg-cover bg-origin-content h-screen w-full">
+      <div className="max-w-screen-xl laptop:container laptop:mx-auto">
+        <AppRoute />
       </div>
     </div>
   );

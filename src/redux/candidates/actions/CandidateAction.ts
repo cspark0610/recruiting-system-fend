@@ -11,6 +11,9 @@ import {
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
 } from "./../types";
+
+import { POST_CANDIDATE } from "../../../config/routes/endpoints";
+
 import ClientAxios from "../../../config/api/axios";
 
 export function AddCandidate(user: any) {
@@ -20,7 +23,7 @@ export function AddCandidate(user: any) {
     try {
       const {
         data: { id },
-      } = await ClientAxios.post("/candidates", user);
+      } = await ClientAxios.post(POST_CANDIDATE, user);
       dispatch(AddCandidateSuccess(user));
       dispatch(GetID(id));
     } catch (error) {
@@ -55,7 +58,7 @@ export function GetData(id: number) {
   return async (dispatch: any) => {
     dispatch(GetDataLoad(true));
     try {
-      const response = await ClientAxios.get(`/candidates/${id}`);
+      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`); ///candidates/${id}
       dispatch(GetDataSuccess(response.data));
     } catch (error) {
       dispatch(GetDataError(true));
@@ -96,7 +99,7 @@ export function DataSaveEdit(user: any) {
     dispatch(DataEditLoad(true));
 
     try {
-      ClientAxios.put(`/candidates/${user.id}`, user);
+      ClientAxios.put(`${POST_CANDIDATE}/${user.id}`, user); ///candidates/${user.id}
       dispatch(DataEditSuccess(user));
     } catch (error) {
       dispatch(DataEditError(true));

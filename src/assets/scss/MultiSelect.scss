@@ -1,0 +1,108 @@
+@import "./variables.scss";
+
+.searchWrapper {
+  background-color: $light-gray !important;
+  border: 1px solid !important;
+  --tw-border-opacity: 1;
+  border-color: rgb(245 245 245 / var(--tw-border-opacity)) !important;
+  min-width: auto !important;
+
+  @media (min-width: 320px) {
+    width: 100%;
+    min-height: 35px;
+    height: auto;
+    border-radius: 10px !important;
+    padding: 0.3rem 1rem;
+    appearance: none;
+  }
+
+  @media (min-width: 1280px) {
+    width: 100% !important;
+    padding: 0.8rem 1rem !important;
+    min-height: 54px;
+    height: auto;
+    border-radius: 1rem !important;
+    appearance: none !important;
+  }
+}
+
+.searchBox::placeholder {
+  color: $gray-color !important;
+  font-weight: 300 !important;
+}
+
+.searchWrapper:focus {
+  background-color: #fff;
+  border: 1px solid $cyan-color;
+  --tw-shadow-color: rgb(0 173 239 / 0.5);
+  --tw-shadow: var(--tw-shadow-colored);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.multiSelectContainer input {
+  font-family: $fontRaleway;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.chip {
+  background-color: $cyan-color !important;
+  color: #fff;
+  border: 1px solid;
+  --tw-border-opacity: 1;
+  border-color: rgb(0 173 239 / var(--tw-border-opacity));
+}
+
+.chip img {
+  content: url("https://res.cloudinary.com/dgixckrvq/image/upload/v1650313078/portfolio/FTF/close_kxumee.svg");
+}
+
+.closeIcon {
+  height: 7px;
+  width: 7px;
+  float: right;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.optionListContainer {
+  margin-top: 5px;
+  border: 1px solid $light-gray;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.optionContainer {
+  display: flex !important;
+  flex-direction: row !important;
+  border-radius: 6px !important;
+}
+
+.multiSelectContainer ul {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  padding: 10px !important;
+  border: none !important;
+}
+
+.multiSelectContainer li {
+  font-size: 12px;
+  color: $gray-color;
+  border: 1px solid $gray-color;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 4px;
+}
+
+.multiSelectContainer li:hover {
+  background-color: rgba(0, 173, 239, 0.5) !important;
+  color: #fff;
+  cursor: pointer;
+}

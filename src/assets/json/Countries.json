@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "name": "Peru"
+        "name": "Argentina"
     },
     {
         "id": 2,
@@ -9,10 +9,18 @@
     },
     {
         "id": 3,
-        "name": "Argentina"
+        "name": "Brasil"
     },
     {
         "id": 4,
-        "name": "Brasil"
+        "name": "Chile"
+    },
+    {
+        "id": 5,
+        "name": "Panamá"
+    },
+    {
+        "id": 6,
+        "name": "Perú"
     }
 ]

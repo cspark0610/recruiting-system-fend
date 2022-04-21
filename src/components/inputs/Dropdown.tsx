@@ -26,16 +26,17 @@ const Dropdown = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute z-50 left-0 w-60 mt-1 ml-5 origin-top-left bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute z-50 laptop:left-0 mobile:right-0 mobile:w-52 laptop:w-60 mt-1 mobile:mr-5 laptop:ml-5 origin-top-left bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
               <div className="-mb-2 mt-2">
-                <span className="ml-2 font-raleway font-semibold text-gray-color text-sm">
+                <span className="ml-2 font-raleway font-semibold text-gray-color mobile:text-xs laptop:text-sm">
                   Recommed for other position:
                 </span>
               </div>
               {Jobs.map(({ id, name }) => (
                 <Menu.Item key={id}>
                   <Checkbox
+                    id={name}
                     htmlFor={name}
                     message={name}
                     width="w-full"
@@ -46,7 +47,7 @@ const Dropdown = () => {
                   />
                 </Menu.Item>
               ))}
-              <button className="bg-transparent border-0 my-6 mx-2 text-gray-color font-raleway font-semibold text-sm">
+              <button className="bg-transparent border-0 my-6 mx-2 text-gray-color font-raleway font-semibold mobile:text-xs laptop:text-sm">
                 Apply
               </button>
             </div>

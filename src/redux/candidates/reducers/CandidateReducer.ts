@@ -17,7 +17,7 @@ const initialState = {
     college: "",
     salary: "",
     available: "",
-    skill: "",
+    skill: [""],
     description: "",
     video: "",
   },

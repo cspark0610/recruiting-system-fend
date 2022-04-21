@@ -1,0 +1,40 @@
+@import "./variables.scss";
+
+.floating-label {
+  position: relative;
+}
+
+.floating-input {
+  font-size: 15px;
+  padding: 4px 4px;
+  width: 100%;
+
+  @media (min-width: 320px) {
+    padding-top: 12px;
+  }
+
+  @media (min-width: 800px) {
+    padding-top: 25px;
+  }
+}
+
+.floating-label-2 {
+  position: absolute;
+  color: $gray-color;
+  font-size: 15px;
+  pointer-events: none;
+  left: 16px;
+  top: 15px;
+  font-weight: 300;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.floating-input:focus ~ .floating-label-2,
+.floating-input:not(:placeholder-shown) ~ .floating-label-2 {
+  top: 4px;
+  left: 18px;
+  font-size: 12px;
+  font-weight: 300;
+}

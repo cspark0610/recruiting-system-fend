@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { render } from "@testing-library/react";
 
 /* Components */
 import Text from "../inputs/Text";
@@ -10,7 +9,7 @@ import File from "../inputs/File";
 import Checkbox from "../buttons/Checkbox";
 import Submit from "../buttons/Submit";
 import Loading from "../extras/Loading";
-import Modal from "../extras/Modal";
+import Date from "../inputs/Date";
 
 /* Paths */
 import { VIEW_HOME_THANKS } from "../../config/routes/paths";
@@ -47,12 +46,13 @@ const FrmApply = () => {
   /* States from the component */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [birth, setBirth] = useState("");
   const [phone, setPhone] = useState("");
   const [idiom, setIdiom] = useState("");
   const [nation, setNation] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [portfolio, setPortfolio] = useState("");
-  const [resume, setResume] = useState<File>();
+  const resume = useRef<HTMLInputElement | null>(null);
   const [terms, setTerms] = useState(false);
 
   /* Values which will be validated */
@@ -61,13 +61,11 @@ const FrmApply = () => {
   const [isPhoneValid, setIsPhoneValid] = useState(false);
   const [isIdiomValid, setIsIdiomValid] = useState(false);
   const [isNationValid, setIsNationValid] = useState(false);
-  const [isResumeValid, setIsResumeValid] = useState(false);
   const [isTermsValid, setIsTermsValid] = useState(false);
 
   /*  */
   const AddNewUser = (user: any) => dispatch(AddUser(user));
   const loading = useSelector((state: any) => state.data.loading);
-  const error = useSelector((state: any) => state.data.error);
 
   /* Function to store validation */
   const isFormValid = () => {
@@ -76,7 +74,9 @@ const FrmApply = () => {
     phone === "" ? setIsPhoneValid(true) : setIsPhoneValid(false);
     idiom === "" ? setIsIdiomValid(true) : setIsIdiomValid(false);
     nation === "" ? setIsNationValid(true) : setIsNationValid(false);
-    terms === false ? setIsTermsValid(true) : setIsTermsValid(false);
+    terms === false
+      ? setIsTermsValid(!isTermsValid)
+      : setIsTermsValid(isTermsValid);
   };
 
   /* OnSubmit */
@@ -86,18 +86,12 @@ const FrmApply = () => {
     isFormValid();
 
     if (!name || !email || !phone || !idiom || !nation || !terms) {
-      render(
-        <Modal
-          key={Math.random()}
-          title={t("modal.title")}
-          message={t("modal.message")}
-          hide="hidden"
-        />
-      );
+      return;
     } else {
       AddNewUser({
         name,
         email,
+        birth,
         phone,
         idiom,
         nation,
@@ -111,47 +105,63 @@ const FrmApply = () => {
   };
 
   return (
-    <section className="grid place-items-center h-full">
-      <h2 className="font-raleway font-semibold text-cyan-color mb-5 text-xl sm:text-2xl 2xl:text-3xl">
+    <section className="grid justify-items-center mobile:mt-8 laptop:mt-0">
+      <span className="font-raleway font-normal text-sm text-gray-color tablet:mt-8 laptop:mt-0">
+        {t("applying")}
+      </span>
+      <h2 className="font-raleway font-semibold text-cyan-color mobile:text-lg laptop:text-2xl tablet:mb-8 laptop:mb-0">
         {t("senior_designer")}
       </h2>
-      <form action="" onSubmit={onSubmit} className="w-8/12 bg-white p-2">
-        <div className="flex flex-wrap -mx-3 mb-5">
+      <section className="mobile:w-full laptop:w-9/12 tablet:w-11/12 bg-white p-2">
+        <div className="flex flex-wrap -mx-3">
           <Text
             id="name"
+            label={t("data.name.label")}
             name="name"
-            placeholder={t("data.name")}
+            placeholder={t("data.name.placeholder")}
             RegExp={RegExp.characters}
             setValue={setName}
             showAlert={isNameValid}
             type="text"
             value={name}
-            width="md:w-1/2"
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
           <Text
             id="email"
+            label={t("data.email.label")}
             name="email"
-            placeholder={t("data.email")}
+            placeholder={t("data.email.placeholder")}
             RegExp={RegExp.general}
             setValue={setEmail}
             showAlert={isEmailValid}
             type="email"
             value={email}
-            width="md:w-1/2"
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
+          />
+          <Date
+            id="birth"
+            label={t("data.birth.label")}
+            name="birth"
+            placeholder=" "
+            setValue={setBirth}
+            value={birth}
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
           <Text
             id="phone"
+            label={t("data.phone.label")}
             name="phone"
-            placeholder={t("data.phone")}
+            placeholder={t("data.phone.placeholder")}
             RegExp={RegExp.numbers}
             setValue={setPhone}
             showAlert={isPhoneValid}
             type="text"
             value={phone}
-            width="md:w-1/3"
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
           <SingleSelect
             data={english}
+            display="flex"
             id="idiom"
             for="idiom"
             label={t("data.idiom.label")}
@@ -159,10 +169,11 @@ const FrmApply = () => {
             setValue={setIdiom}
             showAlert={isIdiomValid}
             value={idiom}
-            width="md:w-1/3"
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
           <SingleSelect
             data={country}
+            display="flex"
             id="country"
             for="country"
             label={t("data.nation.label")}
@@ -170,40 +181,48 @@ const FrmApply = () => {
             setValue={setNation}
             showAlert={isNationValid}
             value={nation}
-            width="md:w-1/3"
+            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
           <Text
             id="linkedin"
+            label={t("data.linkedin.label")}
             name="linkedin"
-            placeholder={t("data.linkedin")}
+            placeholder={t("data.linkedin.placeholder")}
             RegExp={""}
             setValue={setLinkedin}
             type="text"
             value={linkedin}
-            width="md:w-1/2"
+            width="laptop:w-1/2 tablet:w-1/2 mobile:w-full"
           />
           <Text
             id="portfolio"
+            label={t("data.portfolio.label")}
             name="portfolio"
-            placeholder={t("data.portfolio")}
+            placeholder={t("data.portfolio.placeholder")}
             RegExp={""}
             setValue={setPortfolio}
             type="text"
             value={portfolio}
-            width="md:w-1/2"
+            width="laptop:w-1/2 tablet:w-1/2 mobile:w-full"
           />
-          <File value={resume} setValue={setResume} />
+          <File />
           <Checkbox
+            id="terms"
             classes="place-items-center"
             htmlFor="agreetment"
-            message={t("term_description")}
+            message={t("term_description.line_1")}
+            subMessage={t("term_description.line_2")}
             value={terms}
             setValue={setTerms}
             width="w-auto"
           />
         </div>
-        <Submit name={t("submit_button.name")} width="w-full" />
-      </form>
+        <Submit
+          name={t("submit_button.name")}
+          width="w-full mobile:w-28 tablet:w-28"
+          onSubmit={onSubmit}
+        />
+      </section>
       {loading && <Loading />}
     </section>
   );

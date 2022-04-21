@@ -22,5 +22,21 @@
     {
         "id": 6,
         "name": "Photoshop Intermidiate"
+    },
+    {
+        "id": 7,
+        "name": "HTML Basics"
+    },
+    {
+        "id": 8,
+        "name": "Python"
+    },
+    {
+        "id": 9,
+        "name": "Oracle PL/SQL"
+    },
+    {
+        "id": 10,
+        "name": "Typescript"
     }
 ]
