@@ -1,5 +1,5 @@
-import Header from "./components/header/Header";
-import AppRoute from "./config/routes/AppRoute";
+import Header from './components/header/Header';
+import AppRoute from './config/routes/AppRoute';
 
 const App = () => {
   return (
