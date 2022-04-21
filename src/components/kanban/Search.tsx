@@ -1,23 +1,34 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction';
 
 export default function Search() {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    setQuery(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(GetCandidatesFiltered(undefined, undefined, query));
+    setQuery('');
   };
 
   return (
     <div className="inline-block pt-1">
-      <input
-        className="border-2 bg-slate-100 w-[15rem] h-[2rem] px-2 rounded-md focus:outline-none"
-        type="search"
-        name="query"
-        id="query"
-        onChange={handleChange}
-      />
+      <form onSubmit={handleSubmit}>
+        <input
+          className="bg-slate-100 w-[15rem] h-[2rem] px-2 rounded-md focus:outline-none"
+          type="search"
+          name="query"
+          placeholder="Type to search"
+          id="query"
+          value={query}
+          onChange={handleChange}
+        />
+      </form>
     </div>
   );
 }

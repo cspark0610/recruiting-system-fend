@@ -9,13 +9,18 @@ export default function Collapsable({ info }: CollapsableProps) {
   return (
     <div className="flex flex-col items-center justify-center">
       <p className="text-center text-sm">{info.main_text}</p>
-      <ul className="pt-4 w-contain">
+      <div className="pt-2">
         {info.status_info.map((status, index) => (
-          <li key={index} className="text-sm pb-2">
-            {status}
-          </li>
+          <div key={index} className="flex text-xs pb-2 pl-2">
+            <div>
+              <div className="list-bullet bullet-new"></div>
+            </div>
+            <div className="w-full">
+              <p className="ml-2">{status}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
