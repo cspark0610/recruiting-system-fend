@@ -3,9 +3,13 @@ import axios from 'axios';
 
 import { ActionTypes } from '../types/index';
 import {
-  GetCandidatesAction,
+  GetCandidatesFilteredResponse,
   GetCandidatesResponse,
-} from '../reducers/interfaces.interface';
+} from '../types/axiosResponses';
+import {
+  GetCandidatesAction,
+  GetCandidatesFilteredAction,
+} from '../types/dispatchActions';
 
 import {
   ADD_CANDIDATE,
@@ -22,16 +26,80 @@ import {
 } from './../types';
 import ClientAxios from '../../../config/api/axios';
 
+const PROD_URL =
+  'https://fulltimeforce-video-interview.herokuapp.com/candidate';
+
+const DEV_URL = 'http://localhost:3001/candidate';
+
+const ENV = 'development';
+
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
-    const { data } = await axios.get<GetCandidatesResponse>(
-      'https://fulltimeforce-video-interview.herokuapp.com/candidate',
-    );
+    dispatch({ type: ActionTypes.SET_IS_LOADING });
 
-    return dispatch<GetCandidatesAction>({
-      type: ActionTypes.GET_CANDIDATES,
-      payload: data.allCandidates,
+    try {
+      const { data } = await axios.get<GetCandidatesResponse>(
+        ENV === 'development' ? DEV_URL : PROD_URL,
+      );
+
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<GetCandidatesAction>({
+        type: ActionTypes.GET_CANDIDATES,
+        payload: data.allCandidates,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function GetCandidatesFiltered(
+  position?: string[],
+  secondary_status?: string[],
+  query?: string,
+) {
+  return async function (dispatch: Dispatch) {
+    const requestBody = JSON.stringify({
+      position,
+      secondary_status,
+      query,
     });
+
+    dispatch({ type: ActionTypes.SET_IS_LOADING });
+
+    try {
+      const { data } = await axios.post<GetCandidatesFilteredResponse>(
+        'http://localhost:3001/candidate/filter',
+        requestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<GetCandidatesFilteredAction>({
+        type: ActionTypes.GET_CANDIDATES_FILTERED,
+        payload: data.candidatesFiltered,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
   };
 }
 
@@ -48,6 +116,14 @@ export function AddCandidate(user: any) {
     } catch (error) {
       dispatch(AddCandidateError(true));
     }
+  };
+}
+
+export function CleanErrors() {
+  return function (dispatch: Dispatch) {
+    return dispatch({
+      type: ActionTypes.CLEAN_ERROR,
+    });
   };
 }
 
