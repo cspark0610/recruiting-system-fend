@@ -1,8 +1,8 @@
-import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import Checkbox from "../buttons/Checkbox";
-import Jobs from "../../assets/json/JobPosition.json";
+import { Fragment, useState } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { IoIosArrowDropdownCircle } from 'react-icons/io';
+import Checkbox from '../buttons/Checkbox';
+import Jobs from '../../assets/json/JobPosition.json';
 
 const Dropdown = () => {
   /*  */
