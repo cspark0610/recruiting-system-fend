@@ -5,7 +5,7 @@ import {
   VIEW_404,
   VIEW_BEFORE_STARTING,
   VIEW_DETAILS,
-  VIEW_DIALOG,
+  VIEW_USER_DIALOG,
   VIEW_HOME,
   VIEW_HOME_THANKS,
   VIEW_INSTRUCTIONS,
@@ -70,7 +70,7 @@ const AppRoute = () => {
         <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
         <Route path={VIEW_404} element={<NotFound />} />
         {/* User view */}
-        <Route path={VIEW_DIALOG} element={<UserView />} />
+        <Route path={VIEW_USER_DIALOG} element={<UserView />} />
       </Routes>
     </>
   );

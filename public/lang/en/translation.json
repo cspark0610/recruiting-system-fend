@@ -1,19 +1,39 @@
 {
     "data": {
-        "name": "Name",
-        "email": "Email",
-        "phone": "Phone",
+        "name": {
+            "placeholder": "Name",
+            "label": "Full name:"
+        },
+        "email": {
+            "placeholder": "Email",
+            "label": "Email:"
+        },
+        "birth": {
+            "placeholder": "Date of birth",
+            "label": "Date of birth"
+        },
+        "phone": {
+            "placeholder": "Phone",
+            "label": "Phone:"
+        },
         "idiom": {
-            "label": "Choose your English level",
-            "placeholder": "English level"
+            "placeholder": "English level",
+            "label": "English level"
         },
         "nation": {
-            "label": "Choose your country",
-            "placeholder": "Country"
+            "placeholder": "Country",
+            "label": "Country"
         },
-        "linkedin": "Linkedin",
-        "portfolio": "Link's portfolio"
+        "linkedin": {
+            "placeholder": "Linkedin link",
+            "label": "Linkedin:"
+        },
+        "portfolio": {
+            "placeholder": "Portfolio link",
+            "label": "Portfolio Link"
+        }
     },
+    "applying": "You're applying to",
     "senior_designer": "Senior Designer",
     "thank_you_title": "Your application has been sent!",
     "thank_you_description": {
@@ -28,7 +48,10 @@
         }
     },
     "file_title": "Upload CV",
-    "term_description": "You must agree to terms and conditions",
+    "term_description": {
+        "line_1": "You must agree to",
+        "line_2": " terms and conditions"
+    },
     "welcome": "Welcome!",
     "slider": {
         "description": "For this process you will have to perfom some steps:"
@@ -36,31 +59,28 @@
     "instructions": {
         "title": "Other things to know",
         "rules": {
-            "part_1": "You will need about 30’ to fill out this application",
-            "part_2": {
-                "l1": "You will have 2’ to record your answers and only",
-                "l2": "one chance"
-            },
-            "part_3": "If you have any problems in between and you can’t finish your application, write to your recluter, explain what happened and you will get a new application form to re-do it"
+            "part_1": "You will need about 10’ to fill out this application",
+            "part_2": "You will have 2’ to record each answer.",
+            "part_3": "You can record each answer as many times as you want. Make sure you’re confortable with the result."
         },
         "are_you_ready": "Are you ready?",
         "get_started": "Get Started"
     },
     "info": {
-        "title": "Hello {{name_user}}",
+        "title": "Hello, {{name_user}}",
         "idiom": {
-            "label": "Choose your academic training",
+            "label": "Studies",
             "placeholder": "Academic training"
         },
         "currency": {
             "placeholder": "Salary expectation"
         },
         "available": {
-            "label": "Choose your availability",
+            "label": "Available from...",
             "placeholder": "Available from..."
         },
         "skill": {
-            "label": "Skill according your knowladge",
+            "label": "Choose your skills",
             "placeholder": "Skill"
         }
     },
@@ -75,7 +95,18 @@
             "line_2": "Feel comfortable and free to express yourself as you wish.",
             "line_3": "The questions will be shown ones you start each video.",
             "line_4": "Check your videos and continue if you’re sure with the result"
-        }
+        },
+        "turn_camera": "Turn on your camera and audio"
+    },
+    "video-completed": {
+        "title": "Your Application is complete!",
+        "sub-title": "Make sure everything is correct",
+        "studies": "Studies:",
+        "text-area-title": "Why are you interesting in working with FTF?",
+        "skill-title": "Skills:",
+        "salary-title": "Salary Expectations:",
+        "available-title": "Available from:",
+        "send": "Send & Finish"
     },
     "404": {
         "line_1": {
@@ -88,13 +119,13 @@
         },
         "home_page": "Homepage"
     },
-    "alert_message": "This field is required.",
+    "alert_message": "This field is required",
     "modal": {
         "title": "Warning!",
         "message": "You must to complete all empty fields.",
         "buttons": {
             "cancel": "Cancel",
-            "ok": "OK"
+            "ok": "Continue"
         }
     },
     "text_area": {

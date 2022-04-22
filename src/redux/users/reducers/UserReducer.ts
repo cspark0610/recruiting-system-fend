@@ -4,6 +4,7 @@ const initialState = {
   user: {
     name: "",
     email: "",
+    birth: "",
     phone: "",
     idiom: "",
     nation: "",

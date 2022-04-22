@@ -1,7 +1,7 @@
 import { useSlider } from "../../hooks/useSlider";
 import SliderControl from "../buttons/SliderControl";
 import SliderData from "./../../assets/json/SliderData.json";
-import "./../../assets/scss/slider.scss";
+import "./../../assets/scss/Slider.scss";
 
 const Slider = () => {
   /*  */
@@ -11,21 +11,27 @@ const Slider = () => {
     <div className="container-slider mt-10">
       {SliderData.map((obj, index) => {
         return (
-          <div
-            key={obj.id}
-            className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
-          >
-            <img
-              src={process.env.PUBLIC_URL + `/images/Rule ${index + 1}.png`}
-              alt={obj.description}
-              className="2xl:w-80 2xl:h-60 2xl:object-fill"
-            />
+          <div>
+            <div
+              key={obj.id}
+              className={
+                slideIndex === index + 1 ? "slide active-anim" : "slide"
+              }
+            >
+              <img
+                src={process.env.PUBLIC_URL + `/images/Rule ${index + 1}.svg`}
+                alt={obj.description}
+                className="mobile:w-[288px] mobile:h-[237px] laptop:w-[288px] laptop:h-[237px]"
+              />
+            </div>
+            {slideIndex === 1 ? (
+              <SliderControl moveSlide={nextSlide} direction={"next"} />
+            ) : (
+              <SliderControl moveSlide={prevSlide} direction={"prev"} />
+            )}
           </div>
         );
       })}
-
-      <SliderControl moveSlide={nextSlide} direction={"next"} />
-      <SliderControl moveSlide={prevSlide} direction={"prev"} />
 
       <div className="container-dots">
         {Array.from({ length: 2 }).map((item, index) => (

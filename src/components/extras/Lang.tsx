@@ -1,7 +1,6 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { BiChevronDown } from "react-icons/bi";
-import { AiOutlineGlobal } from "react-icons/ai";
+import { useState } from "react";
+import { Menu, Switch } from "@headlessui/react";
+import ReactCountryFlag from "react-country-flag";
 
 import i18next from "i18next";
 
@@ -11,47 +10,62 @@ const Lang = () => {
     {
       code: "en",
       name: "English",
-      country_code: "en",
+      country_code: "GB",
     },
     {
       code: "es",
       name: "Español",
-      country_code: "es",
+      country_code: "ES",
     },
   ];
 
-  return (
-    <div className="flex justify-end absolute">
-      <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
-            <AiOutlineGlobal className="text-cyan-color h-5 w-5" />
-            <BiChevronDown className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-          </Menu.Button>
-        </div>
+  const [enabled, setEnabled] = useState(false);
 
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="origin-top-right absolute right-0 mt-2 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {languages.map(({ code, name, country_code }) => (
-              <Menu.Item key={country_code}>
-                <button
-                  onClick={() => i18next.changeLanguage(code)}
-                  className="hover:bg-gray-100 font-raleway text-gray-color block px-6 py-2 text-sm"
-                >
-                  {name}
-                </button>
-              </Menu.Item>
-            ))}
-          </Menu.Items>
-        </Transition>
+  return (
+    <div className="absolute laptop:top-5 mobile:top-10 right-5 z-50">
+      <Menu as="div" className="relative inline-block text-left">
+        <div className="inline-flex justify-center min-w-full laptop:w-[118px] laptop:h-[28px] mobile:w-[62px] mobile:h-[28px] tablet:w-[118px] tablet:h-[28px] rounded-md border border-gray-300 shadow-sm mobile:px-1 mobile:py-1 laptop:px-1 laptop:py-[3px] bg-white text-gray-color focus:outline-none">
+          <div className="flex flex-row-reverse items-center mx-1">
+            <Switch
+              checked={enabled}
+              onChange={() => {
+                setEnabled(!enabled);
+                if (!enabled) {
+                  i18next.changeLanguage(languages[1].code);
+                } else {
+                  i18next.changeLanguage(languages[0].code);
+                }
+              }}
+              className={`${enabled ? "bg-white-color" : "bg-white-color"}
+                  relative inline-flex flex-shrink-0 h-[5px] w-[18px] border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+            >
+              <span
+                aria-hidden="true"
+                className={`${enabled ? "translate-x-3" : "translate-x-0"}
+                    pointer-events-none inline-block h-[9px] w-[9px] rounded-full bg-dark-blue shadow-lg transform ring-0 transition ease-in-out duration-200 -mt-[2px]`}
+              />
+            </Switch>
+            <span className=" text-gray-color pr-1 font-raleway text-xs laptop:block mobile:hidden tablet:block font-normal">
+              {!enabled ? languages[0].name : languages[1].name}
+            </span>
+            <span className="w-full pr-1">
+              <ReactCountryFlag
+                countryCode={
+                  !enabled
+                    ? languages[0].country_code
+                    : languages[1].country_code
+                }
+                style={{
+                  width: "28px",
+                  height: "20px",
+                  borderRadius: "5px",
+                  marginTop: "-5px",
+                }}
+                svg
+              />
+            </span>
+          </div>
+        </div>
       </Menu>
     </div>
   );

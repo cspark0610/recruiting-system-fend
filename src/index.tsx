@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";

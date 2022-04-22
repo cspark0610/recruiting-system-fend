@@ -1,15 +1,19 @@
-import "./../../assets/scss/circleProgressBar.scss";
+import "./../../assets/scss/CircleBar.scss";
 
-const QskInterview = () => {
+interface Props {
+  classes: string;
+}
+
+const QskInterview: React.FC<Props> = ({ classes }) => {
   return (
-    <div className="progress-bar">
+    <div className={`${classes} progress-bar`}>
       <div className="step flex flex-row items-center">
-        <div className="circle">
+        <div className="circle active-circle">
           <span>1</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Tell us about yourself
+          <span className="text-gray-color">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>
@@ -18,8 +22,8 @@ const QskInterview = () => {
           <span>2</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Wich tech skills do you know?
+          <span className="text-gray-color/40">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>
@@ -28,8 +32,8 @@ const QskInterview = () => {
           <span>3</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Lorem ipsum dolor sit, amet consectetur.
+          <span className="text-gray-color/40">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>
@@ -38,8 +42,8 @@ const QskInterview = () => {
           <span>4</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Lorem ipsum dolor sit, amet consectetur.
+          <span className="text-gray-color/40">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>
@@ -48,8 +52,8 @@ const QskInterview = () => {
           <span>5</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Lorem ipsum dolor sit, amet consectetur.
+          <span className="text-gray-color/40">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>
@@ -58,8 +62,8 @@ const QskInterview = () => {
           <span>6</span>
         </div>
         <div>
-          <span className="font-raleway text-sm text-gray-color task">
-            Lorem ipsum dolor sit, amet consectetur.
+          <span className="text-gray-color/40">
+            Lorem Ipsum is simply dummy text of the printing and typesetting.
           </span>
         </div>
       </div>

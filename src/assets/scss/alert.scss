@@ -2,10 +2,26 @@
 
 .container-tooltip {
   position: absolute;
-  top: -32px;
 
-  @media (min-width: 640px) {
-    top: -30px;
+  @media (min-width: 320px) {
+    top: -23px;
+  }
+
+  @media (min-width: 1280px) {
+    top: -28px;
+  }
+
+  animation-name: popup;
+  animation-duration: 4s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes popup {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -14,24 +30,27 @@
   border-radius: 10px;
   color: white;
   font-family: $fontRaleway;
-  font-size: 11px;
-  padding: 0.1rem;
   text-align: center;
-  width: 150px;
 
-  @media (min-width: 640px) {
-    font-size: 10.5px;
+  @media (min-width: 320px) {
+    font-size: 10px;
+    width: 130px;
+    padding: 0;
   }
 
-  @media (min-width: 1536px) {
-    font-size: 12.5px;
+  @media (min-width: 1280px) {
+    font-size: 10px;
+    font-weight: 600;
+    width: 120px;
+    height: 20px;
+    padding: 0.1rem;
   }
 }
 
 .vector {
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid $red-color;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid $red-color;
   height: 0;
   margin-left: 0.5rem;
   width: 0;

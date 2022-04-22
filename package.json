@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.5.0",
+    "@material-ui/core": "^4.12.4",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -19,7 +20,9 @@
     "i18next": "^21.6.14",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.0",
+    "multiselect-react-dropdown": "^2.0.21",
     "react": "^17.0.0",
+    "react-country-flag": "^3.0.2",
     "react-currency-input-field": "^3.6.4",
     "react-dom": "^17.0.0",
     "react-i18next": "^11.16.2",
@@ -27,7 +30,6 @@
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
-    "react-select": "^5.2.2",
     "react-webcam": "^7.0.1",
     "sass": "^1.49.11",
     "typescript": "~4.1.5"

@@ -1,19 +1,39 @@
 {
     "data": {
-        "name": "Nombre",
-        "email": "Correo electrónico",
-        "phone": "Celular",
+        "name": {
+            "placeholder": "Nombre",
+            "label": "Nombre completo:"
+        },
+        "email": {
+            "placeholder": "Correo electrónico",
+            "label": "Email:"
+        },
+        "birth": {
+            "placeholder": "dd/mm/aaaa",
+            "label": "Fecha de nacimiento"
+        },
+        "phone": {
+            "placeholder": "Teléfono",
+            "label": "Teléfono:"
+        },
         "idiom": {
-            "label": "Elija su nivel de inglés",
-            "placeholder": "Nivel de inglés"
+            "placeholder": "Nivel de inglés",
+            "label": "Nivel de inglés"
         },
         "nation": {
-            "label": "Elija su país",
-            "placeholder": "País"
+            "placeholder": "País",
+            "label": "País"
         },
-        "linkedin": "Linkedin",
-        "portfolio": "Link de portafolio"
+        "linkedin": {
+            "placeholder": "Linkedin link",
+            "label": "Linkedin:"
+        },
+        "portfolio": {
+            "placeholder": "Portfolio link",
+            "label": "Portfolio Link"
+        }
     },
+    "applying": "Usted está postulando a",
     "senior_designer": "Diseñador Senior",
     "thank_you_title": "Su aplicación ha sido enviada!",
     "thank_you_description": {
@@ -28,7 +48,10 @@
         }
     },
     "file_title": "Subir CV",
-    "term_description": "Debe aceptar los términos y condiciones",
+    "term_description": {
+        "line_1": "Debe aceptar los",
+        "line_2": " términos y condiciones"
+    },
     "welcome": "¡Bienvenido!",
     "slider": {
         "description": "Para este proceso tendrás que realizar algunos pasos:"
@@ -36,18 +59,15 @@
     "instructions": {
         "title": "Otras cosas que hay que saber",
         "rules": {
-            "part_1": "Necesitará unos 30 minutos para rellenar esta solicitud",
-            "part_2": {
-                "l1": "Tendrá 2 minutos para grabar sus respuestas y",
-                "l2": "sólo una oportunidad"
-            },
-            "part_3": "Si tiene algún problema y no puede terminar su solicitud, escriba a su reclutador, explique lo sucedido y obtendrá un nuevo formulario de solicitud para rehacerlo"
+            "part_1": "Necesitará unos 10 minutos para rellenar esta solicitud",
+            "part_2": "Tendrá 2 minutos para grabar cada respuesta.",
+            "part_3": "Puedes grabar cada respuesta tantas veces como quieras. Asegúrate de que estás cómodo con el resultado."
         },
         "are_you_ready": "Está listo?",
         "get_started": "Empezemos"
     },
     "info": {
-        "title": "Hola {{name_user}}",
+        "title": "Hola, {{name_user}}",
         "idiom": {
             "label": "Elija su formación académica",
             "placeholder": "Formación académica"
@@ -60,7 +80,7 @@
             "placeholder": "Disponible en..."
         },
         "skill": {
-            "label": "Habilidad según sus conocimientos",
+            "label": "Elija sus habilidades",
             "placeholder": "Habilidades"
         }
     },
@@ -75,7 +95,18 @@
             "line_2": "Sientete cómodo y libre de expresarte como desees.",
             "line_3": "Las preguntas se mostrarán al comienzo de cada vídeo.",
             "line_4": "Comprueba tus vídeos y continúa si estás seguro del resultado"
-        }
+        },
+        "turn_camera": "Enciende la cámara y el audio"
+    },
+    "video-completed": {
+        "title": "¡Su solicitud está completa!",
+        "sub-title": "Asegúrese de que todo es correcto",
+        "studies": "Estudios:",
+        "text-area-title": "¿Por qué le interesa trabajar con FTF?",
+        "skill-title": "Habilidades:",
+        "salary-title": "Expectativa salarial:",
+        "available-title": "Disponible en:",
+        "send": "Enviar y Terminar"
     },
     "404": {
         "line_1": {
@@ -88,20 +119,20 @@
         },
         "home_page": "Página principal"
     },
-    "alert_message": "Este campo es obligatorio.",
+    "alert_message": "Este campo es obligatorio",
     "modal": {
         "title": "¡Advertencia!",
         "message": "Debe completar todos los campos vacíos.",
         "buttons": {
             "cancel": "Cancelar",
-            "ok": "Aceptar"
+            "ok": "Continuar"
         }
     },
     "text_area": {
-        "label": "¿Por qué está interesado en trabajar con nosotros?:"
+        "label": "¿Por qué está interesado en trabajar con nosotros?"
     },
     "back_button": {
-        "name": "Volver"
+        "name": "Regresar"
     },
     "submit_button": {
         "name": "Siguiente"

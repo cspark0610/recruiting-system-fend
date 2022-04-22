@@ -1,41 +1,51 @@
-import Select from "react-select";
+import Multiselect from "multiselect-react-dropdown";
+import { useEffect } from "react";
+import { RiArrowDropDownLine } from "react-icons/ri";
 import Alert from "../extras/Alert";
-import Skills from "./../../assets/json/Skills.json";
+import "./../../assets/scss/MultiSelect.scss";
 
-interface MultipleValues {
-  value: number;
-  label: string;
+interface OptionValues {
+  id: number;
+  name: string;
 }
 
 interface Props {
-  data?: MultipleValues[];
-  id: string;
-  placeholder: string;
-  setValue: any;
-  showAlert: any;
-  value: any;
+  data: OptionValues[];
+  display?: string;
+  showAlert?: any;
   width: string;
+  value?: any;
+  setValue?: any;
 }
 
 const MultipleSelect: React.FC<Props> = (props) => {
-  /*  */
-  const onChange = (value: any) => {
-    props.setValue(value);
-  };
-
   return (
-    <div className={`${props.width} w-full md:w-1/2 p-3 mt-auto mb-3`}>
+    <div className={`${props.width} p-3 mt-auto`}>
       <div className="relative">
+        <div className="laptop:hidden mobile:block tablet:hidden">
+          <label
+            htmlFor="Skills"
+            className="font-raleway font-light text-sm text-gray-color ml-2"
+          >
+            Skills:
+          </label>
+        </div>
         {props.showAlert && <Alert />}
-        <Select
-          closeMenuOnSelect={false}
-          id={props.id}
-          isMulti
-          placeholder={props.placeholder}
-          options={Skills}
-          onChange={onChange}
-          value={props.value}
+        <Multiselect
+          options={props.data}
+          placeholder="Skills"
+          hidePlaceholder={true}
+          avoidHighlightFirstOption={true}
+          displayValue="name"
         />
+        <span
+          className={`mobile:${props.display} laptop:hidden ml-3 absolute inset-y-7 right-0 items-center pr-2 pointer-events-none`}
+        >
+          <RiArrowDropDownLine
+            className="h-8 w-8 text-gray-color"
+            aria-hidden="true"
+          />
+        </span>
       </div>
     </div>
   );

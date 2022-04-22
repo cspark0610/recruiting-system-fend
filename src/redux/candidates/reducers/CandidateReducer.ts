@@ -24,7 +24,7 @@ const initialState: InitialState = {
     available: '',
     skills: [''],
     description: '',
-    video: '',
+    video: ''
   },
   userId: null,
   loading: false,
