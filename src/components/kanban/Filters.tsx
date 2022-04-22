@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   CleanFilters,
@@ -15,6 +15,7 @@ export default function Filters() {
   const cleanFilters = useSelector((state: State) => state.info.cleanFilters);
   const jobs = useSelector((state: State) => state.job.jobs);
 
+  // adds a checked property to each job object
   let jobsWithChecked = jobs.map((job) => {
     return { ...job, checked: false };
   });
@@ -24,6 +25,9 @@ export default function Filters() {
 
   const [showPositionFilter, setShowPositionFilter] = useState<boolean>(false);
   const [showStatusFilter, setShowStatusFilter] = useState<boolean>(false);
+
+  const wraperRef = useRef<HTMLDivElement>(null);
+  useOutsideAlerter(wraperRef);
 
   if (cleanFilters) {
     setPosition([]);
@@ -66,17 +70,39 @@ export default function Filters() {
   };
 
   const handleActionDispatch = () => {
+    if (position.length === 0 && secondary_status.length === 0) return; // if no filters selected, no action is dispatched
+
     dispatch(GetCandidatesFiltered(position, secondary_status, undefined));
     setShowPositionFilter(false);
     setShowStatusFilter(false);
   };
+
+  function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowPositionFilter(false);
+          setShowStatusFilter(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   useEffect(() => {
     dispatch(GetAllJobs());
   }, [dispatch]);
 
   return (
-    <div className="space-x-4 mt-2">
+    <div ref={wraperRef} className="space-x-4 mt-2">
       <span className="mt-2">Positions</span>
       <button
         onClick={() => setShowPositionFilter(!showPositionFilter)}
@@ -99,10 +125,10 @@ export default function Filters() {
                 key={job._id}
                 className="flex justify-between border-b pb-2 w-48"
               >
-                <label htmlFor={job.title.toLowerCase()}>{job.title}</label>
+                <label htmlFor={job._id}>{job.title}</label>
                 <input
                   type="checkbox"
-                  className="mt-2 ml-2"
+                  className="mt-2 ml-2 hover:cursor-pointer"
                   name={job.title}
                   id={job._id}
                   checked={position.indexOf(job.title) !== -1 ? true : false}
@@ -113,7 +139,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-black hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply
@@ -147,11 +173,13 @@ export default function Filters() {
                   <div
                     className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
                   ></div>
-                  <p className="ml-3">{status.displayName}</p>
+                  <label htmlFor={status.id.toString()} className="ml-3">
+                    {status.displayName}
+                  </label>
                 </div>
                 <input
                   type="checkbox"
-                  className="mt-2 ml-2"
+                  className="mt-2 ml-2 hover:cursor-pointer"
                   name={status.displayName}
                   id={status.id.toString()}
                   checked={
@@ -164,7 +192,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-black hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply
