@@ -1,7 +1,8 @@
+import { ActionTypes } from './actionNames';
 import { IJob } from './data';
 
 export type GetAllJobsAction = {
-  type: 'GET_ALL_JOBS';
+  type: ActionTypes.GET_ALL_JOBS;
   payload: IJob[];
 };
 

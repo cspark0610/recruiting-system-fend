@@ -1,4 +1,5 @@
 export type IJob = {
+  _id?: string;
   title: string;
   designated?: Array<string>;
   client_name: string;

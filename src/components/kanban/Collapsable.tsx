@@ -1,7 +1,11 @@
 type CollapsableProps = {
   info: {
     main_text: string;
-    status_info: string[];
+    status_info: {
+      id: number;
+      text: string;
+      color: string;
+    }[];
   };
 };
 
@@ -10,13 +14,15 @@ export default function Collapsable({ info }: CollapsableProps) {
     <div className="flex flex-col items-center justify-center">
       <p className="text-center text-sm">{info.main_text}</p>
       <div className="pt-2">
-        {info.status_info.map((status, index) => (
-          <div key={index} className="flex text-xs pb-2 pl-2">
+        {info.status_info.map((status) => (
+          <div key={status.id} className="flex text-xs pb-2 pl-2">
             <div>
-              <div className="list-bullet bullet-new"></div>
+              <div
+                className={`mt-[0.1rem] w-3 h-3 rounded-xl ${status.color}`}
+              ></div>
             </div>
             <div className="w-full">
-              <p className="ml-2">{status}</p>
+              <p className="ml-2">{status.text}</p>
             </div>
           </div>
         ))}

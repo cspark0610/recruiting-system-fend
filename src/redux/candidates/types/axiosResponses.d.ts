@@ -2,22 +2,12 @@ import { ICandidate } from './data';
 
 export type GetCandidatesResponse = {
   status: number;
-  allCandidates: {
-    interested: ICandidate[];
-    applying: ICandidate[];
-    meeting: ICandidate[];
-    chosen: ICandidate[];
-  };
+  allCandidates: ICandidate[];
 };
 
 export type GetCandidatesFilteredResponse = {
   status: number;
-  candidatesFiltered: {
-    interested: ICandidate[];
-    applying: ICandidate[];
-    meeting: ICandidate[];
-    chosen: ICandidate[];
-  };
+  candidatesFiltered: ICandidate[];
 };
 
 export type GetCandidateDetail = {

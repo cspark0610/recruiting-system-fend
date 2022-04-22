@@ -17,18 +17,17 @@ import { InitialState } from '../types/states';
 import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
-  candidates: {
-    interested: [],
-    applying: [],
-    meeting: [],
-    chosen: [],
-  },
+  candidates: [],
   userId: null,
   loading: false,
   error: {
     status: 400,
     message: '',
   },
+  positionFilterLength: 0,
+  statusFilterLength: 0,
+  cleanFilters: false,
+  cleanSearch: false,
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -75,6 +74,20 @@ function CandidateReducer(state = initialState, action: Action) {
           status: 400,
           message: '',
         },
+      };
+    }
+
+    case ActionTypes.CLEAN_FILTERS: {
+      return {
+        ...state,
+        cleanFilters: !state.cleanFilters,
+      };
+    }
+
+    case ActionTypes.CLEAN_SEARCH: {
+      return {
+        ...state,
+        cleanSearch: !state.cleanSearch,
       };
     }
 

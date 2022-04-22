@@ -1,10 +1,17 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction';
+import { useState, Dispatch } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  GetCandidatesFiltered,
+  CleanSearch,
+} from '../../redux/candidates/actions/CandidateAction';
+import { State } from '../../redux/store/store';
 
 export default function Search() {
   const [query, setQuery] = useState<string>('');
+
   const dispatch = useDispatch();
+
+  const cleanSearch = useSelector((state: State) => state.info.cleanSearch);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -13,8 +20,12 @@ export default function Search() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(GetCandidatesFiltered(undefined, undefined, query));
-    setQuery('');
   };
+
+  if (cleanSearch) {
+    setQuery('');
+    dispatch(CleanSearch());
+  }
 
   return (
     <div className="inline-block pt-1">

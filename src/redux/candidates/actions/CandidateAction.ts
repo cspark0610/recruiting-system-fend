@@ -127,6 +127,22 @@ export function CleanErrors() {
   };
 }
 
+export function CleanFilters() {
+  return function (dispatch: Dispatch) {
+    return dispatch({
+      type: ActionTypes.CLEAN_FILTERS,
+    });
+  };
+}
+
+export function CleanSearch() {
+  return function (dispatch: Dispatch) {
+    return dispatch({
+      type: ActionTypes.CLEAN_SEARCH,
+    });
+  };
+}
+
 const AddCandidateLoad = (status: boolean) => ({
   type: ADD_CANDIDATE,
   payload: status,

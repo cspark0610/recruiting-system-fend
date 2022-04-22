@@ -10,18 +10,21 @@ import {
   ApplyingInfo,
   MeetingInfo,
   ChosenInfo,
-} from '../../../../config/kanban/columnInfo';
+} from '../../../../config/kanban/columnGuideInfo';
+import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
 
 export default function CandidateStatus() {
   const dispatch = useDispatch();
-  const candidates = useSelector((state: State) => state.info.candidates);
+  let candidates = useSelector((state: State) => state.info.candidates);
+
+  candidates = getCandidatesByColumn(candidates);
 
   useEffect(() => {
     dispatch(GetAllCandidates());
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="bg-white">
       <Navbar userName="Juan" />
       <KanbanOptions />
       <div className="flex justify-center pt-8">

@@ -5,6 +5,8 @@ import { HiPlusCircle } from 'react-icons/hi';
 import {
   GetAllCandidates,
   CleanErrors,
+  CleanFilters,
+  CleanSearch,
 } from '../../redux/candidates/actions/CandidateAction';
 import Filters from './Filters';
 import Search from './Search';
@@ -13,19 +15,18 @@ export default function KanbanOptions() {
   const dispatch = useDispatch();
 
   const [showSearch, setShowSearch] = useState<boolean>(false);
-  const [cleanFilters, setCleanFilters] = useState<boolean>(false);
 
   const handleCleanFilters = () => {
-    setCleanFilters(true);
     dispatch(CleanErrors());
+    dispatch(CleanFilters());
+    dispatch(CleanSearch());
     dispatch(GetAllCandidates());
-    setCleanFilters(false);
   };
 
   return (
     <div className="flex justify-between pb-2 ml-32 w-[80rem] border-b-2">
       <div className="flex space-x-4">
-        <Filters cleanFilters={cleanFilters} />
+        <Filters />
         <label
           htmlFor="query"
           className="mt-[0.75rem] hover:cursor-pointer"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AiOutlineDown } from 'react-icons/ai';
-import { IColumnInfo } from '../../config/kanban/columnInfo';
+import { IColumnInfo } from '../../config/kanban/columnGuideInfo';
 import { ICandidate } from '../../redux/candidates/types/data';
 import { State } from '../../redux/store/store';
 import Collapsable from './Collapsable';
@@ -32,7 +32,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
         <div
           className={
             isOpen
-              ? 'transform translate-y-52 transition ease-in-out duration-500 absolute top-10 bg-gray-200 h-[40rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
+              ? 'transform translate-y-52 transition ease-in-out duration-500 absolute top-10 bg-gray-200 h-[42rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
               : 'absolute top-12 bg-gray-200 h-[42rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
           }
         >

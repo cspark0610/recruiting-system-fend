@@ -22,24 +22,4 @@
   .card-aproved {
     @apply border-green-500;
   }
-
-  .list-bullet {
-    @apply mt-[0.1rem] w-3 h-3 rounded-xl
-  }
-
-  .bullet-new {
-    @apply bg-slate-600
-  }
-
-  .bullet-dismissed {
-    @apply bg-red-500
-  }
-
-  .bullet-doubting {
-    @apply bg-orange-400
-  }
-
-  .bullet-aproved {
-    @apply bg-green-500
-  }
 }

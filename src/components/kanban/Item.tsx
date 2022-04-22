@@ -8,9 +8,9 @@ type ItemProps = {
 };
 
 export default function Item({ name, job, secondary_status }: ItemProps) {
-  const color = getItemBorderColor(secondary_status);
+  const card = getItemBorderColor(secondary_status);
   return (
-    <article className={color}>
+    <article className={card}>
       <div className="ml-4">
         <p className="font-medium text-lg">{name}</p>
         <p className="font-light">{job}</p>
