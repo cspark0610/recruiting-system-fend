@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface NavbarProps {
@@ -5,11 +6,23 @@ interface NavbarProps {
 }
 
 export default function Navbar({ userName }: NavbarProps) {
+  const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+
   return (
     <header className="absolute top-0 left-0 w-screen">
       <nav className="flex flex-row text-white items-center justify-evenly p-4 bg-slate-600">
-        <div>
-          <button className="font-medium">Hello {userName}</button>
+        <div className="relative">
+          <button
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+            className="font-medium"
+          >
+            Hello {userName}
+          </button>
+          {showProfileMenu ? (
+            <div className="absolute w-52 bg-white mt-2 rounded-md shadow-lg">
+              <button className="text-black px-3 py-2">My Profile</button>
+            </div>
+          ) : null}
         </div>
         <div className="flex text-lg text-white mr-16 font-light">
           <ul className="divide-x divide-solid">
