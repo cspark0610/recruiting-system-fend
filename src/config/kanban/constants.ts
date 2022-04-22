@@ -19,7 +19,7 @@ const secondaryStatus: SecondaryStatus = [
     displayName: 'Doubting',
     value: 'doubting',
     checked: false,
-    color: 'bg-orange-400',
+    color: 'bg-[#FBBC41]',
   },
   {
     id: 3,

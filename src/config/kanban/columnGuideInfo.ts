@@ -19,7 +19,7 @@ export const InterestedInfo: IColumnInfo = {
     {
       text: 'Candidate is in doubt to continue',
       id: 2,
-      color: 'bg-orange-400',
+      color: 'bg-[#FBBC41]',
     },
     {
       text: 'Candidate is dismissed to continue',
@@ -41,7 +41,7 @@ export const ApplyingInfo: IColumnInfo = {
     {
       text: 'Candidate needs to be evaluated',
       id: 2,
-      color: 'bg-orange-400',
+      color: 'bg-[#FBBC41]',
     },
     {
       text: 'Candidate is dismissed to continue',
@@ -63,7 +63,7 @@ export const MeetingInfo: IColumnInfo = {
     {
       text: 'Recruiter had the meeting and is in doubt to continue the process with a candidate',
       id: 2,
-      color: 'bg-orange-400',
+      color: 'bg-[#FBBC41]',
     },
     {
       text: 'Recruiter had the meeting and the candidate is dismissed to continue',
@@ -90,7 +90,7 @@ export const ChosenInfo: IColumnInfo = {
     {
       text: 'CEO had the meeting and is in doubt to continue the process with a candidate',
       id: 3,
-      color: 'bg-orange-400',
+      color: 'bg-[#FBBC41]',
     },
     {
       text: 'CEO had the meeting and the candidate is dismissed to continue',
