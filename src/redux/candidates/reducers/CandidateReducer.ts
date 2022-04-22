@@ -18,16 +18,23 @@ import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
+  user: {
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: '',
+  },
   userId: null,
   loading: false,
   error: {
     status: 400,
     message: '',
   },
-  positionFilterLength: 0,
-  statusFilterLength: 0,
   cleanFilters: false,
   cleanSearch: false,
+  appliedFilters: false,
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -88,6 +95,13 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         cleanSearch: !state.cleanSearch,
+      };
+    }
+
+    case ActionTypes.SET_APPLIED_FILTERS: {
+      return {
+        ...state,
+        appliedFilters: !state.appliedFilters,
       };
     }
 
