@@ -15,6 +15,10 @@ export default function Filters() {
   const cleanFilters = useSelector((state: State) => state.info.cleanFilters);
   const jobs = useSelector((state: State) => state.job.jobs);
 
+  let jobsWithChecked = jobs.map((job) => {
+    return { ...job, checked: false };
+  });
+
   const [position, setPosition] = useState<Array<string>>([]);
   const [secondary_status, setSecondaryStatus] = useState<Array<string>>([]);
 
@@ -45,6 +49,22 @@ export default function Filters() {
     }
   };
 
+  const handleAllPositionsCheck = (e: any) => {
+    const jobsChecked = jobsWithChecked.map((job) => {
+      job.checked = !e.target.checked;
+      return job;
+    });
+    setPosition(jobsChecked.map((job) => job.title));
+  };
+
+  const handleAllStatusCheck = (e: any) => {
+    const statusChecked = secondaryStatus.map((status) => {
+      status.checked = !e.target.checked;
+      return status;
+    });
+    setSecondaryStatus(statusChecked.map((status) => status.value));
+  };
+
   const handleActionDispatch = () => {
     dispatch(GetCandidatesFiltered(position, secondary_status, undefined));
     setShowPositionFilter(false);
@@ -68,7 +88,10 @@ export default function Filters() {
       {showPositionFilter ? (
         <div className="absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md">
           <div className="flex flex-col px-4 pt-4 space-y-4">
-            <button className="flex justify-end text-sm text-cyan-500">
+            <button
+              onClick={handleAllPositionsCheck}
+              className="flex justify-end text-sm text-cyan-500"
+            >
               Select All
             </button>
             {jobs.map((job) => (
@@ -76,10 +99,13 @@ export default function Filters() {
                 key={job._id}
                 className="flex justify-between border-b pb-2 w-48"
               >
-                <p>{job.title}</p>
+                <label htmlFor={job.title.toLowerCase()}>{job.title}</label>
                 <input
                   type="checkbox"
                   className="mt-2 ml-2"
+                  name={job.title}
+                  id={job._id}
+                  checked={position.indexOf(job.title) !== -1 ? true : false}
                   value={job.title}
                   onChange={handlePositionCheck}
                 />
@@ -106,7 +132,10 @@ export default function Filters() {
       {showStatusFilter ? (
         <div className="absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md">
           <div className="flex flex-col px-4 pt-4 space-y-4">
-            <button className="flex justify-end text-sm text-cyan-500">
+            <button
+              className="flex justify-end text-sm text-cyan-500"
+              onClick={handleAllStatusCheck}
+            >
               Select All
             </button>
             {secondaryStatus.map((status) => (
@@ -123,6 +152,11 @@ export default function Filters() {
                 <input
                   type="checkbox"
                   className="mt-2 ml-2"
+                  name={status.displayName}
+                  id={status.id.toString()}
+                  checked={
+                    secondary_status.indexOf(status.value) !== -1 ? true : false
+                  }
                   value={status.value}
                   onChange={handleStatusCheck}
                 />
@@ -131,11 +165,7 @@ export default function Filters() {
           </div>
           <button
             className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-black hover:text-white"
-            onClick={() =>
-              dispatch(
-                GetCandidatesFiltered(position, secondary_status, undefined),
-              )
-            }
+            onClick={handleActionDispatch}
           >
             Apply
           </button>
