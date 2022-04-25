@@ -5,11 +5,10 @@ import {
   VIEW_404,
   VIEW_BEFORE_STARTING,
   VIEW_DETAILS,
-  VIEW_USER_DIALOG,
+  VIEW_DIALOG,
   VIEW_HOME,
   VIEW_HOME_THANKS,
   VIEW_INSTRUCTIONS,
-  VIEW_KANBAN,
   VIEW_REQUIRED_STEPS,
   VIEW_VIDEO_COMPLETED,
   VIEW_WELCOME,
@@ -25,11 +24,9 @@ import NotFound from '../../views/error/NotFound';
 import Details from '../../views/second_link/Details';
 import VideoStart from '../../views/second_link/VideoStart';
 import VideoCompleted from '../../views/second_link/VideoCompleted';
-import UserView from '../../components/dialog/UserView';
-import CandidateStatus from '../../views/admin/dashboard/CandidateStatus/CandidateStatus';
-import Navbar from '../../components/navbar/kanban/Navbar';
+import UserView from '../../views/admin/UserView';
 
-const AppRoute = () => {
+const PublicRoutes = () => {
   /*  */
   const { t } = useTranslation();
 
@@ -66,14 +63,12 @@ const AppRoute = () => {
           }
         />
         {/* Company dashboard */}
-        <Route path="/admin" element={<Navbar userName="Juan" />} />
-        <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
         <Route path={VIEW_404} element={<NotFound />} />
         {/* User view */}
-        <Route path={VIEW_USER_DIALOG} element={<UserView />} />
+        <Route path={VIEW_DIALOG} element={<UserView />} />
       </Routes>
     </>
   );
 };
 
-export default AppRoute;
+export default PublicRoutes;

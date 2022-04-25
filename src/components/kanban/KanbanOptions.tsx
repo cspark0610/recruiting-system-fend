@@ -24,7 +24,7 @@ export default function KanbanOptions() {
   };
 
   return (
-    <div className="flex justify-between pb-2 ml-32 w-[80rem] border-b-2">
+    <div className="flex justify-between pb-2 mt-36 ml-48 w-[80rem] border-b-2">
       <div className="flex space-x-4">
         <Filters />
         <label
