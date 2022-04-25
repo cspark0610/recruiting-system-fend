@@ -3,7 +3,6 @@ import AdminRoutes from './config/routes/AdminRoutes';
 
 const App = () => {
   const currentUrl = window.location.pathname.split('/');
-  console.log(currentUrl);
 
   return (
     <div
