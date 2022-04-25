@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import "./../../assets/scss/Alert.scss";
+import './../../assets/scss/alert.scss';
 
 const Alert = () => {
   /*  */
@@ -22,7 +22,7 @@ const Alert = () => {
       {isDisplay && (
         <>
           <div className="tooltip" data-tooltip="tooltip-test">
-            <p>{t("alert_message")}</p>
+            <p>{t('alert_message')}</p>
           </div>
           <div className="vector"></div>
         </>

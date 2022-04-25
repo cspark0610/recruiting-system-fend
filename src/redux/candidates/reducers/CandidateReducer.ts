@@ -10,63 +10,104 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 
-const initialState = {
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
+
+const initialState: InitialState = {
+  candidates: [],
   user: {
-    college: "",
-    salary: "",
-    available: "",
-    skill: [""],
-    description: "",
-    video: "",
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: ''
   },
   userId: null,
-  loading: null,
-  error: null,
+  loading: false,
+  error: {
+    status: 400,
+    message: '',
+  },
+  cleanFilters: false,
+  cleanSearch: false,
+  appliedFilters: false,
 };
 
-function CandidateReducer(state = initialState, action: any) {
+function CandidateReducer(state = initialState, action: Action) {
   switch (action.type) {
-    case ADD_CANDIDATE:
-    case GET_DATA:
-    case DATA_EDIT:
+    case ActionTypes.GET_CANDIDATES: {
       return {
         ...state,
-        loading: action.payload,
+        candidates: action.payload,
       };
-    case ADD_CANDIDATE_SUCCESS:
+    }
+
+    case ActionTypes.GET_CANDIDATES_FILTERED: {
+      return {
+        ...state,
+        candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_IS_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_LOADING: {
       return {
         ...state,
         loading: false,
-        user: action.payload,
       };
-    case ADD_CANDIDATE_ERROR:
-    case GET_DATA_ERROR:
-    case DATA_EDIT_ERROR:
+    }
+
+    case ActionTypes.SET_ERROR: {
       return {
         ...state,
-        loading: false,
         error: action.payload,
       };
-    case GET_ID:
+    }
+
+    case ActionTypes.CLEAN_ERROR: {
       return {
         ...state,
-        userId: action.payload,
+        error: {
+          status: 400,
+          message: '',
+        },
       };
-    case GET_DATA_SUCCESS:
+    }
+
+    case ActionTypes.CLEAN_FILTERS: {
       return {
         ...state,
-        user: action.payload,
+        cleanFilters: !state.cleanFilters,
       };
-    case GET_DATA_EDIT:
+    }
+
+    case ActionTypes.CLEAN_SEARCH: {
       return {
         ...state,
-        loading: false,
-        user: action.payload,
+        cleanSearch: !state.cleanSearch,
       };
-    default:
+    }
+
+    case ActionTypes.SET_APPLIED_FILTERS: {
+      return {
+        ...state,
+        appliedFilters: !state.appliedFilters,
+      };
+    }
+
+    default: {
       return state;
+    }
   }
 }
 
