@@ -16,6 +16,7 @@ import { VIEW_REQUIRED_STEPS } from "../../config/routes/paths";
 
 import { useTranslation } from "react-i18next";
 import { BsPlay } from "react-icons/bs";
+import VideoPlayer from "../../components/recorder/player/VideoPlayer";
 
 const VideoCompleted = () => {
   /*  */
@@ -58,7 +59,7 @@ const VideoCompleted = () => {
               </span>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.studies")} {user.salary}
+                {t("video-completed.studies")} {user.college.name}
                 <button
                   type="submit"
                   onClick={() => {
@@ -72,17 +73,19 @@ const VideoCompleted = () => {
               <h2 className="font-raleway font-normal mobile:text-xs laptop:text-sm text-font-color mb-2">
                 {t("video-completed.text-area-title")}
               </h2>
-              <div className="bg-light-color rounded-2xl px-2 py-1 h-32">
+              <div className="relative bg-light-color rounded-2xl px-2 py-1 h-32">
                 <p className="text-gray-color font-raleway font-light text-sm p-2 text-justify">
                   {user.description}
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      redirectEdition(user);
-                    }}
-                  >
-                    <RiEdit2Fill className="cursor-pointer" />
-                  </button>
+                  <span className="absolute bottom-[10px] right-[20px]">
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        redirectEdition(user);
+                      }}
+                    >
+                      <RiEdit2Fill className="cursor-pointer" />
+                    </button>
+                  </span>
                 </p>
               </div>
               <hr className="w-ful my-5" />
@@ -90,13 +93,19 @@ const VideoCompleted = () => {
                 {t("video-completed.skill-title")}{" "}
               </p>
               <div className="grid grid-cols-2 gap-2 mt-2">
-                <span className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36">
-                  {user.skill.name}
-                </span>
+                {user.skill.map((ability: { id: number; name: string }) => (
+                  <span
+                    key={ability.id}
+                    className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36"
+                  >
+                    {ability.name}
+                  </span>
+                ))}
               </div>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.salary-title")} {user.salary}
+                {t("video-completed.salary-title")} {user.currency.name}{" "}
+                {user.salary}
                 <button
                   type="submit"
                   onClick={() => {
@@ -122,15 +131,9 @@ const VideoCompleted = () => {
             <div className="w-4/5">
               <div>
                 {/* <video id="video-done" playsInline loop></video> */}
-                {/* <div className="relative bg-light-color border-light-color rounded-2xl laptop:w-[400px] laptop:h-[320px]">
-                  <div className="absolute top-[145px] left-[115px]">
-                    <span className="font-raleway text-gray-color text-xs">
-                      <BsPlay className="laptop:w-[41px] laptop:h-[45px] text-white" />
-                    </span>
-                  </div>
-                </div> */}
+                <VideoPlayer />
               </div>
-              <div className="flex justify-center mt-10">
+              <div className="grid justify-items-center w-[400px] mt-[39px]">
                 <Submit
                   name={t("video-completed.send")}
                   width="laptop:w-[163px] laptop:h-[59px]"

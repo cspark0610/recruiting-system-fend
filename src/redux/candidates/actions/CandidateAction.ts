@@ -1,16 +1,3 @@
-import { Dispatch } from 'redux';
-import axios from 'axios';
-
-import { ActionTypes } from '../types/index';
-import {
-  GetCandidatesFilteredResponse,
-  GetCandidatesResponse,
-} from '../types/axiosResponses';
-import {
-  GetCandidatesAction,
-  GetCandidatesFilteredAction,
-} from '../types/dispatchActions';
-
 import {
   ADD_CANDIDATE,
   ADD_CANDIDATE_SUCCESS,
@@ -23,86 +10,11 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from './../types';
+} from "./../types";
+
 import { POST_CANDIDATE } from "../../../config/routes/endpoints";
-import ClientAxios from '../../../config/api/axios';
 
-const PROD_URL =
-  'https://fulltimeforce-video-interview.herokuapp.com/candidate';
-
-const DEV_URL = 'http://localhost:3001/candidate';
-
-const ENV = 'development';
-
-export function GetAllCandidates() {
-  return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
-
-    try {
-      const { data } = await axios.get<GetCandidatesResponse>(
-        ENV === 'development' ? DEV_URL : PROD_URL,
-      );
-
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-
-      return dispatch<GetCandidatesAction>({
-        type: ActionTypes.GET_CANDIDATES,
-        payload: data.allCandidates,
-      });
-    } catch (error) {
-      if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch({
-          type: ActionTypes.SET_ERROR,
-          payload: error.response.data,
-        });
-      }
-    }
-  };
-}
-
-export function GetCandidatesFiltered(
-  position?: string[],
-  secondary_status?: string[],
-  query?: string,
-) {
-  return async function (dispatch: Dispatch) {
-    const requestBody = JSON.stringify({
-      position,
-      secondary_status,
-      query,
-    });
-
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
-
-    try {
-      const { data } = await axios.post<GetCandidatesFilteredResponse>(
-        'http://localhost:3001/candidate/filter',
-        requestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-
-      return dispatch<GetCandidatesFilteredAction>({
-        type: ActionTypes.GET_CANDIDATES_FILTERED,
-        payload: data.candidatesFiltered,
-      });
-    } catch (error) {
-      if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch({
-          type: ActionTypes.SET_ERROR,
-          payload: error.response.data,
-        });
-      }
-    }
-  };
-}
+import ClientAxios from "../../../config/api/axios";
 
 export function AddCandidate(user: any) {
   return async (dispatch: any) => {
@@ -117,30 +29,6 @@ export function AddCandidate(user: any) {
     } catch (error) {
       dispatch(AddCandidateError(true));
     }
-  };
-}
-
-export function CleanErrors() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.CLEAN_ERROR,
-    });
-  };
-}
-
-export function CleanFilters() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.CLEAN_FILTERS,
-    });
-  };
-}
-
-export function CleanSearch() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.CLEAN_SEARCH,
-    });
   };
 }
 
@@ -170,7 +58,7 @@ export function GetData(id: number) {
   return async (dispatch: any) => {
     dispatch(GetDataLoad(true));
     try {
-      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`); ///candidates/${id}
+      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`);
       dispatch(GetDataSuccess(response.data));
     } catch (error) {
       dispatch(GetDataError(true));
@@ -206,12 +94,12 @@ const GetDataEdit = (user: any) => ({
 });
 
 /* FUNCTION TO SAVE EDIT */
-export function DataSaveEdit(user: any) {
+export function DataSaveEdit(user: any, id: number) {
   return async (dispatch: any) => {
     dispatch(DataEditLoad(true));
 
     try {
-      ClientAxios.put(`${POST_CANDIDATE}/${user.id}`, user); ///candidates/${user.id}
+      ClientAxios.put(`${POST_CANDIDATE}/${id}`, user);
       dispatch(DataEditSuccess(user));
     } catch (error) {
       dispatch(DataEditError(true));
@@ -225,11 +113,11 @@ const DataEditLoad = (status: boolean) => ({
 });
 
 const DataEditSuccess = (user: any) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_SUCCESS,
   payload: user,
 });
 
 const DataEditError = (status: boolean) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_ERROR,
   payload: status,
 });

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import questions from "./../../assets/json/Questions.json";
 import "./../../assets/scss/CircleBar.scss";
 
 interface Props {
@@ -5,68 +7,41 @@ interface Props {
 }
 
 const QskInterview: React.FC<Props> = ({ classes }) => {
+  /*  */
+  const [style, setStyle] = useState("");
+  const [seconds, setseconds] = useState(0);
+
+  /* useEffect(() => {
+    const interval = setInterval(() => {
+      document
+        .querySelector(`.item-${seconds - 1}`)
+        ?.classList.remove("active");
+      document.querySelector(`.item-${seconds}`)?.classList.add("active");
+      setseconds((seconds) => seconds + 1);
+      if (seconds === 5) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds]); */
+
+  /* console.log("seconds:", seconds); */
+
   return (
-    <div className={`${classes} progress-bar`}>
-      <div className="step flex flex-row items-center">
-        <div className="circle active-circle">
-          <span>1</span>
+    <div className={`${classes} progress-bar mobile:mx-5 laptop:mx-0`}>
+      {questions.map((question, idex) => (
+        <div
+          key={question.id}
+          className={`${style} step flex flex-row items-center item-${idex}`}
+        >
+          <div className="circle">
+            <span>{question.id}</span>
+          </div>
+          <div>
+            <span>{question.question}</span>
+          </div>
         </div>
-        <div>
-          <span className="text-gray-color">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
-      <div className="step flex flex-row items-center">
-        <div className="circle">
-          <span>2</span>
-        </div>
-        <div>
-          <span className="text-gray-color/40">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
-      <div className="step flex flex-row items-center">
-        <div className="circle">
-          <span>3</span>
-        </div>
-        <div>
-          <span className="text-gray-color/40">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
-      <div className="step flex flex-row items-center">
-        <div className="circle">
-          <span>4</span>
-        </div>
-        <div>
-          <span className="text-gray-color/40">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
-      <div className="step flex flex-row items-center">
-        <div className="circle">
-          <span>5</span>
-        </div>
-        <div>
-          <span className="text-gray-color/40">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
-      <div className="step flex flex-row items-center">
-        <div className="circle">
-          <span>6</span>
-        </div>
-        <div>
-          <span className="text-gray-color/40">
-            Lorem Ipsum is simply dummy text of the printing and typesetting.
-          </span>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

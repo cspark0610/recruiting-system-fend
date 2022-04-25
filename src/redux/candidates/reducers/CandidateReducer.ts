@@ -10,104 +10,74 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from './../types';
+} from "./../types";
 
-import { ActionTypes } from '../types/index';
-import { InitialState } from '../types/states';
-import { Action } from '../types/dispatchActions';
-
-const initialState: InitialState = {
-  candidates: [],
+const initialState = {
   user: {
-    college: '',
-    salary: '',
-    available: '',
-    skills: [''],
-    description: '',
-    video: ''
+    college: "",
+    currency: "",
+    salary: "",
+    available: "",
+    skill: [],
+    description: "",
+    video: "",
   },
   userId: null,
-  loading: false,
-  error: {
-    status: 400,
-    message: '',
-  },
-  cleanFilters: false,
-  cleanSearch: false,
-  appliedFilters: false,
+  isToEdit: null,
+  loading: null,
+  error: null,
 };
 
-function CandidateReducer(state = initialState, action: Action) {
+function CandidateReducer(state = initialState, action: any) {
   switch (action.type) {
-    case ActionTypes.GET_CANDIDATES: {
+    case ADD_CANDIDATE:
+    case GET_DATA:
+    case DATA_EDIT:
       return {
         ...state,
-        candidates: action.payload,
+        loading: action.payload,
       };
-    }
-
-    case ActionTypes.GET_CANDIDATES_FILTERED: {
-      return {
-        ...state,
-        candidates: action.payload,
-      };
-    }
-
-    case ActionTypes.SET_IS_LOADING: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-
-    case ActionTypes.SET_IS_NOT_LOADING: {
+    case ADD_CANDIDATE_SUCCESS:
       return {
         ...state,
         loading: false,
+        user: action.payload,
       };
-    }
-
-    case ActionTypes.SET_ERROR: {
+    case ADD_CANDIDATE_ERROR:
+    case GET_DATA_ERROR:
+    case DATA_EDIT_ERROR:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
-    }
-
-    case ActionTypes.CLEAN_ERROR: {
+    case GET_ID:
       return {
         ...state,
-        error: {
-          status: 400,
-          message: '',
-        },
+        userId: action.payload,
       };
-    }
-
-    case ActionTypes.CLEAN_FILTERS: {
+    case GET_DATA_SUCCESS:
       return {
         ...state,
-        cleanFilters: !state.cleanFilters,
+        loading: false,
+        user: action.payload,
       };
-    }
-
-    case ActionTypes.CLEAN_SEARCH: {
+    case GET_DATA_EDIT:
       return {
         ...state,
-        cleanSearch: !state.cleanSearch,
+        loading: false,
+        isToEdit: true,
+        user: action.payload,
       };
-    }
-
-    case ActionTypes.SET_APPLIED_FILTERS: {
+    case DATA_EDIT_SUCCESS:
       return {
         ...state,
-        appliedFilters: !state.appliedFilters,
+        loading: false,
+        isToEdit: false,
+        user: action.payload,
       };
-    }
-
-    default: {
+    default:
       return state;
-    }
   }
 }
 

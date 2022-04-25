@@ -1,5 +1,4 @@
 import Multiselect from "multiselect-react-dropdown";
-import { useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Alert from "../extras/Alert";
 import "./../../assets/scss/MultiSelect.scss";
@@ -14,11 +13,20 @@ interface Props {
   display?: string;
   showAlert?: any;
   width: string;
-  value?: any;
-  setValue?: any;
+  value: any;
+  setValue: any;
 }
 
 const MultipleSelect: React.FC<Props> = (props) => {
+  /*  */
+  const onSelection = (selectedList: any) => {
+    props.setValue(selectedList);
+  };
+
+  const onRemoving = (selectedList: any) => {
+    props.setValue(selectedList);
+  };
+
   return (
     <div className={`${props.width} p-3 mt-auto`}>
       <div className="relative">
@@ -36,6 +44,9 @@ const MultipleSelect: React.FC<Props> = (props) => {
           placeholder="Skills"
           hidePlaceholder={true}
           avoidHighlightFirstOption={true}
+          onSelect={onSelection}
+          onRemove={onRemoving}
+          selectedValues={props.value}
           displayValue="name"
         />
         <span

@@ -2,7 +2,7 @@ import {
   ADD_CONCLUSION,
   ADD_CONCLUSION_SUCCESS,
   ADD_CONCLUSION_ERROR,
-  GET_ID,
+  GET_ID_CONCLUSION,
   GET_CONCLUSION,
   GET_CONCLUSION_SUCCESS,
   GET_CONCLUSION_ERROR,
@@ -41,7 +41,7 @@ function ConclusionReducer(state = initialState, action: any) {
         loading: false,
         error: action.payload,
       };
-    case GET_ID:
+    case GET_ID_CONCLUSION:
       return {
         ...state,
         id: action.payload,

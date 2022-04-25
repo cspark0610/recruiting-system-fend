@@ -4,10 +4,12 @@ import Lang from "../../components/extras/Lang";
 import Header from "../../components/header/Header";
 import CameraOn from "../../components/recorder/CameraOn";
 import { VIEW_BEFORE_STARTING } from "../../config/routes/paths";
+import { UseCamera } from "../../hooks/useCamera";
 
 const Details = () => {
   /*  */
   const { t } = useTranslation();
+  const { isCameraOn, init } = UseCamera();
 
   return (
     <>
@@ -19,7 +21,7 @@ const Details = () => {
       <div className="grid justify-items-center laptop:w-full mobile:w-full tablet:w-full">
         <section className="grid justify-items-center content-center mobile:gap-10 laptop:gap-20 mobile:grid-rows-1 tablet:grid-cols-2 laptop:grid-cols-2 md:px-5 mt-10">
           <div>
-            <CameraOn />
+            <CameraOn isCameraOn={isCameraOn} init={init} />
           </div>
           <div className="bg-white">
             <h2 className="font-raleway font-semibold text-cyan-color mobile:text-lg laptop:text-[22px]">

@@ -64,7 +64,7 @@
             "part_3": "Puedes grabar cada respuesta tantas veces como quieras. Asegúrate de que estás cómodo con el resultado."
         },
         "are_you_ready": "Está listo?",
-        "get_started": "Empezemos"
+        "get_started": "Empecemos"
     },
     "info": {
         "title": "Hola, {{name_user}}",

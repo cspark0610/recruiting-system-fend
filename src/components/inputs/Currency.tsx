@@ -1,6 +1,7 @@
 import CurrencyInput from "react-currency-input-field";
 import { useTranslation } from "react-i18next";
 import Alert from "../extras/Alert";
+import SelectCoin from "./SelectCoin";
 
 interface Props {
   id: string;
@@ -11,6 +12,9 @@ interface Props {
   showAlert: any;
   value: string;
   width: string;
+  data: any;
+  coin: any;
+  setCoin: any;
 }
 
 const Currency: React.FC<Props> = ({
@@ -22,6 +26,9 @@ const Currency: React.FC<Props> = ({
   showAlert,
   setValue,
   value,
+  data,
+  coin,
+  setCoin,
 }) => {
   /*  */
   const { t } = useTranslation();
@@ -52,12 +59,18 @@ const Currency: React.FC<Props> = ({
             showAlert
               ? "bg-white border-red-color border"
               : "bg-light-color border-light-color"
-          } ${value && "border-cyan-color bg-light-blue"}
-          focus:outline-none focus:bg-white block appearance-none laptop:rounded-2xl mobile:rounded-[10px] py-3 px-4 min-w-full laptop:w-[287px] laptop:h-[54px] mobile:w-[161px] mobile:h-[35px] leading-tight mobile:text-xs laptop:text-[15px] desktop:text-base font-raleway font-light text-gray-color focus:border-cyan-color border focus:shadow-cyan-color/50 focus:shadow-sm placeholder:text-gray-color placeholder:font-raleway`}
-          prefix={currency_value}
+          } ${value && "!border-cyan-color bg-light-blue"}
+          focus:outline-none focus:bg-white block appearance-none laptop:rounded-2xl mobile:rounded-[10px] py-3 pl-[70px] pr-4 min-w-full laptop:w-[287px] laptop:h-[54px] mobile:w-[161px] mobile:h-[35px] leading-tight mobile:text-xs laptop:text-[15px] desktop:text-base font-raleway font-light text-gray-color focus:border-cyan-color border focus:shadow-cyan-color/50 focus:shadow-sm placeholder:text-gray-color placeholder:font-raleway`}
+          prefix=""
           step={10}
           value={value}
           onChange={onChange}
+        />
+        <SelectCoin
+          data={data}
+          value={coin}
+          setValue={setCoin}
+          placeholder="U$D"
         />
       </div>
     </div>

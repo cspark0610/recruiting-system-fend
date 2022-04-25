@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -21,12 +21,14 @@ import English from "../../assets/json/Language.json";
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
 import { AddUser } from "./../../redux/users/actions/UserAction";
+import { UseFile } from "../../hooks/useFile";
 
 const FrmApply = () => {
   /*  */
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { file, setFile, upload, setUpload, onChange } = UseFile();
 
   /* Regular Expressions */
   const RegExp = {
@@ -52,7 +54,6 @@ const FrmApply = () => {
   const [nation, setNation] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [portfolio, setPortfolio] = useState("");
-  const resume = useRef<HTMLInputElement | null>(null);
   const [terms, setTerms] = useState(false);
 
   /* Values which will be validated */
@@ -97,7 +98,7 @@ const FrmApply = () => {
         nation,
         linkedin,
         portfolio,
-        resume,
+        file,
         terms,
       });
       navigate(VIEW_HOME_THANKS);
@@ -205,7 +206,13 @@ const FrmApply = () => {
             value={portfolio}
             width="laptop:w-1/2 tablet:w-1/2 mobile:w-full"
           />
-          <File />
+          <File
+            value={file}
+            setValue={setFile}
+            upload={upload}
+            setUpload={setUpload}
+            onChange={onChange}
+          />
           <Checkbox
             id="terms"
             classes="place-items-center"

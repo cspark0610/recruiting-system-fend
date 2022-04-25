@@ -10,12 +10,13 @@ import TextArea from "../inputs/TextArea";
 import Currency from "../inputs/Currency";
 
 /* Paths */
-import { VIEW_DETAILS } from "../../config/routes/paths";
+import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";
 
 /* Json files */
 import Training from "../../assets/json/College.json";
 import Available from "../../assets/json/Available.json";
 import Skills from "../../assets/json/Skills.json";
+import Coins from "../../assets/json/Coin.json";
 
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
@@ -41,34 +42,40 @@ const FrmData = () => {
     training: Training,
     time: Available,
     skills: Skills,
+    coins: Coins,
   });
 
-  const { skills, training, time } = optionValues;
+  const { skills, training, time, coins } = optionValues;
 
   const DataToEdit = useSelector((state: any) => state.info.user);
+  const toEdit = useSelector((state: any) => state.info.isToEdit);
+  const userID = useSelector((state: any) => state.info.userId);
 
   /* States from the component */
   let [college, setCollege] = useState(DataToEdit.college);
+  let [currency, setCurrency] = useState(DataToEdit.currency);
   let [salary, setSalary] = useState(DataToEdit.salary);
   let [available, setAvailable] = useState(DataToEdit.available);
-  //let [skill, setSkill] = useState(DataToEdit.skill);
-  let [skill, setSkill] = useState<string[]>();
+  let [skill, setSkill] = useState(DataToEdit.skill);
   let [description, setDescription] = useState(DataToEdit.description);
 
   /* Values which will be validated */
   const [isCollegeValid, setIsCollegeValid] = useState(false);
+  const [isCurrencyValid, setIsCurrencyValid] = useState(false);
   const [isSalaryValid, setIsSalaryValid] = useState(false);
   const [isSkillValid, setIsSkillValid] = useState(false);
 
   /*  */
   const AddNewCandidate = (user: any) => dispatch(AddCandidate(user));
+  const EditDataCandidate = (user: any) => dispatch(DataSaveEdit(user, userID));
   const loading = useSelector((state: any) => state.info.loading);
 
   /* Function to store validation */
   const isFormValid = () => {
     college === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
+    currency === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
     salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
-    //skill === [""] ? setIsSkillValid(true) : setIsSkillValid(false);
+    skill.length === 0 ? setIsSkillValid(true) : setIsSkillValid(false);
   };
 
   /* OnSubmit */
@@ -77,11 +84,12 @@ const FrmData = () => {
 
     isFormValid();
 
-    if (!college || !salary) {
+    if (!college || !currency || !salary || skill.length === 0) {
       return;
     } else {
       AddNewCandidate({
         college,
+        currency,
         salary,
         available,
         skill,
@@ -89,6 +97,30 @@ const FrmData = () => {
       });
       navigate(VIEW_DETAILS);
     }
+  };
+
+  const handleEditClick = (evt: any) => {
+    evt.preventDefault();
+
+    isFormValid();
+
+    if (!salary || skill.length === 0) {
+      return;
+    } else {
+      EditDataCandidate({
+        college,
+        currency,
+        salary,
+        available,
+        skill,
+        description,
+      });
+      navigate(VIEW_VIDEO_COMPLETED);
+    }
+  };
+
+  const handleCancelClick = () => {
+    navigate(VIEW_VIDEO_COMPLETED);
   };
 
   const name_user = "Sebastian Montenegro Abad";
@@ -120,6 +152,9 @@ const FrmData = () => {
             setValue={setSalary}
             showAlert={isSalaryValid}
             value={salary}
+            data={coins}
+            coin={currency}
+            setCoin={setCurrency}
             width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/2"
           />
           <SingleSelect
@@ -137,6 +172,8 @@ const FrmData = () => {
             data={skills}
             display="flex"
             showAlert={isSkillValid}
+            value={skill}
+            setValue={setSkill}
             width="laptop:w-full mobile:w-full tablet:w-1/2"
           />
           <TextArea
@@ -145,11 +182,26 @@ const FrmData = () => {
             value={description}
           />
         </div>
-        <Submit
-          name={t("submit_button.name")}
-          width="w-full tablet:w-28"
-          onSubmit={onSubmit}
-        />
+        {!toEdit ? (
+          <Submit
+            name={t("submit_button.name")}
+            width="w-full tablet:w-28"
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <div className="flex justify-center">
+            <Submit
+              name="Cancel"
+              width="w-full tablet:w-28 mx-2 bg-transparent text-cyan-color border-cyan-color border hover:bg-transparent shadow-none"
+              onSubmit={handleCancelClick}
+            />
+            <Submit
+              name="Save"
+              width="w-full tablet:w-28 mx-2"
+              onSubmit={handleEditClick}
+            />
+          </div>
+        )}
       </section>
       {loading && <Loading />}
     </section>

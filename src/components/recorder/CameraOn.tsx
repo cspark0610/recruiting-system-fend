@@ -4,32 +4,13 @@ import Webcam from "react-webcam";
 
 interface Props {
   webcamRef?: any;
+  isCameraOn: boolean;
+  init: any;
 }
 
-const CameraOn: React.FC<Props> = ({ webcamRef }) => {
+const CameraOn: React.FC<Props> = ({ webcamRef, isCameraOn, init }) => {
   /*  */
   const { t } = useTranslation();
-  const [isCameraOn, setIsCameraOn] = useState(false);
-
-  function handleSuccess(stream: any) {
-    window.MediaStream = stream;
-
-    if (stream.active) {
-      setIsCameraOn(true);
-    } else {
-      setIsCameraOn(false);
-    }
-  }
-
-  /*  */
-  async function init(constraints: any) {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      handleSuccess(stream);
-    } catch (error) {
-      console.error("Navigator.getUserMedia error: ", error);
-    }
-  }
 
   /*  */
   useEffect(() => {
@@ -54,7 +35,7 @@ const CameraOn: React.FC<Props> = ({ webcamRef }) => {
       } relative`}
     >
       <div className="z-10">
-        <Webcam audio={false} ref={webcamRef} height={320} width={400} />
+        <Webcam audio={true} ref={webcamRef} height={320} width={400} />
       </div>
       <div
         className={`${

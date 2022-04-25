@@ -1,33 +1,30 @@
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import './../../assets/scss/alert.scss';
+import "./../../assets/scss/Alert.scss";
 
 const Alert = () => {
   /*  */
   const { t } = useTranslation();
-  const [isDisplay, setIsDisplay] = useState(false);
+  const [isDisplay, setIsDisplay] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsDisplay(true);
-      setTimeout(() => {
-        setIsDisplay(false);
-      }, 4000);
-    }, 10);
+      setIsDisplay(false);
+    }, 3500);
   }, []);
 
   return (
-    <div className="container-tooltip">
+    <>
       {isDisplay && (
-        <>
+        <div className="container-tooltip">
           <div className="tooltip" data-tooltip="tooltip-test">
-            <p>{t('alert_message')}</p>
+            <p>{t("alert_message")}</p>
           </div>
           <div className="vector"></div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

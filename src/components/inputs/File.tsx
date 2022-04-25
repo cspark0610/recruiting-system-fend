@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiUpload } from "react-icons/fi";
 import { AiOutlineFileDone } from "react-icons/ai";
 
-const File = () => {
+interface Props {
+  value: any;
+  setValue: any;
+  upload: any;
+  setUpload: any;
+  onChange: any;
+}
+
+const File: React.FC<Props> = ({
+  value,
+  setValue,
+  upload,
+  setUpload,
+  onChange,
+}) => {
   /*  */
   const { t } = useTranslation();
-  const [file, setFile] = useState<any>({ selectedFile: null });
-  const [upload, setUpload] = useState(false);
-
-  const onChange = (evt: any) => {
-    setFile({ selectedFile: evt.target.files[0] });
-  };
-
-  useEffect(() => {
-    const formData = new FormData();
-    formData.append("resume file", file.selectedFile);
-    if (!file.selectedFile) {
-      setUpload(false);
-      return;
-    } else {
-      setUpload(true);
-    }
-  }, [file]);
 
   return (
     <div className="grid place-items-center min-w-full laptop:w-[892px] laptop:h-[54px] mobile:w-[335px] mobile:h-[54px] tablet:w-[770px] tablet:h-[54px] mobile:mt-4 px-3 tablet:mt-10 laptop:mt-4">
@@ -37,7 +33,7 @@ const File = () => {
         ) : (
           <div className="flex flex-row items-center justify-center text-green-color mobile:text-xs laptop:text-[15px]">
             <AiOutlineFileDone className="h-6 w-6" /> &nbsp;{" "}
-            {file.selectedFile.name}
+            {value.selectedFile}
           </div>
         )}
       </label>

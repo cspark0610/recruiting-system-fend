@@ -6,7 +6,7 @@ interface Props {
 
 const Resume: React.FC<Props> = ({ onClick }) => {
   return (
-    <div className="mt-5 font-raleway">
+    <div className="mt-5 font-raleway mobile:grid mobile:justify-items-center laptop:flex laptop:items-start">
       <button
         className="cursor-pointer rounded-2xl bg-white text-cyan-color font-bold text-sm py-3 px-7 laptop:w-[145px] laptop:h-[54px] shadow-lg border border-cyan-color mt-5"
         onClick={onClick}

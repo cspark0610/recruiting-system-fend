@@ -6,7 +6,7 @@ Workart project - FullTimeForce
 
 ## You have to follow next steps to run this project:
 
-1. git clone https://github.com/OliverFulltimeforce/WorkAt.git
+1. git clone https://github.com/CesarHR-FTF/workat.git
 2. Run: `npm install` once you've cloned this project
 3. Install: `npm install -g json-server` once you've cloned this project
 4. Run: `npm start` once the installation has completed

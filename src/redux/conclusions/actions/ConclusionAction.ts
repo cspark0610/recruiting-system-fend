@@ -2,7 +2,7 @@ import {
   ADD_CONCLUSION,
   ADD_CONCLUSION_SUCCESS,
   ADD_CONCLUSION_ERROR,
-  GET_ID,
+  GET_ID_CONCLUSION,
   GET_CONCLUSION,
   GET_CONCLUSION_SUCCESS,
   GET_CONCLUSION_ERROR,
@@ -44,7 +44,7 @@ const AddConclusionError = (status: boolean) => ({
 
 /* HELPER TO GET ID */
 const GetID = (id: number) => ({
-  type: GET_ID,
+  type: GET_ID_CONCLUSION,
   payload: id,
 });
 

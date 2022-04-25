@@ -34,7 +34,19 @@
   transform: translateX(-50%);
 }
 
-.active-circle {
-  background-color: $cyan-color;
-  box-shadow: 0px 0px 12px $cyan-color;
+.active {
+  .circle {
+    background-color: $cyan-color;
+    box-shadow: 0px 0px 12px $cyan-color;
+  }
+  color: $gray-color;
+  font-size: 16px;
+}
+
+.inactive {
+  .inactive-circle {
+    background-color: $cyan-color;
+  }
+  color: rgb(71 85 100 / 0.4);
+  font-size: 15px;
 }

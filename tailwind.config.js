@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -17,7 +17,7 @@ module.exports = {
         "white-color": "#D1D2D2",
       },
       fontFamily: {
-        raleway: ['Raleway', 'sans-serif'],
+        raleway: ["Raleway", "sans-serif"],
       },
       backgroundImage: {
         cloud: "url(https://bit.ly/background-cloud-ftf)",
