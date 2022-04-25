@@ -33,7 +33,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
           className={
             isOpen
               ? 'transform translate-y-52 transition ease-in-out duration-500 absolute top-10 bg-[#F0F0F4] h-[42rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
-              : 'absolute top-12 bg-[#F0F0F4] h-[42rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
+              : 'transition ease-out duration-300 absolute top-12 bg-[#F0F0F4] h-[42rem] w-80 rounded-lg pt-4 pb-4 space-y-1 overflow-y-auto overflow-x-hidden scroll-smooth'
           }
         >
           {isLoading ? (
