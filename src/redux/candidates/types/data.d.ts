@@ -1,4 +1,4 @@
-import { IJob, IQuestion } from '../../jobs/types/data';
+import { IPosition, IQuestion } from '../../positions/types/data';
 
 export type IConclusions = {
   conclusions: {
@@ -30,7 +30,7 @@ export type ICandidate = {
   conclusions?: IConclusions;
   main_status?: string;
   secondary_status?: string;
-  job: IJob;
+  position: IPosition;
   designated_recruiters?: Array<string>;
   video_recording_url?: IVideoRecordingUrl;
   videos_question_list?: Array<IQuestion>;

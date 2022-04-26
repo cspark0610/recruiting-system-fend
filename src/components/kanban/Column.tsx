@@ -70,7 +70,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
                   <Item
                     key={item._id}
                     name={item.name}
-                    job={item.job.title}
+                    position={item.position.title}
                     secondary_status={item.secondary_status!}
                   />
                 ))
