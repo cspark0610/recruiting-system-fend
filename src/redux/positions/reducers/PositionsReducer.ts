@@ -3,15 +3,15 @@ import { ActionTypes } from '../types/actionNames';
 import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
-  jobs: [],
+  positions: [],
 };
 
-const JobReducer = (state = initialState, action: Action) => {
+const PositionsReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case ActionTypes.GET_ALL_JOBS: {
+    case ActionTypes.GET_ALL_POSITIONS: {
       return {
         ...state,
-        jobs: action.payload,
+        positions: action.payload,
       };
     }
 
@@ -21,4 +21,4 @@ const JobReducer = (state = initialState, action: Action) => {
   }
 };
 
-export default JobReducer;
+export default PositionsReducer;

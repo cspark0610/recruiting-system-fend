@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import axios from 'axios';
 
 import { ActionTypes } from '../types/index';
 import {
@@ -25,7 +24,8 @@ import {
   DATA_EDIT_ERROR,
 } from './../types';
 import {
-  CANDIDATE_BASE_URL,
+  GET_ALL_CANDIDATES,
+  GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
@@ -35,8 +35,8 @@ export function GetAllCandidates() {
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-      const { data } = await axios.get<GetCandidatesResponse>(
-        CANDIDATE_BASE_URL,
+      const { data } = await ClientAxios.get<GetCandidatesResponse>(
+        GET_ALL_CANDIDATES,
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -72,8 +72,8 @@ export function GetCandidatesFiltered(
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-      const { data } = await axios.post<GetCandidatesFilteredResponse>(
-        `${CANDIDATE_BASE_URL}/filter`,
+      const { data } = await ClientAxios.post<GetCandidatesFilteredResponse>(
+        GET_ALL_CANDIDATES_FILTERED,
         requestBody,
         {
           headers: {

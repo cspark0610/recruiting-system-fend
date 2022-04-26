@@ -4,7 +4,7 @@ import {
   CleanFilters,
   GetCandidatesFiltered,
 } from '../../redux/candidates/actions/CandidateAction';
-import GetAllJobs from '../../redux/jobs/actions/JobActions';
+import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import { AiOutlineDown } from 'react-icons/ai';
 import { State } from '../../redux/store/store';
 import secondaryStatus from '../../config/kanban/constants';
@@ -13,11 +13,11 @@ export default function Filters() {
   const dispatch = useDispatch();
 
   const cleanFilters = useSelector((state: State) => state.info.cleanFilters);
-  const jobs = useSelector((state: State) => state.job.jobs);
+  const positions = useSelector((state: State) => state.positions.positions);
 
   // adds a checked property to each job object
-  let jobsWithChecked = jobs.map((job) => {
-    return { ...job, checked: false };
+  let positionsWithCheck = positions.map((pos) => {
+    return { ...pos, checked: false };
   });
 
   const [position, setPosition] = useState<Array<string>>([]);
@@ -54,11 +54,11 @@ export default function Filters() {
   };
 
   const handleAllPositionsCheck = (e: any) => {
-    const jobsChecked = jobsWithChecked.map((job) => {
-      job.checked = !e.target.checked;
-      return job;
+    const positionsChecked = positionsWithCheck.map((pos) => {
+      pos.checked = !e.target.checked;
+      return pos;
     });
-    setPosition(jobsChecked.map((job) => job.title));
+    setPosition(positionsChecked.map((pos) => pos.title));
   };
 
   const handleAllStatusCheck = (e: any) => {
@@ -98,7 +98,7 @@ export default function Filters() {
   }
 
   useEffect(() => {
-    dispatch(GetAllJobs());
+    dispatch(GetAllPositions());
   }, [dispatch]);
 
   return (
@@ -120,19 +120,19 @@ export default function Filters() {
             >
               Select All
             </button>
-            {jobs.map((job) => (
+            {positions.map((pos) => (
               <div
-                key={job._id}
+                key={pos._id}
                 className="flex justify-between border-b pb-2 w-48"
               >
-                <label htmlFor={job._id}>{job.title}</label>
+                <label htmlFor={pos._id}>{pos.title}</label>
                 <input
                   type="checkbox"
                   className="mt-2 ml-2 hover:cursor-pointer"
-                  name={job.title}
-                  id={job._id}
-                  checked={position.indexOf(job.title) !== -1 ? true : false}
-                  value={job.title}
+                  name={pos.title}
+                  id={pos._id}
+                  checked={position.indexOf(pos.title) !== -1 ? true : false}
+                  value={pos.title}
                   onChange={handlePositionCheck}
                 />
               </div>

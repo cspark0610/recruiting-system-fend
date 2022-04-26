@@ -5,9 +5,11 @@ import Navbar from '../../components/kanban/Navbar';
 
 export default function AdminRoutes() {
   return (
-    <Routes>
-      <Route path="/admin" element={<Navbar userName="Juan" />} />
-      <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
-    </Routes>
+    <>
+      <Navbar userName="Juan" />
+      <Routes>
+        <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
+      </Routes>
+    </>
   );
 }

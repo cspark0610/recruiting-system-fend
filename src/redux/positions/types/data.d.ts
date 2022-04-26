@@ -1,4 +1,4 @@
-export type IJob = {
+export type IPosition = {
   _id?: string;
   title: string;
   designated?: Array<string>;
