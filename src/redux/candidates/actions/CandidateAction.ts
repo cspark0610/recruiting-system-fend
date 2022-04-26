@@ -73,7 +73,7 @@ export function GetCandidatesFiltered(
 
     try {
       const { data } = await axios.post<GetCandidatesFilteredResponse>(
-        `${CANDIDATE_BASE_URL}/filtered`,
+        `${CANDIDATE_BASE_URL}/filter`,
         requestBody,
         {
           headers: {
