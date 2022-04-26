@@ -1,0 +1,24 @@
+.card {
+  padding-top: 0.5rem;
+  margin-left: 1rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  border-top: 13px solid;
+  width: 18rem
+}
+
+.card-new {
+  border-top-color: #475564;
+}
+
+.card-doubting {
+  border-top-color: #FBBC41;
+}
+
+.card-dismissed {
+  border-top-color: #F84D44;
+}
+
+.card-aproved {
+  border-top-color: #35C549;
+}

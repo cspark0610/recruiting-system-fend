@@ -12,7 +12,7 @@ const secondaryStatus: SecondaryStatus = [
     displayName: 'Dismissed',
     value: 'dismissed',
     checked: false,
-    color: 'bg-red-500',
+    color: 'bg-[#F84D44]',
   },
   {
     id: 2,
@@ -26,14 +26,14 @@ const secondaryStatus: SecondaryStatus = [
     displayName: 'Aproved',
     value: 'aproved',
     checked: false,
-    color: 'bg-green-500',
+    color: 'bg-[#35C549]',
   },
   {
     id: 4,
     displayName: 'New Entry',
     value: 'new entry',
     checked: false,
-    color: 'bg-slate-600',
+    color: 'bg-[#475564]',
   },
 ];
 export default secondaryStatus;

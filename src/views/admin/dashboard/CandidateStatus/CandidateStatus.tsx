@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../../redux/store/store';
 import { GetAllCandidates } from '../../../../redux/candidates/actions/CandidateAction';
 import Column from '../../../../components/kanban/Column';
-import Navbar from '../../../../components/navbar/kanban/Navbar';
+import Navbar from '../../../../components/kanban/Navbar';
 import KanbanOptions from '../../../../components/kanban/KanbanOptions';
 import {
   InterestedInfo,

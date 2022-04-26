@@ -14,7 +14,7 @@ export const InterestedInfo: IColumnInfo = {
     {
       text: 'Candidate needs to be evaluated',
       id: 1,
-      color: 'bg-slate-600',
+      color: 'bg-[#475564]',
     },
     {
       text: 'Candidate is in doubt to continue',
@@ -24,7 +24,7 @@ export const InterestedInfo: IColumnInfo = {
     {
       text: 'Candidate is dismissed to continue',
       id: 3,
-      color: 'bg-red-500',
+      color: 'bg-[#F84D44]',
     },
   ],
 };
@@ -36,7 +36,7 @@ export const ApplyingInfo: IColumnInfo = {
     {
       text: 'Candidate is completing the application',
       id: 1,
-      color: 'bg-slate-600',
+      color: 'bg-[#475564]',
     },
     {
       text: 'Candidate needs to be evaluated',
@@ -46,7 +46,7 @@ export const ApplyingInfo: IColumnInfo = {
     {
       text: 'Candidate is dismissed to continue',
       id: 3,
-      color: 'bg-red-500',
+      color: 'bg-[#F84D44]',
     },
   ],
 };
@@ -58,7 +58,7 @@ export const MeetingInfo: IColumnInfo = {
     {
       text: 'Recruiter has to arrange the meeting with the candidate',
       id: 1,
-      color: 'bg-slate-600',
+      color: 'bg-[#475564]',
     },
     {
       text: 'Recruiter had the meeting and is in doubt to continue the process with a candidate',
@@ -68,7 +68,7 @@ export const MeetingInfo: IColumnInfo = {
     {
       text: 'Recruiter had the meeting and the candidate is dismissed to continue',
       id: 3,
-      color: 'bg-red-500',
+      color: 'bg-[#F84D44]',
     },
   ],
 };
@@ -80,12 +80,12 @@ export const ChosenInfo: IColumnInfo = {
     {
       text: 'CEO has to arrange a meeting with the candidate',
       id: 1,
-      color: 'bg-slate-600',
+      color: 'bg-[#475564]',
     },
     {
       text: 'CEO had the meeting and has aproved the candidate',
       id: 2,
-      color: 'bg-green-500',
+      color: 'bg-[#35C549]',
     },
     {
       text: 'CEO had the meeting and is in doubt to continue the process with a candidate',
@@ -95,7 +95,7 @@ export const ChosenInfo: IColumnInfo = {
     {
       text: 'CEO had the meeting and the candidate is dismissed to continue',
       id: 4,
-      color: 'bg-red-500',
+      color: 'bg-[#F84D44]',
     },
   ],
 };

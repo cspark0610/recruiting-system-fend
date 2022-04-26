@@ -1,5 +1,6 @@
 import { FiClock } from 'react-icons/fi';
 import getItemBorderColor from '../../utils/getItemBorderColor';
+import '../../assets/scss/Card.scss';
 
 type ItemProps = {
   name: string;
