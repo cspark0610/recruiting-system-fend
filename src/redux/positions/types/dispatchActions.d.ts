@@ -1,9 +1,9 @@
 import { ActionTypes } from './actionNames';
-import { IJob } from './data';
+import { IPosition } from './data';
 
 export type GetAllPositionsAction = {
   type: ActionTypes.GET_ALL_POSITIONS;
-  payload: IJob[];
+  payload: IPosition[];
 };
 
 export type Action = GetAllPositionsAction;

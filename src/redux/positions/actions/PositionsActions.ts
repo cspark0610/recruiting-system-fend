@@ -14,7 +14,7 @@ export default function getAllPositions() {
 
       return dispatch<GetAllPositionsAction>({
         type: ActionTypes.GET_ALL_POSITIONS,
-        payload: data.jobs,
+        payload: data.positions,
       });
     } catch (error) {
       console.log(error);
