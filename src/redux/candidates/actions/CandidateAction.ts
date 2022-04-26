@@ -24,15 +24,11 @@ import {
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
 } from './../types';
-import { POST_CANDIDATE } from '../../../config/routes/endpoints';
+import {
+  CANDIDATE_BASE_URL,
+  POST_CANDIDATE,
+} from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
-
-const PROD_URL =
-  'https://fulltimeforce-video-interview.herokuapp.com/candidate';
-
-const DEV_URL = 'http://localhost:3001/candidate';
-
-const ENV = 'development';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -40,7 +36,7 @@ export function GetAllCandidates() {
 
     try {
       const { data } = await axios.get<GetCandidatesResponse>(
-        ENV === 'development' ? DEV_URL : PROD_URL,
+        CANDIDATE_BASE_URL,
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -77,7 +73,7 @@ export function GetCandidatesFiltered(
 
     try {
       const { data } = await axios.post<GetCandidatesFilteredResponse>(
-        'http://localhost:3001/candidate/filter',
+        `${CANDIDATE_BASE_URL}/filtered`,
         requestBody,
         {
           headers: {
