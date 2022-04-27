@@ -6,19 +6,12 @@ import UserView from "../../views/admin/UserView";
 
 export default function AdminRoutes() {
   return (
-<<<<<<< Updated upstream
     <>
       <Navbar userName="Juan" />
       <Routes>
         <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
+        <Route path={VIEW_USER_DIALOG} element={<UserView />} />
       </Routes>
     </>
-=======
-    <Routes>
-      <Route path="/admin" element={<Navbar userName="Juan" />} />
-      <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
-      <Route path={VIEW_USER_DIALOG} element={<UserView />} />
-    </Routes>
->>>>>>> Stashed changes
   );
 }

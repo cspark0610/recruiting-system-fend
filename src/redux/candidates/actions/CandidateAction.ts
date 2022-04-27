@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-import { Dispatch } from 'redux';
-=======
 import { Dispatch } from "redux";
-import axios from "axios";
->>>>>>> Stashed changes
 
 import { ActionTypes } from "../types/index";
 import {
@@ -32,27 +27,17 @@ import {
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
-<<<<<<< Updated upstream
-} from '../../../config/routes/endpoints';
-import ClientAxios from '../../../config/api/axios';
-import { ICandidate } from '../types/data';
-=======
 } from "../../../config/routes/endpoints";
 import ClientAxios from "../../../config/api/axios";
->>>>>>> Stashed changes
+import { ICandidate } from "../types/data";
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-<<<<<<< Updated upstream
       const { data } = await ClientAxios.get<GetCandidatesResponse>(
-        GET_ALL_CANDIDATES,
-=======
-      const { data } = await axios.get<GetCandidatesResponse>(
-        CANDIDATE_BASE_URL
->>>>>>> Stashed changes
+        GET_ALL_CANDIDATES
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -76,13 +61,9 @@ export function GetAllCandidates() {
 export function GetCandidatesFiltered(
   position?: string[],
   secondary_status?: string[],
-<<<<<<< Updated upstream
   query?: string,
   apply_next?: boolean,
-  previousQuery?: ICandidate[],
-=======
-  query?: string
->>>>>>> Stashed changes
+  previousQuery?: ICandidate[]
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
