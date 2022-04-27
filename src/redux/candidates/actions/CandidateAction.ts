@@ -140,6 +140,14 @@ export function CleanSearch() {
   };
 }
 
+export function SetAppliedFilters() {
+  return function (dispatch: Dispatch) {
+    return dispatch({
+      type: ActionTypes.SET_APPLIED_FILTERS,
+    });
+  };
+}
+
 const AddCandidateLoad = (status: boolean) => ({
   type: ADD_CANDIDATE,
   payload: status,
