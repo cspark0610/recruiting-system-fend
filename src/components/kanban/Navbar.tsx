@@ -24,8 +24,8 @@ export default function Navbar({ userName }: NavbarProps) {
             </div>
           ) : null}
         </div>
-        <div className="flex text-lg text-white mr-16 font-light">
-          <ul className="divide-x divide-solid">
+        <div className="text-lg text-white mr-16 font-light">
+          <ul className="flex divide-x divide-solid">
             <button className="px-3 focus:text-cyan-400 focus:underline focus:underline-offset-8">
               Open Positions
             </button>
