@@ -1,4 +1,5 @@
 import Multiselect from "multiselect-react-dropdown";
+import { useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Alert from "../extras/Alert";
 import "./../../assets/scss/MultiSelect.scss";
@@ -27,6 +28,16 @@ const MultipleSelect: React.FC<Props> = (props) => {
     props.setValue(selectedList);
   };
 
+  useEffect(() => {
+    props.data.map(({ id, name }) => {
+      const valueAdvance = name.match(/Advance/g);
+      if (valueAdvance) {
+        document.querySelector(".option")?.classList.add("itemAdvance");
+      }
+      return true;
+    });
+  }, [props.data]);
+
   return (
     <div className={`${props.width} p-3 mt-auto`}>
       <div className="relative">
@@ -50,7 +61,7 @@ const MultipleSelect: React.FC<Props> = (props) => {
           displayValue="name"
         />
         <span
-          className={`mobile:${props.display} laptop:hidden ml-3 absolute inset-y-7 right-0 items-center pr-2 pointer-events-none`}
+          className={`mobile:${props.display} laptop:hidden ml-3 absolute mobile:inset-y-[42px] tablet:inset-y-7 laptop:inset-y-7 right-0 items-center pr-2 pointer-events-none`}
         >
           <RiArrowDropDownLine
             className="h-8 w-8 text-gray-color"

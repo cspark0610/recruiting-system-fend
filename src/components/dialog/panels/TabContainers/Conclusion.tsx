@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 
 /* Redux */
-import { useDispatch } from "react-redux";
-import { AddConclusion } from "../../../../redux/conclusions/actions/ConclusionAction";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AddConclusion,
+  GetConclusion,
+} from "../../../../redux/conclusions/actions/ConclusionAction";
 import ListComments from "../../../extras/ListComments";
 import InputConclusion from "../../../inputs/InputConclusion";
 
@@ -15,6 +18,14 @@ const Conclusion = () => {
   const [negativeComment, setNegativeComment] = useState("");
 
   const AddNewConclusion = (feed: any) => dispatch(AddConclusion(feed));
+
+  useEffect(() => {
+    const LoadComment = () => dispatch(GetConclusion());
+    LoadComment();
+  }, []);
+
+  const comments = useSelector((state: any) => state.feed.feed);
+  const loading = useSelector((state: any) => state.feed.loading);
 
   const onSubmit = () => {
     AddNewConclusion({
@@ -40,7 +51,19 @@ const Conclusion = () => {
               Yes
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[422px] h-[372px]">
-              <ListComments />
+              {comments.length === 0
+                ? ""
+                : !loading &&
+                  comments.map(
+                    (comment: { id: number; positiveComment: string }) => (
+                      <div
+                        key={comment.id}
+                        className="absolute top-5 right-5 z-10"
+                      >
+                        <div>{comment.positiveComment}</div>
+                      </div>
+                    )
+                  )}
               <div className="absolute bottom-4 left-5">
                 <hr className="border-[1px] mb-[6px]" />
                 <div className="flex items-center">

@@ -34,6 +34,7 @@ export function UseCounter() {
 
   const resetTimer = () => {
     setTime({ minute: 0, second: 0 });
+    setProgress(0);
   };
 
   return {

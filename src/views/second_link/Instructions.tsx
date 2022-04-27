@@ -30,9 +30,17 @@ const Instructions = () => {
               <RiCheckboxCircleFill className="text-cyan-color h-[24px] w-[24px] laptop:mr-8 mobile:mr-3" />{" "}
               {t("instructions.rules.part_2")}
             </li>
-            <li className="flex items-center justify-start my-1 p-2">
+            <li className="mobile:hidden tablet:flex laptop:flex items-center justify-start my-1 p-2">
               <RiCheckboxCircleFill className="text-cyan-color h-[24px] w-[24px] laptop:mr-8 mobile:mr-3" />
               {t("instructions.rules.part_3")}
+            </li>
+            <li className="mobile:flex tablet:hidden laptop:hidden items-center justify-start my-1 p-2">
+              <RiCheckboxCircleFill className="text-cyan-color h-[24px] w-[24px] laptop:mr-8 mobile:mr-3" />
+              {t("instructions.rules.extra.l1")}
+            </li>
+            <li className="mobile:flex tablet:hidden laptop:hidden items-center justify-start mt-[-15px] mb-1 p-2">
+              <RiCheckboxCircleFill className="text-white h-[24px] w-[24px] laptop:mr-8 mobile:mr-3" />
+              {t("instructions.rules.extra.l2")}
             </li>
           </ul>
         </section>

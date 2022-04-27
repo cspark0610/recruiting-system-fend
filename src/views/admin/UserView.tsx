@@ -1,9 +1,17 @@
+import { useState } from "react";
 import UserDialog from "../../components/dialog/UserDialog";
-import { useModal } from "../../hooks/useModal";
 
 const UserView = () => {
   /*  */
-  const { isOpen, openDialog } = useModal();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const isOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const isClose = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <>
@@ -13,7 +21,7 @@ const UserView = () => {
       >
         Open
       </button>
-      {openDialog && <UserDialog />}
+      {openDialog && <UserDialog isDialogClose={isClose} />}
     </>
   );
 };

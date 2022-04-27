@@ -1,14 +1,19 @@
+<<<<<<< Updated upstream
 import { Dispatch } from 'redux';
+=======
+import { Dispatch } from "redux";
+import axios from "axios";
+>>>>>>> Stashed changes
 
-import { ActionTypes } from '../types/index';
+import { ActionTypes } from "../types/index";
 import {
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
-} from '../types/axiosResponses';
+} from "../types/axiosResponses";
 import {
   GetCandidatesAction,
   GetCandidatesFilteredAction,
-} from '../types/dispatchActions';
+} from "../types/dispatchActions";
 
 import {
   ADD_CANDIDATE,
@@ -22,22 +27,32 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from './../types';
+} from "./../types";
 import {
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
+<<<<<<< Updated upstream
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
 import { ICandidate } from '../types/data';
+=======
+} from "../../../config/routes/endpoints";
+import ClientAxios from "../../../config/api/axios";
+>>>>>>> Stashed changes
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
+<<<<<<< Updated upstream
       const { data } = await ClientAxios.get<GetCandidatesResponse>(
         GET_ALL_CANDIDATES,
+=======
+      const { data } = await axios.get<GetCandidatesResponse>(
+        CANDIDATE_BASE_URL
+>>>>>>> Stashed changes
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -61,9 +76,13 @@ export function GetAllCandidates() {
 export function GetCandidatesFiltered(
   position?: string[],
   secondary_status?: string[],
+<<<<<<< Updated upstream
   query?: string,
   apply_next?: boolean,
   previousQuery?: ICandidate[],
+=======
+  query?: string
+>>>>>>> Stashed changes
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
@@ -82,9 +101,9 @@ export function GetCandidatesFiltered(
         requestBody,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -215,12 +234,12 @@ const GetDataEdit = (user: any) => ({
 });
 
 /* FUNCTION TO SAVE EDIT */
-export function DataSaveEdit(user: any) {
+export function DataSaveEdit(user: any, id: number) {
   return async (dispatch: any) => {
     dispatch(DataEditLoad(true));
 
     try {
-      ClientAxios.put(`${POST_CANDIDATE}/${user.id}`, user); ///candidates/${user.id}
+      ClientAxios.put(`${POST_CANDIDATE}/${id}`, user);
       dispatch(DataEditSuccess(user));
     } catch (error) {
       dispatch(DataEditError(true));
@@ -234,11 +253,11 @@ const DataEditLoad = (status: boolean) => ({
 });
 
 const DataEditSuccess = (user: any) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_SUCCESS,
   payload: user,
 });
 
 const DataEditError = (status: boolean) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_ERROR,
   payload: status,
 });

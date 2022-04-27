@@ -106,7 +106,7 @@ const FrmApply = () => {
   };
 
   return (
-    <section className="grid justify-items-center mobile:mt-8 laptop:mt-0">
+    <section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
       <span className="font-raleway font-normal text-sm text-gray-color tablet:mt-8 laptop:mt-0">
         {t("applying")}
       </span>

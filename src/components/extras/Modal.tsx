@@ -2,14 +2,16 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { UseStatusUser } from "../../hooks/useStatusUser";
 
 interface Props {
   picture: string;
   title?: string;
   subTitle?: string;
   description: string;
-  isStatusConfirmed: any;
+  value: boolean;
+  setValue: any;
+  isConfirm: any;
+  onClick: any;
 }
 
 const Modal: React.FC<Props> = ({
@@ -17,18 +19,21 @@ const Modal: React.FC<Props> = ({
   title,
   subTitle,
   description,
-  isStatusConfirmed,
+  value,
+  setValue,
+  isConfirm,
+  onClick,
 }) => {
   /*  */
-  const { openModal, setOpenModal } = UseStatusUser();
+  //const [openModal, setOpenModal] = useState(true);
   const { t } = useTranslation();
 
   return (
-    <Transition.Root show={openModal} as={Fragment}>
+    <Transition.Root show={value} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-20 inset-0 overflow-y-auto"
-        onClose={setOpenModal}
+        onClose={setValue}
       >
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
           <Transition.Child
@@ -55,7 +60,7 @@ const Modal: React.FC<Props> = ({
             <div className="relative inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[613px] h-[330px]">
               <button
                 className="absolute top-[10px] right-[20px] focus:outline-none"
-                onClick={() => setOpenModal(false)}
+                onClick={onClick}
               >
                 <IoCloseCircleOutline className="text-gray-color w-[20px] h-[20px]" />
               </button>
@@ -84,7 +89,7 @@ const Modal: React.FC<Props> = ({
                 <button
                   type="button"
                   className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 text-[15px] font-bold text-cyan-color focus:outline-none"
-                  onClick={() => setOpenModal(false)}
+                  onClick={onClick}
                 >
                   {t("modal.buttons.cancel")}
                 </button>
@@ -92,7 +97,7 @@ const Modal: React.FC<Props> = ({
                 <button
                   type="button"
                   className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
-                  onClick={isStatusConfirmed}
+                  onClick={isConfirm}
                 >
                   {t("modal.buttons.ok")}
                 </button>

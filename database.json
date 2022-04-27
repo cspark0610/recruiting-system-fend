@@ -1,5 +1,90 @@
 {
   "users": [],
-  "candidates": [],
-  "feeds": []
+  "candidates": [
+    {
+      "college": {
+        "id": 1,
+        "name": "Bachelor"
+      },
+      "currency": {
+        "id": 2,
+        "name": "USD"
+      },
+      "salary": "930",
+      "available": {
+        "id": 2,
+        "name": "2 weeks"
+      },
+      "skill": [
+        {
+          "id": 10,
+          "name": "Typescript"
+        },
+        {
+          "id": 9,
+          "name": "Oracle PL/SQL"
+        },
+        {
+          "id": 8,
+          "name": "Python"
+        },
+        {
+          "id": 7,
+          "name": "HTML Basics"
+        }
+      ],
+      "description": "I want to work in FTF to apply all my knowledge about web development",
+      "id": 1
+    },
+    {
+      "college": {
+        "id": 4,
+        "name": "No studies"
+      },
+      "currency": {
+        "id": 1,
+        "name": "PEN"
+      },
+      "salary": "120",
+      "available": {
+        "id": 1,
+        "name": "1 week"
+      },
+      "skill": [
+        {
+          "id": 8,
+          "name": "Python"
+        }
+      ],
+      "description": "I just know how to developt in python",
+      "id": 2
+    }
+  ],
+  "feeds": [
+    {
+      "positiveComment": "Cómo estas?",
+      "negativeComment": "",
+      "id": 1
+    },
+    {
+      "positiveComment": "Hola Mundo, Este es la primera prueba",
+      "negativeComment": "",
+      "id": 2
+    },
+    {
+      "positiveComment": "I applied for a technology testing to prove his/her knowledge",
+      "negativeComment": "",
+      "id": 3
+    },
+    {
+      "positiveComment": "Si, Hola",
+      "negativeComment": "",
+      "id": 4
+    },
+    {
+      "positiveComment": "I applied for a technology testing to prove his/her knowledge",
+      "negativeComment": "",
+      "id": 5
+    }
+  ]
 }

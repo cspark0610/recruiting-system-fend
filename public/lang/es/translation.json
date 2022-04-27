@@ -61,7 +61,11 @@
         "rules": {
             "part_1": "Necesitará unos 10 minutos para rellenar esta solicitud",
             "part_2": "Tendrá 2 minutos para grabar cada respuesta.",
-            "part_3": "Puedes grabar cada respuesta tantas veces como quieras. Asegúrate de que estás cómodo con el resultado."
+            "part_3": "Puedes grabar cada respuesta tantas veces como quieras. Asegúrate de que estás cómodo con el resultado.",
+            "extra": {
+                "l1": "Puedes grabar cada respuesta tantas veces como quieras.",
+                "l2": "Asegúrate de que estás cómodo con el resultado."
+            }
         },
         "are_you_ready": "Está listo?",
         "get_started": "Empecemos"
