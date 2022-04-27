@@ -45,8 +45,8 @@ export default function Search() {
 
   return (
     <div className="inline-block pt-1">
-      <form onSubmit={handleSubmit}>
-        <button onClick={handleSubmit}>
+      <form onSubmit={handleSubmit} className="relative space-x-4">
+        <button onClick={handleSubmit} className="absolute top-2">
           <BsSearch />
         </button>
         <input
