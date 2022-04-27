@@ -29,6 +29,7 @@ import {
   POST_CANDIDATE,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
+import { ICandidate } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -61,12 +62,16 @@ export function GetCandidatesFiltered(
   position?: string[],
   secondary_status?: string[],
   query?: string,
+  apply_next?: boolean,
+  previousQuery?: ICandidate[],
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
       position,
       secondary_status,
       query,
+      apply_next,
+      previousQuery,
     });
 
     dispatch({ type: ActionTypes.SET_IS_LOADING });
