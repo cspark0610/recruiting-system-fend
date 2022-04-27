@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
 import { HiPlusCircle } from 'react-icons/hi';
 import {
@@ -7,19 +7,29 @@ import {
   CleanErrors,
   CleanFilters,
   CleanSearch,
+  SetAppliedFilters,
 } from '../../redux/candidates/actions/CandidateAction';
+import { State } from '../../redux/store/store';
 import Filters from './Filters';
 import Search from './Search';
 
 export default function KanbanOptions() {
   const dispatch = useDispatch();
+  const appliedFilters = useSelector(
+    (state: State) => state.info.appliedFilters,
+  );
 
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
   const handleCleanFilters = () => {
+    if (!appliedFilters) {
+      return;
+    }
+
     dispatch(CleanErrors());
     dispatch(CleanFilters());
     dispatch(CleanSearch());
+    dispatch(SetAppliedFilters());
     dispatch(GetAllCandidates());
   };
 

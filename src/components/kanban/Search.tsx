@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   GetCandidatesFiltered,
   CleanSearch,
+  SetAppliedFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import { State } from '../../redux/store/store';
 
@@ -11,7 +12,11 @@ export default function Search() {
 
   const dispatch = useDispatch();
 
+  const previousQuery = useSelector((state: State) => state.info.candidates);
   const cleanSearch = useSelector((state: State) => state.info.cleanSearch);
+  const appliedFilters = useSelector(
+    (state: State) => state.info.appliedFilters,
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -19,7 +24,12 @@ export default function Search() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(GetCandidatesFiltered(undefined, undefined, query));
+    if (appliedFilters) {
+      dispatch(GetCandidatesFiltered([], [], query, true, previousQuery));
+    } else {
+      dispatch(GetCandidatesFiltered(undefined, undefined, query));
+      dispatch(SetAppliedFilters());
+    }
   };
 
   if (cleanSearch) {
