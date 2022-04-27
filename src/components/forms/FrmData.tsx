@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 /* Components */
-import Loading from '../extras/Loading';
-import Submit from '../buttons/Submit';
-import SingleSelect from '../inputs/SingleSelect';
-import TextArea from '../inputs/TextArea';
-import Currency from '../inputs/Currency';
+import Loading from "../extras/Loading";
+import Submit from "../buttons/Submit";
+import SingleSelect from "../inputs/SingleSelect";
+import TextArea from "../inputs/TextArea";
+import Currency from "../inputs/Currency";
 
 /* Paths */
-import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from '../../config/routes/paths';
+import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";
 
 /* Json files */
-import Training from '../../assets/json/College.json';
-import Available from '../../assets/json/Available.json';
-import Skills from '../../assets/json/Skills.json';
-import Coins from '../../assets/json/Coin.json';
+import Training from "../../assets/json/College.json";
+import Available from "../../assets/json/Available.json";
+import Skills from "../../assets/json/Skills.json";
+import Coins from "../../assets/json/Coin.json";
 
 /* Redux */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   AddCandidate,
   DataSaveEdit,
-} from '../../redux/candidates/actions/CandidateAction';
-import MultipleSelect from '../inputs/MultipleSelect';
+} from "../../redux/candidates/actions/CandidateAction";
+import MultipleSelect from "../inputs/MultipleSelect";
 
 const FrmData = () => {
   /*  */
@@ -67,14 +67,14 @@ const FrmData = () => {
 
   /*  */
   const AddNewCandidate = (user: any) => dispatch(AddCandidate(user));
-  const EditDataCandidate = (user: any) => dispatch(DataSaveEdit(user));
+  const EditDataCandidate = (user: any) => dispatch(DataSaveEdit(user, userID));
   const loading = useSelector((state: any) => state.info.loading);
 
   /* Function to store validation */
   const isFormValid = () => {
-    college === '' ? setIsCollegeValid(true) : setIsCollegeValid(false);
-    currency === '' ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
-    salary === '' ? setIsSalaryValid(true) : setIsSalaryValid(false);
+    college === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
+    currency === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
+    salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
     skill.length === 0 ? setIsSkillValid(true) : setIsSkillValid(false);
   };
 
@@ -123,12 +123,12 @@ const FrmData = () => {
     navigate(VIEW_VIDEO_COMPLETED);
   };
 
-  const name_user = 'Sebastian Montenegro Abad';
+  const name_user = "Sebastian Montenegro Abad";
 
   return (
     <section className="grid place-items-center h-full mt-10 bg-white mobile:p-5">
-      <h2 className="font-raleway text-gray-color mobile:text-sm laptop:text-xl mb-3 mobile:w-full laptop:w-9/12">
-        {t('info.title', { name_user })}
+      <h2 className="font-raleway text-gray-color mobile:text-sm laptop:text-xl mb-3 mobile:w-full laptop:w-9/12 tablet:w-11/12">
+        {t("info.title", { name_user })}
       </h2>
       <section className="laptop:w-9/12 mobile:w-full tablet:w-11/12 bg-white">
         <div className="flex flex-wrap -mx-3">
@@ -137,17 +137,17 @@ const FrmData = () => {
             data={training}
             for="college"
             id="college"
-            label={t('info.idiom.label')}
-            placeholder={t('info.idiom.placeholder')}
+            label={t("info.idiom.label")}
+            placeholder={t("info.idiom.placeholder")}
             setValue={setCollege}
             showAlert={isCollegeValid}
             value={college}
-            width="laptop:w-1/3 mobile:w-full tablet:w-1/2"
+            width="laptop:w-1/3 mobile:w-full tablet:w-1/3"
           />
           <Currency
             id="salary"
-            label={t('info.currency.placeholder')}
-            placeholder={t('info.currency.placeholder')}
+            label={t("info.currency.placeholder")}
+            placeholder={t("info.currency.placeholder")}
             RegExp={RegExp.numbers}
             setValue={setSalary}
             showAlert={isSalaryValid}
@@ -155,18 +155,18 @@ const FrmData = () => {
             data={coins}
             coin={currency}
             setCoin={setCurrency}
-            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/2"
+            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/3"
           />
           <SingleSelect
             display="hidden"
             data={time}
             for="available"
             id="available"
-            label={t('info.available.label')}
-            placeholder={t('info.available.placeholder')}
+            label={t("info.available.label")}
+            placeholder={t("info.available.placeholder")}
             setValue={setAvailable}
             value={available}
-            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/2"
+            width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/3"
           />
           <MultipleSelect
             data={skills}
@@ -174,7 +174,7 @@ const FrmData = () => {
             showAlert={isSkillValid}
             value={skill}
             setValue={setSkill}
-            width="laptop:w-full mobile:w-full tablet:w-1/2"
+            width="laptop:w-full mobile:w-full tablet:w-full"
           />
           <TextArea
             id="description"
@@ -184,7 +184,7 @@ const FrmData = () => {
         </div>
         {!toEdit ? (
           <Submit
-            name={t('submit_button.name')}
+            name={t("submit_button.name")}
             width="w-full tablet:w-28"
             onSubmit={onSubmit}
           />

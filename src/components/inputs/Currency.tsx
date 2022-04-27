@@ -37,12 +37,12 @@ const Currency: React.FC<Props> = ({
     setValue(evt.target.value.replace(RegExp, ""));
   };
 
-  const currency_value = `${t("currency_value")}`;
+  /* const currency_value = `${t("currency_value")}`; */
 
   return (
     <div className={`${width} w-full p-3 mt-auto`}>
       <div className="relative">
-        <div className="laptop:hidden mobile:block tablet:hidden">
+        <div className="mobile:block laptop:hidden tablet:hidden">
           <label
             htmlFor={label}
             className="font-raleway font-light text-sm text-gray-color ml-2"
@@ -60,7 +60,7 @@ const Currency: React.FC<Props> = ({
               ? "bg-white border-red-color border"
               : "bg-light-color border-light-color"
           } ${value && "!border-cyan-color bg-light-blue"}
-          focus:outline-none focus:bg-white block appearance-none laptop:rounded-2xl mobile:rounded-[10px] py-3 pl-[70px] pr-4 min-w-full laptop:w-[287px] laptop:h-[54px] mobile:w-[161px] mobile:h-[35px] leading-tight mobile:text-xs laptop:text-[15px] desktop:text-base font-raleway font-light text-gray-color focus:border-cyan-color border focus:shadow-cyan-color/50 focus:shadow-sm placeholder:text-gray-color placeholder:font-raleway`}
+          focus:outline-none focus:bg-white block appearance-none laptop:rounded-2xl mobile:rounded-[10px] py-3 mobile:pl-[60px] tablet:pl-[70px] laptop:pl-[70px] pr-4 min-w-full mobile:w-[161px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] laptop:w-[287px] laptop:h-[54px] leading-tight mobile:text-xs laptop:text-[15px] desktop:text-base font-raleway font-light text-gray-color focus:border-cyan-color border focus:shadow-cyan-color/50 focus:shadow-sm placeholder:text-gray-color placeholder:font-raleway`}
           prefix=""
           step={10}
           value={value}

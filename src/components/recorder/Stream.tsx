@@ -76,11 +76,17 @@ const Stream = () => {
   }, [mediaRecorderRef, webcamRef, setCapture]);
 
   /* REMAKE RECORDING */
-  const handleRemakeCaptureClick = (evt: any) => {
-    evt.preventDefault();
-    resetTimer();
-    handleDownload();
-  };
+  const handleRemakeCaptureClick = useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm;codecs=vp9,opus",
+      });
+      const url = URL.createObjectURL(blob);
+      window.URL.revokeObjectURL(url);
+      setRecordedChunks([]);
+      resetTimer();
+    }
+  }, [recordedChunks]);
 
   const handleDataAvailable = useCallback(
     ({ data }) => {

@@ -20,7 +20,7 @@ function classNames(...classes: string[]) {
 
 const SelectCoin: React.FC<Props> = (props) => {
   return (
-    <div className="absolute top-[10px] left-[10px] z-10">
+    <div className="absolute mobile:top-[25px] mobile:left-[10px] tablet:top-[10px] tablet:left-[10px] laptop:top-[10px] laptop:left-[10px] z-10">
       <div className="relative">
         <Listbox
           value={props.data ? props.data : props.value}
@@ -31,13 +31,13 @@ const SelectCoin: React.FC<Props> = (props) => {
           {({ open }) => (
             <>
               <div className="relative">
-                <Listbox.Button className="flex items-center bg-transparent w-[50px] p-2 leading-tight text-gray-color font-light text-left font-raleway text-[15px] cursor-pointer focus:outline-none">
+                <Listbox.Button className="flex items-center bg-transparent w-[50px] p-2 leading-tight text-gray-color font-light text-left font-raleway mobile:text-xs tablet:text-[15px] laptop:text-[15px] cursor-pointer focus:outline-none">
                   <span className="block truncate">
-                    {props.value.name || props.placeholder}
+                    {!props.value ? props.placeholder : props.value.name}
                   </span>
                   <span className="absolute pointer-events-none">
                     <RiArrowDropDownLine
-                      className="w-5 h-5 ml-[30px]"
+                      className="w-5 h-5 mobile:ml-[25px] tablet:ml-[30px] laptop:ml-[30px]"
                       aria-hidden="true"
                     />
                   </span>

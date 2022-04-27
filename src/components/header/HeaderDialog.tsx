@@ -1,17 +1,13 @@
 import { Dialog } from "@headlessui/react";
-import { useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { useModal } from "../../hooks/useModal";
 import Dropdown from "../inputs/Dropdown";
 
 interface Props {
   color: string;
+  isClose: any;
 }
 
-const HeaderDialog: React.FC<Props> = ({ color }) => {
-  /*  */
-  const { isClose } = useModal();
-
+const HeaderDialog: React.FC<Props> = ({ color, isClose }) => {
   return (
     <Dialog.Title as="h4" className={`${color}`}>
       <div className="flex justify-center relative">

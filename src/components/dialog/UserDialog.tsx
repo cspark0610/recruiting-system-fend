@@ -1,27 +1,70 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Panels from "./panels/Panels";
 import HeaderDialog from "../header/HeaderDialog";
-import { UseStatusUser } from "../../hooks/useStatusUser";
 import Modal from "../extras/Modal";
 
-const UserDialog = () => {
+interface Props {
+  isDialogClose: any;
+}
+
+const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
   /*  */
   const [openDialog, setOpenDialog] = useState(true);
-  /*  */
-  const {
-    isApproved,
-    isDoubting,
-    isDismiss,
-    isReject,
-    isStatusConfirm,
-    isConfirm,
-    approve,
-    doubting,
-    dismiss,
-    reject,
-    color,
-  } = UseStatusUser();
+
+  /* STATES OF CONTROL FROM BUTTONS */
+  const [approve, setApproved] = useState(false);
+  const [doubting, setDoubting] = useState(false);
+  const [dismiss, setDismiss] = useState(false);
+  const [reject, setReject] = useState(false);
+
+  /* STATES OF CONTROL FROM HEADER DIALOG */
+  const [color, setColor] = useState("bg-gray-color");
+
+  /* STATES OF CONTROL FROM MODAL */
+  const [isConfirm, setIsConfirm] = useState(false);
+
+  useEffect(() => {
+    if (approve && isConfirm) {
+      setColor("bg-green-color");
+      setApproved(false);
+    } else {
+      if (doubting && isConfirm) {
+        setColor("bg-yellow-color");
+        setDoubting(false);
+      } else {
+        if (dismiss && isConfirm) {
+          setColor("bg-red-dark");
+          setDismiss(false);
+        } else {
+          if (reject && isConfirm) {
+            setColor(color);
+            setReject(false);
+          }
+        }
+      }
+    }
+  }, [isConfirm]);
+
+  const isApproved = () => {
+    setApproved(!approve);
+  };
+
+  const isDoubting = () => {
+    setDoubting(!doubting);
+  };
+
+  const isDismiss = () => {
+    setDismiss(!dismiss);
+  };
+
+  const isReject = () => {
+    setReject(!reject);
+  };
+
+  const isStatusConfirm = () => {
+    setIsConfirm(true);
+  };
 
   return (
     <Transition.Root show={openDialog} as={Fragment}>
@@ -54,7 +97,7 @@ const UserDialog = () => {
           >
             <div className="relative inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[77.313rem] h-maximum">
               <div className="bg-white">
-                <HeaderDialog color={color} />
+                <HeaderDialog color={color} isClose={isDialogClose} />
                 <div className="flex">
                   <Panels
                     isApproved={isApproved}
@@ -71,7 +114,10 @@ const UserDialog = () => {
                     title="You`ve approved this Candidate!"
                     subTitle="An automatic email is going to be send to this candidate with instructions for next step."
                     description="approve"
-                    isStatusConfirmed={isStatusConfirm}
+                    value={approve}
+                    setValue={setApproved}
+                    onClick={isApproved}
+                    isConfirm={isStatusConfirm}
                   />
                 )}
                 {dismiss && (
@@ -80,7 +126,10 @@ const UserDialog = () => {
                     title="This candidate has been dismissed!"
                     subTitle="Remember to fill your motives for this decition in conclusions."
                     description="dismiss"
-                    isStatusConfirmed={isStatusConfirm}
+                    value={dismiss}
+                    setValue={setDismiss}
+                    onClick={isDismiss}
+                    isConfirm={isStatusConfirm}
                   />
                 )}
                 {reject && (
@@ -88,7 +137,10 @@ const UserDialog = () => {
                     picture="reject"
                     subTitle="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
                     description="reject"
-                    isStatusConfirmed={isStatusConfirm}
+                    value={reject}
+                    setValue={setReject}
+                    onClick={isReject}
+                    isConfirm={isStatusConfirm}
                   />
                 )}
               </div>

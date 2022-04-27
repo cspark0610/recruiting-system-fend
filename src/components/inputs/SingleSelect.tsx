@@ -57,7 +57,7 @@ const SingleSelect: React.FC<Props> = (props) => {
                   } floating-label border w-full laptop:rounded-2xl mobile:rounded-[10px] laptop:py-3 px-2 min-w-full laptop:w-[287px] laptop:h-[54px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight text-left font-raleway cursor-pointer focus:outline-none focus:bg-white laptop:text-sm focus:border-cyan-color focus:shadow-cyan-color/50 focus:shadow-md`}
                 >
                   <span className="flex items-center">
-                    <span className="block truncate ml-2 text-gray-color font-light mobile:text-xs tablet:text-[15px] laptop:text-[15px] desktop:text-base">
+                    <span className="block truncate ml-2 text-gray-color font-light mobile:text-xs tablet:text-[15px] laptop:text-[15px]">
                       {props.value.name || props.placeholder}
                     </span>
                   </span>
