@@ -171,7 +171,7 @@ export default function Filters() {
       <span className="mt-2">Status</span>
       <button
         onClick={() => setShowStatusFilter(!showStatusFilter)}
-        className="pr-4"
+        className="pr-3"
       >
         <AiOutlineDown />
       </button>

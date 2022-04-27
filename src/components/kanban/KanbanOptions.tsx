@@ -37,15 +37,25 @@ export default function KanbanOptions() {
     <div className="flex justify-between pb-2 mt-36 ml-48 w-[80rem] border-b-2">
       <div className="flex space-x-4">
         <Filters />
-        <label
-          htmlFor="query"
-          className="mt-[0.75rem] hover:cursor-pointer"
-          onClick={() => setShowSearch(!showSearch)}
+        <div
+          className={
+            showSearch
+              ? 'flex pl-2 bg-slate-100 rounded-md'
+              : 'flex pl-2 bg-white'
+          }
         >
-          {' '}
-          <BsSearch />{' '}
-        </label>
-        {showSearch ? <Search /> : null}
+          <label
+            htmlFor="query"
+            className={
+              showSearch ? 'hidden' : 'mt-[0.75rem] hover:cursor-pointer'
+            }
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            {' '}
+            <BsSearch />{' '}
+          </label>
+          {showSearch ? <Search /> : null}
+        </div>
         <button
           className="text text-sky-400 font-medium transition ease duration-300 hover:bg-sky-400 hover:text-white px-2 rounded-md"
           onClick={handleCleanFilters}

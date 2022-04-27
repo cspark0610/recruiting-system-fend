@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BsSearch } from 'react-icons/bs';
 import {
   GetCandidatesFiltered,
   CleanSearch,
@@ -22,8 +23,13 @@ export default function Search() {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
+  ) => {
     e.preventDefault();
+
+    if (query === '') return;
+
     if (appliedFilters) {
       dispatch(GetCandidatesFiltered([], [], query, true, previousQuery));
     } else {
@@ -40,8 +46,11 @@ export default function Search() {
   return (
     <div className="inline-block pt-1">
       <form onSubmit={handleSubmit}>
+        <button onClick={handleSubmit}>
+          <BsSearch />
+        </button>
         <input
-          className="bg-slate-100 w-[15rem] h-[2rem] px-2 rounded-md focus:outline-none"
+          className="bg-slate-100 w-[15rem] h-[2rem] px-2 focus:outline-none"
           type="search"
           name="query"
           placeholder="Type to search"
