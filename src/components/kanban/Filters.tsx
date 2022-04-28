@@ -139,7 +139,7 @@ export default function Filters() {
             : 'duration-200 opacity-0 invisible absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md opacity-0'
         }
       >
-        <div className="transition ease-in-out duration-300 flex flex-col px-4 pt-4 space-y-4">
+        <div className="flex flex-col px-4 pt-4 space-y-4">
           <button
             onClick={handleAllPositionsCheck}
             className="flex justify-end text-sm text-cyan-500"
