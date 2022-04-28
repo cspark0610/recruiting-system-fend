@@ -1,16 +1,16 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
-import { ActionTypes } from "../types/index";
+import { ActionTypes } from '../types/index';
 import {
   CreateCandidateResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
-} from "../types/axiosResponses";
+} from '../types/axiosResponses';
 import {
   CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
-} from "../types/dispatchActions";
+} from '../types/dispatchActions';
 
 import {
   ADD_CANDIDATE,
@@ -24,15 +24,15 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 import {
   CREATE_CANDIDATE,
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
-} from "../../../config/routes/endpoints";
-import ClientAxios from "../../../config/api/axios";
-import { ICandidate } from "../types/data";
+} from '../../../config/routes/endpoints';
+import ClientAxios from '../../../config/api/axios';
+import { ICandidate } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -40,7 +40,7 @@ export function GetAllCandidates() {
 
     try {
       const { data } = await ClientAxios.get<GetCandidatesResponse>(
-        GET_ALL_CANDIDATES
+        GET_ALL_CANDIDATES,
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -66,7 +66,7 @@ export function GetCandidatesFiltered(
   secondary_status?: string[],
   query?: string,
   apply_next?: boolean,
-  previousQuery?: ICandidate[]
+  previousQuery?: ICandidate[],
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
@@ -85,9 +85,9 @@ export function GetCandidatesFiltered(
         requestBody,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -114,7 +114,7 @@ export function CreateCandidate(candidateInfo: any) {
       dispatch({ type: ActionTypes.SET_IS_LOADING });
       const { data } = await ClientAxios.post<CreateCandidateResponse>(
         CREATE_CANDIDATE,
-        candidateInfo
+        candidateInfo,
       );
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
       return dispatch<CreateCandidateAction>({
