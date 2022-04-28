@@ -34,7 +34,7 @@
         }
     },
     "applying": "You're applying to",
-    "senior_designer": "Senior Designer",
+    "job_title": "{{job_title}}",
     "thank_you_title": "Your application has been sent!",
     "thank_you_description": {
         "part_1": "We appreciate your time and interest,",

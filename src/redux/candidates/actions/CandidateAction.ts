@@ -2,10 +2,12 @@ import { Dispatch } from "redux";
 
 import { ActionTypes } from "../types/index";
 import {
+  CreateCandidateResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
 } from "../types/axiosResponses";
 import {
+  CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
 } from "../types/dispatchActions";
@@ -24,6 +26,7 @@ import {
   DATA_EDIT_ERROR,
 } from "./../types";
 import {
+  CREATE_CANDIDATE,
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
@@ -46,7 +49,7 @@ export function GetAllCandidates() {
         type: ActionTypes.GET_CANDIDATES,
         payload: data.allCandidates,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
         dispatch({
@@ -93,13 +96,35 @@ export function GetCandidatesFiltered(
         type: ActionTypes.GET_CANDIDATES_FILTERED,
         payload: data.candidatesFiltered,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
         dispatch({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
         });
+      }
+    }
+  };
+}
+
+export function CreateCandidate(candidateInfo: any) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch({ type: ActionTypes.SET_IS_LOADING });
+      const { data } = await ClientAxios.post<CreateCandidateResponse>(
+        CREATE_CANDIDATE,
+        candidateInfo
+      );
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      return dispatch<CreateCandidateAction>({
+        type: ActionTypes.CREATE_CANDIDATE,
+        payload: data.candidate,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch({ type: ActionTypes.SET_ERROR, payload: error.response.data });
       }
     }
   };

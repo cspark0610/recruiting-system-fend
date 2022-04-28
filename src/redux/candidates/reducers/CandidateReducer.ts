@@ -54,6 +54,13 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
+    case ActionTypes.CREATE_CANDIDATE: {
+      return {
+        ...state,
+        candidates: state.candidates.concat(action.payload),
+      };
+    }
+
     case ActionTypes.SET_IS_LOADING: {
       return {
         ...state,

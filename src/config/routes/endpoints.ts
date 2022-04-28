@@ -1,5 +1,5 @@
 /* ENDPOINTS FROM LINK 1 */
-export const POST_USER = "/candidate/create";
+export const CREATE_CANDIDATE = "/candidate/create";
 
 /* ENDPOINTS FROM LINK 2 */
 export const POST_CANDIDATE = "/candidate/info/update";
