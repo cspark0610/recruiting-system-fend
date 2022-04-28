@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -20,15 +20,19 @@ import English from "../../assets/json/Language.json";
 
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { AddUser } from "./../../redux/users/actions/UserAction";
-import { UseFile } from "../../hooks/useFile";
+import { State } from "../../redux/store/store";
+import { CreateCandidate } from "../../redux/candidates/actions/CandidateAction";
+import { getPositionInfo } from "../../redux/positions/actions/PositionsActions";
 
-const FrmApply = () => {
+interface Props {
+  _id: string | null;
+}
+
+const FrmApply: React.FC<Props> = ({ _id }) => {
   /*  */
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { file, setFile, upload, setUpload, onChange } = UseFile();
 
   /* Regular Expressions */
   const RegExp = {
@@ -45,6 +49,12 @@ const FrmApply = () => {
 
   const { country, english } = optionValues;
 
+  /* It will capture id of job position */
+  /* useEffect(() => {
+    const JobInfo = () => dispatch(getPositionInfo(_id!));
+    JobInfo();
+  }, [_id]); */
+
   /* States from the component */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -54,7 +64,11 @@ const FrmApply = () => {
   const [nation, setNation] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [portfolio, setPortfolio] = useState("");
+  const [file, setFile] = useState({
+    selectedFile: "",
+  });
   const [terms, setTerms] = useState(false);
+  const [upload, setUpload] = useState(false);
 
   /* Values which will be validated */
   const [isNameValid, setIsNameValid] = useState(false);
@@ -63,10 +77,6 @@ const FrmApply = () => {
   const [isIdiomValid, setIsIdiomValid] = useState(false);
   const [isNationValid, setIsNationValid] = useState(false);
   const [isTermsValid, setIsTermsValid] = useState(false);
-
-  /*  */
-  const AddNewUser = (user: any) => dispatch(AddUser(user));
-  const loading = useSelector((state: any) => state.data.loading);
 
   /* Function to store validation */
   const isFormValid = () => {
@@ -80,6 +90,35 @@ const FrmApply = () => {
       : setIsTermsValid(isTermsValid);
   };
 
+  const onChange = (evt: any) => {
+    setFile({ selectedFile: evt.target.files[0].name });
+  };
+
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("birth_date", birth);
+    formData.append("phone", phone);
+    formData.append("english_level", idiom);
+    formData.append("country", nation);
+    formData.append("linkedin", linkedin);
+    formData.append("portfolio", portfolio);
+    formData.append("cv", file.selectedFile);
+
+    /* validates if a file has been selected to change icon in File component */
+    if (!file.selectedFile) {
+      setUpload(false);
+      return;
+    } else {
+      setUpload(true);
+    }
+  }, [name, email, birth, phone, idiom, nation, linkedin, portfolio, file]);
+
+  /*  */
+  const CreateNewUser = (user: any) => dispatch(CreateCandidate(user));
+  const loading = useSelector((state: State) => state.info.loading);
+
   /* OnSubmit */
   const onSubmit = (evt: any) => {
     evt.preventDefault();
@@ -89,7 +128,7 @@ const FrmApply = () => {
     if (!name || !email || !phone || !idiom || !nation || !terms) {
       return;
     } else {
-      AddNewUser({
+      CreateNewUser({
         name,
         email,
         birth,
@@ -99,11 +138,15 @@ const FrmApply = () => {
         linkedin,
         portfolio,
         file,
-        terms,
       });
-      navigate(VIEW_HOME_THANKS);
+
+      if (!loading) {
+        navigate(VIEW_HOME_THANKS);
+      }
     }
   };
+
+  let job_title = "Title";
 
   return (
     <section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
@@ -111,7 +154,7 @@ const FrmApply = () => {
         {t("applying")}
       </span>
       <h2 className="font-raleway font-semibold text-cyan-color mobile:text-lg laptop:text-2xl tablet:mb-8 laptop:mb-0">
-        {t("senior_designer")}
+        {t("job_title", { job_title })}
       </h2>
       <section className="mobile:w-full laptop:w-9/12 tablet:w-11/12 bg-white p-2">
         <div className="flex flex-wrap -mx-3">

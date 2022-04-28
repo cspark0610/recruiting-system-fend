@@ -1,4 +1,4 @@
-import { ICandidate } from './data';
+import { ICandidate } from "./data";
 
 export type GetCandidatesResponse = {
   status: number;
@@ -11,6 +11,11 @@ export type GetCandidatesFilteredResponse = {
 };
 
 export type GetCandidateDetail = {
+  status: number;
+  candidate: ICandidate;
+};
+
+export type CreateCandidateResponse = {
   status: number;
   candidate: ICandidate;
 };
