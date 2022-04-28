@@ -4,28 +4,31 @@ import { useTranslation } from "react-i18next";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 interface Props {
-  picture: string;
-  title?: string;
-  subTitle?: string;
-  description: string;
-  value: boolean;
-  setValue: any;
-  isConfirm: any;
+  alt: string;
+  classes: boolean;
+  image: string;
+  isVerify: any;
+  message?: string;
   onClick: any;
+  setValue: any;
+  status?: string;
+  title?: string;
+  value: boolean;
 }
 
 const Modal: React.FC<Props> = ({
-  picture,
-  title,
-  subTitle,
-  description,
-  value,
-  setValue,
-  isConfirm,
+  alt,
+  classes,
+  image,
+  isVerify,
+  message,
   onClick,
+  setValue,
+  status,
+  title,
+  value,
 }) => {
   /*  */
-  //const [openModal, setOpenModal] = useState(true);
   const { t } = useTranslation();
 
   return (
@@ -69,18 +72,28 @@ const Modal: React.FC<Props> = ({
                   <div className="relative mt-[10px] grid justify-items-center">
                     <Dialog.Title as="div" className="mb-[15px]">
                       <img
-                        src={process.env.PUBLIC_URL + `/images/${picture}.svg`}
-                        alt={description}
+                        src={process.env.PUBLIC_URL + `/images/${image}.svg`}
+                        alt={alt}
                         className="w-[104px] h-[104px]"
                       />
                     </Dialog.Title>
                     <div className="mt-2 w-[366px]">
-                      <p className="text-center text-[15px] font-bold text-gray-color font-raleway">
+                      <p className="text-center text-[15px] font-raleway">
                         {title}
+                        <span
+                          className={`${
+                            classes ? "font-bold text-gray-color" : "hidden"
+                          }`}
+                        >
+                          {status}
+                        </span>
                       </p>
                       <p className="text-center text-[15px] font-medium text-gray-color font-raleway">
-                        {subTitle}
+                        {message}
                       </p>
+                      <div className="flex justify-center">
+                        {alt === "reject" && <div></div>}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -97,7 +110,7 @@ const Modal: React.FC<Props> = ({
                 <button
                   type="button"
                   className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
-                  onClick={isConfirm}
+                  onClick={isVerify}
                 >
                   {t("modal.buttons.ok")}
                 </button>

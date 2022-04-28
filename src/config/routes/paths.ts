@@ -16,4 +16,4 @@ export const VIEW_404 = "*";
 
 /*LINK TO KANBAN*/
 export const VIEW_KANBAN = "/admin/dashboard/candidate-status";
-export const VIEW_USER_DIALOG = "/admin/user-view";
+export const VIEW_USER_DIALOG = "/admin/dashboard/candidate-status/details";

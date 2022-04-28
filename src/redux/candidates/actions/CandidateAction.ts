@@ -179,7 +179,7 @@ export function GetData(id: number) {
   return async (dispatch: any) => {
     dispatch(GetDataLoad(true));
     try {
-      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`); ///candidates/${id}
+      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`);
       dispatch(GetDataSuccess(response.data));
     } catch (error) {
       dispatch(GetDataError(true));

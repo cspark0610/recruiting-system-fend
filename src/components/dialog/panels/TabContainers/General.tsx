@@ -1,14 +1,13 @@
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt, FaRegFileWord } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
-import { BiLinkExternal } from "react-icons/bi";
 
 const General = () => {
   return (
     <div className="grid justify-items-center">
       <section className="grid justify-items-center grid-cols-2 gap-[10px] w-[85%]">
         {/* FIRST GRID */}
-        <div className="my-[48px] font-raleway text-gray-color text-[14px] w-full">
+        <div className="my-[48px] font-raleway text-gray-color text-[12px] w-full">
           {/*  */}
           <div className="my-[12px]">
             <h2 className="font-semibold text-[20px] text-cyan-color">
@@ -75,7 +74,7 @@ const General = () => {
           </div>
         </div>
         {/* SECOND GRID */}
-        <div className="w-full my-[48px] font-raleway text-gray-color text-[14px]">
+        <div className="w-full my-[48px] font-raleway text-gray-color text-[12px]">
           <div className="my-[12px]">
             <span>Why are you interesting in working with FTF</span>
             <textarea
@@ -84,15 +83,26 @@ const General = () => {
               className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway text-gray-color my-3"
               maxLength={280}
               readOnly
-            ></textarea>
+            />
           </div>
-          <div className="my-5">
-            <span>Salary Expectations: </span>
-            <span>Available from: </span>
+          <div className="my-5 flex flex-row">
+            <p>
+              Salary Expectations:{" "}
+              <span className="font-bold text-gray-color">1.000 usd</span>{" "}
+            </p>
+            <p className="ml-[45px]">
+              Available from:{" "}
+              <span className="font-bold text-gray-color">2 weeks</span>
+            </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
-            <span>English Evaluation:</span>
+            <p>
+              English Evaluation:{" "}
+              <span className="bg-light-color w-[43px] h-[28px] rounded-[5px] px-3 py-1">
+                B2
+              </span>
+            </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
