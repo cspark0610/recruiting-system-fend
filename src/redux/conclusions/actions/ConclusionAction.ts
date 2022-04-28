@@ -1,12 +1,4 @@
-import {
-  ADD_CONCLUSION,
-  ADD_CONCLUSION_SUCCESS,
-  ADD_CONCLUSION_ERROR,
-  GET_ID_CONCLUSION,
-  GET_CONCLUSION,
-  GET_CONCLUSION_SUCCESS,
-  GET_CONCLUSION_ERROR,
-} from "../types";
+import { ActionTypes } from "../types/index";
 
 import { POST_FEED } from "../../../config/routes/endpoints";
 
@@ -28,23 +20,23 @@ export function AddConclusion(feed: any) {
 }
 
 const AddConclusionLoad = (status: boolean) => ({
-  type: ADD_CONCLUSION,
+  type: ActionTypes.ADD_CONCLUSION,
   payload: status,
 });
 
 const AddConclusionSuccess = (feed: any) => ({
-  type: ADD_CONCLUSION_SUCCESS,
+  type: ActionTypes.ADD_CONCLUSION_SUCCESS,
   payload: feed,
 });
 
 const AddConclusionError = (status: boolean) => ({
-  type: ADD_CONCLUSION_ERROR,
+  type: ActionTypes.ADD_CONCLUSION_ERROR,
   payload: status,
 });
 
 /* HELPER TO GET ID */
 const GetID = (id: number) => ({
-  type: GET_ID_CONCLUSION,
+  type: ActionTypes.GET_ID_CONCLUSION,
   payload: id,
 });
 
@@ -62,16 +54,16 @@ export function GetConclusion() {
 }
 
 const GetConclusionLoad = (status: boolean) => ({
-  type: GET_CONCLUSION,
+  type: ActionTypes.GET_CONCLUSION,
   payload: status,
 });
 
 const GetConclusionSuccess = (feed: any) => ({
-  type: GET_CONCLUSION_SUCCESS,
+  type: ActionTypes.GET_CONCLUSION_SUCCESS,
   payload: feed,
 });
 
 const GetConclusionError = (status: boolean) => ({
-  type: GET_CONCLUSION_ERROR,
+  type: ActionTypes.GET_CONCLUSION_ERROR,
   payload: status,
 });

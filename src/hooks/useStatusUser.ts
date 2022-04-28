@@ -12,25 +12,28 @@ export function UseStatusUser() {
 
   /* STATES OF CONTROL FROM MODAL */
   const [isConfirm, setIsConfirm] = useState(false);
-  const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
     if (approve && isConfirm) {
       setColor("bg-green-color");
+      setApproved(false);
     } else {
       if (doubting && isConfirm) {
         setColor("bg-yellow-color");
+        setDoubting(false);
       } else {
         if (dismiss && isConfirm) {
           setColor("bg-red-dark");
+          setDismiss(false);
         } else {
           if (reject && isConfirm) {
             setColor(color);
+            setReject(false);
           }
         }
       }
     }
-  }, [isConfirm]);
+  }, [approve, doubting, dismiss, reject, isConfirm, color]);
 
   const isApproved = () => {
     setApproved(!approve);
@@ -50,22 +53,23 @@ export function UseStatusUser() {
 
   const isStatusConfirm = () => {
     setIsConfirm(true);
-    setOpenModal(false);
   };
 
   return {
-    isApproved,
-    isDoubting,
-    isDismiss,
-    isReject,
-    isStatusConfirm,
-    setOpenModal,
-    openModal,
-    isConfirm,
     approve,
     doubting,
     dismiss,
     reject,
     color,
+    isConfirm,
+    isApproved,
+    isDoubting,
+    isDismiss,
+    isReject,
+    isStatusConfirm,
+    setApproved,
+    setDoubting,
+    setDismiss,
+    setReject,
   };
 }

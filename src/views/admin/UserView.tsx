@@ -16,7 +16,7 @@ const UserView = () => {
   return (
     <>
       <button
-        className="cursor-pointer rounded-sm bg-white font-raleway text-gray-color font-bold text-sm laptop:w-[75px] laptop:h-[25px] shadow-lg border border-gray-color mt-5"
+        className="cursor-pointer rounded-sm bg-white font-raleway text-gray-color font-bold text-sm laptop:w-[75px] laptop:h-[25px] shadow-lg border border-gray-color mt-24"
         onClick={isOpen}
       >
         Open

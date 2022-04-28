@@ -1,12 +1,4 @@
-import {
-  ADD_CONCLUSION,
-  ADD_CONCLUSION_SUCCESS,
-  ADD_CONCLUSION_ERROR,
-  GET_ID_CONCLUSION,
-  GET_CONCLUSION,
-  GET_CONCLUSION_SUCCESS,
-  GET_CONCLUSION_ERROR,
-} from "../types";
+import { ActionTypes } from "../types/index";
 
 const initialState = {
   feed: [
@@ -22,31 +14,31 @@ const initialState = {
 
 function ConclusionReducer(state = initialState, action: any) {
   switch (action.type) {
-    case ADD_CONCLUSION:
-    case GET_CONCLUSION:
+    case ActionTypes.ADD_CONCLUSION:
+    case ActionTypes.GET_CONCLUSION:
       return {
         ...state,
         loading: action.payload,
       };
-    case ADD_CONCLUSION_SUCCESS:
+    case ActionTypes.ADD_CONCLUSION_SUCCESS:
       return {
         ...state,
         loading: false,
         feed: action.payload,
       };
-    case ADD_CONCLUSION_ERROR:
-    case GET_CONCLUSION_ERROR:
+    case ActionTypes.ADD_CONCLUSION_ERROR:
+    case ActionTypes.GET_CONCLUSION_ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case GET_ID_CONCLUSION:
+    case ActionTypes.GET_ID_CONCLUSION:
       return {
         ...state,
         id: action.payload,
       };
-    case GET_CONCLUSION_SUCCESS:
+    case ActionTypes.GET_CONCLUSION_SUCCESS:
       return {
         ...state,
         loading: false,
