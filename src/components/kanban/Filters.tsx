@@ -124,7 +124,7 @@ export default function Filters() {
 
   return (
     <div ref={wraperRef} className="space-x-4 mt-2">
-      <span className="mt-2">Positions</span>
+      <span>Positions</span>
       <button
         onClick={() => setShowPositionFilter(!showPositionFilter)}
         className="pr-4"
@@ -168,7 +168,7 @@ export default function Filters() {
         </div>
       ) : null}
 
-      <span className="mt-2">Status</span>
+      <span>Status</span>
       <button
         onClick={() => setShowStatusFilter(!showStatusFilter)}
         className="pr-3"

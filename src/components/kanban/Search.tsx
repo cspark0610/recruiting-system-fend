@@ -47,10 +47,10 @@ export default function Search() {
     <div className="inline-block pt-1">
       <form onSubmit={handleSubmit} className="relative space-x-4">
         <button onClick={handleSubmit} className="absolute top-2">
-          <BsSearch />
+          <BsSearch className="text-slate-400" />
         </button>
         <input
-          className="bg-slate-100 w-[15rem] h-[2rem] px-2 focus:outline-none"
+          className="bg-[#F5F5F5] w-[15rem] h-[2rem] px-2 focus:outline-none caret-[#00ADEF]"
           type="search"
           name="query"
           placeholder="Type to search"
