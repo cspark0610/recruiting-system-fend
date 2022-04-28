@@ -34,7 +34,7 @@
         }
     },
     "applying": "You're applying to",
-    "senior_designer": "Senior Designer",
+    "job_title": "{{job_title}}",
     "thank_you_title": "Your application has been sent!",
     "thank_you_description": {
         "part_1": "We appreciate your time and interest,",
@@ -61,7 +61,11 @@
         "rules": {
             "part_1": "You will need about 10’ to fill out this application",
             "part_2": "You will have 2’ to record each answer.",
-            "part_3": "You can record each answer as many times as you want. Make sure you’re confortable with the result."
+            "part_3": "You can record each answer as many times as you want. Make sure you’re confortable with the result.",
+            "extra": {
+                "l1": "You can record each answer as many times as you want.",
+                "l2": "Make sure you’re confortable with the result."
+            }
         },
         "are_you_ready": "Are you ready?",
         "get_started": "Get Started"

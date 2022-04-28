@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
-import { FiUpload } from "react-icons/fi";
-import { AiOutlineFileDone } from "react-icons/ai";
+import { useTranslation } from 'react-i18next';
+import { FiUpload } from 'react-icons/fi';
+import { AiOutlineFileDone } from 'react-icons/ai';
 
 interface Props {
   value: any;
@@ -28,12 +28,11 @@ const File: React.FC<Props> = ({
       >
         {!upload ? (
           <div className="flex flex-row items-center justify-center mobile:text-xs laptop:text-[15px]">
-            <FiUpload className="h-5 w-5" /> &nbsp; {t("file_title")}
+            <FiUpload className="h-5 w-5" /> &nbsp; {t('file_title')}
           </div>
         ) : (
           <div className="flex flex-row items-center justify-center text-green-color mobile:text-xs laptop:text-[15px]">
-            <AiOutlineFileDone className="h-6 w-6" /> &nbsp;{" "}
-            {value.selectedFile}
+            <AiOutlineFileDone className="h-6 w-6" /> &nbsp; {value.name}
           </div>
         )}
       </label>

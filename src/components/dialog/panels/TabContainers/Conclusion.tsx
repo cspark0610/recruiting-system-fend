@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 
 /* Redux */
-import { useDispatch } from "react-redux";
-import { AddConclusion } from "../../../../redux/conclusions/actions/ConclusionAction";
-import ListComments from "../../../extras/ListComments";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AddConclusion,
+  GetConclusion,
+} from "../../../../redux/conclusions/actions/ConclusionAction";
 import InputConclusion from "../../../inputs/InputConclusion";
 
 const Conclusion = () => {
@@ -24,7 +26,15 @@ const Conclusion = () => {
 
     /* Clear fields */
     setPositiveComment("");
+    setNegativeComment("");
   };
+
+  useEffect(() => {
+    const LoadComment = () => dispatch(GetConclusion());
+    LoadComment();
+  }, []);
+
+  const comments = useSelector((state: any) => state.feed.feed);
 
   return (
     <div className="grid justify-items-center">
@@ -40,7 +50,22 @@ const Conclusion = () => {
               Yes
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[422px] h-[372px]">
-              <ListComments />
+              <div className="absolute top-5 right-5 z-10">
+                {comments.length === 0
+                  ? ""
+                  : comments.map(
+                      (comment: { positiveComment: string[]; id: number }) => (
+                        <div
+                          key={comment.id}
+                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                        >
+                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                            {comment.positiveComment}
+                          </p>
+                        </div>
+                      )
+                    )}
+              </div>
               <div className="absolute bottom-4 left-5">
                 <hr className="border-[1px] mb-[6px]" />
                 <div className="flex items-center">
@@ -65,6 +90,22 @@ const Conclusion = () => {
               No
             </p>
             <div className="relative bg-light-color border-light-color rounded-[10px] w-[422px] h-[372px]">
+              <div className="absolute top-5 right-5 z-10">
+                {comments.length === 0
+                  ? ""
+                  : comments.map(
+                      (comment: { positiveComment: string[]; id: number }) => (
+                        <div
+                          key={comment.id}
+                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                        >
+                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                            {comment.positiveComment}
+                          </p>
+                        </div>
+                      )
+                    )}
+              </div>
               <div className="absolute bottom-4 left-5">
                 <hr className="border-[1px] mb-[6px]" />
                 <div className="flex items-center">

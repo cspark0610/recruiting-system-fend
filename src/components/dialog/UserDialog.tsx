@@ -2,25 +2,32 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Panels from "./panels/Panels";
 import HeaderDialog from "../header/HeaderDialog";
-import { UseStatusUser } from "../../hooks/useStatusUser";
 import Modal from "../extras/Modal";
+import { UseStatusUser } from "../../hooks/useStatusUser";
 
-const UserDialog = () => {
+interface Props {
+  isDialogClose: any;
+}
+
+const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
   /*  */
   const [openDialog, setOpenDialog] = useState(true);
-  /*  */
   const {
-    isApproved,
-    isDoubting,
-    isDismiss,
-    isReject,
-    isStatusConfirm,
-    isConfirm,
     approve,
     doubting,
     dismiss,
     reject,
     color,
+    isConfirm,
+    isApproved,
+    isDoubting,
+    isDismiss,
+    isReject,
+    isStatusConfirm,
+    setApproved,
+    setDoubting,
+    setDismiss,
+    setReject,
   } = UseStatusUser();
 
   return (
@@ -54,7 +61,7 @@ const UserDialog = () => {
           >
             <div className="relative inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[77.313rem] h-maximum">
               <div className="bg-white">
-                <HeaderDialog color={color} />
+                <HeaderDialog color={color} isClose={isDialogClose} />
                 <div className="flex">
                   <Panels
                     isApproved={isApproved}
@@ -67,28 +74,54 @@ const UserDialog = () => {
                 {/* Modals to confirm an action */}
                 {approve && (
                   <Modal
-                    picture="approve"
-                    title="You`ve approved this Candidate!"
-                    subTitle="An automatic email is going to be send to this candidate with instructions for next step."
-                    description="approve"
-                    isStatusConfirmed={isStatusConfirm}
+                    alt="approve"
+                    classes={true}
+                    image="approve"
+                    isVerify={isStatusConfirm}
+                    message="An automatic email is going to be send to this candidate with instructions for next step."
+                    onClick={isApproved}
+                    setValue={setApproved}
+                    status="You`ve approved this Candidate!"
+                    value={approve}
+                  />
+                )}
+                {doubting && (
+                  <Modal
+                    alt="doubting"
+                    classes={true}
+                    image="doubting"
+                    isVerify={isStatusConfirm}
+                    onClick={isDoubting}
+                    setValue={setDoubting}
+                    status='"in doubt".'
+                    title="Your candidate has been marked as "
+                    value={doubting}
                   />
                 )}
                 {dismiss && (
                   <Modal
-                    picture="dismiss"
-                    title="This candidate has been dismissed!"
-                    subTitle="Remember to fill your motives for this decition in conclusions."
-                    description="dismiss"
-                    isStatusConfirmed={isStatusConfirm}
+                    alt="dismiss"
+                    classes={true}
+                    image="dismiss"
+                    isVerify={isStatusConfirm}
+                    message="Remember to fill your motives for this decition in conclusions"
+                    onClick={isDismiss}
+                    setValue={setDismiss}
+                    status="dismissed."
+                    title="This candidate has been "
+                    value={dismiss}
                   />
                 )}
                 {reject && (
                   <Modal
-                    picture="reject"
-                    subTitle="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
-                    description="reject"
-                    isStatusConfirmed={isStatusConfirm}
+                    alt="reject"
+                    classes={false}
+                    image="reject"
+                    isVerify={isStatusConfirm}
+                    message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
+                    onClick={isReject}
+                    setValue={setReject}
+                    value={reject}
                   />
                 )}
               </div>

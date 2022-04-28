@@ -1,4 +1,4 @@
-import { ICandidate, IError } from './data';
+import { ICandidate, IError } from "./data";
 
 export type InitialState = {
   candidates: ICandidate[];
@@ -11,6 +11,7 @@ export type InitialState = {
     video: string;
   };
   userId: any;
+  isUserEdit: boolean;
   loading: boolean;
   error: IError;
   cleanFilters: boolean;

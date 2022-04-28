@@ -2,10 +2,12 @@ import { Dispatch } from 'redux';
 
 import { ActionTypes } from '../types/index';
 import {
+  CreateCandidateResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
 } from '../types/axiosResponses';
 import {
+  CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
 } from '../types/dispatchActions';
@@ -24,11 +26,13 @@ import {
   DATA_EDIT_ERROR,
 } from './../types';
 import {
+  CREATE_CANDIDATE,
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
+import { ICandidate } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -45,7 +49,7 @@ export function GetAllCandidates() {
         type: ActionTypes.GET_CANDIDATES,
         payload: data.allCandidates,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
         dispatch({
@@ -61,12 +65,16 @@ export function GetCandidatesFiltered(
   position?: string[],
   secondary_status?: string[],
   query?: string,
+  apply_next?: boolean,
+  previousQuery?: ICandidate[],
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
       position,
       secondary_status,
       query,
+      apply_next,
+      previousQuery,
     });
 
     dispatch({ type: ActionTypes.SET_IS_LOADING });
@@ -88,13 +96,35 @@ export function GetCandidatesFiltered(
         type: ActionTypes.GET_CANDIDATES_FILTERED,
         payload: data.candidatesFiltered,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
         dispatch({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
         });
+      }
+    }
+  };
+}
+
+export function CreateCandidate(candidateInfo: any) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch({ type: ActionTypes.SET_IS_LOADING });
+      const { data } = await ClientAxios.post<CreateCandidateResponse>(
+        CREATE_CANDIDATE,
+        candidateInfo,
+      );
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      return dispatch<CreateCandidateAction>({
+        type: ActionTypes.CREATE_CANDIDATE,
+        payload: data.candidate,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch({ type: ActionTypes.SET_ERROR, payload: error.response.data });
       }
     }
   };
@@ -140,6 +170,14 @@ export function CleanSearch() {
   };
 }
 
+export function SetAppliedFilters() {
+  return function (dispatch: Dispatch) {
+    return dispatch({
+      type: ActionTypes.SET_APPLIED_FILTERS,
+    });
+  };
+}
+
 const AddCandidateLoad = (status: boolean) => ({
   type: ADD_CANDIDATE,
   payload: status,
@@ -166,7 +204,7 @@ export function GetData(id: number) {
   return async (dispatch: any) => {
     dispatch(GetDataLoad(true));
     try {
-      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`); ///candidates/${id}
+      const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`);
       dispatch(GetDataSuccess(response.data));
     } catch (error) {
       dispatch(GetDataError(true));
@@ -202,12 +240,12 @@ const GetDataEdit = (user: any) => ({
 });
 
 /* FUNCTION TO SAVE EDIT */
-export function DataSaveEdit(user: any) {
+export function DataSaveEdit(user: any, id: number) {
   return async (dispatch: any) => {
     dispatch(DataEditLoad(true));
 
     try {
-      ClientAxios.put(`${POST_CANDIDATE}/${user.id}`, user); ///candidates/${user.id}
+      ClientAxios.put(`${POST_CANDIDATE}/${id}`, user);
       dispatch(DataEditSuccess(user));
     } catch (error) {
       dispatch(DataEditError(true));
@@ -221,11 +259,11 @@ const DataEditLoad = (status: boolean) => ({
 });
 
 const DataEditSuccess = (user: any) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_SUCCESS,
   payload: user,
 });
 
 const DataEditError = (status: boolean) => ({
-  type: DATA_EDIT,
+  type: DATA_EDIT_ERROR,
   payload: status,
 });

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BsSearch } from 'react-icons/bs';
 import {
   GetCandidatesFiltered,
   CleanSearch,
+  SetAppliedFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import { State } from '../../redux/store/store';
 
@@ -11,15 +13,29 @@ export default function Search() {
 
   const dispatch = useDispatch();
 
+  const previousQuery = useSelector((state: State) => state.info.candidates);
   const cleanSearch = useSelector((state: State) => state.info.cleanSearch);
+  const appliedFilters = useSelector(
+    (state: State) => state.info.appliedFilters,
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    dispatch(GetCandidatesFiltered(undefined, undefined, query));
+
+    if (query === '') return;
+
+    if (appliedFilters) {
+      dispatch(GetCandidatesFiltered([], [], query, true, previousQuery));
+    } else {
+      dispatch(GetCandidatesFiltered(undefined, undefined, query));
+      dispatch(SetAppliedFilters());
+    }
   };
 
   if (cleanSearch) {
@@ -29,9 +45,12 @@ export default function Search() {
 
   return (
     <div className="inline-block pt-1">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="relative space-x-4">
+        <button onClick={handleSubmit} className="absolute top-2">
+          <BsSearch className="text-slate-400" />
+        </button>
         <input
-          className="bg-slate-100 w-[15rem] h-[2rem] px-2 rounded-md focus:outline-none"
+          className="transition ease-in duration-200 bg-[#F5F5F5] w-[15rem] h-[2rem] px-2 focus:outline-none caret-[#00ADEF]"
           type="search"
           name="query"
           placeholder="Type to search"

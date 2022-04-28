@@ -1,5 +1,6 @@
-import { IPosition } from './data';
+import { IPosition } from "./data";
 
 export type InitialState = {
   positions: IPosition[];
+  info: IPosition;
 };

@@ -2,6 +2,9 @@ import { BsPlay } from "react-icons/bs";
 import QskInterview from "../../../extras/QskInterview";
 
 const Videos = () => {
+  /*  */
+  let video = "";
+
   return (
     <div className="grid justify-items-center">
       <div className="mt-[48px] grid justify-items-start w-[85%]">
@@ -16,6 +19,11 @@ const Videos = () => {
               <span className="absolute top-[35%] left-[165px]">
                 <BsPlay className="text-cyan-color w-[81px] h-[85px]" />
               </span>
+              {video && (
+                <video id="video-interview" controls>
+                  <source src={video} type="video/webm;codecs=vp9,opus" />
+                </video>
+              )}
             </div>
             <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
               *This candidate haven't completed any task yet

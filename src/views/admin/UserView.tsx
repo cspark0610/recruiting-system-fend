@@ -1,19 +1,27 @@
+import { useState } from "react";
 import UserDialog from "../../components/dialog/UserDialog";
-import { useModal } from "../../hooks/useModal";
 
 const UserView = () => {
   /*  */
-  const { isOpen, openDialog } = useModal();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const isOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const isClose = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <>
       <button
-        className="cursor-pointer rounded-sm bg-white font-raleway text-gray-color font-bold text-sm laptop:w-[75px] laptop:h-[25px] shadow-lg border border-gray-color mt-5"
+        className="cursor-pointer rounded-sm bg-white font-raleway text-gray-color font-bold text-sm laptop:w-[75px] laptop:h-[25px] shadow-lg border border-gray-color mt-24"
         onClick={isOpen}
       >
         Open
       </button>
-      {openDialog && <UserDialog />}
+      {openDialog && <UserDialog isDialogClose={isClose} />}
     </>
   );
 };
