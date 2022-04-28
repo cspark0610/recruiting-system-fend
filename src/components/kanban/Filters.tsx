@@ -132,41 +132,45 @@ export default function Filters() {
         <AiOutlineDown />
       </button>
 
-      {showPositionFilter ? (
-        <div className="absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md">
-          <div className="flex flex-col px-4 pt-4 space-y-4">
-            <button
-              onClick={handleAllPositionsCheck}
-              className="flex justify-end text-sm text-cyan-500"
-            >
-              Select All
-            </button>
-            {positions.map((pos) => (
-              <div
-                key={pos._id}
-                className="flex justify-between border-b pb-2 w-48"
-              >
-                <label htmlFor={pos._id}>{pos.title}</label>
-                <input
-                  type="checkbox"
-                  className="mt-2 ml-2 hover:cursor-pointer"
-                  name={pos.title}
-                  id={pos._id}
-                  checked={position.indexOf(pos.title) !== -1 ? true : false}
-                  value={pos.title}
-                  onChange={handlePositionCheck}
-                />
-              </div>
-            ))}
-          </div>
+      <div
+        className={
+          showPositionFilter
+            ? 'transition ease-in-out duration-200 opacity-100 absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md'
+            : 'duration-200 opacity-0 invisible absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md opacity-0'
+        }
+      >
+        <div className="transition ease-in-out duration-300 flex flex-col px-4 pt-4 space-y-4">
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
-            onClick={handleActionDispatch}
+            onClick={handleAllPositionsCheck}
+            className="flex justify-end text-sm text-cyan-500"
           >
-            Apply
+            Select All
           </button>
+          {positions.map((pos) => (
+            <div
+              key={pos._id}
+              className="flex justify-between border-b pb-2 w-48"
+            >
+              <label htmlFor={pos._id}>{pos.title}</label>
+              <input
+                type="checkbox"
+                className="mt-2 ml-2 hover:cursor-pointer"
+                name={pos.title}
+                id={pos._id}
+                checked={position.indexOf(pos.title) !== -1 ? true : false}
+                value={pos.title}
+                onChange={handlePositionCheck}
+              />
+            </div>
+          ))}
         </div>
-      ) : null}
+        <button
+          className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+          onClick={handleActionDispatch}
+        >
+          Apply
+        </button>
+      </div>
 
       <span>Status</span>
       <button
@@ -176,50 +180,54 @@ export default function Filters() {
         <AiOutlineDown />
       </button>
 
-      {showStatusFilter ? (
-        <div className="absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md">
-          <div className="flex flex-col px-4 pt-4 space-y-4">
-            <button
-              className="flex justify-end text-sm text-cyan-500"
-              onClick={handleAllStatusCheck}
-            >
-              Select All
-            </button>
-            {secondaryStatus.map((status) => (
-              <div
-                key={status.id}
-                className="flex justify-between border-b pb-2 w-48"
-              >
-                <div className="flex">
-                  <div
-                    className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
-                  ></div>
-                  <label htmlFor={status.id.toString()} className="ml-3">
-                    {status.displayName}
-                  </label>
-                </div>
-                <input
-                  type="checkbox"
-                  className="mt-2 ml-2 hover:cursor-pointer"
-                  name={status.displayName}
-                  id={status.id.toString()}
-                  checked={
-                    secondary_status.indexOf(status.value) !== -1 ? true : false
-                  }
-                  value={status.value}
-                  onChange={handleStatusCheck}
-                />
-              </div>
-            ))}
-          </div>
+      <div
+        className={
+          showStatusFilter
+            ? 'transition ease-in-out duration-200 opacity-100 absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md'
+            : 'duration-200 opacity-0 invisible absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md'
+        }
+      >
+        <div className="flex flex-col px-4 pt-4 space-y-4">
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
-            onClick={handleActionDispatch}
+            className="flex justify-end text-sm text-cyan-500"
+            onClick={handleAllStatusCheck}
           >
-            Apply
+            Select All
           </button>
+          {secondaryStatus.map((status) => (
+            <div
+              key={status.id}
+              className="flex justify-between border-b pb-2 w-48"
+            >
+              <div className="flex">
+                <div
+                  className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
+                ></div>
+                <label htmlFor={status.id.toString()} className="ml-3">
+                  {status.displayName}
+                </label>
+              </div>
+              <input
+                type="checkbox"
+                className="mt-2 ml-2 hover:cursor-pointer"
+                name={status.displayName}
+                id={status.id.toString()}
+                checked={
+                  secondary_status.indexOf(status.value) !== -1 ? true : false
+                }
+                value={status.value}
+                onChange={handleStatusCheck}
+              />
+            </div>
+          ))}
         </div>
-      ) : null}
+        <button
+          className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+          onClick={handleActionDispatch}
+        >
+          Apply
+        </button>
+      </div>
     </div>
   );
 }

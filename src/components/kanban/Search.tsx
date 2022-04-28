@@ -50,7 +50,7 @@ export default function Search() {
           <BsSearch className="text-slate-400" />
         </button>
         <input
-          className="bg-[#F5F5F5] w-[15rem] h-[2rem] px-2 focus:outline-none caret-[#00ADEF]"
+          className="transition ease-in duration-200 bg-[#F5F5F5] w-[15rem] h-[2rem] px-2 focus:outline-none caret-[#00ADEF]"
           type="search"
           name="query"
           placeholder="Type to search"

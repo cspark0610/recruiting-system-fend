@@ -40,7 +40,7 @@ export default function KanbanOptions() {
         <div
           className={
             showSearch
-              ? 'flex pl-2 bg-[#F5F5F5] rounded-[5px]'
+              ? 'transition ease-in-out duration-200 flex pl-2 bg-[#F5F5F5] rounded-[5px]'
               : 'flex pl-2 bg-white'
           }
         >
