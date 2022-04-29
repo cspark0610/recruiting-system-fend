@@ -82,7 +82,11 @@ export default function Filters() {
     if (position.length === 0 && secondary_status.length === 0) return; // if no filters selected, no action is dispatched
 
     dispatch(
-      GetCandidatesFiltered(position, secondary_status, currentFilters.query),
+      GetCandidatesFiltered({
+        ...currentFilters,
+        position,
+        status: secondary_status,
+      }),
     );
     setShowPositionFilter(false);
     setShowStatusFilter(false);

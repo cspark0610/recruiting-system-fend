@@ -13,6 +13,7 @@ import {
   SetErrorAction,
   ClearErrorAction,
   SetCurrentFiltersAction,
+  CleanFiltersAction,
 } from '../types/dispatchActions';
 
 import {
@@ -35,6 +36,7 @@ import {
   POST_CANDIDATE,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
+import { Filters } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -63,24 +65,14 @@ export function GetAllCandidates() {
   };
 }
 
-export function GetCandidatesFiltered(
-  position: string[],
-  secondary_status: string[],
-  query: string,
-) {
+export function GetCandidatesFiltered(filters: Filters) {
   return async function (dispatch: Dispatch) {
-    const requestBody = JSON.stringify({
-      position,
-      secondary_status,
-      query,
-    });
-
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.post<GetCandidatesFilteredResponse>(
         GET_ALL_CANDIDATES_FILTERED,
-        requestBody,
+        filters,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -92,9 +84,9 @@ export function GetCandidatesFiltered(
       dispatch<SetCurrentFiltersAction>({
         type: ActionTypes.SET_CURRENT_FILTERS,
         payload: {
-          position,
-          status: secondary_status,
-          query,
+          position: filters.position,
+          status: filters.status,
+          query: filters.query,
         },
       });
 
@@ -159,6 +151,14 @@ export function CleanErrors() {
   return function (dispatch: Dispatch) {
     return dispatch<ClearErrorAction>({
       type: ActionTypes.CLEAN_ERROR,
+    });
+  };
+}
+
+export function CleanFilters() {
+  return function (dispatch: Dispatch) {
+    return dispatch<CleanFiltersAction>({
+      type: ActionTypes.CLEAN_FILTERS,
     });
   };
 }

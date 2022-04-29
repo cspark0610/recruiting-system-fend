@@ -25,11 +25,10 @@ export default function Search() {
     if (query === '') return;
 
     dispatch(
-      GetCandidatesFiltered(
-        currentFilters.position,
-        currentFilters.status,
+      GetCandidatesFiltered({
+        ...currentFilters,
         query,
-      ),
+      }),
     );
   };
 

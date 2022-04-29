@@ -5,6 +5,7 @@ import { HiPlusCircle } from 'react-icons/hi';
 import {
   GetAllCandidates,
   CleanErrors,
+  CleanFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import Filters from './Filters';
 import Search from './Search';
@@ -16,6 +17,7 @@ export default function KanbanOptions() {
 
   const handleCleanFilters = () => {
     dispatch(CleanErrors());
+    dispatch(CleanFilters());
     dispatch(GetAllCandidates());
   };
 
