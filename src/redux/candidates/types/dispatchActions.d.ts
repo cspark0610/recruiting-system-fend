@@ -34,6 +34,19 @@ export type CreateCandidateAction = {
   payload: ICandidate;
 };
 
+export type SetCurrentFiltersAction = {
+  type: ActionTypes.SET_CURRENT_FILTERS;
+  payload: {
+    position: Array<string>;
+    status: Array<string>;
+    query: string;
+  };
+};
+
+export type CleanFiltersAction = {
+  type: ActionTypes.CLEAN_FILTERS;
+};
+
 export type Action =
   | GetCandidatesAction
   | GetCandidatesFilteredAction
@@ -43,3 +56,5 @@ export type Action =
   | SetErrorAction
   | ClearErrorAction
   | GetCandidateInfoAction;
+  | SetCurrentFiltersAction
+  | CleanFiltersAction;

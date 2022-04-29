@@ -15,7 +15,9 @@ export type InitialState = {
   isUserEdit: boolean;
   loading: boolean;
   error: IError;
-  cleanFilters: boolean;
-  cleanSearch: boolean;
-  appliedFilters: boolean;
+  currentFilters: {
+    position: Array<string>;
+    status: Array<string>;
+    query: string;
+  };
 };

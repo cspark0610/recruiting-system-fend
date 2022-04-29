@@ -69,9 +69,11 @@ const initialState: InitialState = {
     status: 400,
     message: '',
   },
-  cleanFilters: false,
-  cleanSearch: false,
-  appliedFilters: false,
+  currentFilters: {
+    position: [],
+    status: [],
+    query: '',
+  },
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -138,23 +140,21 @@ function CandidateReducer(state = initialState, action: Action) {
     case ActionTypes.CLEAN_FILTERS: {
       return {
         ...state,
-        cleanFilters: !state.cleanFilters,
+        currentFilters: {
+          position: [],
+          status: [],
+          query: '',
+        },
       };
     }
 
-    case ActionTypes.CLEAN_SEARCH: {
+    case ActionTypes.SET_CURRENT_FILTERS: {
       return {
         ...state,
-        cleanSearch: !state.cleanSearch,
+        currentFilters: action.payload,
       };
     }
 
-    case ActionTypes.SET_APPLIED_FILTERS: {
-      return {
-        ...state,
-        appliedFilters: !state.appliedFilters,
-      };
-    }
     case ADD_CANDIDATE:
     case GET_DATA:
     case DATA_EDIT:
