@@ -10,6 +10,8 @@ import {
   CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
+  SetErrorAction,
+  ClearErrorAction,
 } from '../types/dispatchActions';
 
 import {
@@ -52,7 +54,7 @@ export function GetAllCandidates() {
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch({
+        dispatch<SetErrorAction>({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
         });
@@ -99,7 +101,7 @@ export function GetCandidatesFiltered(
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch({
+        dispatch<SetErrorAction>({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
         });
@@ -124,7 +126,10 @@ export function CreateCandidate(candidateInfo: any) {
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch({ type: ActionTypes.SET_ERROR, payload: error.response.data });
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
       }
     }
   };
@@ -148,7 +153,7 @@ export function AddCandidate(user: any) {
 
 export function CleanErrors() {
   return function (dispatch: Dispatch) {
-    return dispatch({
+    return dispatch<ClearErrorAction>({
       type: ActionTypes.CLEAN_ERROR,
     });
   };
