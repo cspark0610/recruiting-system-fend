@@ -1,5 +1,5 @@
-import { ActionTypes } from "../types/index";
-import { ICandidate } from "./data";
+import { ActionTypes } from '../types/index';
+import { ICandidate, IError } from './data';
 
 export type GetCandidatesAction = {
   type: ActionTypes.GET_CANDIDATES;
@@ -15,6 +15,15 @@ export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
 
+export type SetErrorAction = {
+  type: ActionTypes.SET_ERROR;
+  payload: IError;
+};
+
+export type ClearErrorAction = {
+  type: ActionTypes.CLEAR_ERROR;
+};
+
 export type CreateCandidateAction = {
   type: ActionTypes.CREATE_CANDIDATE;
   payload: ICandidate;
@@ -25,4 +34,6 @@ export type Action =
   | GetCandidatesFilteredAction
   | NotFoundWithFilers
   | SetLoadingAction
-  | CreateCandidateAction;
+  | CreateCandidateAction
+  | SetErrorAction
+  | ClearErrorAction;

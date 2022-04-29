@@ -1,12 +1,12 @@
-import { useSearchParams } from "react-router-dom";
-import Lang from "../../components/extras/Lang";
-import FrmApply from "../../components/forms/FrmApply";
-import Header from "./../../components/header/Header";
+import { useSearchParams } from 'react-router-dom';
+import Lang from '../../components/extras/Lang';
+import FrmApply from '../../components/forms/FrmApply';
+import Header from './../../components/header/Header';
 
 const Data = () => {
   /*  */
   const [searchParams, setSearchParams] = useSearchParams();
-  const id = searchParams.get("job_id");
+  const id = searchParams.get('job_id');
 
   return (
     <>
