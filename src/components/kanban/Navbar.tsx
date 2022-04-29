@@ -16,7 +16,7 @@ export default function Navbar({ userName }: NavbarProps) {
             onClick={() => setShowProfileMenu(!showProfileMenu)}
             className="font-medium"
           >
-            Hello {userName}
+            Hello User
           </button>
           <div
             className={
