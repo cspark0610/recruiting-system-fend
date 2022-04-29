@@ -10,32 +10,34 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
   user: {
-    college: "",
-    salary: "",
-    available: "",
-    skills: [""],
-    description: "",
-    video: "",
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: '',
   },
   userId: null,
   isUserEdit: false,
   loading: false,
   error: {
     status: 400,
-    message: "",
+    message: '',
   },
-  cleanFilters: false,
-  cleanSearch: false,
-  appliedFilters: false,
+  currentFilters: {
+    position: [],
+    status: [],
+    query: '',
+  },
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -87,7 +89,7 @@ function CandidateReducer(state = initialState, action: Action) {
         ...state,
         error: {
           status: 400,
-          message: "",
+          message: '',
         },
       };
     }
@@ -95,23 +97,21 @@ function CandidateReducer(state = initialState, action: Action) {
     case ActionTypes.CLEAN_FILTERS: {
       return {
         ...state,
-        cleanFilters: !state.cleanFilters,
+        currentFilters: {
+          position: [],
+          status: [],
+          query: '',
+        },
       };
     }
 
-    case ActionTypes.CLEAN_SEARCH: {
+    case ActionTypes.SET_CURRENT_FILTERS: {
       return {
         ...state,
-        cleanSearch: !state.cleanSearch,
+        currentFilters: action.payload,
       };
     }
 
-    case ActionTypes.SET_APPLIED_FILTERS: {
-      return {
-        ...state,
-        appliedFilters: !state.appliedFilters,
-      };
-    }
     case ADD_CANDIDATE:
     case GET_DATA:
     case DATA_EDIT:

@@ -44,3 +44,9 @@ export type IError = {
   status: number;
   message: string;
 };
+
+export type Filters = {
+  position: Array<string>;
+  status: Array<string>;
+  query: string;
+};
