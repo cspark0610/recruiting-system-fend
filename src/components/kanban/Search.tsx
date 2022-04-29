@@ -1,11 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
-import {
-  GetCandidatesFiltered,
-  CleanSearch,
-  SetAppliedFilters,
-} from '../../redux/candidates/actions/CandidateAction';
+import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction';
 import { State } from '../../redux/store/store';
 
 export default function Search() {
@@ -13,10 +9,8 @@ export default function Search() {
 
   const dispatch = useDispatch();
 
-  const previousQuery = useSelector((state: State) => state.info.candidates);
-  const cleanSearch = useSelector((state: State) => state.info.cleanSearch);
-  const appliedFilters = useSelector(
-    (state: State) => state.info.appliedFilters,
+  const currentFilters = useSelector(
+    (state: State) => state.info.currentFilters,
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,18 +24,18 @@ export default function Search() {
 
     if (query === '') return;
 
-    if (appliedFilters) {
-      dispatch(GetCandidatesFiltered([], [], query, true, previousQuery));
-    } else {
-      dispatch(GetCandidatesFiltered(undefined, undefined, query));
-      dispatch(SetAppliedFilters());
-    }
+    dispatch(
+      GetCandidatesFiltered(
+        currentFilters.position,
+        currentFilters.status,
+        query,
+      ),
+    );
   };
 
-  if (cleanSearch) {
-    setQuery('');
-    dispatch(CleanSearch());
-  }
+  useEffect(() => {
+    setQuery(currentFilters.query);
+  }, [currentFilters.query]);
 
   return (
     <div className="inline-block pt-1">

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   CleanFilters,
   GetCandidatesFiltered,
-  SetAppliedFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import { AiOutlineDown } from 'react-icons/ai';
@@ -13,11 +12,9 @@ import secondaryStatus from '../../config/kanban/constants';
 export default function Filters() {
   const dispatch = useDispatch();
 
-  const previousQuery = useSelector((state: State) => state.info.candidates);
-  const cleanFilters = useSelector((state: State) => state.info.cleanFilters);
   const positions = useSelector((state: State) => state.positions.positions);
-  const appliedFilters = useSelector(
-    (state: State) => state.info.appliedFilters,
+  const currentFilters = useSelector(
+    (state: State) => state.info.currentFilters,
   );
 
   // adds a checked property to each job object
@@ -31,14 +28,12 @@ export default function Filters() {
   const [showPositionFilter, setShowPositionFilter] = useState<boolean>(false);
   const [showStatusFilter, setShowStatusFilter] = useState<boolean>(false);
 
+  const [allPositionsSelected, setAllPositionsSelected] =
+    useState<boolean>(false);
+  const [allStatusSelected, setAllStatusSelected] = useState<boolean>(false);
+
   const wraperRef = useRef<HTMLDivElement>(null);
   useOutsideAlerter(wraperRef);
-
-  if (cleanFilters) {
-    setPosition([]);
-    setSecondaryStatus([]);
-    dispatch(CleanFilters());
-  }
 
   const handlePositionCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -59,43 +54,41 @@ export default function Filters() {
   };
 
   const handleAllPositionsCheck = (e: any) => {
-    const positionsChecked = positionsWithCheck.map((pos) => {
-      pos.checked = !e.target.checked;
-      return pos;
-    });
-    setPosition(positionsChecked.map((pos) => pos.title));
+    if (!allPositionsSelected) {
+      const positionsChecked = positionsWithCheck.map((pos) => {
+        pos.checked = !e.target.checked;
+        return pos;
+      });
+      setPosition(positionsChecked.map((pos) => pos._id!));
+      setAllPositionsSelected(true);
+    } else {
+      setPosition([]);
+      setAllPositionsSelected(false);
+    }
   };
 
   const handleAllStatusCheck = (e: any) => {
-    const statusChecked = secondaryStatus.map((status) => {
-      status.checked = !e.target.checked;
-      return status;
-    });
-    setSecondaryStatus(statusChecked.map((status) => status.value));
+    if (!allStatusSelected) {
+      const statusChecked = secondaryStatus.map((status) => {
+        status.checked = !e.target.checked;
+        return status;
+      });
+      setSecondaryStatus(statusChecked.map((status) => status.value));
+      setAllStatusSelected(true);
+    } else {
+      setSecondaryStatus([]);
+      setAllStatusSelected(false);
+    }
   };
 
   const handleActionDispatch = () => {
     if (position.length === 0 && secondary_status.length === 0) return; // if no filters selected, no action is dispatched
 
-    if (appliedFilters) {
-      dispatch(
-        GetCandidatesFiltered(
-          position,
-          secondary_status,
-          undefined,
-          true,
-          previousQuery,
-        ),
-      );
-      setShowPositionFilter(false);
-      setShowStatusFilter(false);
-    } else {
-      dispatch(GetCandidatesFiltered(position, secondary_status, undefined));
-      dispatch(SetAppliedFilters());
-
-      setShowPositionFilter(false);
-      setShowStatusFilter(false);
-    }
+    dispatch(
+      GetCandidatesFiltered(position, secondary_status, currentFilters.query),
+    );
+    setShowPositionFilter(false);
+    setShowStatusFilter(false);
   };
 
   function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
@@ -122,6 +115,11 @@ export default function Filters() {
     dispatch(GetAllPositions());
   }, [dispatch]);
 
+  useEffect(() => {
+    setPosition(currentFilters.position);
+    setSecondaryStatus(currentFilters.status);
+  }, [currentFilters.position, currentFilters.status]);
+
   return (
     <div ref={wraperRef} className="space-x-4 mt-2">
       <span>Positions</span>
@@ -144,7 +142,7 @@ export default function Filters() {
             onClick={handleAllPositionsCheck}
             className="flex justify-end text-sm text-cyan-500"
           >
-            Select All
+            {allPositionsSelected ? 'Unselect all' : 'Select all'}
           </button>
           {positions.map((pos) => (
             <div
@@ -157,8 +155,8 @@ export default function Filters() {
                 className="mt-2 ml-2 hover:cursor-pointer"
                 name={pos.title}
                 id={pos._id}
-                checked={position.indexOf(pos.title) !== -1 ? true : false}
-                value={pos.title}
+                checked={position.indexOf(pos._id!) !== -1 ? true : false}
+                value={pos._id!}
                 onChange={handlePositionCheck}
               />
             </div>
@@ -192,7 +190,7 @@ export default function Filters() {
             className="flex justify-end text-sm text-cyan-500"
             onClick={handleAllStatusCheck}
           >
-            Select All
+            {allStatusSelected ? 'Unselect all' : 'Select all'}
           </button>
           {secondaryStatus.map((status) => (
             <div
