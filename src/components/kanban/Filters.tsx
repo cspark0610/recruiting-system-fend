@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  CleanFilters,
-  GetCandidatesFiltered,
-} from '../../redux/candidates/actions/CandidateAction';
+import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction';
 import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import { AiOutlineDown } from 'react-icons/ai';
 import { State } from '../../redux/store/store';

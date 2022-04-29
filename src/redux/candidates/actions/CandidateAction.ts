@@ -12,6 +12,7 @@ import {
   GetCandidatesFilteredAction,
   SetErrorAction,
   ClearErrorAction,
+  SetCurrentFiltersAction,
 } from '../types/dispatchActions';
 
 import {
@@ -34,7 +35,6 @@ import {
   POST_CANDIDATE,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
-import { ICandidate } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -64,19 +64,15 @@ export function GetAllCandidates() {
 }
 
 export function GetCandidatesFiltered(
-  position?: string[],
-  secondary_status?: string[],
-  query?: string,
-  apply_next?: boolean,
-  previousQuery?: ICandidate[],
+  position: string[],
+  secondary_status: string[],
+  query: string,
 ) {
   return async function (dispatch: Dispatch) {
     const requestBody = JSON.stringify({
       position,
       secondary_status,
       query,
-      apply_next,
-      previousQuery,
     });
 
     dispatch({ type: ActionTypes.SET_IS_LOADING });
@@ -93,6 +89,14 @@ export function GetCandidatesFiltered(
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch<SetCurrentFiltersAction>({
+        type: ActionTypes.SET_CURRENT_FILTERS,
+        payload: {
+          position,
+          status: secondary_status,
+          query,
+        },
+      });
 
       return dispatch<GetCandidatesFilteredAction>({
         type: ActionTypes.GET_CANDIDATES_FILTERED,
@@ -171,14 +175,6 @@ export function CleanSearch() {
   return function (dispatch: Dispatch) {
     return dispatch({
       type: ActionTypes.CLEAN_SEARCH,
-    });
-  };
-}
-
-export function SetAppliedFilters() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.SET_APPLIED_FILTERS,
     });
   };
 }
