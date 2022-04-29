@@ -2,6 +2,7 @@ import { ICandidate, IError } from './data';
 
 export type InitialState = {
   candidates: ICandidate[];
+  detail: ICandidate;
   user: {
     college: string;
     salary: string;

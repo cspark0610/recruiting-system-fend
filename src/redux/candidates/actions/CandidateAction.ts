@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { ActionTypes } from '../types/index';
 import {
   CreateCandidateResponse,
+  GetCandidateInfoResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
 } from '../types/axiosResponses';
@@ -12,6 +13,7 @@ import {
   GetCandidatesFilteredAction,
   SetErrorAction,
   ClearErrorAction,
+  GetCandidateInfoAction,
   SetCurrentFiltersAction,
   CleanFiltersAction,
 } from '../types/dispatchActions';
@@ -52,6 +54,33 @@ export function GetAllCandidates() {
       return dispatch<GetCandidatesAction>({
         type: ActionTypes.GET_CANDIDATES,
         payload: data.allCandidates,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function GetCandidateInfo(_id: string) {
+  return async function (dispatch: Dispatch) {
+    dispatch({ type: ActionTypes.SET_IS_LOADING });
+
+    try {
+      const { data } = await ClientAxios.get<GetCandidateInfoResponse>(
+        `${GET_ALL_CANDIDATES}/${_id}`,
+      );
+
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<GetCandidateInfoAction>({
+        type: ActionTypes.GET_CANDIDATE_DETAIL,
+        payload: data.candidate,
       });
     } catch (error: any) {
       if (error.response) {

@@ -18,6 +18,42 @@ import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
+  detail: {
+    _id: '',
+    name: '',
+    email: '',
+    country: '',
+    english_level: '',
+    academic_training: '',
+    phone: 123,
+    position: {
+      _id: '',
+      title: '',
+      client_name: '',
+      rie_link: '',
+      recruiter_filter: '',
+      url: '',
+      isActive: true,
+      skills_required: [],
+      video_questions_list: [],
+    },
+    working_reason: '',
+    main_status: 'interested',
+    secondary_status: 'new entry',
+    designated_recruiters: [],
+    skills: [],
+    linkedin: '',
+    portfolio: '',
+    createdAt: undefined,
+    updatedAt: undefined,
+    video_recording_url: {
+      _id: '',
+      short_url: '',
+      expiresAt: undefined,
+    },
+    cv: '',
+    isRejected: false,
+  },
   user: {
     college: '',
     salary: '',
@@ -46,6 +82,13 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.GET_CANDIDATE_DETAIL: {
+      return {
+        ...state,
+        detail: action.payload,
       };
     }
 
