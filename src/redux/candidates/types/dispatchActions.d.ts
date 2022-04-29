@@ -55,6 +55,6 @@ export type Action =
   | CreateCandidateAction
   | SetErrorAction
   | ClearErrorAction
-  | GetCandidateInfoAction;
+  | GetCandidateInfoAction
   | SetCurrentFiltersAction
   | CleanFiltersAction;
