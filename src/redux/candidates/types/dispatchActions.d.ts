@@ -11,6 +11,11 @@ export type GetCandidatesFilteredAction = {
   payload: CandidateState;
 };
 
+export type GetCandidateInfoAction = {
+  type: ActionTypes.GET_CANDIDATE_DETAIL;
+  payload: ICandidate;
+};
+
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
@@ -36,4 +41,5 @@ export type Action =
   | SetLoadingAction
   | CreateCandidateAction
   | SetErrorAction
-  | ClearErrorAction;
+  | ClearErrorAction
+  | GetCandidateInfoAction;

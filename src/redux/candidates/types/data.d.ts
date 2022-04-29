@@ -10,7 +10,7 @@ export type IConclusions = {
 export type IVideoRecordingUrl = {
   _id: string;
   short_url: string;
-  expiresAt: Date;
+  expiresAt: Date | undefined;
 };
 
 export type ICandidate = {

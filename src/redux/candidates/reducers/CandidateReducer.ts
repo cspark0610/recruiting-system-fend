@@ -10,28 +10,64 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
+  detail: {
+    _id: '',
+    name: '',
+    email: '',
+    country: '',
+    english_level: '',
+    academic_training: '',
+    phone: 123,
+    position: {
+      _id: '',
+      title: '',
+      client_name: '',
+      rie_link: '',
+      recruiter_filter: '',
+      url: '',
+      isActive: true,
+      skills_required: [],
+      video_questions_list: [],
+    },
+    working_reason: '',
+    main_status: 'interested',
+    secondary_status: 'new entry',
+    designated_recruiters: [],
+    skills: [],
+    linkedin: '',
+    portfolio: '',
+    createdAt: undefined,
+    updatedAt: undefined,
+    video_recording_url: {
+      _id: '',
+      short_url: '',
+      expiresAt: undefined,
+    },
+    cv: '',
+    isRejected: false,
+  },
   user: {
-    college: "",
-    salary: "",
-    available: "",
-    skills: [""],
-    description: "",
-    video: "",
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: '',
   },
   userId: null,
   isUserEdit: false,
   loading: false,
   error: {
     status: 400,
-    message: "",
+    message: '',
   },
   cleanFilters: false,
   cleanSearch: false,
@@ -44,6 +80,13 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.GET_CANDIDATE_DETAIL: {
+      return {
+        ...state,
+        detail: action.payload,
       };
     }
 
@@ -87,7 +130,7 @@ function CandidateReducer(state = initialState, action: Action) {
         ...state,
         error: {
           status: 400,
-          message: "",
+          message: '',
         },
       };
     }
