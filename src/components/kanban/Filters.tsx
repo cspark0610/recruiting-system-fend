@@ -143,7 +143,9 @@ export default function Filters() {
             onClick={handleAllPositionsCheck}
             className="flex justify-end text-sm text-cyan-500"
           >
-            {allPositionsSelected ? 'Unselect all' : 'Select all'}
+            {allPositionsSelected && position.length !== 0
+              ? 'Unselect all'
+              : 'Select all'}
           </button>
           {positions.map((pos) => (
             <div
@@ -191,7 +193,9 @@ export default function Filters() {
             className="flex justify-end text-sm text-cyan-500"
             onClick={handleAllStatusCheck}
           >
-            {allStatusSelected ? 'Unselect all' : 'Select all'}
+            {allStatusSelected && secondary_status.length !== 0
+              ? 'Unselect all'
+              : 'Select all'}
           </button>
           {secondaryStatus.map((status) => (
             <div
