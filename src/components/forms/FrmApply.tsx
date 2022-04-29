@@ -34,6 +34,8 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const positionInfo = useSelector((state: State) => state.positions.info);
+
   /* Regular Expressions */
   const RegExp = {
     general: /^\s*/,
@@ -50,10 +52,10 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   const { country, english } = optionValues;
 
   /* It will capture id of job position */
-  /* useEffect(() => {
+  useEffect(() => {
     const JobInfo = () => dispatch(getPositionInfo(_id!));
     JobInfo();
-  }, [_id]); */
+  }, [_id, dispatch]);
 
   /* States from the component */
   const [name, setName] = useState('');
@@ -117,6 +119,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
     formData.append('country', nation.name);
     formData.append('linkedin', linkedin);
     formData.append('portfolio', portfolio);
+    formData.append('position', positionInfo._id!);
     formData.append('cv', file);
 
     evt.preventDefault();
@@ -135,7 +138,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
     }
   };
 
-  let job_title = 'Title';
+  let job_title = positionInfo.title;
 
   return (
     <section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">

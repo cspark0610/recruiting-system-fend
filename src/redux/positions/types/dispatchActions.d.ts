@@ -1,5 +1,5 @@
-import { ActionTypes } from "./actionNames";
-import { IPosition } from "./data";
+import { ActionTypes } from './actionNames';
+import { IError, IPosition } from './data';
 
 export type GetAllPositionsAction = {
   type: ActionTypes.GET_ALL_POSITIONS;
@@ -11,4 +11,17 @@ export type GetPositionInfoAction = {
   payload: IPosition;
 };
 
-export type Action = GetAllPositionsAction | GetPositionInfoAction;
+export type SetErrorAction = {
+  type: ActionTypes.SET_ERROR;
+  payload: IError;
+};
+
+export type CleanErrorAction = {
+  type: ActionTypes.CLEAN_ERROR;
+};
+
+export type Action =
+  | GetAllPositionsAction
+  | GetPositionInfoAction
+  | SetErrorAction
+  | CleanErrorAction;
