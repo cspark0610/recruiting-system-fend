@@ -101,6 +101,14 @@ export function GetCandidatesFiltered(filters: Filters) {
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
         });
+        dispatch<SetCurrentFiltersAction>({
+          type: ActionTypes.SET_CURRENT_FILTERS,
+          payload: {
+            position: filters.position,
+            status: filters.status,
+            query: filters.query,
+          },
+        });
       }
     }
   };
