@@ -1,6 +1,6 @@
 import { ActionTypes } from "../types/index";
 
-import { POST_FEED } from "../../../config/routes/endpoints";
+import { POST_CONCLUSION, POST_FEED } from "../../../config/routes/endpoints";
 
 import ClientAxios from "../../../config/api/axios";
 
@@ -10,7 +10,7 @@ export function AddConclusion(feed: any) {
     try {
       const {
         data: { id },
-      } = await ClientAxios.post(POST_FEED, feed);
+      } = await ClientAxios.post(POST_CONCLUSION, feed);
       dispatch(AddConclusionSuccess(feed));
       dispatch(GetID(id));
     } catch (error) {
@@ -45,7 +45,7 @@ export function GetConclusion() {
   return async (dispatch: any) => {
     dispatch(GetConclusionLoad(true));
     try {
-      const response = await ClientAxios.get(POST_FEED);
+      const response = await ClientAxios.get(POST_CONCLUSION);
       dispatch(GetConclusionSuccess(response.data));
     } catch (error) {
       dispatch(GetConclusionError(true));

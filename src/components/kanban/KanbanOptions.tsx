@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
 import { HiPlusCircle } from 'react-icons/hi';
@@ -7,13 +7,19 @@ import {
   CleanErrors,
   CleanFilters,
 } from '../../redux/candidates/actions/CandidateAction';
+import detectOutsideClick from '../../utils/detectOutsideClick';
 import Filters from './Filters';
 import Search from './Search';
+import CreateNewDropdown from './CreateNewDropdown';
 
 export default function KanbanOptions() {
   const dispatch = useDispatch();
 
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showCreateDropdown, setShowCreateDropdown] = useState<boolean>(false);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  detectOutsideClick(wrapperRef, [setShowCreateDropdown]);
 
   const handleCleanFilters = () => {
     dispatch(CleanErrors());
@@ -51,10 +57,22 @@ export default function KanbanOptions() {
           Clean Filters
         </button>
       </div>
-      <div className="mr-16">
-        <button className="flex bg-sky-400 text-white font-medium rounded-full px-4 py-2 w-44">
+      <div className="mr-16 relative" ref={wrapperRef}>
+        <button
+          onClick={() => setShowCreateDropdown(!showCreateDropdown)}
+          className="flex bg-sky-400 text-white font-medium rounded-full px-4 py-2 w-44"
+        >
           Create New <HiPlusCircle className="ml-8 text-2xl" />
         </button>
+        <div
+          className={
+            showCreateDropdown
+              ? 'transition ease-in-out duration-200 opacity-100 absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+              : 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+          }
+        >
+          <CreateNewDropdown setShowCreateDropdown={setShowCreateDropdown} />
+        </div>
       </div>
     </div>
   );

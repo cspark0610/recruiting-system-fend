@@ -3,7 +3,7 @@ import UserDialog from "../../components/dialog/UserDialog";
 
 const UserView = () => {
   /*  */
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
   const isOpen = () => {
     setOpenDialog(true);

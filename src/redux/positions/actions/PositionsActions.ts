@@ -3,13 +3,19 @@ import { ActionTypes } from '../types/actionNames';
 import {
   GetAllPositionsAction,
   GetPositionInfoAction,
+  CreatePositionAction,
   SetErrorAction,
 } from '../types/dispatchActions';
 import {
   GetAllPositionsResponse,
   GetPositionResponse,
+  CreatePositionResponse,
 } from '../types/axiosResponses';
-import { GET_ALL_POSITIONS } from '../../../config/routes/endpoints';
+import {
+  GET_ALL_POSITIONS,
+  CREATE_POSITION,
+} from '../../../config/routes/endpoints';
+import { IPosition } from '../types/data';
 import ClientAxios from '../../../config/api/axios';
 
 export default function getAllPositions() {
@@ -46,6 +52,34 @@ export function getPositionInfo(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function createPosition(positionInfo: IPosition) {
+  return async function (dispatch: Dispatch) {
+    dispatch({ type: ActionTypes.SET_IS_LOADING });
+    try {
+      const { data } = await ClientAxios.post<CreatePositionResponse>(
+        CREATE_POSITION,
+        positionInfo,
+      );
+
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<CreatePositionAction>({
+        type: ActionTypes.CREATE_POSITION,
+        payload: data.newPosition,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
         dispatch<SetErrorAction>({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
