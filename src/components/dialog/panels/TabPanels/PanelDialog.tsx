@@ -12,7 +12,7 @@ import { State } from "../../../../redux/store/store";
 const PanelDialog = () => {
   /*  */
   const dispatch = useDispatch();
-  const candidateID = useSelector((state: State) => state.info.candidates._id);
+  const candidateID = useSelector((state: State) => state.info.detail._id);
 
   useEffect(() => {
     if (candidateID) {
@@ -21,26 +21,26 @@ const PanelDialog = () => {
     }
   }, [candidateID, dispatch]);
 
-  let candidate = useSelector((state: State) => state.info.candidates);
+  let candidate = useSelector((state: State) => state.info.detail);
 
   return (
     <Tab.Panels className="w-full">
       <Tab.Panel>
         <General
           name={candidate.name}
-          academic_training={candidate.academic_training}
-          date_birth={candidate.date_birth}
-          country={candidate.country}
           email={candidate.email}
-          phone={candidate.phone}
+          country={candidate.country}
           english_level={candidate.english_level}
-          resume={candidate.cv}
+          academic_training={candidate.academic_training}
+          phone={candidate.phone}
+          date_birth={candidate.date_birth}
           linkedin={candidate.linkedin}
           portfolio={candidate.portfolio}
           working_reason={candidate.working_reason}
           salary_expectation={candidate.salary_expectations}
           available_from={candidate.available_from}
           skill={candidate.skills}
+          resume={candidate.cv}
         />
       </Tab.Panel>
       <Tab.Panel>
