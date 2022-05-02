@@ -9,13 +9,17 @@ const initialState: InitialState = {
     client_name: '',
     rie_link: '',
     recruiter_filter: '',
+    priority: '',
     skills_required: [''],
+    designated: [''],
     video_questions_list: [],
   },
   error: {
     status: 400,
     message: '',
   },
+
+  loading: false,
 };
 
 const PositionsReducer = (state = initialState, action: Action) => {
@@ -34,10 +38,31 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
+    case ActionTypes.CREATE_POSITION: {
+      return {
+        ...state,
+        positions: state.positions.concat(action.payload),
+      };
+    }
+
     case ActionTypes.SET_ERROR: {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_IS_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_LOADING: {
+      return {
+        ...state,
+        loading: false,
       };
     }
 
