@@ -2,7 +2,39 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt, FaRegFileWord } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 
-const General = () => {
+type ItemProps = {
+  name: string;
+  academic_training: string;
+  date_birth: string;
+  country: string;
+  email: string;
+  phone: string;
+  english_level: string;
+  resume: string;
+  linkedin: string;
+  portfolio: string;
+  working_reason: string;
+  salary_expectation: string;
+  available_from: string;
+  skill: string;
+};
+
+const General = ({
+  name,
+  academic_training,
+  date_birth,
+  country,
+  email,
+  phone,
+  english_level,
+  resume,
+  linkedin,
+  portfolio,
+  working_reason,
+  salary_expectation,
+  available_from,
+  skill,
+}: ItemProps) => {
   return (
     <div className="grid justify-items-center">
       <section className="grid justify-items-center grid-cols-2 gap-[10px] w-[85%]">
@@ -11,13 +43,13 @@ const General = () => {
           {/*  */}
           <div className="my-[12px]">
             <h2 className="font-semibold text-[20px] text-cyan-color">
-              Samuel Vidal Muñoz
+              {name}
             </h2>
-            <p>Lic. en Diseño gráfico</p>
+            <p>{academic_training}</p>
             <div className="my-[10px]">
               <p>
                 Date of birth: &nbsp;
-                <span className="font-medium">20/12/1990</span>
+                <span className="font-medium">{date_birth}</span>
               </p>
               <p>
                 Age: &nbsp;
@@ -26,7 +58,7 @@ const General = () => {
             </div>
             <p className="flex gap-[10px] items-center">
               <FaMapMarkerAlt className="text-cyan-color w-[14px] h-[16px]" />
-              <span>Perú</span>
+              <span>{country}</span>
             </p>
           </div>
 
@@ -37,11 +69,11 @@ const General = () => {
             <div>
               <p className="flex gap-[10px] items-center">
                 <HiMail className="text-cyan-color w-[14px] h-[16px]" />
-                <span>samuelvidal.muñoz@gmail.com</span>
+                <span>{email}</span>
               </p>
               <p className="flex gap-[10px] items-center">
                 <BsFillTelephoneFill className="text-cyan-color w-[14px] h-[16px]" />
-                <span>987654321</span>
+                <span>{phone}</span>
               </p>
             </div>
           </div>
@@ -51,7 +83,7 @@ const General = () => {
           <div>
             <h6 className="text-[15px] font-semibold">English level:</h6>
             <div>
-              <p>Advance</p>
+              <p>{english_level}</p>
             </div>
           </div>
 
@@ -65,11 +97,11 @@ const General = () => {
             </p>
             <p className="font-normal my-[10px]">
               Linkedin: &nbsp;
-              <span className="text-cyan-color">candidatelinkedin.com</span>
+              <span className="text-cyan-color">{linkedin}</span>
             </p>
             <p className="font-normal">
               Other Links: &nbsp;
-              <span className="uppercase">na</span>
+              <span className="uppercase">{portfolio}</span>
             </p>
           </div>
         </div>
@@ -78,8 +110,9 @@ const General = () => {
           <div className="my-[12px]">
             <span>Why are you interesting in working with FTF</span>
             <textarea
-              name=""
-              id=""
+              name="description"
+              id="description"
+              value={working_reason}
               className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway text-gray-color my-3"
               maxLength={280}
               readOnly
@@ -88,11 +121,15 @@ const General = () => {
           <div className="my-5 flex flex-row">
             <p>
               Salary Expectations:{" "}
-              <span className="font-bold text-gray-color">1.000 usd</span>{" "}
+              <span className="font-bold text-gray-color">
+                {salary_expectation}
+              </span>{" "}
             </p>
             <p className="ml-[45px]">
               Available from:{" "}
-              <span className="font-bold text-gray-color">2 weeks</span>
+              <span className="font-bold text-gray-color">
+                {available_from}
+              </span>
             </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
@@ -106,7 +143,7 @@ const General = () => {
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
-            <span>Tech Skills:</span>
+            <span>Tech Skills: {skill}</span>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">

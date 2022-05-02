@@ -15,13 +15,13 @@ const Stream = () => {
   /*  */
   const navigate = useNavigate();
 
-  const onNavigate = () => {
-    navigate(VIEW_VIDEO_COMPLETED);
-  };
-
   const webcamRef = useRef<any>(null);
   const mediaRecorderRef = useRef<any>(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
+
+  const blob = new Blob(recordedChunks, {
+    type: "video/webm;codecs=vp9,opus",
+  });
 
   const [capture, setCapture] = useState(false);
   const [pause, setPause] = useState(false);
@@ -78,9 +78,6 @@ const Stream = () => {
   /* REMAKE RECORDING */
   const handleRemakeCaptureClick = useCallback(() => {
     if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/webm;codecs=vp9,opus",
-      });
       const url = URL.createObjectURL(blob);
       window.URL.revokeObjectURL(url);
       setRecordedChunks([]);
@@ -97,19 +94,21 @@ const Stream = () => {
     [setRecordedChunks]
   );
 
-  const handleDownload = useCallback(() => {
+  const handleSubmitCapture = useCallback(() => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm;codecs=vp9,opus",
       });
-      const url = URL.createObjectURL(blob);
-      console.log("URL Video: ", url);
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.href = url;
-      a.download = "video-interview.webm";
-      a.click();
-      window.URL.revokeObjectURL(url);
+
+      const video_url = URL.createObjectURL(blob);
+      const formData = new FormData();
+      console.log("URL VIDEO: ", video_url);
+
+      formData.append("video_recording_url", video_url);
+
+      navigate(VIEW_VIDEO_COMPLETED);
+
+      window.URL.revokeObjectURL(video_url);
       setRecordedChunks([]);
     }
   }, [recordedChunks]);
@@ -117,7 +116,7 @@ const Stream = () => {
   return (
     <div className="relative">
       {/* COUNTERDOWN FOR REFERENCES OF TIME */}
-      <div className="relative">
+      <div className="hidden">
         <div className="absolute top-5 left-5 z-10 text-white font-raleway">
           <span>{time.minute >= 10 ? time.minute : "0" + time.minute}</span>
           &nbsp;:&nbsp;
@@ -167,7 +166,7 @@ const Stream = () => {
 
           <button
             className="cursor-pointer rounded-2xl bg-white text-cyan-color font-bold text-sm py-3 px-7 w-[172px] h-[54px] shadow-lg border border-cyan-color mt-5 ml-5"
-            onClick={onNavigate}
+            onClick={handleSubmitCapture}
           >
             Save & Continue
           </button>
