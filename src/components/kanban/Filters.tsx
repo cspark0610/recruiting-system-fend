@@ -4,6 +4,7 @@ import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateA
 import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import { AiOutlineDown } from 'react-icons/ai';
 import { State } from '../../redux/store/store';
+import detectOutsideClick from '../../utils/detectOutsideClick';
 import secondaryStatus from '../../config/kanban/constants';
 
 export default function Filters() {
@@ -30,7 +31,7 @@ export default function Filters() {
   const [allStatusSelected, setAllStatusSelected] = useState<boolean>(false);
 
   const wraperRef = useRef<HTMLDivElement>(null);
-  useOutsideAlerter(wraperRef);
+  detectOutsideClick(wraperRef, [setShowPositionFilter, setShowStatusFilter]);
 
   const handlePositionCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -83,34 +84,14 @@ export default function Filters() {
 
     dispatch(
       GetCandidatesFiltered({
-        ...currentFilters,
         position,
         status: secondary_status,
+        query: '',
       }),
     );
     setShowPositionFilter(false);
     setShowStatusFilter(false);
   };
-
-  function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event: any) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setShowPositionFilter(false);
-          setShowStatusFilter(false);
-        }
-      }
-      // Bind the event listener
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [ref]);
-  }
 
   useEffect(() => {
     dispatch(GetAllPositions());
@@ -122,114 +103,121 @@ export default function Filters() {
   }, [currentFilters.position, currentFilters.status]);
 
   return (
-    <div ref={wraperRef} className="space-x-4 mt-2">
-      <span>Positions</span>
-      <button
-        onClick={() => setShowPositionFilter(!showPositionFilter)}
-        className="pr-4"
-      >
-        <AiOutlineDown />
-      </button>
-
-      <div
-        className={
-          showPositionFilter
-            ? 'transition ease-in-out duration-200 opacity-100 absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md'
-            : 'duration-200 opacity-0 invisible absolute left-[19rem] z-50 rounded-sm mt-2 bg-white shadow-md opacity-0'
-        }
-      >
-        <div className="flex flex-col px-4 pt-4 space-y-4">
+    <div ref={wraperRef} className="flex space-x-4 mt-2">
+      <div className="relative">
+        <div className="flex gap-4">
+          <span>Positions</span>
           <button
-            onClick={handleAllPositionsCheck}
-            className="flex justify-end text-sm text-cyan-500"
+            onClick={() => setShowPositionFilter(!showPositionFilter)}
+            className="pr-4"
           >
-            {allPositionsSelected && position.length !== 0
-              ? 'Unselect all'
-              : 'Select all'}
+            <AiOutlineDown />
           </button>
-          {positions.map((pos) => (
-            <div
-              key={pos._id}
-              className="flex justify-between border-b pb-2 w-48"
-            >
-              <label htmlFor={pos._id}>{pos.title}</label>
-              <input
-                type="checkbox"
-                className="mt-2 ml-2 hover:cursor-pointer"
-                name={pos.title}
-                id={pos._id}
-                checked={position.indexOf(pos._id!) !== -1 ? true : false}
-                value={pos._id!}
-                onChange={handlePositionCheck}
-              />
-            </div>
-          ))}
         </div>
-        <button
-          className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
-          onClick={handleActionDispatch}
+
+        <div
+          className={
+            showPositionFilter
+              ? 'transition ease-in-out duration-200 opacity-100 absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+              : 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+          }
         >
-          Apply
-        </button>
+          <div className="flex flex-col px-4 pt-4 space-y-4">
+            <button
+              onClick={handleAllPositionsCheck}
+              className="flex justify-end text-sm text-cyan-500"
+            >
+              {allPositionsSelected && position.length !== 0
+                ? 'Unselect all'
+                : 'Select all'}
+            </button>
+            {positions.map((pos) => (
+              <div
+                key={pos._id}
+                className="flex justify-between border-b pb-2 w-48"
+              >
+                <label htmlFor={pos._id}>{pos.title}</label>
+                <input
+                  type="checkbox"
+                  className="mt-2 ml-2 hover:cursor-pointer"
+                  name={pos.title}
+                  id={pos._id}
+                  checked={position.indexOf(pos._id!) !== -1 ? true : false}
+                  value={pos._id!}
+                  onChange={handlePositionCheck}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            onClick={handleActionDispatch}
+          >
+            Apply
+          </button>
+        </div>
       </div>
 
-      <span>Status</span>
-      <button
-        onClick={() => setShowStatusFilter(!showStatusFilter)}
-        className="pr-3"
-      >
-        <AiOutlineDown />
-      </button>
-
-      <div
-        className={
-          showStatusFilter
-            ? 'transition ease-in-out duration-200 opacity-100 absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md'
-            : 'duration-200 opacity-0 invisible absolute left-[27rem] z-50 rounded-sm mt-2 bg-white shadow-md'
-        }
-      >
-        <div className="flex flex-col px-4 pt-4 space-y-4">
+      <div className="relative">
+        <div className="flex gap-4">
+          <span>Status</span>
           <button
-            className="flex justify-end text-sm text-cyan-500"
-            onClick={handleAllStatusCheck}
+            onClick={() => setShowStatusFilter(!showStatusFilter)}
+            className="pr-3"
           >
-            {allStatusSelected && secondary_status.length !== 0
-              ? 'Unselect all'
-              : 'Select all'}
+            <AiOutlineDown />
           </button>
-          {secondaryStatus.map((status) => (
-            <div
-              key={status.id}
-              className="flex justify-between border-b pb-2 w-48"
-            >
-              <div className="flex">
-                <div
-                  className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
-                ></div>
-                <label htmlFor={status.id.toString()} className="ml-3">
-                  {status.displayName}
-                </label>
-              </div>
-              <input
-                type="checkbox"
-                className="mt-2 ml-2 hover:cursor-pointer"
-                name={status.displayName}
-                id={status.id.toString()}
-                checked={
-                  secondary_status.indexOf(status.value) !== -1 ? true : false
-                }
-                value={status.value}
-                onChange={handleStatusCheck}
-              />
-            </div>
-          ))}
         </div>
-        <button
-          className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
-          onClick={handleActionDispatch}
+        <div
+          className={
+            showStatusFilter
+              ? 'transition ease-in-out duration-200 opacity-100 absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+              : 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+          }
         >
-          Apply
-        </button>
+          <div className="flex flex-col px-4 pt-4 space-y-4">
+            <button
+              className="flex justify-end text-sm text-cyan-500"
+              onClick={handleAllStatusCheck}
+            >
+              {allStatusSelected && secondary_status.length !== 0
+                ? 'Unselect all'
+                : 'Select all'}
+            </button>
+            {secondaryStatus.map((status) => (
+              <div
+                key={status.id}
+                className="flex justify-between border-b pb-2 w-48"
+              >
+                <div className="flex">
+                  <div
+                    className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
+                  ></div>
+                  <label htmlFor={status.id.toString()} className="ml-3">
+                    {status.displayName}
+                  </label>
+                </div>
+                <input
+                  type="checkbox"
+                  className="mt-2 ml-2 hover:cursor-pointer"
+                  name={status.displayName}
+                  id={status.id.toString()}
+                  checked={
+                    secondary_status.indexOf(status.value) !== -1 ? true : false
+                  }
+                  value={status.value}
+                  onChange={handleStatusCheck}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            onClick={handleActionDispatch}
+          >
+            Apply
+          </button>
+        </div>
       </div>
     </div>
   );

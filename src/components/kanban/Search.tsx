@@ -26,7 +26,8 @@ export default function Search() {
 
     dispatch(
       GetCandidatesFiltered({
-        ...currentFilters,
+        position: [],
+        status: [],
         query,
       }),
     );
