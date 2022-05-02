@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
+import detectOutsideClick from '../../utils/detectOutsideClick';
 
 export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
+
   return (
     <header className="absolute top-0 left-0 w-screen">
       <nav className="flex flex-row text-white items-center justify-evenly p-4 bg-[#475564]">
-        <div className="relative">
+        <div className="relative" ref={profileMenuRef}>
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
             className="font-medium"
