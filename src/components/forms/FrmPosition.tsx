@@ -1,14 +1,39 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
+import Submit from '../buttons/Submit';
+import priorities from '../../config/positions/constants';
+import { createPosition } from '../../redux/positions/actions/PositionsActions';
+
+type OptionValues = {
+  id: number;
+  name: string;
+};
+
+const data: OptionValues[] = [
+  {
+    id: 1,
+    name: 'Harumi',
+  },
+  {
+    id: 2,
+    name: 'Gabriela',
+  },
+];
 
 export default function FrmPosition() {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
   const [rieLink, setRieLink] = useState('');
   const [recruiterGuide, setRecruiterGuide] = useState('');
   const [designated_recruiters, setDesignated_recruiters] = useState<
-    Array<string>
+    Array<OptionValues>
   >([]);
+
+  const [selectedPriority, setSelectedPriority] = useState('');
 
   const [isTitleValid, setIsTitleValid] = useState(false);
   const [isClientNameValid, setIsClientNameValid] = useState(false);
@@ -18,17 +43,17 @@ export default function FrmPosition() {
     useState(false);
 
   const isFormValid = () => {
-    title === '' ? setIsTitleValid(false) : setIsTitleValid(true);
+    title === '' ? setIsTitleValid(true) : setIsTitleValid(false);
     clientName === ''
-      ? setIsClientNameValid(false)
-      : setIsClientNameValid(true);
-    rieLink === '' ? setIsRieLinkValid(false) : setIsRieLinkValid(true);
+      ? setIsClientNameValid(true)
+      : setIsClientNameValid(false);
+    rieLink === '' ? setIsRieLinkValid(true) : setIsRieLinkValid(false);
     recruiterGuide === ''
-      ? setIsRecruiterGuideValid(false)
-      : setIsRecruiterGuideValid(true);
+      ? setIsRecruiterGuideValid(true)
+      : setIsRecruiterGuideValid(false);
     designated_recruiters.length === 0
-      ? setIsDesignated_recruitersValid(false)
-      : setIsDesignated_recruitersValid(true);
+      ? setIsDesignated_recruitersValid(true)
+      : setIsDesignated_recruitersValid(false);
   };
 
   /* Regular Expressions */
@@ -38,9 +63,65 @@ export default function FrmPosition() {
     numbers: /\D/g,
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    isFormValid();
+
+    if (
+      isTitleValid &&
+      isClientNameValid &&
+      isRieLinkValid &&
+      isRecruiterGuideValid &&
+      isDesignated_recruitersValid
+    ) {
+      const recruitersName = designated_recruiters.map(
+        (recruiter) => recruiter.name,
+      );
+      dispatch(
+        createPosition({
+          title,
+          client_name: clientName,
+          rie_link: rieLink,
+          recruiter_filter: recruiterGuide,
+          priority: selectedPriority,
+          designated: recruitersName,
+        }),
+      );
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
-      <section className="mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
+      <section className="flex flex-col mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
+        <div className="flex flex-col ml-52 pb-4">
+          <div className="pb-2">
+            <span>Select Priority:</span>
+          </div>
+          <div className="space-x-3">
+            {priorities.map((priority) => (
+              <>
+                <input
+                  type="checkbox"
+                  name={priority.name}
+                  className="hover:cursor-pointer"
+                  id={priority.id.toString()}
+                  value={priority.name}
+                  onChange={(e) => setSelectedPriority(e.target.value)}
+                  checked={selectedPriority === priority.name ? true : false}
+                />
+                <label
+                  className="hover:cursor-pointer"
+                  htmlFor={priority.id.toString()}
+                >
+                  {priority.displayName}
+                </label>
+              </>
+            ))}
+          </div>
+        </div>
+
         <div className="flex justify-center -mx-3">
           <Text
             id="name"
@@ -92,6 +173,22 @@ export default function FrmPosition() {
             value={recruiterGuide}
             width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
+        </div>
+        <div className="flex justify-center mt-2">
+          <MultiSelect
+            options={data}
+            className="w-[51.5rem] hover:cursor-pointer"
+            placeholder="Designated Recruiter"
+            hidePlaceholder={true}
+            avoidHighlightFirstOption={true}
+            displayValue="name"
+            onSelect={setDesignated_recruiters}
+            onRemove={setDesignated_recruiters}
+            selectedValues={designated_recruiters}
+          />
+        </div>
+        <div className="z-10 mt-10">
+          <Submit name="Create" width="10" onSubmit={handleSubmit} />
         </div>
       </section>
     </div>
