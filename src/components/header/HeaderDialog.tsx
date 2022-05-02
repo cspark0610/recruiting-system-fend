@@ -1,4 +1,3 @@
-import { Dialog } from "@headlessui/react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Dropdown from "../inputs/Dropdown";
 
@@ -9,7 +8,7 @@ interface Props {
 
 const HeaderDialog: React.FC<Props> = ({ color, isClose }) => {
   return (
-    <Dialog.Title as="h4" className={`${color}`}>
+    <h4 className={`${color}`}>
       <div className="flex justify-center relative">
         <span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
           Chosen for diseño uxui
@@ -19,7 +18,7 @@ const HeaderDialog: React.FC<Props> = ({ color, isClose }) => {
           <IoCloseCircleOutline className="text-white w-[24px] h-[24px]" />
         </button>
       </div>
-    </Dialog.Title>
+    </h4>
   );
 };
 
