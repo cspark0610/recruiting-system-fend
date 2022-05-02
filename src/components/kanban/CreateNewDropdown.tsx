@@ -9,7 +9,8 @@ type CreateNewDropdownProps = {
 export default function CreateNewDropdown({
   setShowCreateDropdown,
 }: CreateNewDropdownProps) {
-  const positions = useSelector((state: State) => state.positions.positions);
+  let positions = useSelector((state: State) => state.positions.positions);
+  positions = positions.filter((pos) => pos.isActive === true);
 
   return (
     <div className="flex flex-col px-4 pt-4 space-y-3 border-b pb-2">
