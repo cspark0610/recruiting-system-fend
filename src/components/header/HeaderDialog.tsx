@@ -11,7 +11,7 @@ const HeaderDialog: React.FC<Props> = ({ color, isClose }) => {
     <h4 className={`${color}`}>
       <div className="flex justify-center relative">
         <span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
-          Chosen for diseño uxui
+          Chosen for ui/ux design
         </span>
         <Dropdown />
         <button className="absolute top-[7px] right-[15px]" onClick={isClose}>
