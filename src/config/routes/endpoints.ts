@@ -12,3 +12,5 @@ export const GET_ALL_CANDIDATES_FILTERED = '/candidate/filter';
 
 export const GET_ALL_POSITIONS = '/position';
 export const CREATE_POSITION = '/position/create';
+
+export const POST_CONCLUSION = "/feeds";
