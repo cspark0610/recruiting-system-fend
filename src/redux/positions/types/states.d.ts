@@ -4,4 +4,5 @@ export type InitialState = {
   positions: IPosition[];
   info: IPosition;
   error: IError;
+  loading: boolean;
 };

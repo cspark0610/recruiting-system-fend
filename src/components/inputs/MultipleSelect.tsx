@@ -1,5 +1,4 @@
 import Multiselect from "multiselect-react-dropdown";
-import { useEffect } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Alert from "../extras/Alert";
 import "./../../assets/scss/MultiSelect.scss";
@@ -27,16 +26,6 @@ const MultipleSelect: React.FC<Props> = (props) => {
   const onRemoving = (selectedList: any) => {
     props.setValue(selectedList);
   };
-
-  useEffect(() => {
-    props.data.map(({ id, name }) => {
-      const valueAdvance = name.match(/Advance/g);
-      if (valueAdvance) {
-        document.querySelector(".option")?.classList.add("itemAdvance");
-      }
-      return true;
-    });
-  }, [props.data]);
 
   return (
     <div className={`${props.width} p-3 mt-auto`}>
