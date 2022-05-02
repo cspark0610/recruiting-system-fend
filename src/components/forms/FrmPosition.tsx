@@ -95,13 +95,13 @@ export default function FrmPosition() {
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
       <section className="flex flex-col mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
-        <div className="flex flex-col ml-52 pb-4">
-          <div className="pb-2">
+        <div className="ml-52 pb-4">
+          <div className=" pb-2">
             <span>Select Priority:</span>
           </div>
-          <div className="space-x-3">
+          <div className="flex space-x-3">
             {priorities.map((priority) => (
-              <>
+              <div key={priority.id}>
                 <input
                   type="checkbox"
                   name={priority.name}
@@ -112,12 +112,12 @@ export default function FrmPosition() {
                   checked={selectedPriority === priority.name ? true : false}
                 />
                 <label
-                  className="hover:cursor-pointer"
+                  className="ml-3 hover:cursor-pointer"
                   htmlFor={priority.id.toString()}
                 >
                   {priority.displayName}
                 </label>
-              </>
+              </div>
             ))}
           </div>
         </div>
