@@ -25,7 +25,7 @@ export default function CandidateStatus() {
 
   return (
     <div className="bg-white">
-      <Navbar userName="Juan" />
+      <Navbar />
       <KanbanOptions />
       <div className="flex justify-center pt-8">
         <main className="flex flex-row gap-3">
