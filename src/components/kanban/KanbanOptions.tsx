@@ -57,7 +57,7 @@ export default function KanbanOptions() {
           Clean Filters
         </button>
       </div>
-      <div className="mr-16 relative">
+      <div className="mr-16 relative" ref={wrapperRef}>
         <button
           onClick={() => setShowCreateDropdown(!showCreateDropdown)}
           className="flex bg-sky-400 text-white font-medium rounded-full px-4 py-2 w-44"
@@ -65,7 +65,6 @@ export default function KanbanOptions() {
           Create New <HiPlusCircle className="ml-8 text-2xl" />
         </button>
         <div
-          ref={wrapperRef}
           className={
             showCreateDropdown
               ? 'transition ease-in-out duration-200 opacity-100 absolute z-10 rounded-sm mt-2 bg-white shadow-md'
