@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { FiLogOut } from 'react-icons/fi';
 
-interface NavbarProps {
-  userName: string;
-}
-
-export default function Navbar({ userName }: NavbarProps) {
+export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
   return (
@@ -46,8 +43,8 @@ export default function Navbar({ userName }: NavbarProps) {
             </button>
           </ul>
         </div>
-        <button className="font-medium w-24 hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-300">
-          Log Out
+        <button className="flex font-medium w-26 hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-300">
+          Log Out <FiLogOut className="mt-1 ml-2" />
         </button>
       </nav>
     </header>
