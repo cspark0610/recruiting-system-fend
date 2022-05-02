@@ -1,10 +1,8 @@
 import { IPosition, IQuestion } from '../../positions/types/data';
 
 export type IConclusions = {
-  conclusions: {
-    good: Array<string>;
-    bad: Array<string>;
-  };
+  good: Array<string>;
+  bad: Array<string>;
 };
 
 export type IVideoRecordingUrl = {
