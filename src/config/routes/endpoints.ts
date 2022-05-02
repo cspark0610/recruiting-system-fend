@@ -11,3 +11,5 @@ export const GET_ALL_CANDIDATES = "/candidate";
 export const GET_ALL_CANDIDATES_FILTERED = "/candidate/filter";
 
 export const GET_ALL_POSITIONS = "/position";
+
+export const POST_CONCLUSION = "/feeds";

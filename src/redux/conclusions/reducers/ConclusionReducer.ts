@@ -1,12 +1,7 @@
 import { ActionTypes } from "../types/index";
 
 const initialState = {
-  feed: [
-    {
-      positiveComment: "",
-      negativeComment: "",
-    },
-  ],
+  feed: [],
   id: null,
   loading: null,
   error: null,

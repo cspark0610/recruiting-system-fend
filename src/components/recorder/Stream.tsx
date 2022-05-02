@@ -117,7 +117,7 @@ const Stream = () => {
   return (
     <div className="relative">
       {/* COUNTERDOWN FOR REFERENCES OF TIME */}
-      <div className="relative">
+      <div className="relative hidden">
         <div className="absolute top-5 left-5 z-10 text-white font-raleway">
           <span>{time.minute >= 10 ? time.minute : "0" + time.minute}</span>
           &nbsp;:&nbsp;

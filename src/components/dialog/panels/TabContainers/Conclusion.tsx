@@ -21,7 +21,6 @@ const Conclusion = () => {
   const onSubmit = () => {
     AddNewConclusion({
       positiveComment,
-      negativeComment,
     });
 
     /* Clear fields */
