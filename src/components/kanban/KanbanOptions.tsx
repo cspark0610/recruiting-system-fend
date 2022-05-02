@@ -72,10 +72,7 @@ export default function KanbanOptions() {
               : 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
           }
         >
-          <CreateNewDropdown
-            showCreateDropdown={showCreateDropdown}
-            setShowCreateDropdown={setShowCreateDropdown}
-          />
+          <CreateNewDropdown setShowCreateDropdown={setShowCreateDropdown} />
         </div>
       </div>
     </div>

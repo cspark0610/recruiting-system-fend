@@ -4,7 +4,6 @@ import { VIEW_HOME } from '../../config/routes/paths';
 
 type CreateNewDropdownProps = {
   setShowCreateDropdown: (showCreateDropdown: boolean) => void;
-  showCreateDropdown: boolean;
 };
 
 export default function CreateNewDropdown({
