@@ -12,5 +12,7 @@ export const GET_ALL_CANDIDATES_FILTERED = '/candidate/filter';
 
 export const GET_ALL_POSITIONS = '/position';
 export const CREATE_POSITION = '/position/create';
+export const SET_IS_ACTIVE = '/position/status/update';
 
-export const POST_CONCLUSION = "/feeds";
+export const POST_CONCLUSION = '/feeds';
+
