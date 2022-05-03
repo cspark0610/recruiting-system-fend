@@ -19,6 +19,11 @@ const initialState: InitialState = {
     message: '',
   },
 
+  success: {
+    status: 200,
+    message: '',
+  },
+
   loading: false,
 };
 
@@ -45,7 +50,7 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
-    case ActionTypes.SET_ERROR: {
+    case ActionTypes.SET_POSITION_ERROR: {
       return {
         ...state,
         error: action.payload,
@@ -66,7 +71,24 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
-    case ActionTypes.CLEAN_ERROR: {
+    case ActionTypes.SET_SUCCESS: {
+      return {
+        ...state,
+        success: action.payload,
+      };
+    }
+
+    case ActionTypes.CLEAR_SUCCESS: {
+      return {
+        ...state,
+        success: {
+          status: 200,
+          message: '',
+        },
+      };
+    }
+
+    case ActionTypes.CLEAN_POSITION_ERROR: {
       return {
         ...state,
         error: {
