@@ -7,7 +7,7 @@ type LoaderProps = {
 export default function LoaderSpinner({ height, width, classes }: LoaderProps) {
   return (
     <svg
-      className={`${classes} h-${height} w-${width} animate-spin text-cyan-500`}
+      className={`${classes} ${height} ${width} animate-spin text-cyan-500`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
