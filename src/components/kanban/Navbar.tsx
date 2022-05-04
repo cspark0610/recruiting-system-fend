@@ -34,14 +34,20 @@ export default function Navbar() {
           <ul className="flex divide-x divide-solid">
             <NavLink
               to={VIEW_OPEN_POSITIONS}
-              className="px-3 text-white underline underline-offset-8"
+              className={({ isActive }) =>
+                isActive
+                  ? 'px-3 text-cyan-400 underline underline-offset-8 '
+                  : 'px-3 text-white'
+              }
             >
-              <button>Open Positions</button>
+              Open Positions
             </NavLink>
             <NavLink
               to={VIEW_KANBAN}
               className={({ isActive }) =>
-                `px-3 ${isActive} ? text-cyan-400 underline underline-offset-8 : text-white`
+                isActive
+                  ? 'px-3 text-cyan-400 underline underline-offset-8'
+                  : 'px-3 text-white'
               }
             >
               Candidates Status

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../../redux/store/store';
-import { GetAllCandidates } from '../../../../redux/candidates/actions/CandidateAction';
+import {
+  CleanErrors,
+  GetAllCandidates,
+} from '../../../../redux/candidates/actions/CandidateAction';
 import Column from '../../../../components/kanban/Column';
 import KanbanOptions from '../../../../components/kanban/KanbanOptions';
 import {
@@ -19,6 +22,7 @@ export default function CandidateStatus() {
   candidates = getCandidatesByColumn(candidates);
 
   useEffect(() => {
+    dispatch(CleanErrors(dispatch));
     dispatch(GetAllCandidates());
   }, [dispatch]);
 

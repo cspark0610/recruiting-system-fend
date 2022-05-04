@@ -19,7 +19,7 @@ export type IQuestion = {
   video_key: string;
 };
 
-export type IError = {
+export type IErrorPosition = {
   status: number;
   message: string;
 };

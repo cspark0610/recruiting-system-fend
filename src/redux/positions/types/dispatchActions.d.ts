@@ -16,23 +16,42 @@ export type CreatePositionAction = {
   payload: IPosition;
 };
 
+export type SetIsActivePositionAction = {
+  type: ActionTypes.SET_IS_ACTIVE;
+};
+
+export type SetSuccess = {
+  type: ActionTypes.SET_SUCCESS;
+  payload: {
+    status: number;
+    message: string;
+  };
+};
+
+export type ClearSuccessAction = {
+  type: ActionTypes.CLEAR_SUCCESS;
+};
+
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
 
-export type SetErrorAction = {
-  type: ActionTypes.SET_ERROR;
+export type SetPositionErrorAction = {
+  type: ActionTypes.SET_POSITION_ERROR;
   payload: IError;
 };
 
-export type CleanErrorAction = {
-  type: ActionTypes.CLEAN_ERROR;
+export type CleanPositionErrorAction = {
+  type: ActionTypes.CLEAN_POSITION_ERROR;
 };
 
 export type Action =
   | GetAllPositionsAction
   | GetPositionInfoAction
   | CreatePositionAction
-  | SetErrorAction
-  | CleanErrorAction
-  | SetLoadingAction;
+  | SetPositionErrorAction
+  | CleanPositionErrorAction
+  | SetLoadingAction
+  | SetIsActivePositionAction
+  | SetSuccess
+  | ClearSuccessAction;

@@ -154,6 +154,54 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
+    case ActionTypes.CLEAR_CANDIDATE_DETAIL: {
+      return {
+        ...state,
+        detail: {
+          _id: '',
+          name: '',
+          email: '',
+          conclusions: {
+            good: [''],
+            bad: [''],
+          },
+          country: '',
+          english_level: '',
+          academic_training: '',
+          phone: 123,
+          position: {
+            _id: '',
+            title: '',
+            client_name: '',
+            rie_link: '',
+            designated: [''],
+            priority: '',
+            recruiter_filter: '',
+            url: '',
+            isActive: true,
+            skills_required: [],
+            video_questions_list: [],
+          },
+          working_reason: '',
+          main_status: 'interested',
+          secondary_status: 'new entry',
+          designated_recruiters: [],
+          skills: [],
+          linkedin: '',
+          portfolio: '',
+          createdAt: undefined,
+          updatedAt: undefined,
+          video_recording_url: {
+            _id: '',
+            short_url: '',
+            expiresAt: undefined,
+          },
+          cv: '',
+          isRejected: false,
+        },
+      };
+    }
+
     case ActionTypes.SET_CURRENT_FILTERS: {
       return {
         ...state,

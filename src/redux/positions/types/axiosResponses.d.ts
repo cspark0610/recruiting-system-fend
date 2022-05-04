@@ -14,3 +14,8 @@ export type CreatePositionResponse = {
   status: number;
   newPosition: IPosition;
 };
+
+export type SetIsActiveResponse = {
+  status: number;
+  message: string;
+};

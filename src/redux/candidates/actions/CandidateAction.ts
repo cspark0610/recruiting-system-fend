@@ -16,6 +16,7 @@ import {
   GetCandidateInfoAction,
   SetCurrentFiltersAction,
   CleanFiltersAction,
+  ClearCandidateDetailAction,
 } from '../types/dispatchActions';
 
 import {
@@ -69,14 +70,10 @@ export function GetAllCandidates() {
 
 export function GetCandidateInfo(_id: string) {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
-
     try {
       const { data } = await ClientAxios.get<GetCandidateInfoResponse>(
         `${GET_ALL_CANDIDATES}/${_id}`,
       );
-
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       return dispatch<GetCandidateInfoAction>({
         type: ActionTypes.GET_CANDIDATE_DETAIL,
@@ -92,6 +89,12 @@ export function GetCandidateInfo(_id: string) {
       }
     }
   };
+}
+
+export function ClearCandidateDetail(dispatch: Dispatch) {
+  return dispatch<ClearCandidateDetailAction>({
+    type: ActionTypes.CLEAR_CANDIDATE_DETAIL,
+  });
 }
 
 export function GetCandidatesFiltered(filters: Filters) {
@@ -184,20 +187,16 @@ export function AddCandidate(user: any) {
   };
 }
 
-export function CleanErrors() {
-  return function (dispatch: Dispatch) {
-    return dispatch<ClearErrorAction>({
-      type: ActionTypes.CLEAN_ERROR,
-    });
-  };
+export function CleanErrors(dispatch: Dispatch) {
+  return dispatch<ClearErrorAction>({
+    type: ActionTypes.CLEAN_ERROR,
+  });
 }
 
-export function CleanFilters() {
-  return function (dispatch: Dispatch) {
-    return dispatch<CleanFiltersAction>({
-      type: ActionTypes.CLEAN_FILTERS,
-    });
-  };
+export function CleanFilters(dispatch: Dispatch) {
+  return dispatch<CleanFiltersAction>({
+    type: ActionTypes.CLEAN_FILTERS,
+  });
 }
 
 const AddCandidateLoad = (status: boolean) => ({

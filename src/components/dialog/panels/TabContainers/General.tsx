@@ -1,40 +1,15 @@
-import { BsFillTelephoneFill } from "react-icons/bs";
-import { FaMapMarkerAlt, FaRegFileWord } from "react-icons/fa";
-import { HiMail } from "react-icons/hi";
+import { useSelector } from 'react-redux';
+import { BsFillTelephoneFill } from 'react-icons/bs';
+import { FaMapMarkerAlt, FaRegFileWord } from 'react-icons/fa';
+import { HiMail } from 'react-icons/hi';
+import { State } from '../../../../redux/store/store';
 
-type ItemProps = {
-  name: string;
-  academic_training: string;
-  date_birth: string;
-  country: string;
-  email: string;
-  phone: string;
-  english_level: string;
-  resume: string;
-  linkedin: string;
-  portfolio: string;
-  working_reason: string;
-  salary_expectation: string;
-  available_from: string;
-  skill: string;
-};
+const General = () => {
+  const details = useSelector((state: State) => state.info.detail);
 
-const General = ({
-  name,
-  academic_training,
-  date_birth,
-  country,
-  email,
-  phone,
-  english_level,
-  resume,
-  linkedin,
-  portfolio,
-  working_reason,
-  salary_expectation,
-  available_from,
-  skill,
-}: ItemProps) => {
+  const birthYear = details.birth_date?.split('-')[0];
+  const age = new Date().getFullYear() - birthYear;
+
   return (
     <div className="grid justify-items-center">
       <section className="grid justify-items-center grid-cols-2 gap-[10px] w-[85%]">
@@ -43,22 +18,26 @@ const General = ({
           {/*  */}
           <div className="my-[12px]">
             <h2 className="font-semibold text-[20px] text-cyan-color">
-              {name}
+              {details.name}
             </h2>
-            <p>{academic_training}</p>
+            <p>
+              {details.academic_training ? details.academic_training : 'N/A'}
+            </p>
             <div className="my-[10px]">
               <p>
                 Date of birth: &nbsp;
-                <span className="font-medium">{date_birth}</span>
+                <span className="font-medium">
+                  {details.birth_date ? details.birth_date : 'N/A'}
+                </span>
               </p>
               <p>
                 Age: &nbsp;
-                <span className="font-medium">31</span>
+                <span className="font-medium">{age ? age : 'N/A'}</span>
               </p>
             </div>
             <p className="flex gap-[10px] items-center">
               <FaMapMarkerAlt className="text-cyan-color w-[14px] h-[16px]" />
-              <span>{country}</span>
+              <span>{details.country}</span>
             </p>
           </div>
 
@@ -69,11 +48,11 @@ const General = ({
             <div>
               <p className="flex gap-[10px] items-center">
                 <HiMail className="text-cyan-color w-[14px] h-[16px]" />
-                <span>{email}</span>
+                <span>{details.email}</span>
               </p>
               <p className="flex gap-[10px] items-center">
                 <BsFillTelephoneFill className="text-cyan-color w-[14px] h-[16px]" />
-                <span>{phone}</span>
+                <span>{details.phone}</span>
               </p>
             </div>
           </div>
@@ -83,7 +62,7 @@ const General = ({
           <div>
             <h6 className="text-[15px] font-semibold">English level:</h6>
             <div>
-              <p>{english_level}</p>
+              <p>{details.english_level}</p>
             </div>
           </div>
 
@@ -91,17 +70,25 @@ const General = ({
 
           <div>
             <p className="font-normal flex items-center my-5">
-              <FaRegFileWord className="text-cyan-color w-[19px] h-[26px]" />{" "}
+              <FaRegFileWord className="text-cyan-color w-[19px] h-[26px]" />{' '}
               &nbsp;
               <span className="text-cyan-color">CV</span>
             </p>
             <p className="font-normal my-[10px]">
               Linkedin: &nbsp;
-              <span className="text-cyan-color">{linkedin}</span>
+              <span className="text-cyan-color">
+                <a href={details.linkedin ? details.linkedin : '#'}>
+                  {details.linkedin ? details.linkedin : 'N/A'}
+                </a>
+              </span>
             </p>
             <p className="font-normal">
               Other Links: &nbsp;
-              <span className="uppercase">{portfolio}</span>
+              <span className="text-cyan-color">
+                <a href={details.portfolio ? details.portfolio : '#'}>
+                  {details.portfolio ? details.portfolio : 'N/A'}
+                </a>
+              </span>
             </p>
           </div>
         </div>
@@ -112,7 +99,7 @@ const General = ({
             <textarea
               name="description"
               id="description"
-              value={working_reason}
+              value={details.working_reason ? details.working_reason : 'N/A'}
               className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway text-gray-color my-3"
               maxLength={280}
               readOnly
@@ -120,30 +107,41 @@ const General = ({
           </div>
           <div className="my-5 flex flex-row">
             <p>
-              Salary Expectations:{" "}
+              Salary Expectations:{' '}
               <span className="font-bold text-gray-color">
-                {salary_expectation}
-              </span>{" "}
+                {details.salary_expectations
+                  ? details.salary_expectations
+                  : 'N/A'}
+              </span>{' '}
             </p>
             <p className="ml-[45px]">
-              Available from:{" "}
+              Available from:{' '}
               <span className="font-bold text-gray-color">
-                {available_from}
+                {details.available_from ? details.available_from : 'N/A'}
               </span>
             </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
             <p>
-              English Evaluation:{" "}
+              English Evaluation:{' '}
               <span className="bg-light-color w-[43px] h-[28px] rounded-[5px] px-3 py-1">
                 B2
               </span>
             </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
-          <div className="my-5">
-            <span>Tech Skills: {skill}</span>
+          <div className="my-5 flex">
+            <span>Tech Skills: </span>
+            {details.skills ? (
+              details.skills.map((skill: string, index: number) => (
+                <div key={index}>
+                  <span>{skill}</span>
+                </div>
+              ))
+            ) : (
+              <span>N/A</span>
+            )}
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">

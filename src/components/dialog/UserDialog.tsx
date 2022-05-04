@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
-import Panels from "./panels/Panels";
-import HeaderDialog from "../header/HeaderDialog";
-import Modal from "../extras/Modal";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ClearCandidateDetail } from '../../redux/candidates/actions/CandidateAction';
+import Panels from './panels/Panels';
+import HeaderDialog from '../header/HeaderDialog';
+import Modal from '../extras/Modal';
 
 interface Props {
   isDialogClose: any;
 }
 
 const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
+  const dispatch = useDispatch();
+
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
   const [doubting, setDoubting] = useState(false);
@@ -15,22 +19,22 @@ const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
   const [reject, setReject] = useState(false);
 
   /* STATES OF CONTROL FROM HEADER DIALOG */
-  const [color, setColor] = useState("bg-gray-color");
+  const [color, setColor] = useState('bg-gray-color');
 
   /* STATES OF CONTROL FROM MODAL */
   const [isConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
     if (approve && isConfirm) {
-      setColor("bg-green-color");
+      setColor('bg-green-color');
       setApproved(false);
     } else {
       if (doubting && isConfirm) {
-        setColor("bg-yellow-color");
+        setColor('bg-yellow-color');
         setDoubting(false);
       } else {
         if (dismiss && isConfirm) {
-          setColor("bg-red-dark");
+          setColor('bg-red-dark');
           setDismiss(false);
         } else {
           if (reject && isConfirm) {
@@ -41,6 +45,12 @@ const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
       }
     }
   }, [approve, doubting, dismiss, reject, isConfirm, color]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(ClearCandidateDetail(dispatch));
+    };
+  }, [dispatch]);
 
   const isApproved = () => {
     setApproved(!approve);
@@ -69,7 +79,7 @@ const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
           <div className="fixed inset-0 bg-white bg-opacity-75 transition-opacity"></div>
           <div className="relative inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[77.313rem] h-maximum">
             <div className="bg-white">
-              <HeaderDialog color={color} isClose={isDialogClose} />
+              <HeaderDialog isClose={isDialogClose} />
               <div className="flex">
                 <Panels
                   isApproved={isApproved}

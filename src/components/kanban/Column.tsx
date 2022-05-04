@@ -5,7 +5,7 @@ import { IColumnInfo } from '../../config/kanban/columnGuideInfo';
 import { ICandidate } from '../../redux/candidates/types/data';
 import { State } from '../../redux/store/store';
 import Collapsable from './Collapsable';
-import Item from './Item';
+import Card from './Card';
 
 type ColumnProps = {
   title: string;
@@ -67,8 +67,9 @@ export default function Column({ title, column_info, items }: ColumnProps) {
                 </p>
               ) : (
                 items.map((item: ICandidate) => (
-                  <Item
+                  <Card
                     key={item._id}
+                    _id={item._id!}
                     name={item.name}
                     position={item.position?.title}
                     secondary_status={item.secondary_status!}

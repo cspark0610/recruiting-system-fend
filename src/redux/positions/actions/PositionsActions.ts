@@ -4,16 +4,20 @@ import {
   GetAllPositionsAction,
   GetPositionInfoAction,
   CreatePositionAction,
-  SetErrorAction,
+  SetPositionErrorAction,
+  SetSuccess,
+  ClearSuccessAction,
 } from '../types/dispatchActions';
 import {
   GetAllPositionsResponse,
   GetPositionResponse,
   CreatePositionResponse,
+  SetIsActiveResponse,
 } from '../types/axiosResponses';
 import {
   GET_ALL_POSITIONS,
   CREATE_POSITION,
+  SET_IS_ACTIVE,
 } from '../../../config/routes/endpoints';
 import { IPosition } from '../types/data';
 import ClientAxios from '../../../config/api/axios';
@@ -31,8 +35,8 @@ export default function getAllPositions() {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       }
@@ -52,8 +56,8 @@ export function getPositionInfo(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       }
@@ -80,11 +84,45 @@ export function createPosition(positionInfo: IPosition) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       }
     }
   };
+}
+
+export function SetIsActive(_id: string) {
+  return async function (dispatch: Dispatch) {
+    dispatch({ type: ActionTypes.SET_IS_LOADING });
+
+    try {
+      const { data } = await ClientAxios.put<SetIsActiveResponse>(
+        `${SET_IS_ACTIVE}/${_id}`,
+      );
+
+      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<SetSuccess>({
+        type: ActionTypes.SET_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function ClearSuccess(dispatch: Dispatch) {
+  return dispatch<ClearSuccessAction>({
+    type: ActionTypes.CLEAR_SUCCESS,
+  });
 }
