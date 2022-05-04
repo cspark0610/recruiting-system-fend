@@ -58,13 +58,21 @@ export default function Item({
               ></path>
             </svg>
           ) : null}
-          <div className="flex flex-col w-40">
+          <div
+            className={
+              designated && designated.length > 0
+                ? 'flex flex-col w-40'
+                : 'flex flex-col w-40 mt-2'
+            }
+          >
             <p>{positionName}</p>
-            {designated.map((user: any) => (
-              <div className="divide-x">
-                <p>{user.name}</p>
-              </div>
-            ))}
+            {designated && designated.length > 0
+              ? designated.map((user: any) => (
+                  <div className="divide-x">
+                    <p>{user.name}</p>
+                  </div>
+                ))
+              : null}
           </div>
           {isAdmin ? (
             <div className="relative pr-[30rem]">
