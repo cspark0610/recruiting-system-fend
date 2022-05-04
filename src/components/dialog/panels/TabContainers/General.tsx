@@ -77,7 +77,11 @@ const General = () => {
             <p className="font-normal my-[10px]">
               Linkedin: &nbsp;
               <span className="text-cyan-color">
-                <a href={details.linkedin ? details.linkedin : '#'}>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={details.linkedin ? details.linkedin : '#'}
+                >
                   {details.linkedin ? details.linkedin : 'N/A'}
                 </a>
               </span>
@@ -85,7 +89,11 @@ const General = () => {
             <p className="font-normal">
               Other Links: &nbsp;
               <span className="text-cyan-color">
-                <a href={details.portfolio ? details.portfolio : '#'}>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={details.portfolio ? details.portfolio : '#'}
+                >
                   {details.portfolio ? details.portfolio : 'N/A'}
                 </a>
               </span>
