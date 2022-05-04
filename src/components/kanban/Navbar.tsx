@@ -1,10 +1,7 @@
 import { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import {
-  VIEW_KANBAN,
-  VIEW_OPEN_POSITIONS_ADMIN,
-} from '../../config/routes/paths';
+import { VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 
 export default function Navbar() {
@@ -36,7 +33,7 @@ export default function Navbar() {
         <div className="text-lg text-white mr-16 font-light">
           <ul className="flex divide-x divide-solid">
             <NavLink
-              to={VIEW_OPEN_POSITIONS_ADMIN}
+              to={VIEW_OPEN_POSITIONS}
               className={({ isActive }) =>
                 isActive
                   ? 'px-3 text-cyan-400 underline underline-offset-8 '

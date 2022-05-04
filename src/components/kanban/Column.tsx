@@ -69,6 +69,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
                 items.map((item: ICandidate) => (
                   <Card
                     key={item._id}
+                    _id={item._id!}
                     name={item.name}
                     position={item.position?.title}
                     secondary_status={item.secondary_status!}
