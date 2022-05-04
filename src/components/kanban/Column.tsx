@@ -39,8 +39,8 @@ export default function Column({ title, column_info, items }: ColumnProps) {
         >
           {isLoading ? (
             <LoaderSpinner
-              height="14"
-              width="12"
+              height="h-14"
+              width="w-12"
               classes="absolute top-40 left-32"
             />
           ) : (

@@ -40,7 +40,7 @@ export default function Item({
             />
           ) : null}
           {loading && isToggled ? (
-            <LoaderSpinner width="4" height="4" classes="mt-3" />
+            <LoaderSpinner width="w-4" height="h-4" classes="mt-3" />
           ) : null}
           <div
             className={
