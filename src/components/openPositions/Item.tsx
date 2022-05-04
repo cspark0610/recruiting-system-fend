@@ -21,6 +21,7 @@ export default function Item({
   isAdmin,
 }: ItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const loading = useSelector((state: State) => state.positions.loading);
 
@@ -29,8 +30,15 @@ export default function Item({
       <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] w-[68rem] ml-12 ">
         <div className="flex space-x-8">
           {' '}
-          {isAdmin ? <Toggle inactive={inactive} _id={_id} /> : null}
-          {loading ? (
+          {isAdmin ? (
+            <Toggle
+              inactive={inactive}
+              _id={_id}
+              isToggled={isToggled}
+              setIsToggled={setIsToggled}
+            />
+          ) : null}
+          {loading && isToggled ? (
             <svg
               className="h-4 w-4 mt-3 animate-spin text-cyan-500"
               xmlns="http://www.w3.org/2000/svg"
