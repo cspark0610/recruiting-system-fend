@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ClearSuccess,
@@ -9,17 +8,22 @@ import { State } from '../../redux/store/store';
 type ToggleProps = {
   inactive: boolean;
   _id: string;
+  isToggled: boolean;
+  setIsToggled: (isToggled: boolean) => void;
 };
 
-export default function Toggle({ inactive, _id }: ToggleProps) {
-  const [isToggled, setToggle] = useState(false);
-
+export default function Toggle({
+  inactive,
+  _id,
+  isToggled,
+  setIsToggled,
+}: ToggleProps) {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: State) => state.positions.loading);
 
   const handleToggle = () => {
-    setToggle(!isToggled);
+    setIsToggled(!isToggled);
     dispatch(SetIsActive(_id));
 
     setTimeout(() => {
