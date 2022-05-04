@@ -20,7 +20,7 @@ export default function PositionsList() {
 
   useEffect(() => {
     dispatch(getAllPositions());
-    dispatch(CleanErrors());
+    dispatch(CleanErrors(dispatch));
   }, [dispatch, success.message]);
 
   return (
@@ -28,11 +28,17 @@ export default function PositionsList() {
       <div className="flex justify-end mr-80">
         <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
       </div>
-      <List title="Active Searches" items={activePositions} inactive={false} />
+      <List
+        title="Active Searches"
+        items={activePositions}
+        inactive={false}
+        isAdmin
+      />
       <List
         title="Inactive Searches"
         items={inactivePositions}
         inactive={true}
+        isAdmin
       />
       <div
         className={
