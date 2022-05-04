@@ -20,7 +20,9 @@ const General = () => {
             <h2 className="font-semibold text-[20px] text-cyan-color">
               {details.name}
             </h2>
-            <p>Lic. en Diseño gráfico</p>
+            <p>
+              {details.academic_training ? details.academic_training : 'N/A'}
+            </p>
             <div className="my-[10px]">
               <p>
                 Date of birth: &nbsp;
