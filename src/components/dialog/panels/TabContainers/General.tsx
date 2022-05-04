@@ -97,12 +97,12 @@ const General = () => {
           <div className="my-[12px]">
             <span>Why are you interesting in working with FTF</span>
             <textarea
-              name=""
-              id=""
+              name="description"
+              id="description"
+              value={details.working_reason ? details.working_reason : 'N/A'}
               className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway text-gray-color my-3"
               maxLength={280}
               readOnly
-              value={details.working_reason ? details.working_reason : 'N/A'}
             />
           </div>
           <div className="my-5 flex flex-row">

@@ -16,6 +16,7 @@ import {
   VIEW_BEFORE_STARTING,
   VIEW_REQUIRED_STEPS,
 } from "../../config/routes/paths";
+import { State } from "../../redux/store/store";
 
 import { useTranslation } from "react-i18next";
 import VideoPlayer from "../../components/recorder/player/VideoPlayer";
@@ -26,19 +27,19 @@ const VideoCompleted = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const userID = useSelector((state: any) => state.info.userId);
+  const candidateID = useSelector((state: State) => state.info.candidates._id);
 
   useEffect(() => {
-    if (userID) {
-      const loadInfo = () => dispatch(GetData(userID));
+    if (candidateID) {
+      const loadInfo = () => dispatch(GetData(candidateID));
       loadInfo();
     }
-  }, [userID, dispatch]);
+  }, [candidateID, dispatch]);
 
-  const user = useSelector((state: any) => state.info.user);
+  const candidate = useSelector((state: State) => state.info.candidates);
 
-  const redirectEdition = (user: any) => {
-    dispatch(DataEdit(user));
+  const redirectEdition = (candidate: State) => {
+    dispatch(DataEdit(candidate));
     navigate(VIEW_REQUIRED_STEPS);
   };
 
@@ -54,7 +55,7 @@ const VideoCompleted = () => {
         height="laptop:h-[65px] mobile:h-[75px] tablet:h-[102px]"
       />
       <div className="grid justify-items-center mobile:px-5 mb-5 mobile:mt-8 laptop:mt-0">
-        {user && (
+        {candidate && (
           <section className="grid justify-items-center content-center mobile:gap-10 laptop:gap-10 mobile:grid-rows-1 tablet:grid-cols-2 laptop:grid-cols-2 md:px-5 w-full">
             <div className="font-raleway text-gray-color bg-white w-4/5">
               <h2 className="mobile:text-lg laptop:text-2xl">
@@ -66,7 +67,7 @@ const VideoCompleted = () => {
               <div className="mobile:block tablet:hidden laptop:hidden">
                 <VideoPlayer
                   onClick={() => {
-                    redirectEdition(user);
+                    redirectEdition(candidate);
                   }}
                 />
               </div>
@@ -74,12 +75,12 @@ const VideoCompleted = () => {
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
                 {t("video-completed.studies")}{" "}
                 <span className="text-cyan-color font-bold">
-                  {user.college.name}
+                  {candidate.academic_training}
                 </span>
                 <button
                   type="submit"
                   onClick={() => {
-                    redirectEdition(user);
+                    redirectEdition(candidate);
                   }}
                 >
                   <RiEdit2Fill className="cursor-pointer" />
@@ -91,12 +92,12 @@ const VideoCompleted = () => {
               </h2>
               <div className="relative bg-light-color rounded-[10px] px-2 py-1 min-w-full mobile:w-[336px] mobile:h-[121px] laptop:w-[350px] laptop:h-[121px]">
                 <p className="text-gray-color font-raleway font-light text-sm p-2 text-justify">
-                  {user.description}
+                  {candidate.working_reason}
                   <button
                     className="absolute bottom-[15px] right-[10px]"
                     type="submit"
                     onClick={() => {
-                      redirectEdition(user);
+                      redirectEdition(candidate);
                     }}
                   >
                     <RiEdit2Fill className="cursor-pointer" />
@@ -108,24 +109,26 @@ const VideoCompleted = () => {
                 {t("video-completed.skill-title")}{" "}
               </p>
               <div className="grid grid-cols-2 gap-2 mt-2">
-                {user.skill &&
-                  user.skill.map((ability: { id: number; name: string }) => (
-                    <span
-                      key={ability.id}
-                      className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36"
-                    >
-                      {user.skill && ability.name}
-                    </span>
-                  ))}
+                {candidate.skill &&
+                  candidate.skill.map(
+                    (ability: { id: number; name: string }) => (
+                      <span
+                        key={ability.id}
+                        className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36"
+                      >
+                        {candidate.skill && ability.name}
+                      </span>
+                    )
+                  )}
               </div>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
                 {t("video-completed.salary-title")}{" "}
-                {user.currency && user.currency.name} {user.salary}
+                {candidate.salary_expectations}
                 <button
                   type="submit"
                   onClick={() => {
-                    redirectEdition(user);
+                    redirectEdition(candidate);
                   }}
                 >
                   <RiEdit2Fill className="cursor-pointer" />
@@ -133,11 +136,12 @@ const VideoCompleted = () => {
               </p>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.available-title")} {user.available.name}
+                {t("video-completed.available-title")}{" "}
+                {candidate.available_from}
                 <button
                   type="submit"
                   onClick={() => {
-                    redirectEdition(user);
+                    redirectEdition(candidate);
                   }}
                 >
                   <RiEdit2Fill className="cursor-pointer" />

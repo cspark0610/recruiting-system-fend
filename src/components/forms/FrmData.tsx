@@ -75,8 +75,16 @@ const FrmData = () => {
     college === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
     currency === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
     salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
-    skill.length === 0 ? setIsSkillValid(true) : setIsSkillValid(false);
+    !skill ? setIsSkillValid(true) : setIsSkillValid(false);
   };
+
+  /* FORM DATA */
+  const formData = new FormData();
+  formData.append("academic_training", college);
+  formData.append("salary_expectations", salary);
+  formData.append("available_from", available);
+  formData.append("skill", skill);
+  formData.append("working_reason", description);
 
   /* OnSubmit */
   const onSubmit = (evt: any) => {
@@ -84,17 +92,10 @@ const FrmData = () => {
 
     isFormValid();
 
-    if (!college || !currency || !salary || skill.length === 0) {
+    if (!college || !currency || !salary || !skill) {
       return;
     } else {
-      AddNewCandidate({
-        college,
-        currency,
-        salary,
-        available,
-        skill,
-        description,
-      });
+      AddNewCandidate(formData);
       navigate(VIEW_DETAILS);
     }
   };
@@ -104,17 +105,10 @@ const FrmData = () => {
 
     isFormValid();
 
-    if (!salary || skill.length === 0) {
+    if (!salary || !skill) {
       return;
     } else {
-      EditDataCandidate({
-        college,
-        currency,
-        salary,
-        available,
-        skill,
-        description,
-      });
+      EditDataCandidate(formData);
       navigate(VIEW_VIDEO_COMPLETED);
     }
   };

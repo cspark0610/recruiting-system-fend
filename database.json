@@ -1,20 +1,3 @@
 {
-  "feeds": [
-    {
-      "positiveComment": "Hola Mundo, del mundo para ti",
-      "id": 1
-    },
-    {
-      "positiveComment": "Hola Mundo, del mundo para ti",
-      "id": 2
-    },
-    {
-      "positiveComment": "I applied for a technology testing to prove his/her knowledge",
-      "id": 3
-    },
-    {
-      "positiveComment": "I applied for a technology testing to prove his/her knowledge",
-      "id": 4
-    }
-  ]
+  "candidate": []
 }

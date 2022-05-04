@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import Jobs from "../../assets/json/JobPosition.json";
 
