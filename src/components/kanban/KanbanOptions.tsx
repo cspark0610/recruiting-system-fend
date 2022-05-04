@@ -22,8 +22,8 @@ export default function KanbanOptions() {
   detectOutsideClick(wrapperRef, [setShowCreateDropdown]);
 
   const handleCleanFilters = () => {
-    dispatch(CleanErrors());
-    dispatch(CleanFilters());
+    dispatch(CleanErrors(dispatch));
+    dispatch(CleanFilters(dispatch));
     dispatch(GetAllCandidates());
   };
 

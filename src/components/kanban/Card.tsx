@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { FiClock } from "react-icons/fi";
-import getItemBorderColor from "../../utils/getItemBorderColor";
-import "../../assets/scss/Card.scss";
-import UserDialog from "../dialog/UserDialog";
+import { useState } from 'react';
+import { FiClock } from 'react-icons/fi';
+import getItemBorderColor from '../../utils/getItemBorderColor';
+import '../../assets/scss/Card.scss';
+import UserDialog from '../dialog/UserDialog';
 
-type ItemProps = {
+type CardProps = {
   name: string;
   position: string;
   secondary_status: string;
 };
 
-export default function Item({ name, position, secondary_status }: ItemProps) {
+export default function Card({ name, position, secondary_status }: CardProps) {
   const card = getItemBorderColor(secondary_status);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export default function Item({ name, position, secondary_status }: ItemProps) {
       <div className="ml-4">
         <p className="font-medium text-lg">{name}</p>
         <p className="font-light">
-          {position ? position : "No position applied"}
+          {position ? position : 'No position applied'}
         </p>
         <section className="flex flex-row gap-24 pt-4 pb-4">
           <span className="flex font-light pt-4">

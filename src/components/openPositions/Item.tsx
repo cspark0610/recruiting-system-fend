@@ -32,7 +32,7 @@ export default function Item({
           {isAdmin ? <Toggle inactive={inactive} _id={_id} /> : null}
           {loading ? (
             <svg
-              className="h-5 w-5 mt-3 animate-spin text-cyan-500"
+              className="h-4 w-4 mt-3 animate-spin text-cyan-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
