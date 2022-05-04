@@ -1,17 +1,26 @@
-import { IoCloseCircleOutline } from "react-icons/io5";
-import Dropdown from "../inputs/Dropdown";
+import { useSelector } from 'react-redux';
+import { IoCloseCircleOutline } from 'react-icons/io5';
+import { State } from '../../redux/store/store';
+import secondaryStatus from '../../config/kanban/constants';
+import Dropdown from '../inputs/Dropdown';
 
 interface Props {
-  color: string;
   isClose: any;
 }
 
-const HeaderDialog: React.FC<Props> = ({ color, isClose }) => {
+const HeaderDialog: React.FC<Props> = ({ isClose }) => {
+  const details = useSelector((state: State) => state.info.detail);
+  const position_applied = details.position.title;
+
+  const headerColor = secondaryStatus.find(
+    (status) => status.value === details.secondary_status,
+  )?.color;
+
   return (
-    <h4 className={`${color}`}>
+    <h4 className={`${headerColor}`}>
       <div className="flex justify-center relative">
         <span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
-          Chosen for diseño uxui
+          Chosen for {position_applied}
         </span>
         <Dropdown />
         <button className="absolute top-[7px] right-[15px]" onClick={isClose}>
