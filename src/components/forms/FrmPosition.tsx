@@ -17,10 +17,6 @@ const data: OptionValues[] = [
     id: 1,
     name: 'Usuario prueba',
   },
-  {
-    id: 2,
-    name: 'Gabriela',
-  },
 ];
 
 export default function FrmPosition() {
