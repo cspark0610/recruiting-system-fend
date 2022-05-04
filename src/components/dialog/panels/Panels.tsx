@@ -1,6 +1,6 @@
-import { Tab } from "@headlessui/react";
-import PanelDialog from "./TabPanels/PanelDialog";
-import ListDialog from "./TabLists/ListDialog";
+import { Tab } from '@headlessui/react';
+import PanelDialog from './TabPanels/PanelDialog';
+import ListDialog from './TabLists/ListDialog';
 
 interface Props {
   isApproved: any;

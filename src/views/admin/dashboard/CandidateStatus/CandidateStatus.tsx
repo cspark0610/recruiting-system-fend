@@ -22,7 +22,7 @@ export default function CandidateStatus() {
   candidates = getCandidatesByColumn(candidates);
 
   useEffect(() => {
-    dispatch(CleanErrors());
+    dispatch(CleanErrors(dispatch));
     dispatch(GetAllCandidates());
   }, [dispatch]);
 
