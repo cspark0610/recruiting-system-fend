@@ -1,7 +1,7 @@
-import { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { useTranslation } from "react-i18next";
-import { IoCloseCircleOutline } from "react-icons/io5";
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { useTranslation } from 'react-i18next';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 interface Props {
   alt: string;
@@ -82,7 +82,7 @@ const Modal: React.FC<Props> = ({
                         {title}
                         <span
                           className={`${
-                            classes ? "font-bold text-gray-color" : "hidden"
+                            classes ? 'font-bold text-gray-color' : 'hidden'
                           }`}
                         >
                           {status}
@@ -92,7 +92,7 @@ const Modal: React.FC<Props> = ({
                         {message}
                       </p>
                       <div className="flex justify-center">
-                        {alt === "reject" && <div></div>}
+                        {alt === 'reject' && <div></div>}
                       </div>
                     </div>
                   </div>
@@ -104,7 +104,7 @@ const Modal: React.FC<Props> = ({
                   className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 text-[15px] font-bold text-cyan-color focus:outline-none"
                   onClick={onClick}
                 >
-                  {t("modal.buttons.cancel")}
+                  {t('modal.buttons.cancel')}
                 </button>
 
                 <button
@@ -112,7 +112,7 @@ const Modal: React.FC<Props> = ({
                   className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
                   onClick={isVerify}
                 >
-                  {t("modal.buttons.ok")}
+                  {t('modal.buttons.ok')}
                 </button>
               </div>
             </div>
