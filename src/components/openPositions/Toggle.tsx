@@ -28,7 +28,7 @@ export default function Toggle({ inactive, _id }: ToggleProps) {
   };
 
   return (
-    <label className="relative w-[4rem] h-[1.80rem] rounded-full bg-[#F0F0F4]">
+    <label className="relative w-[4rem] h-[1.80rem] rounded-full bg-[#F0F0F4] mt-2">
       <input
         type="checkbox"
         className="opacity-0 w-0 h-0 cursor-pointer"
