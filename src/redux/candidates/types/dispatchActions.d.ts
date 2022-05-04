@@ -16,6 +16,10 @@ export type GetCandidateInfoAction = {
   payload: ICandidate;
 };
 
+export type ClearCandidateDetailAction = {
+  type: ActionTypes.CLEAR_CANDIDATE_DETAIL;
+};
+
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
@@ -57,4 +61,5 @@ export type Action =
   | ClearErrorAction
   | GetCandidateInfoAction
   | SetCurrentFiltersAction
-  | CleanFiltersAction;
+  | CleanFiltersAction
+  | ClearCandidateDetailAction;
