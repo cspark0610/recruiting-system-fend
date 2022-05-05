@@ -20,6 +20,10 @@ export type ClearCandidateDetailAction = {
   type: ActionTypes.CLEAR_CANDIDATE_DETAIL;
 };
 
+export type SetDetailFinishedLoadingAction = {
+  type: ActionTypes.SET_DETAIL_FINISHED_LOADING;
+};
+
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
@@ -62,4 +66,5 @@ export type Action =
   | GetCandidateInfoAction
   | SetCurrentFiltersAction
   | CleanFiltersAction
-  | ClearCandidateDetailAction;
+  | ClearCandidateDetailAction
+  | SetDetailFinishedLoadingAction;

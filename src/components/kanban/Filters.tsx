@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction';
-import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import { AiOutlineDown } from 'react-icons/ai';
 import { State } from '../../redux/store/store';
+import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 import secondaryStatus from '../../config/kanban/constants';
 
@@ -111,7 +111,13 @@ export default function Filters() {
             onClick={() => setShowPositionFilter(!showPositionFilter)}
             className="pr-4"
           >
-            <AiOutlineDown />
+            <AiOutlineDown
+              className={
+                showPositionFilter
+                  ? 'rotate-180 transition ease-in-out duration-200'
+                  : 'duration-200'
+              }
+            />
           </button>
         </div>
 
@@ -165,7 +171,13 @@ export default function Filters() {
             onClick={() => setShowStatusFilter(!showStatusFilter)}
             className="pr-3"
           >
-            <AiOutlineDown />
+            <AiOutlineDown
+              className={
+                showStatusFilter
+                  ? 'rotate-180 transition ease-in-out duration-200'
+                  : 'duration-200'
+              }
+            />
           </button>
         </div>
         <div

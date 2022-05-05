@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FiClock } from 'react-icons/fi';
 import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction';
+import UserDialog from '../dialog/UserDialog';
 import getItemBorderColor from '../../utils/getItemBorderColor';
 import '../../assets/scss/Card.scss';
-import UserDialog from '../dialog/UserDialog';
 
 type CardProps = {
   _id: string;
@@ -24,11 +24,13 @@ export default function Card({
   const card = getItemBorderColor(secondary_status);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 
   const isOpen = () => {
     dispatch(GetCandidateInfo(_id));
 
     setOpenDialog(true);
+    setIsModalLoading(true);
   };
 
   const isClose = () => {
@@ -52,7 +54,13 @@ export default function Card({
           >
             Open
           </button>
-          {openDialog && <UserDialog isDialogClose={isClose} />}
+          {openDialog && (
+            <UserDialog
+              isDialogClose={isClose}
+              isModalLoading={isModalLoading}
+              setIsModalLoading={setIsModalLoading}
+            />
+          )}
         </section>
       </div>
     </article>

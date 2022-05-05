@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AiOutlineDown, AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { IPosition } from '../../redux/positions/types/data';
 import Modal from '../extras/Modal';
@@ -28,11 +28,13 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
               : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
           }
         >
-          {isOpen && items.length > 0 ? (
-            <AiOutlineDown className="mt-1" />
-          ) : (
-            <AiOutlineRight className="mt-1" />
-          )}
+          <AiOutlineRight
+            className={
+              isOpen && items.length > 0
+                ? 'mt-1 rotate-90 transition ease-in-out duration-200'
+                : 'mt-1 duration-200'
+            }
+          />
           {title}
         </button>
         {items.length === 0 ? (

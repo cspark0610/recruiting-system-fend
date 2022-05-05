@@ -6,11 +6,11 @@ import {
   CleanErrors,
   CleanFilters,
 } from '../../redux/candidates/actions/CandidateAction';
-import detectOutsideClick from '../../utils/detectOutsideClick';
 import Filters from './Filters';
 import Search from './Search';
 import CreateNewDropdown from './CreateNewDropdown';
 import CreateNew from '../buttons/CreateNew';
+import detectOutsideClick from '../../utils/detectOutsideClick';
 
 export default function KanbanOptions() {
   const dispatch = useDispatch();

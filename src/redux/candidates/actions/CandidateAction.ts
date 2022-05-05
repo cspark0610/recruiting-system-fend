@@ -1,12 +1,14 @@
 import { Dispatch } from 'redux';
 
 import { ActionTypes } from '../types/index';
+
 import {
   CreateCandidateResponse,
   GetCandidateInfoResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
 } from '../types/axiosResponses';
+
 import {
   CreateCandidateAction,
   GetCandidatesAction,
@@ -17,6 +19,7 @@ import {
   SetCurrentFiltersAction,
   CleanFiltersAction,
   ClearCandidateDetailAction,
+  SetDetailFinishedLoadingAction,
 } from '../types/dispatchActions';
 
 import {
@@ -75,6 +78,10 @@ export function GetCandidateInfo(_id: string) {
         `${GET_ALL_CANDIDATES}/${_id}`,
       );
 
+      dispatch<SetDetailFinishedLoadingAction>({
+        type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
+      });
+
       return dispatch<GetCandidateInfoAction>({
         type: ActionTypes.GET_CANDIDATE_DETAIL,
         payload: data.candidate,
@@ -92,6 +99,10 @@ export function GetCandidateInfo(_id: string) {
 }
 
 export function ClearCandidateDetail(dispatch: Dispatch) {
+  dispatch<SetDetailFinishedLoadingAction>({
+    type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
+  });
+
   return dispatch<ClearCandidateDetailAction>({
     type: ActionTypes.CLEAR_CANDIDATE_DETAIL,
   });

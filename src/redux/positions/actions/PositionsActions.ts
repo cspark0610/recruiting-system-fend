@@ -1,5 +1,7 @@
 import { Dispatch } from 'redux';
+
 import { ActionTypes } from '../types/actionNames';
+
 import {
   GetAllPositionsAction,
   GetPositionInfoAction,
@@ -8,18 +10,22 @@ import {
   SetSuccess,
   ClearSuccessAction,
 } from '../types/dispatchActions';
+
 import {
   GetAllPositionsResponse,
   GetPositionResponse,
   CreatePositionResponse,
   SetIsActiveResponse,
 } from '../types/axiosResponses';
+
 import {
   GET_ALL_POSITIONS,
   CREATE_POSITION,
   SET_IS_ACTIVE,
 } from '../../../config/routes/endpoints';
+
 import { IPosition } from '../types/data';
+
 import ClientAxios from '../../../config/api/axios';
 
 export default function getAllPositions() {

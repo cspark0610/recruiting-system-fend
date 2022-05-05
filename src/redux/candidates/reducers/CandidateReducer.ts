@@ -23,19 +23,19 @@ const initialState: InitialState = {
     name: '',
     email: '',
     conclusions: {
-      good: [''],
-      bad: [''],
+      good: [],
+      bad: [],
     },
     country: '',
     english_level: '',
     academic_training: '',
-    phone: 123,
+    phone: 0,
     position: {
       _id: '',
       title: '',
       client_name: '',
       rie_link: '',
-      designated: [''],
+      designated: [],
       priority: '',
       recruiter_filter: '',
       url: '',
@@ -44,8 +44,8 @@ const initialState: InitialState = {
       video_questions_list: [],
     },
     working_reason: '',
-    main_status: 'interested',
-    secondary_status: 'new entry',
+    main_status: '',
+    secondary_status: '',
     designated_recruiters: [],
     skills: [],
     linkedin: '',
@@ -60,6 +60,7 @@ const initialState: InitialState = {
     cv: '',
     isRejected: false,
   },
+  detailFinishedLoading: false,
   user: {
     college: '',
     salary: '',
@@ -130,6 +131,13 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_DETAIL_FINISHED_LOADING: {
+      return {
+        ...state,
+        detailFinishedLoading: !state.detailFinishedLoading,
       };
     }
 

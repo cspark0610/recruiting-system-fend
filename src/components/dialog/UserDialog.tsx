@@ -1,16 +1,31 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ClearCandidateDetail } from '../../redux/candidates/actions/CandidateAction';
+import { State } from '../../redux/store/store';
 import Panels from './panels/Panels';
 import HeaderDialog from '../header/HeaderDialog';
 import Modal from '../extras/Modal';
+import LoaderSpinner from '../../assets/loaderSpinner';
 
 interface Props {
   isDialogClose: any;
+  isModalLoading: boolean;
+  setIsModalLoading: any;
 }
 
-const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
+const UserDialog: React.FC<Props> = ({
+  isDialogClose,
+  isModalLoading,
+  setIsModalLoading,
+}) => {
   const dispatch = useDispatch();
+  const isDetailFinishedLoading = useSelector(
+    (state: State) => state.info.detailFinishedLoading,
+  );
+
+  if (isDetailFinishedLoading) {
+    setIsModalLoading(false);
+  }
 
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
@@ -78,7 +93,14 @@ const UserDialog: React.FC<Props> = ({ isDialogClose }) => {
         <div className="flex items-center justify-center min-h-screen text-center p-0">
           <div className="fixed inset-0 bg-white bg-opacity-75 transition-opacity"></div>
           <div className="relative inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[77.313rem] h-maximum">
-            <div className="bg-white">
+            <div className="bg-white relative">
+              {isModalLoading ? (
+                <div className="absolute z-10 bg-white h-full w-full bg-opacity-75">
+                  <div className="absolute top-[15rem] left-[35rem] font-bold text-2xl text-center">
+                    <LoaderSpinner height="h-14" width="w-12" />
+                  </div>
+                </div>
+              ) : null}
               <HeaderDialog isClose={isDialogClose} />
               <div className="flex">
                 <Panels
