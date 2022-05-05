@@ -72,8 +72,13 @@ const initialState: InitialState = {
   userId: null,
   isUserEdit: false,
   loading: false,
+  updating: false,
   error: {
     status: 400,
+    message: '',
+  },
+  success: {
+    status: 200,
     message: '',
   },
   currentFilters: {
@@ -127,10 +132,41 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
+    case ActionTypes.SET_IS_CANDIDATE_UPDATING: {
+      return {
+        ...state,
+        updating: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING: {
+      return {
+        ...state,
+        updating: false,
+      };
+    }
+
     case ActionTypes.SET_ERROR: {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_SUCCESS: {
+      return {
+        ...state,
+        success: action.payload,
+      };
+    }
+
+    case ActionTypes.CLEAR_SUCCESS: {
+      return {
+        ...state,
+        success: {
+          status: 200,
+          message: '',
+        },
       };
     }
 

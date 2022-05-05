@@ -23,8 +23,8 @@ const secondaryStatus: SecondaryStatus = [
   },
   {
     id: 3,
-    displayName: 'Aproved',
-    value: 'aproved',
+    displayName: 'Approved',
+    value: 'approved',
     checked: false,
     color: 'bg-[#35C549]',
   },

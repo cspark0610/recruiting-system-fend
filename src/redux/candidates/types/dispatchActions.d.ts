@@ -20,12 +20,22 @@ export type ClearCandidateDetailAction = {
   type: ActionTypes.CLEAR_CANDIDATE_DETAIL;
 };
 
+export type CleanSuccessAction = {
+  type: ActionTypes.CLEAN_SUCCESS;
+};
+
 export type SetDetailFinishedLoadingAction = {
   type: ActionTypes.SET_DETAIL_FINISHED_LOADING;
 };
 
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
+};
+
+export type SetUpdatingCandidateAction = {
+  type:
+    | ActionTypes.SET_IS_CANDIDATE_UPDATING
+    | ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING;
 };
 
 export type SetErrorAction = {
@@ -40,6 +50,14 @@ export type ClearErrorAction = {
 export type CreateCandidateAction = {
   type: ActionTypes.CREATE_CANDIDATE;
   payload: ICandidate;
+};
+
+export type SetSuccessAction = {
+  type: ActionTypes.SET_SUCCESS;
+  payload: {
+    status: number;
+    message: string;
+  };
 };
 
 export type SetCurrentFiltersAction = {
@@ -67,4 +85,6 @@ export type Action =
   | SetCurrentFiltersAction
   | CleanFiltersAction
   | ClearCandidateDetailAction
-  | SetDetailFinishedLoadingAction;
+  | SetDetailFinishedLoadingAction
+  | CleanSuccessAction
+  | SetSuccessAction;

@@ -7,6 +7,7 @@ import {
   GetCandidateInfoResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
+  UpdateCandidateStatusResponse,
 } from '../types/axiosResponses';
 
 import {
@@ -20,6 +21,9 @@ import {
   CleanFiltersAction,
   ClearCandidateDetailAction,
   SetDetailFinishedLoadingAction,
+  CleanSuccessAction,
+  SetSuccessAction,
+  SetUpdatingCandidateAction,
 } from '../types/dispatchActions';
 
 import {
@@ -40,6 +44,7 @@ import {
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
+  UPDATE_STATUS,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
 import { Filters } from '../types/data';
@@ -198,6 +203,44 @@ export function AddCandidate(user: any) {
   };
 }
 
+export function UpdateCandidateStatus(
+  _id: string,
+  main_status: string,
+  secondary_status: string,
+) {
+  return async function (dispatch: Dispatch) {
+    dispatch<SetUpdatingCandidateAction>({
+      type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
+    });
+
+    try {
+      const { data } = await ClientAxios.put<UpdateCandidateStatusResponse>(
+        `${UPDATE_STATUS}/${_id}`,
+        {
+          main_status,
+          secondary_status,
+        },
+      );
+
+      dispatch<SetUpdatingCandidateAction>({
+        type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+      });
+
+      return dispatch<SetSuccessAction>({
+        type: ActionTypes.SET_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
 export function CleanErrors(dispatch: Dispatch) {
   return dispatch<ClearErrorAction>({
     type: ActionTypes.CLEAN_ERROR,
@@ -207,6 +250,12 @@ export function CleanErrors(dispatch: Dispatch) {
 export function CleanFilters(dispatch: Dispatch) {
   return dispatch<CleanFiltersAction>({
     type: ActionTypes.CLEAN_FILTERS,
+  });
+}
+
+export function ClearSuccess(dispatch: Dispatch) {
+  return dispatch<CleanSuccessAction>({
+    type: ActionTypes.CLEAR_SUCCESS,
   });
 }
 

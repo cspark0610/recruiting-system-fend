@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import LoaderSpinner from '../../assets/loaderSpinner';
+import { State } from '../../redux/store/store';
 
 interface Props {
   alt: string;
@@ -30,6 +33,8 @@ const Modal: React.FC<Props> = ({
 }) => {
   /*  */
   const { t } = useTranslation();
+
+  const updating = useSelector((state: State) => state.info.updating);
 
   return (
     <Transition.Root show={value} as={Fragment}>
@@ -114,6 +119,15 @@ const Modal: React.FC<Props> = ({
                 >
                   {t('modal.buttons.ok')}
                 </button>
+                <div
+                  className={
+                    updating
+                      ? 'flex items-center'
+                      : 'flex items-center invisible'
+                  }
+                >
+                  <LoaderSpinner height="h-5" width="w-5" />
+                </div>
               </div>
             </div>
           </Transition.Child>

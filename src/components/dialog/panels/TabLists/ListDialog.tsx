@@ -1,5 +1,7 @@
-import { Tab } from "@headlessui/react";
-import DialogControl from "../../../buttons/DialogControl";
+import { useSelector } from 'react-redux';
+import { Tab } from '@headlessui/react';
+import DialogControl from '../../../buttons/DialogControl';
+import { State } from '../../../../redux/store/store';
 
 interface Props {
   isApproved: any;
@@ -10,7 +12,7 @@ interface Props {
 }
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 const ListDialog: React.FC<Props> = ({
@@ -21,26 +23,28 @@ const ListDialog: React.FC<Props> = ({
   isConfirmed,
 }) => {
   /*  */
+  const detail = useSelector((state: State) => state.info.detail);
+
   const listingPanels = [
     {
       id: 1,
-      name: "General details",
+      name: 'General details',
       styles: {
-        top: "top-[87px]",
+        top: 'top-[87px]',
       },
     },
     {
       id: 2,
-      name: "Videos",
+      name: 'Videos',
       styles: {
-        top: "top-[130px]",
+        top: 'top-[130px]',
       },
     },
     {
       id: 3,
-      name: "Conclusions",
+      name: 'Conclusions',
       styles: {
-        top: "top-[173px]",
+        top: 'top-[173px]',
       },
     },
   ];
@@ -60,40 +64,48 @@ const ListDialog: React.FC<Props> = ({
             className={({ selected }) =>
               classNames(
                 `absolute ${panel.styles.top} left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none`,
-                selected ? "bg-white rounded-l-[5px] text-cyan-color" : ""
+                selected ? 'bg-white rounded-l-[5px] text-cyan-color' : '',
               )
             }
           >
             {panel.name}
           </Tab>
-        )
+        ),
       )}
 
       {/* Buttons to control the postulation'status of a user */}
       <div
         className={`${
-          isConfirmed ? "hidden" : "block"
+          isConfirmed ? 'hidden' : 'block'
         } absolute top-[300px] left-[40px]`}
       >
         <div className="grid grid-cols-1">
-          <DialogControl
-            classes="bg-green-color"
-            onClick={isApproved}
-            title="Approve"
-            needIcon={false}
-          />
-          <DialogControl
-            classes="bg-yellow-color"
-            onClick={isDoubting}
-            title="Doubting"
-            needIcon={false}
-          />
-          <DialogControl
-            classes="bg-red-dark"
-            onClick={isDismiss}
-            title="Dismiss"
-            needIcon={false}
-          />
+          {detail.secondary_status !== 'approved' &&
+            detail.secondary_status !== 'dismissed' && (
+              <DialogControl
+                classes="bg-green-color"
+                onClick={isApproved}
+                title="Approve"
+                needIcon={false}
+              />
+            )}
+          {detail.secondary_status !== 'doubting' &&
+            detail.secondary_status !== 'dismissed' && (
+              <DialogControl
+                classes="bg-yellow-color"
+                onClick={isDoubting}
+                title="Doubting"
+                needIcon={false}
+              />
+            )}
+          {detail.secondary_status !== 'dismissed' && (
+            <DialogControl
+              classes="bg-red-dark"
+              onClick={isDismiss}
+              title="Dismiss"
+              needIcon={false}
+            />
+          )}
           <DialogControl
             classes="bg-transparent !text-gray-color"
             onClick={isReject}
