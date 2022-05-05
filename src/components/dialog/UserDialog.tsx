@@ -96,8 +96,8 @@ const UserDialog: React.FC<Props> = ({
             <div className="bg-white relative">
               {isModalLoading ? (
                 <div className="absolute z-10 bg-white h-full w-full bg-opacity-75">
-                  <div className="absolute top-[15rem] left-[35rem] font-bold text-2xl text-center">
-                    <LoaderSpinner height="h-14" width="w-12" />
+                  <div className="flex items-center justify-center">
+                    <LoaderSpinner height="h-14" width="w-12" classes="mt-48" />
                   </div>
                 </div>
               ) : null}
