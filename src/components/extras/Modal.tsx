@@ -34,7 +34,10 @@ const Modal: React.FC<Props> = ({
   /*  */
   const { t } = useTranslation();
 
-  const updating = useSelector((state: State) => state.info.updating);
+  const updatingCandidate = useSelector((state: State) => state.info.updating);
+  const updatingPosition = useSelector(
+    (state: State) => state.positions.updating,
+  );
 
   return (
     <Transition.Root show={value} as={Fragment}>
@@ -121,7 +124,7 @@ const Modal: React.FC<Props> = ({
                 </button>
                 <div
                   className={
-                    updating
+                    updatingCandidate || updatingPosition
                       ? 'flex items-center'
                       : 'flex items-center invisible'
                   }

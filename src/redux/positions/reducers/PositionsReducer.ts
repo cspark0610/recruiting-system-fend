@@ -51,13 +51,6 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
-    case ActionTypes.DELETE_POSITION: {
-      return {
-        ...state,
-        success: action.payload,
-      };
-    }
-
     case ActionTypes.SET_POSITION_ERROR: {
       return {
         ...state,

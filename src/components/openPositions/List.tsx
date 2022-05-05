@@ -3,10 +3,6 @@ import { useState } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { IPosition } from '../../redux/positions/types/data';
-import {
-  ClearSuccess,
-  DeletePosition,
-} from '../../redux/positions/actions/PositionsActions';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
 
@@ -27,14 +23,6 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
   const handleClick = (_id: string) => {
     setSelectedItem(_id);
     setShowWarning(!showWarning);
-  };
-
-  const handleDelete = () => {
-    dispatch(DeletePosition(selectedItem));
-
-    setTimeout(() => {
-      dispatch(ClearSuccess(dispatch));
-    }, 3000);
   };
 
   return (
@@ -93,10 +81,10 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
               alt="Delete Position"
               classes={true}
               image="reject"
-              isVerify={handleDelete}
+              isVerify={() => console.log('deleted')}
               message="Are you sure you want to delete this position?"
               onClick={() => setShowWarning(!showWarning)}
-              setValue={setShowWarning}
+              setValue={() => setShowWarning(!showWarning)}
               value={showWarning}
             />
           ) : null}
