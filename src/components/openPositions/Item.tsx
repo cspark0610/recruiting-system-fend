@@ -69,7 +69,13 @@ export default function Item({
         <div className="flex space-x-6 mr-16 items-center">
           <span className="mt-2">March 15</span>
           <button onClick={() => setIsOpen(!isOpen)}>
-            <AiOutlineDown className="mt-2" />
+            <AiOutlineDown
+              className={
+                isOpen
+                  ? 'mt-2 rotate-180 transition ease-in-out duration-200'
+                  : 'mt-2 duration-200'
+              }
+            />
           </button>
         </div>
       </div>

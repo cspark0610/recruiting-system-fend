@@ -14,6 +14,7 @@ export type InitialState = {
   userId: any;
   isUserEdit: boolean;
   loading: boolean;
+  detailFinishedLoading: boolean;
   error: IError;
   currentFilters: {
     position: Array<string>;

@@ -26,7 +26,14 @@ export default function Column({ title, column_info, items }: ColumnProps) {
         className="flex font-medium ml-24 text-2xl text-center pb-6"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {title} <AiOutlineDown className="w-4 mt-2 ml-4" />
+        {title}{' '}
+        <AiOutlineDown
+          className={
+            isOpen
+              ? 'w-4 mt-2 ml-4 rotate-180 transition ease-in-out duration-200'
+              : 'w-4 mt-2 ml-4 duration-200'
+          }
+        />
       </button>
       <>
         <Collapsable info={column_info} />
