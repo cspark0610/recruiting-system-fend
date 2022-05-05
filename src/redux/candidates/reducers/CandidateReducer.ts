@@ -10,32 +10,82 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
+  detail: {
+    _id: '',
+    name: '',
+    email: '',
+    conclusions: {
+      good: [],
+      bad: [],
+    },
+    country: '',
+    english_level: '',
+    academic_training: '',
+    phone: 0,
+    position: {
+      _id: '',
+      title: '',
+      client_name: '',
+      rie_link: '',
+      designated: [],
+      priority: '',
+      recruiter_filter: '',
+      url: '',
+      isActive: true,
+      skills_required: [],
+      video_questions_list: [],
+    },
+    working_reason: '',
+    main_status: '',
+    secondary_status: '',
+    designated_recruiters: [],
+    skills: [],
+    linkedin: '',
+    portfolio: '',
+    createdAt: undefined,
+    updatedAt: undefined,
+    video_recording_url: {
+      _id: '',
+      short_url: '',
+      expiresAt: undefined,
+    },
+    cv: '',
+    isRejected: false,
+  },
+  detailFinishedLoading: false,
   user: {
-    college: "",
-    salary: "",
-    available: "",
-    skills: [""],
-    description: "",
-    video: "",
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: '',
   },
   userId: null,
   isUserEdit: false,
   loading: false,
+  updating: false,
   error: {
     status: 400,
-    message: "",
+    message: '',
   },
-  cleanFilters: false,
-  cleanSearch: false,
-  appliedFilters: false,
+  success: {
+    status: 200,
+    message: '',
+  },
+  currentFilters: {
+    position: [],
+    status: [],
+    query: '',
+  },
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -44,6 +94,13 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.GET_CANDIDATE_DETAIL: {
+      return {
+        ...state,
+        detail: action.payload,
       };
     }
 
@@ -75,10 +132,48 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
+    case ActionTypes.SET_IS_CANDIDATE_UPDATING: {
+      return {
+        ...state,
+        updating: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING: {
+      return {
+        ...state,
+        updating: false,
+      };
+    }
+
     case ActionTypes.SET_ERROR: {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_SUCCESS: {
+      return {
+        ...state,
+        success: action.payload,
+      };
+    }
+
+    case ActionTypes.CLEAR_SUCCESS: {
+      return {
+        ...state,
+        success: {
+          status: 200,
+          message: '',
+        },
+      };
+    }
+
+    case ActionTypes.SET_DETAIL_FINISHED_LOADING: {
+      return {
+        ...state,
+        detailFinishedLoading: !state.detailFinishedLoading,
       };
     }
 
@@ -87,7 +182,7 @@ function CandidateReducer(state = initialState, action: Action) {
         ...state,
         error: {
           status: 400,
-          message: "",
+          message: '',
         },
       };
     }
@@ -95,23 +190,69 @@ function CandidateReducer(state = initialState, action: Action) {
     case ActionTypes.CLEAN_FILTERS: {
       return {
         ...state,
-        cleanFilters: !state.cleanFilters,
+        currentFilters: {
+          position: [],
+          status: [],
+          query: '',
+        },
       };
     }
 
-    case ActionTypes.CLEAN_SEARCH: {
+    case ActionTypes.CLEAR_CANDIDATE_DETAIL: {
       return {
         ...state,
-        cleanSearch: !state.cleanSearch,
+        detail: {
+          _id: '',
+          name: '',
+          email: '',
+          conclusions: {
+            good: [''],
+            bad: [''],
+          },
+          country: '',
+          english_level: '',
+          academic_training: '',
+          phone: 123,
+          position: {
+            _id: '',
+            title: '',
+            client_name: '',
+            rie_link: '',
+            designated: [''],
+            priority: '',
+            recruiter_filter: '',
+            url: '',
+            isActive: true,
+            skills_required: [],
+            video_questions_list: [],
+          },
+          working_reason: '',
+          main_status: 'interested',
+          secondary_status: 'new entry',
+          designated_recruiters: [],
+          skills: [],
+          linkedin: '',
+          portfolio: '',
+          createdAt: undefined,
+          updatedAt: undefined,
+          video_recording_url: {
+            _id: '',
+            short_url: '',
+            expiresAt: undefined,
+          },
+          cv: '',
+          isRejected: false,
+        },
       };
     }
 
-    case ActionTypes.SET_APPLIED_FILTERS: {
+    case ActionTypes.SET_CURRENT_FILTERS: {
       return {
         ...state,
-        appliedFilters: !state.appliedFilters,
+        currentFilters: action.payload,
       };
     }
+
     case ADD_CANDIDATE:
     case GET_DATA:
     case DATA_EDIT:

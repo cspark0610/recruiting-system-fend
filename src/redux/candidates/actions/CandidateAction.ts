@@ -1,17 +1,29 @@
 import { Dispatch } from 'redux';
 
 import { ActionTypes } from '../types/index';
+
 import {
   CreateCandidateResponse,
+  GetCandidateInfoResponse,
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
+  UpdateCandidateStatusResponse,
 } from '../types/axiosResponses';
+
 import {
   CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
   SetErrorAction,
   ClearErrorAction,
+  GetCandidateInfoAction,
+  SetCurrentFiltersAction,
+  CleanFiltersAction,
+  ClearCandidateDetailAction,
+  SetDetailFinishedLoadingAction,
+  CleanSuccessAction,
+  SetSuccessAction,
+  SetUpdatingCandidateAction,
 } from '../types/dispatchActions';
 
 import {
@@ -32,9 +44,10 @@ import {
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
+  UPDATE_STATUS,
 } from '../../../config/routes/endpoints';
 import ClientAxios from '../../../config/api/axios';
-import { ICandidate } from '../types/data';
+import { Filters } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -63,28 +76,51 @@ export function GetAllCandidates() {
   };
 }
 
-export function GetCandidatesFiltered(
-  position?: string[],
-  secondary_status?: string[],
-  query?: string,
-  apply_next?: boolean,
-  previousQuery?: ICandidate[],
-) {
+export function GetCandidateInfo(_id: string) {
   return async function (dispatch: Dispatch) {
-    const requestBody = JSON.stringify({
-      position,
-      secondary_status,
-      query,
-      apply_next,
-      previousQuery,
-    });
+    try {
+      const { data } = await ClientAxios.get<GetCandidateInfoResponse>(
+        `${GET_ALL_CANDIDATES}/${_id}`,
+      );
 
+      dispatch<SetDetailFinishedLoadingAction>({
+        type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
+      });
+
+      return dispatch<GetCandidateInfoAction>({
+        type: ActionTypes.GET_CANDIDATE_DETAIL,
+        payload: data.candidate,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function ClearCandidateDetail(dispatch: Dispatch) {
+  dispatch<SetDetailFinishedLoadingAction>({
+    type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
+  });
+
+  return dispatch<ClearCandidateDetailAction>({
+    type: ActionTypes.CLEAR_CANDIDATE_DETAIL,
+  });
+}
+
+export function GetCandidatesFiltered(filters: Filters) {
+  return async function (dispatch: Dispatch) {
     dispatch({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.post<GetCandidatesFilteredResponse>(
         GET_ALL_CANDIDATES_FILTERED,
-        requestBody,
+        filters,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -93,6 +129,14 @@ export function GetCandidatesFiltered(
       );
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch<SetCurrentFiltersAction>({
+        type: ActionTypes.SET_CURRENT_FILTERS,
+        payload: {
+          position: filters.position,
+          status: filters.status,
+          query: filters.query,
+        },
+      });
 
       return dispatch<GetCandidatesFilteredAction>({
         type: ActionTypes.GET_CANDIDATES_FILTERED,
@@ -104,6 +148,14 @@ export function GetCandidatesFiltered(
         dispatch<SetErrorAction>({
           type: ActionTypes.SET_ERROR,
           payload: error.response.data,
+        });
+        dispatch<SetCurrentFiltersAction>({
+          type: ActionTypes.SET_CURRENT_FILTERS,
+          payload: {
+            position: filters.position,
+            status: filters.status,
+            query: filters.query,
+          },
         });
       }
     }
@@ -151,36 +203,60 @@ export function AddCandidate(user: any) {
   };
 }
 
-export function CleanErrors() {
-  return function (dispatch: Dispatch) {
-    return dispatch<ClearErrorAction>({
-      type: ActionTypes.CLEAN_ERROR,
+export function UpdateCandidateStatus(
+  _id: string,
+  main_status: string,
+  secondary_status: string,
+) {
+  return async function (dispatch: Dispatch) {
+    dispatch<SetUpdatingCandidateAction>({
+      type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
     });
+
+    try {
+      const { data } = await ClientAxios.put<UpdateCandidateStatusResponse>(
+        `${UPDATE_STATUS}/${_id}`,
+        {
+          main_status,
+          secondary_status,
+        },
+      );
+
+      dispatch<SetUpdatingCandidateAction>({
+        type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+      });
+
+      return dispatch<SetSuccessAction>({
+        type: ActionTypes.SET_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetErrorAction>({
+          type: ActionTypes.SET_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
   };
 }
 
-export function CleanFilters() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.CLEAN_FILTERS,
-    });
-  };
+export function CleanErrors(dispatch: Dispatch) {
+  return dispatch<ClearErrorAction>({
+    type: ActionTypes.CLEAN_ERROR,
+  });
 }
 
-export function CleanSearch() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.CLEAN_SEARCH,
-    });
-  };
+export function CleanFilters(dispatch: Dispatch) {
+  return dispatch<CleanFiltersAction>({
+    type: ActionTypes.CLEAN_FILTERS,
+  });
 }
 
-export function SetAppliedFilters() {
-  return function (dispatch: Dispatch) {
-    return dispatch({
-      type: ActionTypes.SET_APPLIED_FILTERS,
-    });
-  };
+export function ClearSuccess(dispatch: Dispatch) {
+  return dispatch<CleanSuccessAction>({
+    type: ActionTypes.CLEAR_SUCCESS,
+  });
 }
 
 const AddCandidateLoad = (status: boolean) => ({

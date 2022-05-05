@@ -1,11 +1,26 @@
-import { IPosition } from "./data";
+import { IPosition } from './data';
 
-type GetAllPositionsResponse = {
+export type GetAllPositionsResponse = {
   status: number;
   positions: IPosition[];
 };
 
-type GetPositionResponse = {
+export type GetPositionResponse = {
   status: number;
   positionInfo: IPosition;
+};
+
+export type CreatePositionResponse = {
+  status: number;
+  newPosition: IPosition;
+};
+
+export type SetIsActiveResponse = {
+  status: number;
+  message: string;
+};
+
+export type DeletePositionResponse = {
+  status: number;
+  message: string;
 };

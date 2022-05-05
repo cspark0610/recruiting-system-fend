@@ -1,35 +1,29 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
-import { HiPlusCircle } from 'react-icons/hi';
 import {
   GetAllCandidates,
   CleanErrors,
   CleanFilters,
-  CleanSearch,
-  SetAppliedFilters,
 } from '../../redux/candidates/actions/CandidateAction';
-import { State } from '../../redux/store/store';
 import Filters from './Filters';
 import Search from './Search';
+import CreateNewDropdown from './CreateNewDropdown';
+import CreateNew from '../buttons/CreateNew';
+import detectOutsideClick from '../../utils/detectOutsideClick';
 
 export default function KanbanOptions() {
   const dispatch = useDispatch();
-  const appliedFilters = useSelector(
-    (state: State) => state.info.appliedFilters,
-  );
 
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showCreateDropdown, setShowCreateDropdown] = useState<boolean>(false);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  detectOutsideClick(wrapperRef, [setShowCreateDropdown]);
 
   const handleCleanFilters = () => {
-    if (!appliedFilters) {
-      return;
-    }
-
-    dispatch(CleanErrors());
-    dispatch(CleanFilters());
-    dispatch(CleanSearch());
-    dispatch(SetAppliedFilters());
+    dispatch(CleanErrors(dispatch));
+    dispatch(CleanFilters(dispatch));
     dispatch(GetAllCandidates());
   };
 
@@ -63,10 +57,17 @@ export default function KanbanOptions() {
           Clean Filters
         </button>
       </div>
-      <div className="mr-16">
-        <button className="flex bg-sky-400 text-white font-medium rounded-full px-4 py-2 w-44">
-          Create New <HiPlusCircle className="ml-8 text-2xl" />
-        </button>
+      <div className="mr-16 relative" ref={wrapperRef}>
+        <CreateNew onClick={() => setShowCreateDropdown(!showCreateDropdown)} />
+        <div
+          className={
+            showCreateDropdown
+              ? 'transition ease-in-out duration-200 opacity-100 absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+              : 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
+          }
+        >
+          <CreateNewDropdown setShowCreateDropdown={setShowCreateDropdown} />
+        </div>
       </div>
     </div>
   );

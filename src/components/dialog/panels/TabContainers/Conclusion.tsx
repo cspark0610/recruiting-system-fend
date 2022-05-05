@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
-import { IoSend } from "react-icons/io5";
+import { useEffect, useState } from 'react';
+import { IoSend } from 'react-icons/io5';
 
 /* Redux */
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AddConclusion,
   GetConclusion,
-} from "../../../../redux/conclusions/actions/ConclusionAction";
-import InputConclusion from "../../../inputs/InputConclusion";
+} from '../../../../redux/conclusions/actions/ConclusionAction';
+import { State } from '../../../../redux/store/store';
+import InputConclusion from '../../../inputs/InputConclusion';
 
 const Conclusion = () => {
   /*  */
   const dispatch = useDispatch();
 
-  const [positiveComment, setPositiveComment] = useState("");
-  const [negativeComment, setNegativeComment] = useState("");
+  const [positiveComment, setPositiveComment] = useState('');
+  const [negativeComment, setNegativeComment] = useState('');
 
   const AddNewConclusion = (feed: any) => dispatch(AddConclusion(feed));
 
   const onSubmit = () => {
     AddNewConclusion({
       positiveComment,
-      negativeComment,
     });
 
     /* Clear fields */
-    setPositiveComment("");
-    setNegativeComment("");
+    setPositiveComment('');
+    setNegativeComment('');
   };
 
   useEffect(() => {
@@ -35,12 +35,13 @@ const Conclusion = () => {
   }, []);
 
   const comments = useSelector((state: any) => state.feed.feed);
+  const candidateName = useSelector((state: State) => state.info.detail.name);
 
   return (
     <div className="grid justify-items-center">
       <div className="mt-[48px] grid justify-items-start w-[85%]">
         <p className="font-raleway font-semibold text-gray-color text-[20px]">
-          Samuel Vidal Muñoz
+          {candidateName}
         </p>
       </div>
       <section className="grid justify-items-center grid-cols-2 gap-[10px]">
@@ -52,7 +53,7 @@ const Conclusion = () => {
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[422px] h-[372px]">
               <div className="absolute top-5 right-5 z-10">
                 {comments.length === 0
-                  ? ""
+                  ? ''
                   : comments.map(
                       (comment: { positiveComment: string[]; id: number }) => (
                         <div
@@ -63,7 +64,7 @@ const Conclusion = () => {
                             {comment.positiveComment}
                           </p>
                         </div>
-                      )
+                      ),
                     )}
               </div>
               <div className="absolute bottom-4 left-5">
@@ -92,7 +93,7 @@ const Conclusion = () => {
             <div className="relative bg-light-color border-light-color rounded-[10px] w-[422px] h-[372px]">
               <div className="absolute top-5 right-5 z-10">
                 {comments.length === 0
-                  ? ""
+                  ? ''
                   : comments.map(
                       (comment: { positiveComment: string[]; id: number }) => (
                         <div
@@ -103,7 +104,7 @@ const Conclusion = () => {
                             {comment.positiveComment}
                           </p>
                         </div>
-                      )
+                      ),
                     )}
               </div>
               <div className="absolute bottom-4 left-5">

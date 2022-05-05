@@ -1,16 +1,14 @@
 import { IPosition, IQuestion } from '../../positions/types/data';
 
 export type IConclusions = {
-  conclusions: {
-    good: Array<string>;
-    bad: Array<string>;
-  };
+  good: Array<string>;
+  bad: Array<string>;
 };
 
 export type IVideoRecordingUrl = {
   _id: string;
   short_url: string;
-  expiresAt: Date;
+  expiresAt: Date | undefined;
 };
 
 export type ICandidate = {
@@ -43,4 +41,10 @@ export type ICandidate = {
 export type IError = {
   status: number;
   message: string;
+};
+
+export type Filters = {
+  position: Array<string>;
+  status: Array<string>;
+  query: string;
 };

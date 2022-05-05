@@ -1,7 +1,8 @@
-import { ICandidate, IError } from "./data";
+import { ICandidate, IError } from './data';
 
 export type InitialState = {
   candidates: ICandidate[];
+  detail: ICandidate;
   user: {
     college: string;
     salary: string;
@@ -13,8 +14,16 @@ export type InitialState = {
   userId: any;
   isUserEdit: boolean;
   loading: boolean;
+  updating: boolean;
+  detailFinishedLoading: boolean;
   error: IError;
-  cleanFilters: boolean;
-  cleanSearch: boolean;
-  appliedFilters: boolean;
+  success: {
+    status: number;
+    message: string;
+  };
+  currentFilters: {
+    position: Array<string>;
+    status: Array<string>;
+    query: string;
+  };
 };

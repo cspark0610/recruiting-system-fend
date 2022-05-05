@@ -1,7 +1,13 @@
-import { IError, IPosition } from './data';
+import { IErrorPosition, IPosition } from './data';
 
 export type InitialState = {
   positions: IPosition[];
   info: IPosition;
-  error: IError;
+  error: IErrorPosition;
+  loading: boolean;
+  updating: boolean;
+  success: {
+    status: number;
+    message: string;
+  };
 };

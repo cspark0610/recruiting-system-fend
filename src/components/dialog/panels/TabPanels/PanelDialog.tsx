@@ -1,7 +1,7 @@
-import { Tab } from "@headlessui/react";
-import Conclusion from "../TabContainers/Conclusion";
-import General from "../TabContainers/General";
-import Videos from "../TabContainers/Videos";
+import { Tab } from '@headlessui/react';
+import Conclusion from '../TabContainers/Conclusion';
+import General from '../TabContainers/General';
+import Videos from '../TabContainers/Videos';
 
 const PanelDialog = () => {
   return (

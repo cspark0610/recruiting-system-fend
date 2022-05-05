@@ -1,15 +1,18 @@
-import { BsPlay } from "react-icons/bs";
-import QskInterview from "../../../extras/QskInterview";
+import { useSelector } from 'react-redux';
+import { BsPlay } from 'react-icons/bs';
+import { State } from '../../../../redux/store/store';
+import QskInterview from '../../../extras/QskInterview';
 
 const Videos = () => {
+  const candidateName = useSelector((state: State) => state.info.detail.name);
   /*  */
-  let video = "";
+  let video = '';
 
   return (
     <div className="grid justify-items-center">
       <div className="mt-[48px] grid justify-items-start w-[85%]">
         <p className="font-raleway font-semibold text-gray-color text-[20px]">
-          Samuel Vidal Muñoz
+          {candidateName}
         </p>
       </div>
       <section className="grid justify-items-center grid-cols-2 gap-[36px] w-[85%]">

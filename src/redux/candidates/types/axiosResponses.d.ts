@@ -1,8 +1,13 @@
-import { ICandidate } from "./data";
+import { ICandidate } from './data';
 
 export type GetCandidatesResponse = {
   status: number;
   allCandidates: ICandidate[];
+};
+
+export type GetCandidateInfoResponse = {
+  status: number;
+  candidate: ICandidate;
 };
 
 export type GetCandidatesFilteredResponse = {
@@ -18,4 +23,9 @@ export type GetCandidateDetail = {
 export type CreateCandidateResponse = {
   status: number;
   candidate: ICandidate;
+};
+
+export type UpdateCandidateStatusResponse = {
+  status: number;
+  message: string;
 };

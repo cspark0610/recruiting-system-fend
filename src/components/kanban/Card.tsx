@@ -1,22 +1,36 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { FiClock } from 'react-icons/fi';
+import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction';
+import UserDialog from '../dialog/UserDialog';
 import getItemBorderColor from '../../utils/getItemBorderColor';
 import '../../assets/scss/Card.scss';
-import UserDialog from '../dialog/UserDialog';
 
-type ItemProps = {
+type CardProps = {
+  _id: string;
   name: string;
   position: string;
   secondary_status: string;
 };
 
-export default function Item({ name, position, secondary_status }: ItemProps) {
+export default function Card({
+  name,
+  _id,
+  position,
+  secondary_status,
+}: CardProps) {
+  const dispatch = useDispatch();
+
   const card = getItemBorderColor(secondary_status);
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 
   const isOpen = () => {
+    dispatch(GetCandidateInfo(_id));
+
     setOpenDialog(true);
+    setIsModalLoading(true);
   };
 
   const isClose = () => {
@@ -40,7 +54,13 @@ export default function Item({ name, position, secondary_status }: ItemProps) {
           >
             Open
           </button>
-          {openDialog && <UserDialog isDialogClose={isClose} />}
+          {openDialog && (
+            <UserDialog
+              isDialogClose={isClose}
+              isModalLoading={isModalLoading}
+              setIsModalLoading={setIsModalLoading}
+            />
+          )}
         </section>
       </div>
     </article>

@@ -25,18 +25,26 @@
     },
     {
         "id": 7,
-        "name": "HTML Basics"
+        "name": "Python Basic"
     },
     {
         "id": 8,
-        "name": "Python"
+        "name": "Python Intermediate"
     },
     {
         "id": 9,
-        "name": "Oracle PL/SQL"
+        "name": "Python Advance"
     },
     {
         "id": 10,
-        "name": "Typescript"
+        "name": "Typescript Basic"
+    },
+    {
+        "id": 11,
+        "name": "Typescript Intermediate"
+    },
+    {
+        "id": 12,
+        "name": "Typescript Advance"
     }
 ]

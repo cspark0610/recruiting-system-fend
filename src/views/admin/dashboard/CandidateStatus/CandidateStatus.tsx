@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../../redux/store/store';
-import { GetAllCandidates } from '../../../../redux/candidates/actions/CandidateAction';
+import {
+  CleanErrors,
+  ClearSuccess,
+  GetAllCandidates,
+} from '../../../../redux/candidates/actions/CandidateAction';
 import Column from '../../../../components/kanban/Column';
-import Navbar from '../../../../components/kanban/Navbar';
 import KanbanOptions from '../../../../components/kanban/KanbanOptions';
 import {
   InterestedInfo,
@@ -15,17 +18,26 @@ import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
 
 export default function CandidateStatus() {
   const dispatch = useDispatch();
+  const success = useSelector((state: State) => state.info.success);
   let candidates = useSelector((state: State) => state.info.candidates);
 
   candidates = getCandidatesByColumn(candidates);
 
+  if (success.message !== '') {
+    setTimeout(() => {
+      dispatch(ClearSuccess(dispatch));
+    }, 3000);
+  }
+
   useEffect(() => {
-    dispatch(GetAllCandidates());
+    batch(() => {
+      dispatch(CleanErrors(dispatch));
+      dispatch(GetAllCandidates());
+    });
   }, [dispatch]);
 
   return (
-    <div className="bg-white">
-      <Navbar userName="Juan" />
+    <div>
       <KanbanOptions />
       <div className="flex justify-center pt-8">
         <main className="flex flex-row gap-3">
@@ -50,6 +62,19 @@ export default function CandidateStatus() {
             items={candidates.chosen}
           />
         </main>
+      </div>
+      <div className="flex items-start justify-center mt-[25rem]">
+        <div
+          className={
+            success.message !== ''
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-green-500 p-2 text-center rounded-lg'
+              : 'duration-200 opacity-0 invisible absolute'
+          }
+        >
+          {success.message !== '' && (
+            <span className="text-white">{success.message}</span>
+          )}
+        </div>
       </div>
     </div>
   );
