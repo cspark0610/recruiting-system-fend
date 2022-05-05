@@ -80,31 +80,35 @@ const ListDialog: React.FC<Props> = ({
         } absolute top-[300px] left-[40px]`}
       >
         <div className="grid grid-cols-1">
-          {detail.secondary_status !== 'approved' &&
-            detail.secondary_status !== 'dismissed' && (
-              <DialogControl
-                classes="bg-green-color"
-                onClick={isApproved}
-                title="Approve"
-                needIcon={false}
-              />
-            )}
-          {detail.secondary_status !== 'doubting' &&
-            detail.secondary_status !== 'dismissed' && (
-              <DialogControl
-                classes="bg-yellow-color"
-                onClick={isDoubting}
-                title="Doubting"
-                needIcon={false}
-              />
-            )}
-          {detail.secondary_status !== 'dismissed' && (
-            <DialogControl
-              classes="bg-red-dark"
-              onClick={isDismiss}
-              title="Dismiss"
-              needIcon={false}
-            />
+          {detail.secondary_status === 'approved' ? null : (
+            <>
+              {detail.secondary_status !== 'approved' &&
+                detail.secondary_status !== 'dismissed' && (
+                  <DialogControl
+                    classes="bg-green-color"
+                    onClick={isApproved}
+                    title="Approve"
+                    needIcon={false}
+                  />
+                )}
+              {detail.secondary_status !== 'doubting' &&
+                detail.secondary_status !== 'dismissed' && (
+                  <DialogControl
+                    classes="bg-yellow-color"
+                    onClick={isDoubting}
+                    title="Doubting"
+                    needIcon={false}
+                  />
+                )}
+              {detail.secondary_status !== 'dismissed' && (
+                <DialogControl
+                  classes="bg-red-dark"
+                  onClick={isDismiss}
+                  title="Dismiss"
+                  needIcon={false}
+                />
+              )}
+            </>
           )}
           <DialogControl
             classes="bg-transparent !text-gray-color"
