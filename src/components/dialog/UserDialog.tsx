@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ClearCandidateDetail } from '../../redux/candidates/actions/CandidateAction';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import {
+  CleanFilters,
+  ClearCandidateDetail,
+  GetAllCandidates,
+  UpdateCandidateStatus,
+} from '../../redux/candidates/actions/CandidateAction';
 import { State } from '../../redux/store/store';
 import Panels from './panels/Panels';
 import HeaderDialog from '../header/HeaderDialog';
@@ -22,6 +27,15 @@ const UserDialog: React.FC<Props> = ({
   const isDetailFinishedLoading = useSelector(
     (state: State) => state.info.detailFinishedLoading,
   );
+  const detail = useSelector((state: State) => state.info.detail);
+  const success = useSelector((state: State) => state.info.success);
+
+  if (success.message !== '') {
+    batch(() => {
+      dispatch(GetAllCandidates());
+      dispatch(CleanFilters(dispatch));
+    });
+  }
 
   if (isDetailFinishedLoading) {
     setIsModalLoading(false);
@@ -83,8 +97,10 @@ const UserDialog: React.FC<Props> = ({
     setReject(!reject);
   };
 
-  const isStatusConfirm = () => {
-    setIsConfirm(true);
+  const isStatusConfirm = (secondary_status: string) => {
+    dispatch(
+      UpdateCandidateStatus(detail._id, detail.main_status, secondary_status),
+    );
   };
 
   return (
@@ -96,8 +112,8 @@ const UserDialog: React.FC<Props> = ({
             <div className="bg-white relative">
               {isModalLoading ? (
                 <div className="absolute z-10 bg-white h-full w-full bg-opacity-75">
-                  <div className="absolute top-[15rem] left-[35rem] font-bold text-2xl text-center">
-                    <LoaderSpinner height="h-14" width="w-12" />
+                  <div className="flex items-center justify-center">
+                    <LoaderSpinner height="h-14" width="w-12" classes="mt-48" />
                   </div>
                 </div>
               ) : null}
@@ -117,7 +133,7 @@ const UserDialog: React.FC<Props> = ({
                   alt="approve"
                   classes={true}
                   image="approve"
-                  isVerify={isStatusConfirm}
+                  isVerify={() => isStatusConfirm('approved')}
                   message="An automatic email is going to be send to this candidate with instructions for next step."
                   onClick={isApproved}
                   setValue={setApproved}
@@ -130,7 +146,7 @@ const UserDialog: React.FC<Props> = ({
                   alt="doubting"
                   classes={true}
                   image="doubting"
-                  isVerify={isStatusConfirm}
+                  isVerify={() => isStatusConfirm('doubting')}
                   onClick={isDoubting}
                   setValue={setDoubting}
                   status='"in doubt".'
@@ -143,7 +159,7 @@ const UserDialog: React.FC<Props> = ({
                   alt="dismiss"
                   classes={true}
                   image="dismiss"
-                  isVerify={isStatusConfirm}
+                  isVerify={() => isStatusConfirm('dismissed')}
                   message="Remember to fill your motives for this decition in conclusions"
                   onClick={isDismiss}
                   setValue={setDismiss}

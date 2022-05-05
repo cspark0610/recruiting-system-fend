@@ -7,7 +7,7 @@ import {
   GetPositionInfoAction,
   CreatePositionAction,
   SetPositionErrorAction,
-  SetSuccess,
+  SetSuccessAction,
   ClearSuccessAction,
 } from '../types/dispatchActions';
 
@@ -16,12 +16,14 @@ import {
   GetPositionResponse,
   CreatePositionResponse,
   SetIsActiveResponse,
+  DeletePositionResponse,
 } from '../types/axiosResponses';
 
 import {
   GET_ALL_POSITIONS,
   CREATE_POSITION,
   SET_IS_ACTIVE,
+  DELETE_POSITION,
 } from '../../../config/routes/endpoints';
 
 import { IPosition } from '../types/data';
@@ -110,7 +112,7 @@ export function SetIsActive(_id: string) {
 
       dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      return dispatch<SetSuccess>({
+      return dispatch<SetSuccessAction>({
         type: ActionTypes.SET_SUCCESS,
         payload: data,
       });
@@ -131,4 +133,28 @@ export function ClearSuccess(dispatch: Dispatch) {
   return dispatch<ClearSuccessAction>({
     type: ActionTypes.CLEAR_SUCCESS,
   });
+}
+
+export function DeletePosition(_id: string) {
+  return async function (dispatch: Dispatch) {
+    dispatch({ type: ActionTypes.SET_IS_UPDATING });
+
+    try {
+      const { data } = await ClientAxios.delete<DeletePositionResponse>(
+        `${DELETE_POSITION}/${_id}`,
+      );
+
+      return dispatch<SetSuccessAction>({
+        type: ActionTypes.SET_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
 }

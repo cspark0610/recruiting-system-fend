@@ -24,6 +24,7 @@ const initialState: InitialState = {
     message: '',
   },
 
+  updating: false,
   loading: false,
 };
 
@@ -47,6 +48,13 @@ const PositionsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         positions: state.positions.concat(action.payload),
+      };
+    }
+
+    case ActionTypes.DELETE_POSITION: {
+      return {
+        ...state,
+        success: action.payload,
       };
     }
 

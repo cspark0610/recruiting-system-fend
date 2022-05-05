@@ -183,7 +183,7 @@ export default function FrmPosition() {
         {loading ? (
           <div className="flex space-x-2 mt-4 items-center justify-center">
             <span className="font-semibold">Creating New Position...</span>
-            <LoaderSpinner width="12" height="14" />
+            <LoaderSpinner width="w-4" height="h-4" />
           </div>
         ) : null}
       </section>

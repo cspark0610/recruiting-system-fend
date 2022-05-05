@@ -10,7 +10,7 @@ interface Props {
 
 const HeaderDialog: React.FC<Props> = ({ isClose }) => {
   const details = useSelector((state: State) => state.info.detail);
-  const position_applied = details.position.title;
+  const position_applied = details.position?.title;
 
   const headerColor = secondaryStatus.find(
     (status) => status.value === details.secondary_status,
@@ -20,7 +20,7 @@ const HeaderDialog: React.FC<Props> = ({ isClose }) => {
     <h4 className={`${headerColor}`}>
       <div className="flex justify-center relative">
         <span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
-          Chosen for {position_applied}
+          Chosen for {position_applied ? position_applied : 'N/A'}
         </span>
         <Dropdown />
         <button className="absolute top-[7px] right-[15px]" onClick={isClose}>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
 import getAllPositions from '../../../../redux/positions/actions/PositionsActions';
@@ -19,12 +19,14 @@ export default function PositionsList() {
   const inactivePositions = positions.filter((position) => !position.isActive);
 
   useEffect(() => {
-    dispatch(getAllPositions());
-    dispatch(CleanErrors(dispatch));
+    batch(() => {
+      dispatch(getAllPositions());
+      dispatch(CleanErrors(dispatch));
+    });
   }, [dispatch, success.message]);
 
   return (
-    <div className="relative mt-32">
+    <div className="mt-32">
       <div className="flex justify-end mr-80">
         <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
       </div>
@@ -43,19 +45,15 @@ export default function PositionsList() {
       <div
         className={
           success.message !== ''
-            ? 'transform -translate-y-10 transition ease-in-out duration-300 opacity 100 flex justify-center'
-            : 'transform translate-y-0 transition ease-in-out duration-300 opacity-0 invisible'
+            ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center'
+            : 'duration-200 opacity-0 invisible'
         }
       >
-        <span
-          className={
-            success.message !== ''
-              ? 'p-2 px-3 bg-green-500 rounded-xl text-white text-lg text-center font-semibold'
-              : ''
-          }
-        >
-          {success.message}
-        </span>
+        {success.message !== '' && (
+          <span className="p-2 px-3 bg-green-500 rounded-xl text-white text-center font-seibold">
+            {success.message}
+          </span>
+        )}
       </div>
     </div>
   );

@@ -19,3 +19,8 @@ export type SetIsActiveResponse = {
   status: number;
   message: string;
 };
+
+export type DeletePositionResponse = {
+  status: number;
+  message: string;
+};

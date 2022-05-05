@@ -27,7 +27,7 @@ export default function Item({
   const loading = useSelector((state: State) => state.positions.loading);
 
   return (
-    <div className="flex flex-col">
+    <div>
       <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] w-[68rem] ml-12 ">
         <div className="flex space-x-8">
           {' '}
@@ -52,7 +52,7 @@ export default function Item({
             <p>{positionName}</p>
             {designated && designated.length > 0
               ? designated.map((user: any) => (
-                  <div className="divide-x">
+                  <div key={user._id} className="divide-x">
                     <p>{user.name}</p>
                   </div>
                 ))
