@@ -20,6 +20,10 @@ export type SetIsActivePositionAction = {
   type: ActionTypes.SET_IS_ACTIVE;
 };
 
+export type SetIsPositionUpdatingAction = {
+  type: ActionTypes.SET_IS_UPDATING | ActionTypes.SET_IS_NOT_UPDATING;
+};
+
 export type SetSuccessAction = {
   type: ActionTypes.SET_SUCCESS;
   payload: {
@@ -34,14 +38,6 @@ export type ClearSuccessAction = {
 
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
-};
-
-export type DeletePositionAction = {
-  type: ActionTypes.DELETE_POSITION;
-  payload: {
-    status: number;
-    message: string;
-  };
 };
 
 export type SetPositionErrorAction = {
@@ -63,4 +59,4 @@ export type Action =
   | SetIsActivePositionAction
   | SetSuccessAction
   | ClearSuccessAction
-  | DeletePositionAction;
+  | SetIsPositionUpdatingAction;
