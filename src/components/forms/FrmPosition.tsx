@@ -43,20 +43,6 @@ export default function FrmPosition() {
   const [isDesignated_recruitersValid, setIsDesignated_recruitersValid] =
     useState(false);
 
-  const isFormValid = () => {
-    title === '' ? setIsTitleValid(true) : setIsTitleValid(false);
-    clientName === ''
-      ? setIsClientNameValid(true)
-      : setIsClientNameValid(false);
-    rieLink === '' ? setIsRieLinkValid(true) : setIsRieLinkValid(false);
-    recruiterGuide === ''
-      ? setIsRecruiterGuideValid(true)
-      : setIsRecruiterGuideValid(false);
-    designated_recruiters.length === 0
-      ? setIsDesignated_recruitersValid(true)
-      : setIsDesignated_recruitersValid(false);
-  };
-
   /* Regular Expressions */
   const RegExp = {
     general: /^\s*/,

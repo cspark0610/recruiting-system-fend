@@ -54,7 +54,7 @@ export default function PositionsList() {
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-green-500 rounded-xl text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-green-500 rounded-full text-white text-center font-seibold">
             {success.message}
           </span>
         )}
