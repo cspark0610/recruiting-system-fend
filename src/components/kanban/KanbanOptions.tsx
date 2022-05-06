@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
 import {
   GetAllCandidates,
-  CleanErrors,
+  CleanCandidateErrors,
   CleanFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import Filters from './Filters';
@@ -22,7 +22,7 @@ export default function KanbanOptions() {
   detectOutsideClick(wrapperRef, [setShowCreateDropdown]);
 
   const handleCleanFilters = () => {
-    dispatch(CleanErrors(dispatch));
+    dispatch(CleanCandidateErrors(dispatch));
     dispatch(CleanFilters(dispatch));
     dispatch(GetAllCandidates());
   };

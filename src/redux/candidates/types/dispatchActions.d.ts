@@ -20,16 +20,18 @@ export type ClearCandidateDetailAction = {
   type: ActionTypes.CLEAR_CANDIDATE_DETAIL;
 };
 
-export type CleanSuccessAction = {
-  type: ActionTypes.CLEAN_SUCCESS;
+export type CleanCandidateSuccessAction = {
+  type: ActionTypes.CLEAR_CANDIDATE_SUCCESS;
 };
 
 export type SetDetailFinishedLoadingAction = {
   type: ActionTypes.SET_DETAIL_FINISHED_LOADING;
 };
 
-export type SetLoadingAction = {
-  type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
+export type SetCandidateLoadingAction = {
+  type:
+    | ActionTypes.SET_IS_CANDIDATE_LOADING
+    | ActionTypes.SET_IS_NOT_CANDIDATE_LOADING;
 };
 
 export type SetUpdatingCandidateAction = {
@@ -38,13 +40,13 @@ export type SetUpdatingCandidateAction = {
     | ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING;
 };
 
-export type SetErrorAction = {
-  type: ActionTypes.SET_ERROR;
+export type SetCandidateErrorAction = {
+  type: ActionTypes.SET_CANDIDATE_ERROR;
   payload: IError;
 };
 
-export type ClearErrorAction = {
-  type: ActionTypes.CLEAR_ERROR;
+export type ClearCandidateErrorAction = {
+  type: ActionTypes.CLEAN_CANDIDATE_ERROR;
 };
 
 export type CreateCandidateAction = {
@@ -52,8 +54,8 @@ export type CreateCandidateAction = {
   payload: ICandidate;
 };
 
-export type SetSuccessAction = {
-  type: ActionTypes.SET_SUCCESS;
+export type SetCandidateSuccessAction = {
+  type: ActionTypes.SET_CANDIDATE_SUCCESS;
   payload: {
     status: number;
     message: string;
@@ -77,14 +79,14 @@ export type Action =
   | GetCandidatesAction
   | GetCandidatesFilteredAction
   | NotFoundWithFilers
-  | SetLoadingAction
+  | SetCandidateLoadingAction
   | CreateCandidateAction
-  | SetErrorAction
-  | ClearErrorAction
+  | SetCandidateErrorAction
+  | ClearCandidateErrorAction
   | GetCandidateInfoAction
   | SetCurrentFiltersAction
   | CleanFiltersAction
   | ClearCandidateDetailAction
   | SetDetailFinishedLoadingAction
-  | CleanSuccessAction
-  | SetSuccessAction;
+  | CleanCandidateSuccessAction
+  | SetCandidateSuccessAction;

@@ -1,8 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { IPosition } from '../../redux/positions/types/data';
+import { DeletePosition } from '../../redux/positions/actions/PositionsActions';
+import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
 
@@ -20,10 +22,26 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
   const [showWarning, setShowWarning] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
 
+  const success = useSelector((state: State) => state.positions.success);
+
   const handleClick = (_id: string) => {
     setSelectedItem(_id);
     setShowWarning(!showWarning);
   };
+
+  const handleClose = () => {
+    setShowWarning(!showWarning);
+    setSelectedItem('');
+  };
+
+  const handleDelete = () => {
+    dispatch(DeletePosition(selectedItem));
+  };
+
+  useEffect(() => {
+    setSelectedItem('');
+    setShowWarning(false);
+  }, [success.message]);
 
   return (
     <div className="pb-20">
@@ -60,6 +78,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
                 positionName={item.title}
                 designated={item.designated}
                 inactive={inactive}
+                priority={item.priority}
                 _id={item._id!}
                 isAdmin={isAdmin}
               />
@@ -76,18 +95,18 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
               </div>
             </div>
           ))}
-          {showWarning ? (
+          {showWarning && selectedItem !== '' && (
             <Modal
               alt="Delete Position"
               classes={true}
               image="reject"
-              isVerify={() => console.log('deleted')}
+              isVerify={handleDelete}
               message="Are you sure you want to delete this position?"
-              onClick={() => setShowWarning(!showWarning)}
-              setValue={() => setShowWarning(!showWarning)}
+              onClick={handleClose}
+              setValue={handleClose}
               value={showWarning}
             />
-          ) : null}
+          )}
         </div>
       ) : null}
     </div>

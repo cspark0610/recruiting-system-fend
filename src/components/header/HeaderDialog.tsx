@@ -6,9 +6,10 @@ import Dropdown from '../inputs/Dropdown';
 
 interface Props {
   isClose: any;
+  color: string;
 }
 
-const HeaderDialog: React.FC<Props> = ({ isClose }) => {
+const HeaderDialog: React.FC<Props> = ({ isClose, color }) => {
   const details = useSelector((state: State) => state.info.detail);
   const position_applied = details.position?.title;
 
@@ -17,7 +18,7 @@ const HeaderDialog: React.FC<Props> = ({ isClose }) => {
   )?.color;
 
   return (
-    <h4 className={`${headerColor}`}>
+    <h4 className={headerColor ? headerColor : color}>
       <div className="flex justify-center relative">
         <span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
           Chosen for {position_applied ? position_applied : 'N/A'}

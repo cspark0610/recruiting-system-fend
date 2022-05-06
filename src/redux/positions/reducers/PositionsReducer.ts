@@ -72,6 +72,20 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
+    case ActionTypes.SET_IS_UPDATING: {
+      return {
+        ...state,
+        updating: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_NOT_UPDATING: {
+      return {
+        ...state,
+        updating: false,
+      };
+    }
+
     case ActionTypes.SET_SUCCESS: {
       return {
         ...state,

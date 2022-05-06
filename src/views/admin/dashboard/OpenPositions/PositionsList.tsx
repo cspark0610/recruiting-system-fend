@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
-import getAllPositions from '../../../../redux/positions/actions/PositionsActions';
+import getAllPositions, {
+  ClearSuccess,
+} from '../../../../redux/positions/actions/PositionsActions';
 import CreateNew from '../../../../components/buttons/CreateNew';
 import List from '../../../../components/openPositions/List';
-import { CleanErrors } from '../../../../redux/candidates/actions/CandidateAction';
 
 export default function PositionsList() {
   const dispatch = useDispatch();
@@ -18,11 +19,14 @@ export default function PositionsList() {
   const activePositions = positions.filter((position) => position.isActive);
   const inactivePositions = positions.filter((position) => !position.isActive);
 
+  if (success.message !== '') {
+    setTimeout(() => {
+      dispatch(ClearSuccess(dispatch));
+    }, 3000);
+  }
+
   useEffect(() => {
-    batch(() => {
-      dispatch(getAllPositions());
-      dispatch(CleanErrors(dispatch));
-    });
+    dispatch(getAllPositions());
   }, [dispatch, success.message]);
 
   return (

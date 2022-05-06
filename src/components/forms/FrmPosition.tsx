@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
@@ -24,6 +24,7 @@ export default function FrmPosition() {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: State) => state.positions.loading);
+  const success = useSelector((state: State) => state.positions.success);
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -81,6 +82,17 @@ export default function FrmPosition() {
       }),
     );
   };
+
+  useEffect(() => {
+    if (success.message !== '') {
+      setTitle('');
+      setClientName('');
+      setRieLink('');
+      setRecruiterGuide('');
+      setDesignated_recruiters([]);
+      setSelectedPriority('');
+    }
+  }, [success.message]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
