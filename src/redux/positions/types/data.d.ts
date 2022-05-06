@@ -21,5 +21,5 @@ export type IQuestion = {
 
 export type IErrorPosition = {
   status: number;
-  message: string;
+  message: string | string[];
 };

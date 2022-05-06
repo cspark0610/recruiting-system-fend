@@ -25,6 +25,10 @@ export default function FrmPosition() {
 
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
+  const error = useSelector((state: State) => state.positions.error);
+  const errorMessages = Object.entries(error.message).map(
+    ([key, value]) => value,
+  );
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -110,7 +114,7 @@ export default function FrmPosition() {
           </div>
         </div>
 
-        <div className="flex justify-center -mx-3">
+        <div className="flex">
           <Text
             id="name"
             label="Name"
@@ -123,6 +127,15 @@ export default function FrmPosition() {
             value={title}
             width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
+          {errorMessages.length === 1 && errorMessages.includes('Position') ? (
+            <span className="text-red-500 ml-4">{error.message}</span>
+          ) : (
+            <span className="text-red-500 ml-4">
+              {errorMessages.filter((msg: any) => msg.includes('Position'))}
+            </span>
+          )}
+        </div>
+        <div className="flex">
           <Text
             id="clientName"
             label="Client"
@@ -135,45 +148,81 @@ export default function FrmPosition() {
             value={clientName}
             width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
           />
+          {errorMessages.length === 1 && errorMessages.includes('Client') ? (
+            <span className="text-red-500 ml-4">{error.message}</span>
+          ) : (
+            <span className="text-red-500 ml-4">
+              {errorMessages.filter((msg: any) => msg.includes('Client'))}
+            </span>
+          )}
         </div>
         <div className="flex justify-center -mx-3">
-          <Text
-            id="rieLink"
-            label="RIE Link"
-            name="rieLink"
-            placeholder="RIE Link"
-            RegExp={RegExp.characters}
-            setValue={setRieLink}
-            showAlert={isRieLinkValid}
-            type="url"
-            value={rieLink}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          <Text
-            id="recruiterGuide"
-            label="Recruiter Guide"
-            name="recruiterGuide"
-            placeholder="Recruiter Filter Link"
-            RegExp={RegExp.characters}
-            setValue={setRecruiterGuide}
-            showAlert={isRecruiterGuideValid}
-            type="url"
-            value={recruiterGuide}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
+          <div>
+            <Text
+              id="rieLink"
+              label="RIE Link"
+              name="rieLink"
+              placeholder="RIE Link"
+              RegExp={RegExp.characters}
+              setValue={setRieLink}
+              showAlert={isRieLinkValid}
+              type="url"
+              value={rieLink}
+              width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
+            />
+            {errorMessages.length === 1 && errorMessages.includes('RIE') ? (
+              <span className="text-red-500 ml-4">{error.message}</span>
+            ) : (
+              <span className="text-red-500 ml-4">
+                {errorMessages.filter((msg: any) => msg.includes('RIE'))}
+              </span>
+            )}
+          </div>
+          <div>
+            <Text
+              id="recruiterGuide"
+              label="Recruiter Guide"
+              name="recruiterGuide"
+              placeholder="Recruiter Filter Link"
+              RegExp={RegExp.characters}
+              setValue={setRecruiterGuide}
+              showAlert={isRecruiterGuideValid}
+              type="url"
+              value={recruiterGuide}
+              width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
+            />
+            {errorMessages.length === 1 &&
+            errorMessages.includes('Recruiter') ? (
+              <span className="text-red-500 ml-4">{error.message}</span>
+            ) : (
+              <span className="text-red-500 ml-4">
+                {errorMessages.filter((msg: any) => msg.includes('Recruiter'))}
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex justify-center mt-2">
-          <MultiSelect
-            options={data}
-            className="w-[51.5rem] hover:cursor-pointer"
-            placeholder="Designated Recruiter"
-            hidePlaceholder={true}
-            avoidHighlightFirstOption={true}
-            displayValue="name"
-            onSelect={setDesignated_recruiters}
-            onRemove={setDesignated_recruiters}
-            selectedValues={designated_recruiters}
-          />
+          <div>
+            <MultiSelect
+              options={data}
+              className="w-[52.5rem] hover:cursor-pointer pb-2 mr-6"
+              placeholder="Designated Recruiter"
+              hidePlaceholder={true}
+              avoidHighlightFirstOption={true}
+              displayValue="name"
+              onSelect={setDesignated_recruiters}
+              onRemove={setDesignated_recruiters}
+              selectedValues={designated_recruiters}
+            />
+            {errorMessages.length === 1 &&
+            errorMessages.includes('designate') ? (
+              <span className="text-red-500 ml-4">{error.message}</span>
+            ) : (
+              <span className="text-red-500 ml-4">
+                {errorMessages.filter((msg: any) => msg.includes('designate'))}
+              </span>
+            )}
+          </div>
         </div>
         <div className="z-10 mt-10">
           <Submit name="Create" width="10" onSubmit={handleSubmit} />
