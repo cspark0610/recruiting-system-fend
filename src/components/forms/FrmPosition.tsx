@@ -113,117 +113,127 @@ export default function FrmPosition() {
             ))}
           </div>
         </div>
+        <div className="flex flex-col">
+          <div className="flex justify-center">
+            <div className="flex flex-col">
+              <Text
+                id="name"
+                label="Name"
+                name="name"
+                placeholder="Position Name"
+                RegExp={RegExp.characters}
+                setValue={setTitle}
+                showAlert={isTitleValid}
+                type="text"
+                value={title}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Position') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('Position'))}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <Text
+                id="clientName"
+                label="Client"
+                name="clientName"
+                placeholder="Client Name"
+                RegExp={RegExp.characters}
+                setValue={setClientName}
+                showAlert={isClientNameValid}
+                type="text"
+                value={clientName}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Client') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('Client'))}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div>
+              <Text
+                id="rieLink"
+                label="RIE Link"
+                name="rieLink"
+                placeholder="RIE Link"
+                RegExp={RegExp.characters}
+                setValue={setRieLink}
+                showAlert={isRieLinkValid}
+                type="url"
+                value={rieLink}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 && errorMessages.includes('RIE') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('RIE'))}
+                </span>
+              )}
+            </div>
+            <div>
+              <Text
+                id="recruiterGuide"
+                label="Recruiter Guide"
+                name="recruiterGuide"
+                placeholder="Recruiter Filter Link"
+                RegExp={RegExp.characters}
+                setValue={setRecruiterGuide}
+                showAlert={isRecruiterGuideValid}
+                type="url"
+                value={recruiterGuide}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Recruiter') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) =>
+                    msg.includes('Recruiter'),
+                  )}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center mt-2">
+            <div>
+              <MultiSelect
+                options={data}
+                className="w-[51.5rem] hover:cursor-pointer pb-2"
+                placeholder="Designated Recruiter"
+                hidePlaceholder={true}
+                avoidHighlightFirstOption={true}
+                displayValue="name"
+                onSelect={setDesignated_recruiters}
+                onRemove={setDesignated_recruiters}
+                selectedValues={designated_recruiters}
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('designate') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) =>
+                    msg.includes('designate'),
+                  )}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
 
-        <div className="flex">
-          <Text
-            id="name"
-            label="Name"
-            name="name"
-            placeholder="Position Name"
-            RegExp={RegExp.characters}
-            setValue={setTitle}
-            showAlert={isTitleValid}
-            type="text"
-            value={title}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          {errorMessages.length === 1 && errorMessages.includes('Position') ? (
-            <span className="text-red-500 ml-4">{error.message}</span>
-          ) : (
-            <span className="text-red-500 ml-4">
-              {errorMessages.filter((msg: any) => msg.includes('Position'))}
-            </span>
-          )}
-        </div>
-        <div className="flex">
-          <Text
-            id="clientName"
-            label="Client"
-            name="clientName"
-            placeholder="Client Name"
-            RegExp={RegExp.characters}
-            setValue={setClientName}
-            showAlert={isClientNameValid}
-            type="text"
-            value={clientName}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          {errorMessages.length === 1 && errorMessages.includes('Client') ? (
-            <span className="text-red-500 ml-4">{error.message}</span>
-          ) : (
-            <span className="text-red-500 ml-4">
-              {errorMessages.filter((msg: any) => msg.includes('Client'))}
-            </span>
-          )}
-        </div>
-        <div className="flex justify-center -mx-3">
-          <div>
-            <Text
-              id="rieLink"
-              label="RIE Link"
-              name="rieLink"
-              placeholder="RIE Link"
-              RegExp={RegExp.characters}
-              setValue={setRieLink}
-              showAlert={isRieLinkValid}
-              type="url"
-              value={rieLink}
-              width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-            />
-            {errorMessages.length === 1 && errorMessages.includes('RIE') ? (
-              <span className="text-red-500 ml-4">{error.message}</span>
-            ) : (
-              <span className="text-red-500 ml-4">
-                {errorMessages.filter((msg: any) => msg.includes('RIE'))}
-              </span>
-            )}
-          </div>
-          <div>
-            <Text
-              id="recruiterGuide"
-              label="Recruiter Guide"
-              name="recruiterGuide"
-              placeholder="Recruiter Filter Link"
-              RegExp={RegExp.characters}
-              setValue={setRecruiterGuide}
-              showAlert={isRecruiterGuideValid}
-              type="url"
-              value={recruiterGuide}
-              width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-            />
-            {errorMessages.length === 1 &&
-            errorMessages.includes('Recruiter') ? (
-              <span className="text-red-500 ml-4">{error.message}</span>
-            ) : (
-              <span className="text-red-500 ml-4">
-                {errorMessages.filter((msg: any) => msg.includes('Recruiter'))}
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="flex justify-center mt-2">
-          <div>
-            <MultiSelect
-              options={data}
-              className="w-[52.5rem] hover:cursor-pointer pb-2 mr-6"
-              placeholder="Designated Recruiter"
-              hidePlaceholder={true}
-              avoidHighlightFirstOption={true}
-              displayValue="name"
-              onSelect={setDesignated_recruiters}
-              onRemove={setDesignated_recruiters}
-              selectedValues={designated_recruiters}
-            />
-            {errorMessages.length === 1 &&
-            errorMessages.includes('designate') ? (
-              <span className="text-red-500 ml-4">{error.message}</span>
-            ) : (
-              <span className="text-red-500 ml-4">
-                {errorMessages.filter((msg: any) => msg.includes('designate'))}
-              </span>
-            )}
-          </div>
-        </div>
         <div className="z-10 mt-10">
           <Submit name="Create" width="10" onSubmit={handleSubmit} />
         </div>
