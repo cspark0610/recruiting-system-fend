@@ -10,6 +10,7 @@ type ItemProps = {
   positionName: string;
   designated: string[];
   inactive: boolean;
+  priority: string;
   _id: string;
   isAdmin?: boolean;
 };
@@ -18,13 +19,14 @@ export default function Item({
   positionName,
   designated,
   inactive,
+  priority,
   _id,
   isAdmin,
 }: ItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
-  const loading = useSelector((state: State) => state.positions.loading);
+  const updating = useSelector((state: State) => state.positions.updating);
 
   return (
     <div>
@@ -39,7 +41,7 @@ export default function Item({
               setIsToggled={setIsToggled}
             />
           ) : null}
-          {loading && isToggled ? (
+          {updating && isToggled ? (
             <LoaderSpinner width="w-4" height="h-4" classes="mt-3" />
           ) : null}
           <div
@@ -61,7 +63,7 @@ export default function Item({
           {isAdmin ? (
             <div className="relative pr-[30rem]">
               <div className="mt-2">
-                <p className="p-1 px-4 rounded-lg bg-cyan-400">Priority</p>
+                <p className="p-1 px-4 rounded-lg bg-cyan-400">{priority}</p>
               </div>
             </div>
           ) : null}

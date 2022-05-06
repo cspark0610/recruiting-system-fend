@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../../redux/store/store';
 import {
-  CleanErrors,
-  ClearSuccess,
+  CleanCandidateErrors,
+  ClearCandidateSuccess,
   GetAllCandidates,
 } from '../../../../redux/candidates/actions/CandidateAction';
 import Column from '../../../../components/kanban/Column';
@@ -25,13 +25,13 @@ export default function CandidateStatus() {
 
   if (success.message !== '') {
     setTimeout(() => {
-      dispatch(ClearSuccess(dispatch));
+      dispatch(ClearCandidateSuccess(dispatch));
     }, 3000);
   }
 
   useEffect(() => {
     batch(() => {
-      dispatch(CleanErrors(dispatch));
+      dispatch(CleanCandidateErrors(dispatch));
       dispatch(GetAllCandidates());
     });
   }, [dispatch]);

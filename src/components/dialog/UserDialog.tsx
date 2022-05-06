@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
-  CleanFilters,
   ClearCandidateDetail,
   GetAllCandidates,
   UpdateCandidateStatus,
@@ -29,17 +28,6 @@ const UserDialog: React.FC<Props> = ({
   );
   const detail = useSelector((state: State) => state.info.detail);
   const success = useSelector((state: State) => state.info.success);
-
-  if (success.message !== '') {
-    batch(() => {
-      dispatch(GetAllCandidates());
-      dispatch(CleanFilters(dispatch));
-    });
-  }
-
-  if (isDetailFinishedLoading) {
-    setIsModalLoading(false);
-  }
 
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
@@ -73,8 +61,24 @@ const UserDialog: React.FC<Props> = ({
         }
       }
     }
-  }, [approve, doubting, dismiss, reject, isConfirm, color]);
+  }, [approve, doubting, dismiss, reject, isConfirm, color, dispatch]);
 
+  // stops the loading spinner when details finished loading
+  useEffect(() => {
+    if (isDetailFinishedLoading) {
+      setIsModalLoading(false);
+    }
+  }, [isDetailFinishedLoading, setIsModalLoading]);
+
+  useEffect(() => {
+    if (success.message !== '') {
+      batch(() => {
+        dispatch(GetAllCandidates());
+      });
+    }
+  }, [success.message, dispatch]);
+
+  // clears the candidate detail when the modal is closed
   useEffect(() => {
     return () => {
       dispatch(ClearCandidateDetail(dispatch));
@@ -117,7 +121,7 @@ const UserDialog: React.FC<Props> = ({
                   </div>
                 </div>
               ) : null}
-              <HeaderDialog isClose={isDialogClose} />
+              <HeaderDialog isClose={isDialogClose} color={color} />
               <div className="flex">
                 <Panels
                   isApproved={isApproved}

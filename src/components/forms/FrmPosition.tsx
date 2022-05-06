@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
@@ -24,6 +24,11 @@ export default function FrmPosition() {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: State) => state.positions.loading);
+  const success = useSelector((state: State) => state.positions.success);
+  const error = useSelector((state: State) => state.positions.error);
+  const errorMessages = Object.entries(error.message).map(
+    ([key, value]) => value,
+  );
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -41,20 +46,6 @@ export default function FrmPosition() {
   const [isRecruiterGuideValid, setIsRecruiterGuideValid] = useState(false);
   const [isDesignated_recruitersValid, setIsDesignated_recruitersValid] =
     useState(false);
-
-  const isFormValid = () => {
-    title === '' ? setIsTitleValid(true) : setIsTitleValid(false);
-    clientName === ''
-      ? setIsClientNameValid(true)
-      : setIsClientNameValid(false);
-    rieLink === '' ? setIsRieLinkValid(true) : setIsRieLinkValid(false);
-    recruiterGuide === ''
-      ? setIsRecruiterGuideValid(true)
-      : setIsRecruiterGuideValid(false);
-    designated_recruiters.length === 0
-      ? setIsDesignated_recruitersValid(true)
-      : setIsDesignated_recruitersValid(false);
-  };
 
   /* Regular Expressions */
   const RegExp = {
@@ -81,6 +72,17 @@ export default function FrmPosition() {
       }),
     );
   };
+
+  useEffect(() => {
+    if (success.message !== '') {
+      setTitle('');
+      setClientName('');
+      setRieLink('');
+      setRecruiterGuide('');
+      setDesignated_recruiters([]);
+      setSelectedPriority('');
+    }
+  }, [success.message]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
@@ -111,72 +113,127 @@ export default function FrmPosition() {
             ))}
           </div>
         </div>
+        <div className="flex flex-col">
+          <div className="flex justify-center">
+            <div className="flex flex-col">
+              <Text
+                id="name"
+                label="Name"
+                name="name"
+                placeholder="Position Name"
+                RegExp={RegExp.characters}
+                setValue={setTitle}
+                showAlert={isTitleValid}
+                type="text"
+                value={title}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Position') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('Position'))}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <Text
+                id="clientName"
+                label="Client"
+                name="clientName"
+                placeholder="Client Name"
+                RegExp={RegExp.characters}
+                setValue={setClientName}
+                showAlert={isClientNameValid}
+                type="text"
+                value={clientName}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Client') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('Client'))}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div>
+              <Text
+                id="rieLink"
+                label="RIE Link"
+                name="rieLink"
+                placeholder="RIE Link"
+                RegExp={RegExp.characters}
+                setValue={setRieLink}
+                showAlert={isRieLinkValid}
+                type="url"
+                value={rieLink}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 && errorMessages.includes('RIE') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) => msg.includes('RIE'))}
+                </span>
+              )}
+            </div>
+            <div>
+              <Text
+                id="recruiterGuide"
+                label="Recruiter Guide"
+                name="recruiterGuide"
+                placeholder="Recruiter Filter Link"
+                RegExp={RegExp.characters}
+                setValue={setRecruiterGuide}
+                showAlert={isRecruiterGuideValid}
+                type="url"
+                value={recruiterGuide}
+                width="w-[26.5rem]"
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('Recruiter') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) =>
+                    msg.includes('Recruiter'),
+                  )}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-center mt-2">
+            <div>
+              <MultiSelect
+                options={data}
+                className="w-[51.5rem] hover:cursor-pointer pb-2"
+                placeholder="Designated Recruiter"
+                hidePlaceholder={true}
+                avoidHighlightFirstOption={true}
+                displayValue="name"
+                onSelect={setDesignated_recruiters}
+                onRemove={setDesignated_recruiters}
+                selectedValues={designated_recruiters}
+              />
+              {errorMessages.length === 1 &&
+              errorMessages.includes('designate') ? (
+                <span className="text-red-500 ml-4">{error.message}</span>
+              ) : (
+                <span className="text-red-500 ml-4">
+                  {errorMessages.filter((msg: any) =>
+                    msg.includes('designate'),
+                  )}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
 
-        <div className="flex justify-center -mx-3">
-          <Text
-            id="name"
-            label="Name"
-            name="name"
-            placeholder="Position Name"
-            RegExp={RegExp.characters}
-            setValue={setTitle}
-            showAlert={isTitleValid}
-            type="text"
-            value={title}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          <Text
-            id="clientName"
-            label="Client"
-            name="clientName"
-            placeholder="Client Name"
-            RegExp={RegExp.characters}
-            setValue={setClientName}
-            showAlert={isClientNameValid}
-            type="text"
-            value={clientName}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-        </div>
-        <div className="flex justify-center -mx-3">
-          <Text
-            id="rieLink"
-            label="RIE Link"
-            name="rieLink"
-            placeholder="RIE Link"
-            RegExp={RegExp.characters}
-            setValue={setRieLink}
-            showAlert={isRieLinkValid}
-            type="url"
-            value={rieLink}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          <Text
-            id="recruiterGuide"
-            label="Recruiter Guide"
-            name="recruiterGuide"
-            placeholder="Recruiter Filter Link"
-            RegExp={RegExp.characters}
-            setValue={setRecruiterGuide}
-            showAlert={isRecruiterGuideValid}
-            type="url"
-            value={recruiterGuide}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-        </div>
-        <div className="flex justify-center mt-2">
-          <MultiSelect
-            options={data}
-            className="w-[51.5rem] hover:cursor-pointer"
-            placeholder="Designated Recruiter"
-            hidePlaceholder={true}
-            avoidHighlightFirstOption={true}
-            displayValue="name"
-            onSelect={setDesignated_recruiters}
-            onRemove={setDesignated_recruiters}
-            selectedValues={designated_recruiters}
-          />
-        </div>
         <div className="z-10 mt-10">
           <Submit name="Create" width="10" onSubmit={handleSubmit} />
         </div>

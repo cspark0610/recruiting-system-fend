@@ -42,7 +42,7 @@ export default function Card({
       <div className="ml-4">
         <p className="font-medium text-lg">{name}</p>
         <p className="font-light">
-          {position ? position : 'No position applied'}
+          {position ? position : 'No position applied to'}
         </p>
         <section className="flex flex-row gap-24 pt-4 pb-4">
           <span className="flex font-light pt-4">

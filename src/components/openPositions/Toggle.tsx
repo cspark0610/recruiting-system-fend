@@ -20,7 +20,7 @@ export default function Toggle({
 }: ToggleProps) {
   const dispatch = useDispatch();
 
-  const loading = useSelector((state: State) => state.positions.loading);
+  const updating = useSelector((state: State) => state.positions.updating);
 
   const handleToggle = () => {
     setIsToggled(!isToggled);
@@ -42,7 +42,7 @@ export default function Toggle({
       {inactive ? (
         <span
           className={
-            isToggled && !loading
+            isToggled && !updating
               ? "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#00ADEF] before:transition ease-in-out duration-1100 before:transform before:translate-x-8 before:rounded-full cursor-pointer"
               : "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#475564] before:transition ease-in-out duration-1100 before:rounded-full before:transform before:translate-x-0 cursor-pointer"
           }
@@ -50,7 +50,7 @@ export default function Toggle({
       ) : (
         <span
           className={
-            isToggled && !loading
+            isToggled && !updating
               ? "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#475564] before:transition ease-in-out duration-1100 before:transform before:translate-x-0 before:rounded-full cursor-pointer"
               : "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#00ADEF] before:transition ease-in-out duration-1100 before:rounded-full before:transform before:translate-x-8 cursor-pointer"
           }

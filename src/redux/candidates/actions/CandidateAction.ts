@@ -14,15 +14,15 @@ import {
   CreateCandidateAction,
   GetCandidatesAction,
   GetCandidatesFilteredAction,
-  SetErrorAction,
-  ClearErrorAction,
+  SetCandidateErrorAction,
+  ClearCandidateErrorAction,
   GetCandidateInfoAction,
   SetCurrentFiltersAction,
   CleanFiltersAction,
   ClearCandidateDetailAction,
   SetDetailFinishedLoadingAction,
-  CleanSuccessAction,
-  SetSuccessAction,
+  CleanCandidateSuccessAction,
+  SetCandidateSuccessAction,
   SetUpdatingCandidateAction,
 } from '../types/dispatchActions';
 
@@ -51,14 +51,14 @@ import { Filters } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
+    dispatch({ type: ActionTypes.SET_IS_CANDIDATE_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetCandidatesResponse>(
         GET_ALL_CANDIDATES,
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
 
       return dispatch<GetCandidatesAction>({
         type: ActionTypes.GET_CANDIDATES,
@@ -66,9 +66,9 @@ export function GetAllCandidates() {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
       }
@@ -93,9 +93,9 @@ export function GetCandidateInfo(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
       }
@@ -115,7 +115,7 @@ export function ClearCandidateDetail(dispatch: Dispatch) {
 
 export function GetCandidatesFiltered(filters: Filters) {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
+    dispatch({ type: ActionTypes.SET_IS_CANDIDATE_LOADING });
 
     try {
       const { data } = await ClientAxios.post<GetCandidatesFilteredResponse>(
@@ -128,7 +128,7 @@ export function GetCandidatesFiltered(filters: Filters) {
         },
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
       dispatch<SetCurrentFiltersAction>({
         type: ActionTypes.SET_CURRENT_FILTERS,
         payload: {
@@ -144,9 +144,9 @@ export function GetCandidatesFiltered(filters: Filters) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
         dispatch<SetCurrentFiltersAction>({
@@ -165,21 +165,21 @@ export function GetCandidatesFiltered(filters: Filters) {
 export function CreateCandidate(candidateInfo: any) {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({ type: ActionTypes.SET_IS_LOADING });
+      dispatch({ type: ActionTypes.SET_IS_CANDIDATE_LOADING });
       const { data } = await ClientAxios.post<CreateCandidateResponse>(
         CREATE_CANDIDATE,
         candidateInfo,
       );
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
       return dispatch<CreateCandidateAction>({
         type: ActionTypes.CREATE_CANDIDATE,
         payload: data.candidate,
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
       }
@@ -226,14 +226,14 @@ export function UpdateCandidateStatus(
         type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
       });
 
-      return dispatch<SetSuccessAction>({
-        type: ActionTypes.SET_SUCCESS,
+      return dispatch<SetCandidateSuccessAction>({
+        type: ActionTypes.SET_CANDIDATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
       if (error.response) {
-        dispatch<SetErrorAction>({
-          type: ActionTypes.SET_ERROR,
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
       }
@@ -241,9 +241,9 @@ export function UpdateCandidateStatus(
   };
 }
 
-export function CleanErrors(dispatch: Dispatch) {
-  return dispatch<ClearErrorAction>({
-    type: ActionTypes.CLEAN_ERROR,
+export function CleanCandidateErrors(dispatch: Dispatch) {
+  return dispatch<ClearCandidateErrorAction>({
+    type: ActionTypes.CLEAN_CANDIDATE_ERROR,
   });
 }
 
@@ -253,9 +253,9 @@ export function CleanFilters(dispatch: Dispatch) {
   });
 }
 
-export function ClearSuccess(dispatch: Dispatch) {
-  return dispatch<CleanSuccessAction>({
-    type: ActionTypes.CLEAR_SUCCESS,
+export function ClearCandidateSuccess(dispatch: Dispatch) {
+  return dispatch<CleanCandidateSuccessAction>({
+    type: ActionTypes.CLEAR_CANDIDATE_SUCCESS,
   });
 }
 
