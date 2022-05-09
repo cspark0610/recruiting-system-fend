@@ -1,4 +1,4 @@
-const priorityColors = [
+const positionPriorityColors = [
   {
     name: 'Low',
     color: 'bg-slate-200 text-black',
@@ -17,7 +17,9 @@ const priorityColors = [
   },
 ];
 
-export default function getPriorityColor(priority: string) {
-  const priorityColor = priorityColors.find((p) => p.name === priority)?.color;
+export default function getPositionPriorityColor(priority: string) {
+  const priorityColor = positionPriorityColors.find(
+    (p) => p.name === priority,
+  )?.color;
   return priorityColor;
 }

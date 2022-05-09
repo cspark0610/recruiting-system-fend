@@ -5,7 +5,7 @@ import { State } from '../../redux/store/store';
 import Toggle from './Toggle';
 import SubMenu from './SubMenu';
 import LoaderSpinner from '../../assets/loaderSpinner';
-import getPriorityColor from '../../utils/getPriorityColor';
+import getPositionPriorityColor from '../../utils/getPositionPriorityColor';
 
 type ItemProps = {
   positionName: string;
@@ -28,7 +28,7 @@ export default function Item({
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const updating = useSelector((state: State) => state.positions.updating);
-  const priorityClass = getPriorityColor(priority);
+  const priorityClass = getPositionPriorityColor(priority);
 
   return (
     <div>

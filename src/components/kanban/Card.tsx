@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { FiClock } from 'react-icons/fi';
 import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction';
 import UserDialog from '../dialog/UserDialog';
-import getItemBorderColor from '../../utils/getItemBorderColor';
+import getCardTopBorderColor from '../../utils/getCardTopBorderColor';
 import '../../assets/scss/Card.scss';
 
 type CardProps = {
@@ -21,7 +21,7 @@ export default function Card({
 }: CardProps) {
   const dispatch = useDispatch();
 
-  const card = getItemBorderColor(secondary_status);
+  const card = getCardTopBorderColor(secondary_status);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
