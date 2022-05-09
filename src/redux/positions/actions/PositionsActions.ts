@@ -10,6 +10,7 @@ import {
   SetSuccessAction,
   ClearSuccessAction,
   CleanPositionErrorAction,
+  SetLoadingAction,
 } from '../types/dispatchActions';
 
 import {
@@ -33,14 +34,14 @@ import ClientAxios from '../../../config/api/axios';
 
 export default function getAllPositions() {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
+    dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
         GET_ALL_POSITIONS,
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       return dispatch<GetAllPositionsAction>({
         type: ActionTypes.GET_ALL_POSITIONS,
@@ -48,6 +49,8 @@ export default function getAllPositions() {
       });
     } catch (error: any) {
       if (error.response) {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
         dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
@@ -63,6 +66,7 @@ export function getPositionInfo(_id: string) {
       const { data } = await ClientAxios.get<GetPositionResponse>(
         `${GET_ALL_POSITIONS}/${_id}`,
       );
+
       return dispatch<GetPositionInfoAction>({
         type: ActionTypes.GET_POSITION_INFO,
         payload: data.positionInfo,
@@ -80,14 +84,15 @@ export function getPositionInfo(_id: string) {
 
 export function createPosition(positionInfo: IPosition) {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_LOADING });
+    dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
+
     try {
       const { data } = await ClientAxios.post<CreatePositionResponse>(
         CREATE_POSITION,
         positionInfo,
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       dispatch<SetSuccessAction>({
         type: ActionTypes.SET_SUCCESS,
@@ -103,7 +108,7 @@ export function createPosition(positionInfo: IPosition) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,

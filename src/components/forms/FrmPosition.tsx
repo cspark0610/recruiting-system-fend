@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createPosition } from '../../redux/positions/actions/PositionsActions';
+import { State } from '../../redux/store/store';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
 import Submit from '../buttons/Submit';
-import priorities from '../../config/positions/constants';
-import { createPosition } from '../../redux/positions/actions/PositionsActions';
-import { State } from '../../redux/store/store';
 import LoaderSpinner from '../../assets/loaderSpinner';
+import ErrorMessages from './ErrorMessages';
+import priorities from '../../config/positions/constants';
 
 type OptionValues = {
   id: number;
   name: string;
 };
 
-const data: OptionValues[] = [
+const data: Array<OptionValues> = [
   {
     id: 1,
     name: 'Usuario prueba',
@@ -39,13 +40,6 @@ export default function FrmPosition() {
   >([]);
 
   const [selectedPriority, setSelectedPriority] = useState('');
-
-  const [isTitleValid, setIsTitleValid] = useState(false);
-  const [isClientNameValid, setIsClientNameValid] = useState(false);
-  const [isRieLinkValid, setIsRieLinkValid] = useState(false);
-  const [isRecruiterGuideValid, setIsRecruiterGuideValid] = useState(false);
-  const [isDesignated_recruitersValid, setIsDesignated_recruitersValid] =
-    useState(false);
 
   /* Regular Expressions */
   const RegExp = {
@@ -111,6 +105,7 @@ export default function FrmPosition() {
                 </label>
               </div>
             ))}
+            <ErrorMessages errorTerms={['priority']} />
           </div>
         </div>
         <div className="flex flex-col">
@@ -123,19 +118,15 @@ export default function FrmPosition() {
                 placeholder="Position Name"
                 RegExp={RegExp.characters}
                 setValue={setTitle}
-                showAlert={isTitleValid}
+                showAlert={false}
                 type="text"
                 value={title}
                 width="w-[26.5rem]"
               />
-              {errorMessages.length === 1 &&
-              errorMessages.includes('Position') ? (
-                <span className="text-red-500 ml-4">{error.message}</span>
-              ) : (
-                <span className="text-red-500 ml-4">
-                  {errorMessages.filter((msg: any) => msg.includes('Position'))}
-                </span>
-              )}
+              <ErrorMessages
+                errorTerms={['Position']}
+                className="flex flex-col ml-4"
+              />
             </div>
             <div className="flex flex-col">
               <Text
@@ -145,19 +136,15 @@ export default function FrmPosition() {
                 placeholder="Client Name"
                 RegExp={RegExp.characters}
                 setValue={setClientName}
-                showAlert={isClientNameValid}
+                showAlert={false}
                 type="text"
                 value={clientName}
                 width="w-[26.5rem]"
               />
-              {errorMessages.length === 1 &&
-              errorMessages.includes('Client') ? (
-                <span className="text-red-500 ml-4">{error.message}</span>
-              ) : (
-                <span className="text-red-500 ml-4">
-                  {errorMessages.filter((msg: any) => msg.includes('Client'))}
-                </span>
-              )}
+              <ErrorMessages
+                errorTerms={['Client']}
+                className="flex flex-col ml-4"
+              />
             </div>
           </div>
           <div className="flex justify-center">
@@ -169,18 +156,15 @@ export default function FrmPosition() {
                 placeholder="RIE Link"
                 RegExp={RegExp.characters}
                 setValue={setRieLink}
-                showAlert={isRieLinkValid}
+                showAlert={false}
                 type="url"
                 value={rieLink}
                 width="w-[26.5rem]"
               />
-              {errorMessages.length === 1 && errorMessages.includes('RIE') ? (
-                <span className="text-red-500 ml-4">{error.message}</span>
-              ) : (
-                <span className="text-red-500 ml-4">
-                  {errorMessages.filter((msg: any) => msg.includes('RIE'))}
-                </span>
-              )}
+              <ErrorMessages
+                errorTerms={['RIE', 'rie_link']}
+                className="flex flex-col ml-4"
+              />
             </div>
             <div>
               <Text
@@ -190,23 +174,17 @@ export default function FrmPosition() {
                 placeholder="Recruiter Filter Link"
                 RegExp={RegExp.characters}
                 setValue={setRecruiterGuide}
-                showAlert={isRecruiterGuideValid}
+                showAlert={false}
                 type="url"
                 value={recruiterGuide}
                 width="w-[26.5rem]"
               />
-              {errorMessages.length === 1 &&
-              errorMessages.includes('Recruiter') ? (
-                <span className="text-red-500 ml-4">{error.message}</span>
-              ) : (
-                <span className="text-red-500 ml-4">
-                  {errorMessages.filter((msg: any) =>
-                    msg.includes('Recruiter'),
-                  )}
-                </span>
-              )}
+              <ErrorMessages
+                errorTerms={['Recruiter', 'recruiter_filter']}
+                className="flex flex-col ml-4"
+              />
             </div>
-          </div>
+          </div>{' '}
           <div className="flex justify-center mt-2">
             <div>
               <MultiSelect
@@ -220,16 +198,10 @@ export default function FrmPosition() {
                 onRemove={setDesignated_recruiters}
                 selectedValues={designated_recruiters}
               />
-              {errorMessages.length === 1 &&
-              errorMessages.includes('designate') ? (
-                <span className="text-red-500 ml-4">{error.message}</span>
-              ) : (
-                <span className="text-red-500 ml-4">
-                  {errorMessages.filter((msg: any) =>
-                    msg.includes('designate'),
-                  )}
-                </span>
-              )}
+              <ErrorMessages
+                errorTerms={['designate']}
+                className="flex flex-col ml-1"
+              />
             </div>
           </div>
         </div>
