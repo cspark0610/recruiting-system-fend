@@ -5,6 +5,7 @@ import { State } from '../../redux/store/store';
 import Toggle from './Toggle';
 import SubMenu from './SubMenu';
 import LoaderSpinner from '../../assets/loaderSpinner';
+import getPriorityColor from '../../utils/getPriorityColor';
 
 type ItemProps = {
   positionName: string;
@@ -27,6 +28,7 @@ export default function Item({
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const updating = useSelector((state: State) => state.positions.updating);
+  const priorityClass = getPriorityColor(priority);
 
   return (
     <div>
@@ -63,7 +65,9 @@ export default function Item({
           {isAdmin ? (
             <div className="relative pr-[30rem]">
               <div className="mt-2">
-                <p className="p-1 px-4 rounded-lg bg-cyan-400">{priority}</p>
+                <p className={`p-1 px-4 rounded-lg ${priorityClass}`}>
+                  {priority}
+                </p>
               </div>
             </div>
           ) : null}

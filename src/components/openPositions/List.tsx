@@ -7,6 +7,7 @@ import { DeletePosition } from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
+import Pagination from './Pagination';
 
 type ListProps = {
   title: string;
@@ -39,36 +40,47 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
   };
 
   useEffect(() => {
+    if (!isAdmin) {
+      setIsOpen(true);
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
     setSelectedItem('');
     setShowWarning(false);
   }, [success.message]);
 
   return (
     <div className="pb-20">
-      <div className="flex ml-44">
-        <button
-          disabled={items.length === 0}
-          onClick={() => setIsOpen(!isOpen)}
-          className={
-            inactive
-              ? 'flex text-[#475564] gap-5 text-2xl font-semibold'
-              : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
-          }
-        >
-          <AiOutlineRight
+      <div className="flex justify-between w-[75rem] ml-44">
+        <div className="flex">
+          <button
+            disabled={items.length === 0}
+            onClick={isAdmin ? () => setIsOpen(!isOpen) : () => {}}
             className={
-              isOpen && items.length > 0
-                ? 'mt-1 rotate-90 transition ease-in-out duration-200'
-                : 'mt-1 duration-200'
+              (inactive && !isAdmin) || (inactive && isAdmin)
+                ? 'flex text-[#475564] gap-5 text-2xl font-semibold'
+                : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
             }
-          />
-          {title}
-        </button>
-        {items.length === 0 ? (
-          <span className="mt-1 ml-6 text-center text-red-500 font-bold">
-            No positions available
-          </span>
-        ) : null}
+          >
+            {isAdmin ? (
+              <AiOutlineRight
+                className={
+                  isOpen && items.length > 0
+                    ? 'mt-1 rotate-90 transition ease-in-out duration-200'
+                    : 'mt-1 duration-200'
+                }
+              />
+            ) : null}
+            {title}
+          </button>
+          {items.length === 0 ? (
+            <span className="mt-1 ml-6 text-center text-red-500 font-bold">
+              No positions available
+            </span>
+          ) : null}
+        </div>
+        {isAdmin && items.length > 0 ? <Pagination items={items} /> : null}
       </div>
       {isOpen ? (
         <div className="mt-8 ml-44">
