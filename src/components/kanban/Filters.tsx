@@ -10,7 +10,7 @@ import secondaryStatus from '../../config/kanban/constants';
 export default function Filters() {
   const dispatch = useDispatch();
 
-  const positions = useSelector((state: State) => state.positions.positions);
+  const positions = useSelector((state: State) => state.positions.data.docs);
   const currentFilters = useSelector(
     (state: State) => state.info.currentFilters,
   );

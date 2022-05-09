@@ -35,6 +35,7 @@ export default function CandidateStatus() {
       dispatch(CleanCandidateErrors(dispatch));
       dispatch(GetAllCandidates());
     });
+    window.document.title = 'WorkAt - Candidate Status';
   }, [dispatch]);
 
   return (

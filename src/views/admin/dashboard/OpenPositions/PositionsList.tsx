@@ -8,16 +8,25 @@ import getAllPositions, {
 } from '../../../../redux/positions/actions/PositionsActions';
 import CreateNew from '../../../../components/buttons/CreateNew';
 import List from '../../../../components/openPositions/List';
+import LoaderSpinner from '../../../../assets/loaderSpinner';
 
 export default function PositionsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const positions = useSelector((state: State) => state.positions.positions);
+  const positions = useSelector((state: State) => state.positions.data.docs);
+  const paginationData = useSelector((state: State) => state.positions.data);
+  const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
 
-  const activePositions = positions.filter((position) => position.isActive);
-  const inactivePositions = positions.filter((position) => !position.isActive);
+  const isAdmin = true;
+
+  const activePositions = positions.filter(
+    (position: any) => position.isActive,
+  );
+  const inactivePositions = positions.filter(
+    (position: any) => !position.isActive,
+  );
 
   if (success.message !== '') {
     setTimeout(() => {
@@ -26,26 +35,48 @@ export default function PositionsList() {
   }
 
   useEffect(() => {
-    dispatch(getAllPositions());
+    window.document.title = 'WorkAt - Open Positions';
+    dispatch(getAllPositions(1));
   }, [dispatch, success.message]);
 
   return (
-    <div className="mt-32">
-      <div className="flex justify-end mr-80">
-        <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
-      </div>
-      <List
-        title="Active Searches"
-        items={activePositions}
-        inactive={false}
-        isAdmin
-      />
-      <List
-        title="Inactive Searches"
-        items={inactivePositions}
-        inactive={true}
-        isAdmin
-      />
+    <div className={isAdmin ? 'mt-32' : 'mt-48'}>
+      {loading ? (
+        <LoaderSpinner
+          width="w-6"
+          height="h-6"
+          classes="absolute left-[55rem]"
+        />
+      ) : null}
+      {isAdmin ? (
+        <div className="flex justify-end mr-80 pb-6">
+          <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
+        </div>
+      ) : null}
+      {isAdmin ? (
+        <>
+          <List
+            title="Active Searches"
+            items={activePositions}
+            paginationData={paginationData}
+            inactive={false}
+            isAdmin
+          />
+          <List
+            title="Inactive Searches"
+            items={inactivePositions}
+            paginationData={paginationData}
+            inactive={true}
+            isAdmin
+          />
+        </>
+      ) : (
+        <List
+          title="Your Active Searches"
+          items={activePositions}
+          inactive={true}
+        />
+      )}
       <div
         className={
           success.message !== ''
