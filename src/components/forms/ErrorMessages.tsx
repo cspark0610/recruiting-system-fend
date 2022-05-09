@@ -25,7 +25,9 @@ export default function ErrorMessages({
           {errorMessages.map((msg: any) =>
             errorTerms.map((err) =>
               msg.includes(err) ? (
-                <span className="text-red-500">{msg}</span>
+                <span key={msg} className="text-red-500">
+                  {msg}
+                </span>
               ) : null,
             ),
           )}

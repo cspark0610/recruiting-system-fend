@@ -105,10 +105,7 @@ export default function FrmPosition() {
                 </label>
               </div>
             ))}
-            <ErrorMessages
-              errorTerms={['priority']}
-              className="flex flex-col ml-4"
-            />
+            <ErrorMessages errorTerms={['priority']} />
           </div>
         </div>
         <div className="flex flex-col">
