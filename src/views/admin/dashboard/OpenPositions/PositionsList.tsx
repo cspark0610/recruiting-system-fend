@@ -8,18 +8,25 @@ import getAllPositions, {
 } from '../../../../redux/positions/actions/PositionsActions';
 import CreateNew from '../../../../components/buttons/CreateNew';
 import List from '../../../../components/openPositions/List';
+import LoaderSpinner from '../../../../assets/loaderSpinner';
 
 export default function PositionsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const positions = useSelector((state: State) => state.positions.positions);
+  const positions = useSelector((state: State) => state.positions.data.docs);
+  const paginationData = useSelector((state: State) => state.positions.data);
+  const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
 
   const isAdmin = true;
 
-  const activePositions = positions.filter((position) => position.isActive);
-  const inactivePositions = positions.filter((position) => !position.isActive);
+  const activePositions = positions.filter(
+    (position: any) => position.isActive,
+  );
+  const inactivePositions = positions.filter(
+    (position: any) => !position.isActive,
+  );
 
   if (success.message !== '') {
     setTimeout(() => {
@@ -29,11 +36,18 @@ export default function PositionsList() {
 
   useEffect(() => {
     window.document.title = 'WorkAt - Open Positions';
-    dispatch(getAllPositions());
+    dispatch(getAllPositions(1));
   }, [dispatch, success.message]);
 
   return (
     <div className={isAdmin ? 'mt-32' : 'mt-48'}>
+      {loading ? (
+        <LoaderSpinner
+          width="w-6"
+          height="h-6"
+          classes="absolute left-[55rem]"
+        />
+      ) : null}
       {isAdmin ? (
         <div className="flex justify-end mr-80 pb-6">
           <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
@@ -44,12 +58,14 @@ export default function PositionsList() {
           <List
             title="Active Searches"
             items={activePositions}
+            paginationData={paginationData}
             inactive={false}
             isAdmin
           />
           <List
             title="Inactive Searches"
             items={inactivePositions}
+            paginationData={paginationData}
             inactive={true}
             isAdmin
           />

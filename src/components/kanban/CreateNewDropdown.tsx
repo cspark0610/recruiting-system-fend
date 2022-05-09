@@ -9,7 +9,7 @@ type CreateNewDropdownProps = {
 export default function CreateNewDropdown({
   setShowCreateDropdown,
 }: CreateNewDropdownProps) {
-  let positions = useSelector((state: State) => state.positions.positions);
+  let positions = useSelector((state: State) => state.positions.data.docs);
   positions = positions.filter((pos) => pos.isActive === true);
 
   return (

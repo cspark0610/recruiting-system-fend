@@ -8,15 +8,23 @@ import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
 import Pagination from './Pagination';
+import PaginationData from '../../config/paginationData';
 
 type ListProps = {
   title: string;
   items: IPosition[];
+  paginationData?: PaginationData;
   inactive: boolean;
   isAdmin?: boolean;
 };
 
-export default function List({ title, items, inactive, isAdmin }: ListProps) {
+export default function List({
+  title,
+  items,
+  paginationData,
+  inactive,
+  isAdmin,
+}: ListProps) {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -80,7 +88,9 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             </span>
           ) : null}
         </div>
-        {isAdmin && items.length > 0 ? <Pagination items={items} /> : null}
+        {isAdmin && items.length > 0 ? (
+          <Pagination paginationData={paginationData!} />
+        ) : null}
       </div>
       {isOpen ? (
         <div className="mt-8 ml-44">

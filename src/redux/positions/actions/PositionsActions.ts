@@ -32,20 +32,20 @@ import { IPosition } from '../types/data';
 
 import ClientAxios from '../../../config/api/axios';
 
-export default function getAllPositions() {
+export default function getAllPositions(page?: number) {
   return async function (dispatch: Dispatch) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
-        GET_ALL_POSITIONS,
+        `${GET_ALL_POSITIONS}?page=${page}`,
       );
 
       dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       return dispatch<GetAllPositionsAction>({
         type: ActionTypes.GET_ALL_POSITIONS,
-        payload: data.positions,
+        payload: data.data,
       });
     } catch (error: any) {
       if (error.response) {

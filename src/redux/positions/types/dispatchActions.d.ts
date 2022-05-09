@@ -3,7 +3,19 @@ import { IError, IPosition } from './data';
 
 export type GetAllPositionsAction = {
   type: ActionTypes.GET_ALL_POSITIONS;
-  payload: IPosition[];
+  payload: {
+    docs: IPosition[];
+    totalDocs: number;
+    limit: number;
+    hasNextPage: boolean;
+    nextPage: number;
+    totalPages: number;
+    page: number;
+    prevPage: number;
+    hasPrevPage: boolean;
+    pagingCounter: number;
+    offset: number;
+  };
 };
 
 export type GetPositionInfoAction = {

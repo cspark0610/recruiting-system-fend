@@ -3,7 +3,19 @@ import { ActionTypes } from '../types/actionNames';
 import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
-  positions: [],
+  data: {
+    docs: [],
+    totalDocs: 0,
+    totalPages: 0,
+    page: 0,
+    limit: 0,
+    hasPrevPage: false,
+    hasNextPage: false,
+    prevPage: 0,
+    nextPage: 0,
+    offset: 0,
+    pagingCounter: 0,
+  },
   info: {
     title: '',
     client_name: '',
@@ -33,7 +45,7 @@ const PositionsReducer = (state = initialState, action: Action) => {
     case ActionTypes.GET_ALL_POSITIONS: {
       return {
         ...state,
-        positions: action.payload,
+        data: action.payload,
       };
     }
 
@@ -47,7 +59,7 @@ const PositionsReducer = (state = initialState, action: Action) => {
     case ActionTypes.CREATE_POSITION: {
       return {
         ...state,
-        positions: state.positions.concat(action.payload),
+        positions: state.data.docs.concat(action.payload),
       };
     }
 
