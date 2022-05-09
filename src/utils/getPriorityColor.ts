@@ -1,7 +1,7 @@
 const priorityColors = [
   {
     name: 'Low',
-    color: 'bg-slate-100 text-black',
+    color: 'bg-slate-200 text-black',
   },
   {
     name: 'Normal',
