@@ -16,6 +16,8 @@ export default function PositionsList() {
   const positions = useSelector((state: State) => state.positions.positions);
   const success = useSelector((state: State) => state.positions.success);
 
+  const isAdmin = true;
+
   const activePositions = positions.filter((position) => position.isActive);
   const inactivePositions = positions.filter((position) => !position.isActive);
 
@@ -30,22 +32,34 @@ export default function PositionsList() {
   }, [dispatch, success.message]);
 
   return (
-    <div className="mt-32">
-      <div className="flex justify-end mr-80">
-        <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
-      </div>
-      <List
-        title="Active Searches"
-        items={activePositions}
-        inactive={false}
-        isAdmin
-      />
-      <List
-        title="Inactive Searches"
-        items={inactivePositions}
-        inactive={true}
-        isAdmin
-      />
+    <div className={isAdmin ? 'mt-32' : 'mt-48'}>
+      {isAdmin ? (
+        <div className="flex justify-end mr-80 pb-6">
+          <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
+        </div>
+      ) : null}
+      {isAdmin ? (
+        <>
+          <List
+            title="Active Searches"
+            items={activePositions}
+            inactive={false}
+            isAdmin
+          />
+          <List
+            title="Inactive Searches"
+            items={inactivePositions}
+            inactive={true}
+            isAdmin
+          />
+        </>
+      ) : (
+        <List
+          title="Your Active Searches"
+          items={activePositions}
+          inactive={true}
+        />
+      )}
       <div
         className={
           success.message !== ''
