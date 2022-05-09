@@ -28,6 +28,7 @@ export default function PositionsList() {
   }
 
   useEffect(() => {
+    window.document.title = 'WorkAt - Open Positions';
     dispatch(getAllPositions());
   }, [dispatch, success.message]);
 
