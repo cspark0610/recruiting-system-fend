@@ -50,7 +50,7 @@ export default function Card({
           </span>
           <button
             onClick={isOpen}
-            className="border border-black rounded-md w-20 transition ease duration-200 hover:bg-slate-500 hover:text-white"
+            className="border border-black rounded-md px-5 transition ease duration-150 hover:bg-[#475564] hover:text-white"
           >
             Open
           </button>

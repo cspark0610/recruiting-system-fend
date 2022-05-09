@@ -19,6 +19,7 @@ import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
 export default function CandidateStatus() {
   const dispatch = useDispatch();
   const success = useSelector((state: State) => state.info.success);
+  const error = useSelector((state: State) => state.info.error);
   let candidates = useSelector((state: State) => state.info.candidates);
 
   candidates = getCandidatesByColumn(candidates);
@@ -64,6 +65,20 @@ export default function CandidateStatus() {
         </main>
       </div>
       <div className="flex items-start justify-center mt-[25rem]">
+        <div
+          className={
+            error.message !== '' && error.message.includes('Network')
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-red-500 p-2 text-center rounded-lg'
+              : 'duration-200 opacity-0 invisible absolute'
+          }
+        >
+          {error.message !== '' && (
+            <span className="text-white">
+              There was an error while connecting to the server. Please check
+              your internet connection and try again.
+            </span>
+          )}
+        </div>
         <div
           className={
             success.message !== ''
