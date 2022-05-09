@@ -11,12 +11,10 @@ export default function Pagination({ paginationData }: PaginationProps) {
   const dispatch = useDispatch();
 
   const handleNextPage = () => {
-    console.log('paginated');
     dispatch(getAllPositions(paginationData.nextPage));
   };
 
   const handlePrevPage = () => {
-    console.log('paginated');
     dispatch(getAllPositions(paginationData.prevPage));
   };
 
