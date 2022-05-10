@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
-import getAllPositions, {
+import {
   ClearSuccess,
+  GetActivePositions,
+  GetInactivePositions,
 } from '../../../../redux/positions/actions/PositionsActions';
 import CreateNew from '../../../../components/buttons/CreateNew';
 import List from '../../../../components/openPositions/List';
@@ -14,19 +16,16 @@ export default function PositionsList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const positions = useSelector((state: State) => state.positions.data.docs);
-  const paginationData = useSelector((state: State) => state.positions.data);
+  const activePositions = useSelector(
+    (state: State) => state.positions.active_positions,
+  );
+  const inactivePositions = useSelector(
+    (state: State) => state.positions.inactive_positions,
+  );
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
 
   const isAdmin = true;
-
-  const activePositions = positions.filter(
-    (position: any) => position.isActive,
-  );
-  const inactivePositions = positions.filter(
-    (position: any) => !position.isActive,
-  );
 
   if (success.message !== '') {
     setTimeout(() => {
@@ -36,7 +35,8 @@ export default function PositionsList() {
 
   useEffect(() => {
     window.document.title = 'WorkAt - Open Positions';
-    dispatch(getAllPositions(1));
+    dispatch(GetActivePositions(1));
+    dispatch(GetInactivePositions(1));
   }, [dispatch, success.message]);
 
   return (
@@ -58,14 +58,12 @@ export default function PositionsList() {
           <List
             title="Active Searches"
             items={activePositions}
-            paginationData={paginationData}
             inactive={false}
             isAdmin
           />
           <List
             title="Inactive Searches"
             items={inactivePositions}
-            paginationData={paginationData}
             inactive={true}
             isAdmin
           />
@@ -80,7 +78,7 @@ export default function PositionsList() {
       <div
         className={
           success.message !== ''
-            ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center'
+            ? 'transform -translate-y-20 transition ease-in-out duration-200 flex justify-center'
             : 'duration-200 opacity-0 invisible'
         }
       >

@@ -11,6 +11,8 @@ import {
   ClearSuccessAction,
   CleanPositionErrorAction,
   SetLoadingAction,
+  GetActivePositionsAction,
+  GetInactivePositionsAction,
 } from '../types/dispatchActions';
 
 import {
@@ -32,19 +34,75 @@ import { IPosition } from '../types/data';
 
 import ClientAxios from '../../../config/api/axios';
 
-export default function getAllPositions(page?: number) {
+export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
-        `${GET_ALL_POSITIONS}?page=${page}`,
+        `${GET_ALL_POSITIONS}?list=${list}`,
       );
 
       dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       return dispatch<GetAllPositionsAction>({
         type: ActionTypes.GET_ALL_POSITIONS,
+        payload: data.data,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function GetActivePositions(page?: number) {
+  return async function (dispatch: Dispatch) {
+    dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
+
+    try {
+      const { data } = await ClientAxios.get<GetAllPositionsResponse>(
+        `${GET_ALL_POSITIONS}?page=${page}&list=active`,
+      );
+
+      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<GetActivePositionsAction>({
+        type: ActionTypes.GET_ACTIVE_POSITIONS,
+        payload: data.data,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+        dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function GetInactivePositions(page?: number) {
+  return async function (dispatch: Dispatch) {
+    dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
+
+    try {
+      const { data } = await ClientAxios.get<GetAllPositionsResponse>(
+        `${GET_ALL_POSITIONS}?page=${page}&list=inactive`,
+      );
+
+      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+      return dispatch<GetInactivePositionsAction>({
+        type: ActionTypes.GET_INACTIVE_POSITIONS,
         payload: data.data,
       });
     } catch (error: any) {

@@ -16,6 +16,32 @@ const initialState: InitialState = {
     offset: 0,
     pagingCounter: 0,
   },
+  active_positions: {
+    docs: [],
+    totalDocs: 0,
+    totalPages: 0,
+    page: 0,
+    limit: 0,
+    hasPrevPage: false,
+    hasNextPage: false,
+    prevPage: 0,
+    nextPage: 0,
+    offset: 0,
+    pagingCounter: 0,
+  },
+  inactive_positions: {
+    docs: [],
+    totalDocs: 0,
+    totalPages: 0,
+    page: 0,
+    limit: 0,
+    hasPrevPage: false,
+    hasNextPage: false,
+    prevPage: 0,
+    nextPage: 0,
+    offset: 0,
+    pagingCounter: 0,
+  },
   info: {
     title: '',
     client_name: '',
@@ -46,6 +72,20 @@ const PositionsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         data: action.payload,
+      };
+    }
+
+    case ActionTypes.GET_ACTIVE_POSITIONS: {
+      return {
+        ...state,
+        active_positions: action.payload,
+      };
+    }
+
+    case ActionTypes.GET_INACTIVE_POSITIONS: {
+      return {
+        ...state,
+        inactive_positions: action.payload,
       };
     }
 

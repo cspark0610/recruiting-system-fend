@@ -94,7 +94,7 @@ export default function Filters() {
   };
 
   useEffect(() => {
-    dispatch(GetAllPositions());
+    dispatch(GetAllPositions('all'));
   }, [dispatch]);
 
   useEffect(() => {
