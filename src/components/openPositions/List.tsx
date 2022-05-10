@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
-import { IPosition } from '../../redux/positions/types/data';
 import { DeletePosition } from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
@@ -12,19 +11,12 @@ import PaginationData from '../../config/paginationData';
 
 type ListProps = {
   title: string;
-  items: IPosition[];
-  paginationData?: PaginationData;
+  items: PaginationData;
   inactive: boolean;
   isAdmin?: boolean;
 };
 
-export default function List({
-  title,
-  items,
-  paginationData,
-  inactive,
-  isAdmin,
-}: ListProps) {
+export default function List({ title, items, inactive, isAdmin }: ListProps) {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -63,7 +55,7 @@ export default function List({
       <div className="flex justify-between w-[75rem] ml-44">
         <div className="flex">
           <button
-            disabled={items.length === 0}
+            disabled={items.totalDocs === 0}
             onClick={isAdmin ? () => setIsOpen(!isOpen) : () => {}}
             className={
               (inactive && !isAdmin) || (inactive && isAdmin)
@@ -74,7 +66,7 @@ export default function List({
             {isAdmin ? (
               <AiOutlineRight
                 className={
-                  isOpen && items.length > 0
+                  isOpen && items.totalDocs > 0
                     ? 'mt-1 rotate-90 transition ease-in-out duration-200'
                     : 'mt-1 duration-200'
                 }
@@ -82,19 +74,19 @@ export default function List({
             ) : null}
             {title}
           </button>
-          {items.length === 0 ? (
+          {items.totalDocs === 0 ? (
             <span className="mt-1 ml-6 text-center text-red-500 font-bold">
               No positions available
             </span>
           ) : null}
         </div>
-        {isAdmin && items.length > 0 ? (
-          <Pagination paginationData={paginationData!} />
+        {isAdmin && items.totalDocs > 0 ? (
+          <Pagination title={title} items={items} />
         ) : null}
       </div>
       {isOpen ? (
         <div className="mt-8 ml-44">
-          {items.map((item) => (
+          {items.docs.map((item) => (
             <div key={item._id} className="flex">
               <Item
                 positionName={item.title}

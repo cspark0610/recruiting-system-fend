@@ -1,43 +1,54 @@
 import { useDispatch } from 'react-redux';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import PaginationData from '../../config/paginationData';
-import getAllPositions from '../../redux/positions/actions/PositionsActions';
+import {
+  GetActivePositions,
+  GetInactivePositions,
+} from '../../redux/positions/actions/PositionsActions';
 
 type PaginationProps = {
-  paginationData: PaginationData;
+  title: string;
+  items: PaginationData;
 };
 
-export default function Pagination({ paginationData }: PaginationProps) {
+export default function Pagination({ title, items }: PaginationProps) {
   const dispatch = useDispatch();
 
   const handleNextPage = () => {
-    dispatch(getAllPositions(paginationData.nextPage));
+    if (title.includes('Active')) {
+      dispatch(GetActivePositions(items.nextPage));
+    } else {
+      dispatch(GetInactivePositions(items.nextPage));
+    }
   };
 
   const handlePrevPage = () => {
-    dispatch(getAllPositions(paginationData.prevPage));
+    if (title.includes('Active')) {
+      dispatch(GetActivePositions(items.prevPage));
+    } else {
+      dispatch(GetInactivePositions(items.prevPage));
+    }
   };
 
   return (
     <div className="flex mt-2 space-x-12">
       <span>
-        {paginationData.pagingCounter}-{paginationData.limit} of{' '}
-        {paginationData.totalDocs}
+        {items.pagingCounter}-{items.limit} of {items.totalDocs}
       </span>
       <div className="flex mt-1 gap-x-4 text-xl">
-        <button disabled={!paginationData.hasPrevPage} onClick={handlePrevPage}>
+        <button disabled={!items.hasPrevPage} onClick={handlePrevPage}>
           <AiOutlineLeft
             className={
-              paginationData.hasPrevPage
+              items.hasPrevPage
                 ? 'hover:cursor-pointer'
                 : 'text-slate-300 hover:cursor-not-allowed'
             }
           />
         </button>
-        <button disabled={!paginationData.hasNextPage} onClick={handleNextPage}>
+        <button disabled={!items.hasNextPage} onClick={handleNextPage}>
           <AiOutlineRight
             className={
-              paginationData.hasNextPage
+              items.hasNextPage
                 ? 'hover:cursor-pointer'
                 : 'text-slate-300 cursor-not-allowed'
             }
