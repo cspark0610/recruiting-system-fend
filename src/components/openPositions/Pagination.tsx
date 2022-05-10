@@ -14,6 +14,8 @@ type PaginationProps = {
 export default function Pagination({ title, items }: PaginationProps) {
   const dispatch = useDispatch();
 
+  const itemsLimit = items.pagingCounter - 1 + items.limit;
+
   const handleNextPage = () => {
     if (title.includes('Active')) {
       dispatch(GetActivePositions(items.limit, items.nextPage));
@@ -33,7 +35,11 @@ export default function Pagination({ title, items }: PaginationProps) {
   return (
     <div className="flex mt-2 space-x-12">
       <span>
-        {items.pagingCounter}-{items.limit} of {items.totalDocs}
+        {items.pagingCounter}-
+        {itemsLimit < items.totalDocs
+          ? items.pagingCounter - 1 + items.limit
+          : items.totalDocs}{' '}
+        of {items.totalDocs}
       </span>
       <div className="flex mt-1 gap-x-4 text-xl">
         <button disabled={!items.hasPrevPage} onClick={handlePrevPage}>
