@@ -176,14 +176,14 @@ export function createPosition(positionInfo: IPosition) {
       if (error.response) {
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       }
       dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      dispatch<SetPositionErrorAction>({
+      return dispatch<SetPositionErrorAction>({
         type: ActionTypes.SET_POSITION_ERROR,
         payload: error,
       });

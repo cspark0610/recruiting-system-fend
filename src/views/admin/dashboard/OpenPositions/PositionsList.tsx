@@ -74,7 +74,7 @@ export default function PositionsList() {
       <div
         className={
           error.message !== '' && error.message.includes('Network')
-            ? 'transform -translate-y-20 transition ease-in-out duration-200 flex justify-center'
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
             : 'duration-200 opacity-0 invisible'
         }
       >
@@ -88,7 +88,7 @@ export default function PositionsList() {
       <div
         className={
           success.message !== ''
-            ? 'transform -translate-y-20 transition ease-in-out duration-200 flex justify-center'
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
             : 'duration-200 opacity-0 invisible'
         }
       >

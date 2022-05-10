@@ -32,7 +32,7 @@ export default function NewPosition() {
       <div
         className={
           error.message !== '' && error.message.includes('Network Error')
-            ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center mt-20'
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center mt-20'
             : 'duration-200 opacity-0 invisible'
         }
       >
@@ -46,7 +46,7 @@ export default function NewPosition() {
       <div
         className={
           success.message !== ''
-            ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center mt-20'
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center mt-20'
             : 'duration-200 opacity-0 invisible'
         }
       >
