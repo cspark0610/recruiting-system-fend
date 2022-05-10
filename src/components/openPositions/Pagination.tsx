@@ -33,7 +33,11 @@ export default function Pagination({ title, items }: PaginationProps) {
   return (
     <div className="flex mt-2 space-x-12">
       <span>
-        {items.pagingCounter}-{items.limit} of {items.totalDocs}
+        {items.pagingCounter}-
+        {items.limit > items.totalDocs
+          ? items.totalDocs
+          : items.pagingCounter - 1 + items.limit}{' '}
+        of {items.totalDocs}
       </span>
       <div className="flex mt-1 gap-x-4 text-xl">
         <button disabled={!items.hasPrevPage} onClick={handlePrevPage}>
