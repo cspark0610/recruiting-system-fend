@@ -31,13 +31,27 @@ export default function NewPosition() {
       <FrmPosition />
       <div
         className={
+          error.message !== '' && error.message.includes('Network Error')
+            ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center mt-20'
+            : 'duration-200 opacity-0 invisible'
+        }
+      >
+        {error.message !== '' && (
+          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-seibold">
+            There was an error while connecting to the server. Please check your
+            internet connection and try again.
+          </span>
+        )}
+      </div>
+      <div
+        className={
           success.message !== ''
             ? 'transform -translate-y-10 transition ease-in-out duration-200 flex justify-center mt-20'
             : 'duration-200 opacity-0 invisible'
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-green-500 rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-seibold">
             {success.message}
           </span>
         )}

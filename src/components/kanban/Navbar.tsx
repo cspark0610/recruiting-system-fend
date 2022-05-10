@@ -11,7 +11,7 @@ export default function Navbar() {
   detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
 
   return (
-    <header className="absolute top-0 left-0 w-screen md:w-screen">
+    <header className="absolute top-0 left-0 w-screen">
       <nav className="flex flex-row text-white items-center justify-evenly p-4 bg-[#475564]">
         <div className="relative" ref={profileMenuRef}>
           <button
