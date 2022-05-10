@@ -1,41 +1,52 @@
-import { ADD_USER, ADD_USER_SUCCESS, ADD_USER_ERROR } from "../types";
+import { ActionTypes } from "../types/index";
+import { InitialState } from "../types/states";
+import { Action } from "../types/dispatchActions";
 
-const initialState = {
-  user: {
-    name: "",
-    email: "",
-    birth: "",
-    phone: "",
-    idiom: "",
-    nation: "",
-    linkedin: "",
-    portfolio: "",
-    resume: "",
-    term: false,
+const initialState: InitialState = {
+  users: [],
+  loading: false,
+  error: {
+    status: 400,
+    message: "",
   },
-  loading: null,
-  error: null,
+  success: {
+    status: 200,
+    message: "",
+  },
 };
 
-function UserReducer(state = initialState, action: any) {
+function UserReducer(state = initialState, action: Action) {
   switch (action.type) {
-    case ADD_USER:
+    case ActionTypes.GET_USERS: {
       return {
         ...state,
-        loading: action.payload,
+        users: action.payload,
       };
-    case ADD_USER_SUCCESS:
+    }
+    case ActionTypes.SET_IS_USER_LOADING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case ActionTypes.SET_IS_USER_NOT_LOADING: {
       return {
         ...state,
         loading: false,
-        user: action.payload,
       };
-    case ADD_USER_ERROR:
+    }
+    case ActionTypes.SET_USER_ERROR: {
       return {
         ...state,
-        loading: false,
         error: action.payload,
       };
+    }
+    case ActionTypes.SET_USER_SUCCESS: {
+      return {
+        ...state,
+        success: action.payload,
+      };
+    }
     default:
       return state;
   }

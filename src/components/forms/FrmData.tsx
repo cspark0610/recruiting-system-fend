@@ -19,6 +19,7 @@ import Skills from "../../assets/json/Skills.json";
 import Coins from "../../assets/json/Coin.json";
 
 /* Redux */
+import { State } from "../../redux/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AddCandidate,
@@ -26,7 +27,11 @@ import {
 } from "../../redux/candidates/actions/CandidateAction";
 import MultipleSelect from "../inputs/MultipleSelect";
 
-const FrmData = () => {
+interface Props {
+  _id: string | null;
+}
+
+const FrmData = ({ _id }: Props) => {
   /*  */
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,12 +57,12 @@ const FrmData = () => {
   const userID = useSelector((state: any) => state.info.userId);
 
   /* States from the component */
-  let [college, setCollege] = useState(DataToEdit.college);
-  let [currency, setCurrency] = useState(DataToEdit.currency);
-  let [salary, setSalary] = useState(DataToEdit.salary);
-  let [available, setAvailable] = useState(DataToEdit.available);
-  let [skill, setSkill] = useState(DataToEdit.skill);
-  let [description, setDescription] = useState(DataToEdit.description);
+  let [college, setCollege] = useState({ id: 0, name: "" });
+  let [currency, setCurrency] = useState({ id: 0, name: "" });
+  let [salary, setSalary] = useState("");
+  let [available, setAvailable] = useState({ id: 0, name: "" });
+  let [skill, setSkill] = useState<string | Blob>("");
+  let [description, setDescription] = useState("");
 
   /* Values which will be validated */
   const [isCollegeValid, setIsCollegeValid] = useState(false);
@@ -72,17 +77,17 @@ const FrmData = () => {
 
   /* Function to store validation */
   const isFormValid = () => {
-    college === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
-    currency === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
+    college.name === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
+    currency.name === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
     salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
     !skill ? setIsSkillValid(true) : setIsSkillValid(false);
   };
 
   /* FORM DATA */
   const formData = new FormData();
-  formData.append("academic_training", college);
+  formData.append("academic_training", college.name);
   formData.append("salary_expectations", salary);
-  formData.append("available_from", available);
+  formData.append("available_from", available.name);
   formData.append("skill", skill);
   formData.append("working_reason", description);
 
