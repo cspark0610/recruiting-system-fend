@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
-import { DeletePosition } from '../../redux/positions/actions/PositionsActions';
+import {
+  ClearSuccess,
+  DeletePosition,
+} from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
@@ -37,6 +40,10 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 
   const handleDelete = () => {
     dispatch(DeletePosition(selectedItem));
+
+    setTimeout(() => {
+      dispatch(ClearSuccess(dispatch));
+    }, 3000);
   };
 
   useEffect(() => {
@@ -51,8 +58,8 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
   }, [success.message]);
 
   return (
-    <div className="pb-20">
-      <div className="flex justify-between w-[75rem] ml-44">
+    <div>
+      <div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44">
         <div className="flex">
           <button
             disabled={items.totalDocs === 0}
@@ -66,9 +73,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             {isAdmin ? (
               <AiOutlineRight
                 className={
-                  isOpen && items.totalDocs > 0
-                    ? 'mt-1 rotate-90 transition ease-in-out duration-200'
-                    : 'mt-1 duration-200'
+                  isOpen && items.totalDocs > 0 ? 'mt-1 rotate-90 ' : 'mt-1 '
                 }
               />
             ) : null}
