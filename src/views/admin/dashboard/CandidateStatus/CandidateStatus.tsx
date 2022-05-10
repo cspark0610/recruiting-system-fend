@@ -69,7 +69,7 @@ export default function CandidateStatus() {
         <div
           className={
             error.message !== '' && error.message.includes('Network')
-              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-red-500 p-2 text-center rounded-lg'
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-[#F84D44] p-2 text-center rounded-lg'
               : 'duration-200 opacity-0 invisible absolute'
           }
         >
@@ -83,7 +83,7 @@ export default function CandidateStatus() {
         <div
           className={
             success.message !== ''
-              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-green-500 p-2 text-center rounded-lg'
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-[#35C549] p-2 text-center rounded-lg'
               : 'duration-200 opacity-0 invisible absolute'
           }
         >

@@ -156,7 +156,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply
@@ -224,7 +224,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply

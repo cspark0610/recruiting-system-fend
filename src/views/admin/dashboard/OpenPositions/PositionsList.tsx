@@ -23,6 +23,7 @@ export default function PositionsList() {
   );
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
+  const error = useSelector((state: State) => state.positions.error);
 
   const isAdmin = true;
 
@@ -48,7 +49,7 @@ export default function PositionsList() {
             isAdmin
           />
           {loading ? (
-            <div className="absolute bg-opacity-75 bg-[#FAFAFA] w-screen h-screen top-0 left-0 z-20">
+            <div className="absolute w-full h-[55rem] top-0 left-0 z-20">
               <LoaderSpinner
                 width="w-10"
                 height="h-10"
@@ -72,13 +73,27 @@ export default function PositionsList() {
       )}
       <div
         className={
+          error.message !== '' && error.message.includes('Network')
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
+            : 'duration-200 opacity-0 invisible'
+        }
+      >
+        {error.message !== '' && (
+          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-seibold">
+            There was an error while connecting to the server. Please check your
+            internet connection and try again.
+          </span>
+        )}
+      </div>
+      <div
+        className={
           success.message !== ''
-            ? 'transform -translate-y-20 transition ease-in-out duration-200 flex justify-center'
+            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
             : 'duration-200 opacity-0 invisible'
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-green-500 rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-seibold">
             {success.message}
           </span>
         )}
