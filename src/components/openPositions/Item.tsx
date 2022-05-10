@@ -31,8 +31,8 @@ export default function Item({
   const priorityClass = getPositionPriorityColor(priority);
 
   return (
-    <div>
-      <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] w-[68rem] ml-12 ">
+    <div className="flex laptop:flex-col">
+      <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] laptop:w-[47rem] desktop:w-[68rem] ml-12">
         <div className="flex space-x-8">
           {' '}
           {isAdmin ? (
@@ -63,7 +63,7 @@ export default function Item({
               : null}
           </div>
           {isAdmin ? (
-            <div className="relative pr-[30rem]">
+            <div className="relative desktop:pr-[30rem]">
               <div className="mt-2">
                 <p className={`p-1 px-4 rounded-lg ${priorityClass}`}>
                   {priority}
@@ -72,16 +72,10 @@ export default function Item({
             </div>
           ) : null}
         </div>
-        <div className="flex space-x-6 mr-16 items-center">
+        <div className="flex space-x-6 laptop:mr-16 desktop:mr-16 items-center">
           <span className="mt-2">March 15</span>
           <button onClick={() => setIsOpen(!isOpen)}>
-            <AiOutlineDown
-              className={
-                isOpen
-                  ? 'mt-2 rotate-180 transition ease-in-out duration-200'
-                  : 'mt-2 duration-200'
-              }
-            />
+            <AiOutlineDown className={isOpen ? 'mt-2 rotate-180' : 'mt-2'} />
           </button>
         </div>
       </div>

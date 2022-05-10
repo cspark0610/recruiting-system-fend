@@ -36,14 +36,10 @@ import ClientAxios from '../../../config/api/axios';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
-    dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
-
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
         `${GET_ALL_POSITIONS}?list=${list}`,
       );
-
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
       return dispatch<GetAllPositionsAction>({
         type: ActionTypes.GET_ALL_POSITIONS,
@@ -62,13 +58,13 @@ export default function getAllPositions(list: string) {
   };
 }
 
-export function GetActivePositions(page?: number) {
+export function GetActivePositions(limit: number, page?: number) {
   return async function (dispatch: Dispatch) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
-        `${GET_ALL_POSITIONS}?page=${page}&list=active`,
+        `${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=active`,
       );
 
       dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -90,13 +86,13 @@ export function GetActivePositions(page?: number) {
   };
 }
 
-export function GetInactivePositions(page?: number) {
+export function GetInactivePositions(limit: number, page?: number) {
   return async function (dispatch: Dispatch) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
       const { data } = await ClientAxios.get<GetAllPositionsResponse>(
-        `${GET_ALL_POSITIONS}?page=${page}&list=inactive`,
+        `${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=inactive`,
       );
 
       dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });

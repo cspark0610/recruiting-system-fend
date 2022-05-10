@@ -16,17 +16,17 @@ export default function Pagination({ title, items }: PaginationProps) {
 
   const handleNextPage = () => {
     if (title.includes('Active')) {
-      dispatch(GetActivePositions(items.nextPage));
+      dispatch(GetActivePositions(items.limit, items.nextPage));
     } else {
-      dispatch(GetInactivePositions(items.nextPage));
+      dispatch(GetInactivePositions(items.limit, items.nextPage));
     }
   };
 
   const handlePrevPage = () => {
     if (title.includes('Active')) {
-      dispatch(GetActivePositions(items.prevPage));
+      dispatch(GetActivePositions(items.limit, items.prevPage));
     } else {
-      dispatch(GetInactivePositions(items.prevPage));
+      dispatch(GetInactivePositions(items.limit, items.prevPage));
     }
   };
 

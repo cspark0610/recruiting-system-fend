@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
 import {
-  ClearSuccess,
   GetActivePositions,
   GetInactivePositions,
 } from '../../../../redux/positions/actions/PositionsActions';
@@ -27,47 +26,43 @@ export default function PositionsList() {
 
   const isAdmin = true;
 
-  if (success.message !== '') {
-    setTimeout(() => {
-      dispatch(ClearSuccess(dispatch));
-    }, 3000);
-  }
-
   useEffect(() => {
     window.document.title = 'WorkAt - Open Positions';
-    dispatch(GetActivePositions(1));
-    dispatch(GetInactivePositions(1));
+    dispatch(GetActivePositions(6, 1));
+    dispatch(GetInactivePositions(6, 1));
   }, [dispatch, success.message]);
 
   return (
-    <div className={isAdmin ? 'mt-32' : 'mt-48'}>
-      {loading ? (
-        <LoaderSpinner
-          width="w-6"
-          height="h-6"
-          classes="absolute left-[55rem]"
-        />
-      ) : null}
+    <div className={isAdmin ? 'mt-32 md:w-screen' : 'mt-48 md:w-screen'}>
       {isAdmin ? (
-        <div className="flex justify-end mr-80 pb-6">
+        <div className="flex justify-end laptop:mr-[18rem] desktop:mr-[22rem] pb-6">
           <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
         </div>
       ) : null}
       {isAdmin ? (
-        <>
+        <div className="space-y-20">
           <List
             title="Active Searches"
             items={activePositions}
             inactive={false}
             isAdmin
           />
+          {loading ? (
+            <div className="absolute bg-opacity-75 bg-[#FAFAFA] w-screen h-screen top-0 left-0 z-20">
+              <LoaderSpinner
+                width="w-10"
+                height="h-10"
+                classes="absolute laptop:top-40 laptop:left-[40rem] dektop:top-40 desktop:left-[55rem]"
+              />
+            </div>
+          ) : null}
           <List
             title="Inactive Searches"
             items={inactivePositions}
             inactive={true}
             isAdmin
           />
-        </>
+        </div>
       ) : (
         <List
           title="Your Active Searches"
