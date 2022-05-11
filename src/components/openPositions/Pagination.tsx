@@ -54,7 +54,7 @@ export default function Pagination({ title, items }: PaginationProps) {
             className={
               items.hasNextPage
                 ? 'hover:cursor-pointer'
-                : 'text-slate-300 cursor-not-allowed'
+                : 'text-slate-300 hover:cursor-not-allowed'
             }
           />
         </button>

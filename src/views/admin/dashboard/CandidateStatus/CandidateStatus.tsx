@@ -18,6 +18,7 @@ import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
 
 export default function CandidateStatus() {
   const dispatch = useDispatch();
+
   const success = useSelector((state: State) => state.info.success);
   const error = useSelector((state: State) => state.info.error);
   let candidates = useSelector((state: State) => state.info.candidates);

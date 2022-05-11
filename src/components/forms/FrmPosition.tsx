@@ -26,10 +26,6 @@ export default function FrmPosition() {
 
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
-  const error = useSelector((state: State) => state.positions.error);
-  const errorMessages = Object.entries(error.message).map(
-    ([key, value]) => value,
-  );
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');

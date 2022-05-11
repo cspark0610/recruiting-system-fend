@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
 import {
@@ -29,8 +29,10 @@ export default function PositionsList() {
 
   useEffect(() => {
     window.document.title = 'WorkAt - Open Positions';
-    dispatch(GetActivePositions(6, 1));
-    dispatch(GetInactivePositions(6, 1));
+    batch(() => {
+      dispatch(GetActivePositions(6, 1));
+      dispatch(GetInactivePositions(6, 1));
+    });
   }, [dispatch, success.message]);
 
   return (

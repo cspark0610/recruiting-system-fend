@@ -1,9 +1,9 @@
-import { ActionTypes } from "../types/index";
-import { IUser, IError, ISuccess } from "./data";
+import { ActionTypes } from '../types/index';
+import { IUser, IError, ISuccess } from './data';
 
 export type GetUsersActions = {
   type: ActionTypes.GET_USERS;
-  payload: UserState;
+  payload: IUser[];
 };
 
 export type SetUserLoadingAction = {
