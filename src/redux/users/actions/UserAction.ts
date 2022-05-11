@@ -1,31 +1,46 @@
-import { ADD_USER, ADD_USER_SUCCESS, ADD_USER_ERROR } from "../types";
+import { Dispatch } from "redux";
+import { ActionTypes } from "../types/index";
+import { GetUsersResponse } from "../types/axiosResponses";
+import {
+  GetUsersActions,
+  SetUserErrorAction,
+  SetUserLoadingAction,
+} from "../types/dispatchActions";
 import ClientAxios from "../../../config/api/axios";
-import { POST_CANDIDATE } from "../../../config/routes/endpoints";
+import { GET_ALL_USERS } from "../../../config/routes/endpoints";
 
-export function AddUser(user: any) {
-  return async (dispatch: any) => {
-    dispatch(AddUserLoad(true));
+export function GetAllUsers() {
+  return async (dispatch: Dispatch) => {
+    dispatch<SetUserLoadingAction>({
+      type: ActionTypes.SET_IS_USER_LOADING,
+    });
 
     try {
-      await ClientAxios.post(POST_CANDIDATE, user);
-      dispatch(AddUserSuccess(user));
-    } catch (error) {
-      dispatch(AddUserError(true));
+      const { data } = await ClientAxios.get<GetUsersResponse>(GET_ALL_USERS);
+
+      dispatch<SetUserLoadingAction>({
+        type: ActionTypes.SET_IS_USER_NOT_LOADING,
+      });
+
+      return dispatch<GetUsersActions>({
+        type: ActionTypes.GET_USERS,
+        payload: data.users,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
+        dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error.response.data,
+        });
+      }
+      dispatch<SetUserLoadingAction>({
+        type: ActionTypes.SET_IS_USER_NOT_LOADING,
+      });
+      dispatch<SetUserErrorAction>({
+        type: ActionTypes.SET_USER_ERROR,
+        payload: error,
+      });
     }
   };
 }
-
-const AddUserLoad = (status: boolean) => ({
-  type: ADD_USER,
-  payload: status,
-});
-
-const AddUserSuccess = (user: any) => ({
-  type: ADD_USER_SUCCESS,
-  payload: user,
-});
-
-const AddUserError = (status: boolean) => ({
-  type: ADD_USER_ERROR,
-  payload: status,
-});

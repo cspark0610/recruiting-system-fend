@@ -33,7 +33,7 @@ const SelectCoin: React.FC<Props> = (props) => {
               <div className="relative">
                 <Listbox.Button className="flex items-center bg-transparent w-[50px] p-2 leading-tight text-gray-color font-light text-left font-raleway mobile:text-xs tablet:text-[15px] laptop:text-[15px] cursor-pointer focus:outline-none">
                   <span className="block truncate">
-                    {!props.value ? props.placeholder : props.value.name}
+                    {props.value ? props.value.name : props.placeholder}
                   </span>
                   <span className="absolute pointer-events-none">
                     <RiArrowDropDownLine
