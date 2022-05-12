@@ -7,22 +7,22 @@ type Priority = {
 const priorities: Priority[] = [
   {
     id: 4,
-    name: 'urgent',
+    name: 'Urgent',
     displayName: 'Urgent',
   },
   {
     id: 3,
-    name: 'high',
+    name: 'High',
     displayName: 'High',
   },
   {
     id: 2,
-    name: 'normal',
+    name: 'Normal',
     displayName: 'Normal',
   },
   {
     id: 1,
-    name: 'low',
+    name: 'Low',
     displayName: 'Low',
   },
 ];

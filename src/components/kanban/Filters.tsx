@@ -10,7 +10,7 @@ import secondaryStatus from '../../config/kanban/constants';
 export default function Filters() {
   const dispatch = useDispatch();
 
-  const positions = useSelector((state: State) => state.positions.positions);
+  const positions = useSelector((state: State) => state.positions.data.docs);
   const currentFilters = useSelector(
     (state: State) => state.info.currentFilters,
   );
@@ -94,7 +94,7 @@ export default function Filters() {
   };
 
   useEffect(() => {
-    dispatch(GetAllPositions());
+    dispatch(GetAllPositions('all'));
   }, [dispatch]);
 
   useEffect(() => {
@@ -156,7 +156,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply
@@ -224,7 +224,7 @@ export default function Filters() {
             ))}
           </div>
           <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-slate-600 hover:text-white"
+            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
             onClick={handleActionDispatch}
           >
             Apply

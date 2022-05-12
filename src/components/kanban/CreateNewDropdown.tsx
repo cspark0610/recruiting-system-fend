@@ -9,7 +9,7 @@ type CreateNewDropdownProps = {
 export default function CreateNewDropdown({
   setShowCreateDropdown,
 }: CreateNewDropdownProps) {
-  let positions = useSelector((state: State) => state.positions.positions);
+  let positions = useSelector((state: State) => state.positions.data.docs);
   positions = positions.filter((pos) => pos.isActive === true);
 
   return (
@@ -23,7 +23,7 @@ export default function CreateNewDropdown({
           >
             <button
               onClick={() => setShowCreateDropdown(false)}
-              className="transition ease-in-out duration-300 rounded-md p-2 hover:bg-[#475564] hover:text-white"
+              className="hover:transition ease-in-out duration-200 rounded-md p-2 hover:bg-[#475564] hover:text-white"
             >
               {pos.title}
             </button>

@@ -118,14 +118,14 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
-    case ActionTypes.SET_IS_LOADING: {
+    case ActionTypes.SET_IS_CANDIDATE_LOADING: {
       return {
         ...state,
         loading: true,
       };
     }
 
-    case ActionTypes.SET_IS_NOT_LOADING: {
+    case ActionTypes.SET_IS_NOT_CANDIDATE_LOADING: {
       return {
         ...state,
         loading: false,
@@ -146,21 +146,21 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
-    case ActionTypes.SET_ERROR: {
+    case ActionTypes.SET_CANDIDATE_ERROR: {
       return {
         ...state,
         error: action.payload,
       };
     }
 
-    case ActionTypes.SET_SUCCESS: {
+    case ActionTypes.SET_CANDIDATE_SUCCESS: {
       return {
         ...state,
         success: action.payload,
       };
     }
 
-    case ActionTypes.CLEAR_SUCCESS: {
+    case ActionTypes.CLEAR_CANDIDATE_SUCCESS: {
       return {
         ...state,
         success: {
@@ -177,7 +177,7 @@ function CandidateReducer(state = initialState, action: Action) {
       };
     }
 
-    case ActionTypes.CLEAN_ERROR: {
+    case ActionTypes.CLEAN_CANDIDATE_ERROR: {
       return {
         ...state,
         error: {

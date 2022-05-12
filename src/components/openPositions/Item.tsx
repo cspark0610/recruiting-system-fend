@@ -5,11 +5,13 @@ import { State } from '../../redux/store/store';
 import Toggle from './Toggle';
 import SubMenu from './SubMenu';
 import LoaderSpinner from '../../assets/loaderSpinner';
+import getPositionPriorityColor from '../../utils/getPositionPriorityColor';
 
 type ItemProps = {
   positionName: string;
   designated: string[];
   inactive: boolean;
+  priority: string;
   _id: string;
   isAdmin?: boolean;
 };
@@ -18,17 +20,19 @@ export default function Item({
   positionName,
   designated,
   inactive,
+  priority,
   _id,
   isAdmin,
 }: ItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
-  const loading = useSelector((state: State) => state.positions.loading);
+  const updating = useSelector((state: State) => state.positions.updating);
+  const priorityClass = getPositionPriorityColor(priority);
 
   return (
-    <div>
-      <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] w-[68rem] ml-12 ">
+    <div className="flex laptop:flex-col">
+      <div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] laptop:w-[47rem] desktop:w-[68rem] ml-12">
         <div className="flex space-x-8">
           {' '}
           {isAdmin ? (
@@ -39,7 +43,7 @@ export default function Item({
               setIsToggled={setIsToggled}
             />
           ) : null}
-          {loading && isToggled ? (
+          {updating && isToggled ? (
             <LoaderSpinner width="w-4" height="h-4" classes="mt-3" />
           ) : null}
           <div
@@ -59,23 +63,19 @@ export default function Item({
               : null}
           </div>
           {isAdmin ? (
-            <div className="relative pr-[30rem]">
+            <div className="relative desktop:pr-[30rem]">
               <div className="mt-2">
-                <p className="p-1 px-4 rounded-lg bg-cyan-400">Priority</p>
+                <p className={`p-1 px-4 rounded-lg ${priorityClass}`}>
+                  {priority}
+                </p>
               </div>
             </div>
           ) : null}
         </div>
-        <div className="flex space-x-6 mr-16 items-center">
+        <div className="flex space-x-6 laptop:mr-16 desktop:mr-16 items-center">
           <span className="mt-2">March 15</span>
           <button onClick={() => setIsOpen(!isOpen)}>
-            <AiOutlineDown
-              className={
-                isOpen
-                  ? 'mt-2 rotate-180 transition ease-in-out duration-200'
-                  : 'mt-2 duration-200'
-              }
-            />
+            <AiOutlineDown className={isOpen ? 'mt-2 rotate-180' : 'mt-2'} />
           </button>
         </div>
       </div>

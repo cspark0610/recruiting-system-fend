@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../../redux/store/store';
 import {
-  CleanErrors,
-  ClearSuccess,
+  CleanCandidateErrors,
+  ClearCandidateSuccess,
   GetAllCandidates,
 } from '../../../../redux/candidates/actions/CandidateAction';
 import Column from '../../../../components/kanban/Column';
@@ -18,22 +18,25 @@ import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
 
 export default function CandidateStatus() {
   const dispatch = useDispatch();
+
   const success = useSelector((state: State) => state.info.success);
+  const error = useSelector((state: State) => state.info.error);
   let candidates = useSelector((state: State) => state.info.candidates);
 
   candidates = getCandidatesByColumn(candidates);
 
   if (success.message !== '') {
     setTimeout(() => {
-      dispatch(ClearSuccess(dispatch));
+      dispatch(ClearCandidateSuccess(dispatch));
     }, 3000);
   }
 
   useEffect(() => {
     batch(() => {
-      dispatch(CleanErrors(dispatch));
+      dispatch(CleanCandidateErrors(dispatch));
       dispatch(GetAllCandidates());
     });
+    window.document.title = 'WorkAt - Candidate Status';
   }, [dispatch]);
 
   return (
@@ -66,8 +69,22 @@ export default function CandidateStatus() {
       <div className="flex items-start justify-center mt-[25rem]">
         <div
           className={
+            error.message !== '' && error.message.includes('Network')
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-[#F84D44] p-2 text-center rounded-lg'
+              : 'duration-200 opacity-0 invisible absolute'
+          }
+        >
+          {error.message !== '' && (
+            <span className="text-white">
+              There was an error while connecting to the server. Please check
+              your internet connection and try again.
+            </span>
+          )}
+        </div>
+        <div
+          className={
             success.message !== ''
-              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-green-500 p-2 text-center rounded-lg'
+              ? 'transform -translate-y-10 transition ease-in-out duration-200 absolute z-10 bg-[#35C549] p-2 text-center rounded-lg'
               : 'duration-200 opacity-0 invisible absolute'
           }
         >

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { FiClock } from 'react-icons/fi';
 import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction';
 import UserDialog from '../dialog/UserDialog';
-import getItemBorderColor from '../../utils/getItemBorderColor';
+import getCardTopBorderColor from '../../utils/getCardTopBorderColor';
 import '../../assets/scss/Card.scss';
 
 type CardProps = {
@@ -21,7 +21,7 @@ export default function Card({
 }: CardProps) {
   const dispatch = useDispatch();
 
-  const card = getItemBorderColor(secondary_status);
+  const card = getCardTopBorderColor(secondary_status);
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function Card({
       <div className="ml-4">
         <p className="font-medium text-lg">{name}</p>
         <p className="font-light">
-          {position ? position : 'No position applied'}
+          {position ? position : 'No position applied to'}
         </p>
         <section className="flex flex-row gap-24 pt-4 pb-4">
           <span className="flex font-light pt-4">
@@ -50,7 +50,7 @@ export default function Card({
           </span>
           <button
             onClick={isOpen}
-            className="border border-black rounded-md w-20 transition ease duration-200 hover:bg-slate-500 hover:text-white"
+            className="border border-black rounded-md px-5 transition ease duration-150 hover:bg-[#475564] hover:text-white"
           >
             Open
           </button>

@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createPosition } from '../../redux/positions/actions/PositionsActions';
+import { State } from '../../redux/store/store';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
 import Submit from '../buttons/Submit';
-import priorities from '../../config/positions/constants';
-import { createPosition } from '../../redux/positions/actions/PositionsActions';
-import { State } from '../../redux/store/store';
 import LoaderSpinner from '../../assets/loaderSpinner';
+import ErrorMessages from './ErrorMessages';
+import priorities from '../../config/positions/constants';
 
 type OptionValues = {
   id: number;
   name: string;
 };
 
-const data: OptionValues[] = [
+const data: Array<OptionValues> = [
   {
     id: 1,
     name: 'Usuario prueba',
@@ -24,6 +25,7 @@ export default function FrmPosition() {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: State) => state.positions.loading);
+  const success = useSelector((state: State) => state.positions.success);
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -34,27 +36,6 @@ export default function FrmPosition() {
   >([]);
 
   const [selectedPriority, setSelectedPriority] = useState('');
-
-  const [isTitleValid, setIsTitleValid] = useState(false);
-  const [isClientNameValid, setIsClientNameValid] = useState(false);
-  const [isRieLinkValid, setIsRieLinkValid] = useState(false);
-  const [isRecruiterGuideValid, setIsRecruiterGuideValid] = useState(false);
-  const [isDesignated_recruitersValid, setIsDesignated_recruitersValid] =
-    useState(false);
-
-  const isFormValid = () => {
-    title === '' ? setIsTitleValid(true) : setIsTitleValid(false);
-    clientName === ''
-      ? setIsClientNameValid(true)
-      : setIsClientNameValid(false);
-    rieLink === '' ? setIsRieLinkValid(true) : setIsRieLinkValid(false);
-    recruiterGuide === ''
-      ? setIsRecruiterGuideValid(true)
-      : setIsRecruiterGuideValid(false);
-    designated_recruiters.length === 0
-      ? setIsDesignated_recruitersValid(true)
-      : setIsDesignated_recruitersValid(false);
-  };
 
   /* Regular Expressions */
   const RegExp = {
@@ -81,6 +62,17 @@ export default function FrmPosition() {
       }),
     );
   };
+
+  useEffect(() => {
+    if (success.message !== '') {
+      setTitle('');
+      setClientName('');
+      setRieLink('');
+      setRecruiterGuide('');
+      setDesignated_recruiters([]);
+      setSelectedPriority('');
+    }
+  }, [success.message]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
@@ -109,74 +101,107 @@ export default function FrmPosition() {
                 </label>
               </div>
             ))}
+            <ErrorMessages errorTerms={['priority']} />
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <div className="flex justify-center">
+            <div className="flex flex-col">
+              <Text
+                id="name"
+                label="Name"
+                name="name"
+                placeholder="Position Name"
+                RegExp={RegExp.characters}
+                setValue={setTitle}
+                showAlert={false}
+                type="text"
+                value={title}
+                width="w-[26.5rem]"
+              />
+              <ErrorMessages
+                errorTerms={['Position']}
+                className="flex flex-col ml-4"
+              />
+            </div>
+            <div className="flex flex-col">
+              <Text
+                id="clientName"
+                label="Client"
+                name="clientName"
+                placeholder="Client Name"
+                RegExp={RegExp.characters}
+                setValue={setClientName}
+                showAlert={false}
+                type="text"
+                value={clientName}
+                width="w-[26.5rem]"
+              />
+              <ErrorMessages
+                errorTerms={['Client']}
+                className="flex flex-col ml-4"
+              />
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div>
+              <Text
+                id="rieLink"
+                label="RIE Link"
+                name="rieLink"
+                placeholder="RIE Link"
+                RegExp={RegExp.characters}
+                setValue={setRieLink}
+                showAlert={false}
+                type="url"
+                value={rieLink}
+                width="w-[26.5rem]"
+              />
+              <ErrorMessages
+                errorTerms={['RIE', 'rie_link']}
+                className="flex flex-col ml-4"
+              />
+            </div>
+            <div>
+              <Text
+                id="recruiterGuide"
+                label="Recruiter Guide"
+                name="recruiterGuide"
+                placeholder="Recruiter Filter Link"
+                RegExp={RegExp.characters}
+                setValue={setRecruiterGuide}
+                showAlert={false}
+                type="url"
+                value={recruiterGuide}
+                width="w-[26.5rem]"
+              />
+              <ErrorMessages
+                errorTerms={['Recruiter', 'recruiter_filter']}
+                className="flex flex-col ml-4"
+              />
+            </div>
+          </div>{' '}
+          <div className="flex justify-center mt-2">
+            <div>
+              <MultiSelect
+                options={data}
+                className="w-[51.5rem] hover:cursor-pointer pb-2"
+                placeholder="Designated Recruiter"
+                hidePlaceholder={true}
+                avoidHighlightFirstOption={true}
+                displayValue="name"
+                onSelect={setDesignated_recruiters}
+                onRemove={setDesignated_recruiters}
+                selectedValues={designated_recruiters}
+              />
+              <ErrorMessages
+                errorTerms={['designate']}
+                className="flex flex-col ml-1"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-center -mx-3">
-          <Text
-            id="name"
-            label="Name"
-            name="name"
-            placeholder="Position Name"
-            RegExp={RegExp.characters}
-            setValue={setTitle}
-            showAlert={isTitleValid}
-            type="text"
-            value={title}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          <Text
-            id="clientName"
-            label="Client"
-            name="clientName"
-            placeholder="Client Name"
-            RegExp={RegExp.characters}
-            setValue={setClientName}
-            showAlert={isClientNameValid}
-            type="text"
-            value={clientName}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-        </div>
-        <div className="flex justify-center -mx-3">
-          <Text
-            id="rieLink"
-            label="RIE Link"
-            name="rieLink"
-            placeholder="RIE Link"
-            RegExp={RegExp.characters}
-            setValue={setRieLink}
-            showAlert={isRieLinkValid}
-            type="url"
-            value={rieLink}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-          <Text
-            id="recruiterGuide"
-            label="Recruiter Guide"
-            name="recruiterGuide"
-            placeholder="Recruiter Filter Link"
-            RegExp={RegExp.characters}
-            setValue={setRecruiterGuide}
-            showAlert={isRecruiterGuideValid}
-            type="url"
-            value={recruiterGuide}
-            width="laptop:w-1/3 tablet:w-1/3 mobile:w-1/2"
-          />
-        </div>
-        <div className="flex justify-center mt-2">
-          <MultiSelect
-            options={data}
-            className="w-[51.5rem] hover:cursor-pointer"
-            placeholder="Designated Recruiter"
-            hidePlaceholder={true}
-            avoidHighlightFirstOption={true}
-            displayValue="name"
-            onSelect={setDesignated_recruiters}
-            onRemove={setDesignated_recruiters}
-            selectedValues={designated_recruiters}
-          />
-        </div>
         <div className="z-10 mt-10">
           <Submit name="Create" width="10" onSubmit={handleSubmit} />
         </div>

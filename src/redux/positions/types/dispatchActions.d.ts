@@ -3,7 +3,53 @@ import { IError, IPosition } from './data';
 
 export type GetAllPositionsAction = {
   type: ActionTypes.GET_ALL_POSITIONS;
-  payload: IPosition[];
+  payload: {
+    docs: IPosition[];
+    totalDocs: number;
+    limit: number;
+    hasNextPage: boolean;
+    nextPage: number;
+    totalPages: number;
+    page: number;
+    prevPage: number;
+    hasPrevPage: boolean;
+    pagingCounter: number;
+    offset: number;
+  };
+};
+
+export type GetActivePositionsAction = {
+  type: ActionTypes.GET_ACTIVE_POSITIONS;
+  payload: {
+    docs: IPosition[];
+    totalDocs: number;
+    limit: number;
+    hasNextPage: boolean;
+    nextPage: number;
+    totalPages: number;
+    page: number;
+    prevPage: number;
+    hasPrevPage: boolean;
+    pagingCounter: number;
+    offset: number;
+  };
+};
+
+export type GetInactivePositionsAction = {
+  type: ActionTypes.GET_INACTIVE_POSITIONS;
+  payload: {
+    docs: IPosition[];
+    totalDocs: number;
+    limit: number;
+    hasNextPage: boolean;
+    nextPage: number;
+    totalPages: number;
+    page: number;
+    prevPage: number;
+    hasPrevPage: boolean;
+    pagingCounter: number;
+    offset: number;
+  };
 };
 
 export type GetPositionInfoAction = {
@@ -51,6 +97,8 @@ export type CleanPositionErrorAction = {
 
 export type Action =
   | GetAllPositionsAction
+  | GetActivePositionsAction
+  | GetInactivePositionsAction
   | GetPositionInfoAction
   | CreatePositionAction
   | SetPositionErrorAction

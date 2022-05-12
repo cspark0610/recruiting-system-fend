@@ -1,14 +1,20 @@
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { AiOutlineRight } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
-import { IPosition } from '../../redux/positions/types/data';
+import {
+  ClearSuccess,
+  DeletePosition,
+} from '../../redux/positions/actions/PositionsActions';
+import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
+import Pagination from './Pagination';
+import PaginationData from '../../config/paginationData';
 
 type ListProps = {
   title: string;
-  items: IPosition[];
+  items: PaginationData;
   inactive: boolean;
   isAdmin?: boolean;
 };
@@ -20,46 +26,78 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
   const [showWarning, setShowWarning] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
 
+  const success = useSelector((state: State) => state.positions.success);
+
   const handleClick = (_id: string) => {
     setSelectedItem(_id);
     setShowWarning(!showWarning);
   };
 
+  const handleClose = () => {
+    setShowWarning(!showWarning);
+    setSelectedItem('');
+  };
+
+  const handleDelete = () => {
+    dispatch(DeletePosition(selectedItem));
+
+    setTimeout(() => {
+      dispatch(ClearSuccess(dispatch));
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (!isAdmin) {
+      setIsOpen(true);
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
+    setSelectedItem('');
+    setShowWarning(false);
+  }, [success.message]);
+
   return (
-    <div className="pb-20">
-      <div className="flex ml-44">
-        <button
-          disabled={items.length === 0}
-          onClick={() => setIsOpen(!isOpen)}
-          className={
-            inactive
-              ? 'flex text-[#475564] gap-5 text-2xl font-semibold'
-              : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
-          }
-        >
-          <AiOutlineRight
+    <div>
+      <div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44">
+        <div className="flex">
+          <button
+            disabled={items.totalDocs === 0}
+            onClick={isAdmin ? () => setIsOpen(!isOpen) : () => {}}
             className={
-              isOpen && items.length > 0
-                ? 'mt-1 rotate-90 transition ease-in-out duration-200'
-                : 'mt-1 duration-200'
+              (inactive && !isAdmin) || (inactive && isAdmin)
+                ? 'flex text-[#475564] gap-5 text-2xl font-semibold'
+                : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
             }
-          />
-          {title}
-        </button>
-        {items.length === 0 ? (
-          <span className="mt-1 ml-6 text-center text-red-500 font-bold">
-            No positions available
-          </span>
+          >
+            {isAdmin ? (
+              <AiOutlineRight
+                className={
+                  isOpen && items.totalDocs > 0 ? 'mt-1 rotate-90 ' : 'mt-1 '
+                }
+              />
+            ) : null}
+            {title}
+          </button>
+          {items.totalDocs === 0 ? (
+            <span className="mt-1 ml-6 text-center text-red-500 font-bold">
+              No positions available
+            </span>
+          ) : null}
+        </div>
+        {isAdmin && items.totalDocs > 0 ? (
+          <Pagination title={title} items={items} />
         ) : null}
       </div>
       {isOpen ? (
         <div className="mt-8 ml-44">
-          {items.map((item) => (
+          {items.docs.map((item) => (
             <div key={item._id} className="flex">
               <Item
                 positionName={item.title}
                 designated={item.designated}
                 inactive={inactive}
+                priority={item.priority}
                 _id={item._id!}
                 isAdmin={isAdmin}
               />
@@ -76,18 +114,18 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
               </div>
             </div>
           ))}
-          {showWarning ? (
+          {showWarning && selectedItem !== '' && (
             <Modal
               alt="Delete Position"
               classes={true}
               image="reject"
-              isVerify={() => console.log('deleted')}
+              isVerify={handleDelete}
               message="Are you sure you want to delete this position?"
-              onClick={() => setShowWarning(!showWarning)}
-              setValue={() => setShowWarning(!showWarning)}
+              onClick={handleClose}
+              setValue={handleClose}
               value={showWarning}
             />
-          ) : null}
+          )}
         </div>
       ) : null}
     </div>

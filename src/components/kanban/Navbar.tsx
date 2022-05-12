@@ -57,7 +57,7 @@ export default function Navbar() {
             </button>
           </ul>
         </div>
-        <button className="flex font-medium w-26 hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-300">
+        <button className="flex font-medium hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-200">
           Log Out <FiLogOut className="mt-1 ml-2" />
         </button>
       </nav>

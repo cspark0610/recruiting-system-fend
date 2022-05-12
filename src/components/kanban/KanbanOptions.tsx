@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { BsSearch } from 'react-icons/bs';
 import {
   GetAllCandidates,
-  CleanErrors,
+  CleanCandidateErrors,
   CleanFilters,
 } from '../../redux/candidates/actions/CandidateAction';
 import Filters from './Filters';
@@ -22,13 +22,13 @@ export default function KanbanOptions() {
   detectOutsideClick(wrapperRef, [setShowCreateDropdown]);
 
   const handleCleanFilters = () => {
-    dispatch(CleanErrors(dispatch));
+    dispatch(CleanCandidateErrors(dispatch));
     dispatch(CleanFilters(dispatch));
     dispatch(GetAllCandidates());
   };
 
   return (
-    <div className="flex justify-between pb-2 mt-36 ml-48 w-[80rem] border-b-2">
+    <div className="flex justify-between pb-2 mt-36 ml-48 laptop:ml-0 desktop:ml-48 w-[80rem] border-b-2">
       <div className="flex space-x-4">
         <Filters />
         <div
@@ -51,7 +51,7 @@ export default function KanbanOptions() {
           {showSearch ? <Search /> : null}
         </div>
         <button
-          className="text-[#00ADEF] transition ease duration-300 hover:bg-sky-400 hover:text-white px-2 rounded-md"
+          className="text-[#00ADEF] transition ease duration-200 hover:bg-sky-400 hover:text-white px-2 rounded-md"
           onClick={handleCleanFilters}
         >
           Clean Filters
