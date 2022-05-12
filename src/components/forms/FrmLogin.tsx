@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import { BsEyeSlashFill } from "react-icons/bs";
-import { batch, useDispatch, useSelector } from "react-redux";
-import { State } from "../../redux/store/store";
-import { GetAllUsers } from "../../redux/users/actions/UserAction";
-import GoogleSignIn from "../buttons/GoogleSignIn";
-import Toast from "../extras/Toast";
+import { useEffect, useState } from 'react';
+import { BsEyeSlashFill } from 'react-icons/bs';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { State } from '../../redux/store/store';
+import { GetAllUsers } from '../../redux/users/actions/UserAction';
+import Toast from '../extras/Toast';
 
 const FrmLogin = () => {
   /*  */
   const dispatch = useDispatch();
   const users = useSelector((state: State) => state.user.users);
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [hidePassword, setHidePassword] = useState<string>("password");
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [hidePassword, setHidePassword] = useState<string>('password');
   const typePassword = hidePassword;
   const [usernameValid, setUsernameValid] = useState<boolean>(false);
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
@@ -21,7 +20,7 @@ const FrmLogin = () => {
     batch(() => {
       dispatch(GetAllUsers());
     });
-    window.document.title = "WorkAt - Login";
+    window.document.title = 'WorkAt - Login';
   }, [dispatch]);
 
   const RegExp = {
@@ -29,10 +28,10 @@ const FrmLogin = () => {
   };
 
   const showPassword = () => {
-    if (hidePassword === "password") {
-      setHidePassword("text");
+    if (hidePassword === 'password') {
+      setHidePassword('text');
     } else {
-      setHidePassword("password");
+      setHidePassword('password');
     }
   };
 
@@ -42,11 +41,11 @@ const FrmLogin = () => {
   };
 
   const handleUsername = (evt: any) => {
-    setUsername(evt.target.value.replace(RegExp, ""));
+    setUsername(evt.target.value.replace(RegExp, ''));
   };
 
   const handlePassword = (evt: any) => {
-    setPassword(evt.target.value.replace(RegExp, ""));
+    setPassword(evt.target.value.replace(RegExp, ''));
   };
 
   const handleLogin = (evt: { preventDefault: () => void }) => {
@@ -54,15 +53,15 @@ const FrmLogin = () => {
     isFormValid();
     const userData = users.find((info: any) => info.email === username);
     if (userData) {
-      console.log("user: ", userData.email);
+      console.log('user: ', userData.email);
       if (userData.name !== password) {
         //Invalid password
-        console.log("invalid password");
+        console.log('invalid password');
       } else {
-        console.log("valid password:", userData.name);
+        console.log('valid password:', userData.name);
       }
     } else {
-      console.log("user not found");
+      console.log('user not found');
     }
   };
 
@@ -86,10 +85,10 @@ const FrmLogin = () => {
             <input
               className={`${
                 usernameValid
-                  ? "bg-white border-red-color border"
-                  : "bg-light-color border-light-color"
+                  ? 'bg-white border-red-color border'
+                  : 'bg-light-color border-light-color'
               } ${
-                username && "!border-cyan-color bg-light-blue"
+                username && '!border-cyan-color bg-light-blue'
               } focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
               type="text"
               id="username"
@@ -114,10 +113,10 @@ const FrmLogin = () => {
               <input
                 className={`${
                   passwordValid
-                    ? "bg-white border-red-color border"
-                    : "bg-light-color border-light-color"
+                    ? 'bg-white border-red-color border'
+                    : 'bg-light-color border-light-color'
                 } ${
-                  password && "!border-cyan-color bg-light-blue"
+                  password && '!border-cyan-color bg-light-blue'
                 } focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
                 type={typePassword}
                 id="password"
@@ -168,7 +167,6 @@ const FrmLogin = () => {
         </div>
 
         {/* Button to login with google */}
-        <GoogleSignIn handleRegister={handleRegister} />
       </section>
     </section>
   );
