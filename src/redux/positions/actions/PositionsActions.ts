@@ -31,8 +31,9 @@ import {
 } from '../../../config/routes/endpoints';
 
 import { IPosition } from '../types/data';
+import { VIEW_LOGIN } from '../../../config/routes/paths';
 
-import ClientAxios from '../../../config/api/axios';
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
@@ -75,6 +76,9 @@ export function GetActivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
+        if (error.response.status === 401 || error.response.status === 400) {
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -109,6 +113,9 @@ export function GetInactivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
+        if (error.response.status === 401 || error.response.status === 400) {
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -174,6 +181,9 @@ export function createPosition(positionInfo: IPosition) {
       });
     } catch (error: any) {
       if (error.response) {
+        if (error.response.status === 401 || error.response.status === 400) {
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         return dispatch<SetPositionErrorAction>({
@@ -208,6 +218,9 @@ export function SetIsActive(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
+        if (error.response.status === 401 || error.response.status === 400) {
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
 
         dispatch<SetPositionErrorAction>({
@@ -242,7 +255,7 @@ export function DeletePosition(_id: string) {
     dispatch({ type: ActionTypes.SET_IS_UPDATING });
 
     try {
-      const { data } = await ClientAxios.delete<DeletePositionResponse>(
+      const { data } = await PrivateAxios.delete<DeletePositionResponse>(
         `${DELETE_POSITION}/${_id}`,
       );
 
@@ -254,6 +267,9 @@ export function DeletePosition(_id: string) {
       });
     } catch (error) {
       if (error.response) {
+        if (error.response.status === 401 || error.response.status === 400) {
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
 
         dispatch<SetPositionErrorAction>({

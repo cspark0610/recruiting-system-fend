@@ -1,25 +1,45 @@
 import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import { VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import detectOutsideClick from '../../utils/detectOutsideClick';
+import { LogOut } from '../../redux/users/actions/UserAction';
 
 export default function Navbar() {
+  const dispatch = useDispatch();
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+
+  const userInfo = window.localStorage.getItem('user')
+    ? JSON.parse(window.localStorage.getItem('user') as string)
+    : null;
 
   const profileMenuRef = useRef<HTMLDivElement>(null);
   detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
+
+  const handleLogout = () => {
+    dispatch(LogOut());
+  };
 
   return (
     <header className="absolute top-0 left-0 w-screen">
       <nav className="flex flex-row text-white items-center justify-evenly p-4 bg-[#475564]">
         <div className="relative" ref={profileMenuRef}>
-          <button
-            onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="font-medium"
-          >
-            Hello User
-          </button>
+          <div className="flex space-x-3">
+            {userInfo?.picture ? (
+              <img
+                src={userInfo.picture}
+                alt="profile pic"
+                className="w-10 h-10 rounded-full"
+              />
+            ) : null}
+            <button
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              className="font-medium"
+            >
+              Hello {userInfo?.name.split(' ')[0] || 'User'}
+            </button>
+          </div>
           <div
             className={
               showProfileMenu
@@ -57,7 +77,10 @@ export default function Navbar() {
             </button>
           </ul>
         </div>
-        <button className="flex font-medium hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-200">
+        <button
+          onClick={handleLogout}
+          className="flex font-medium hover:cursor-pointer hover:bg-white hover:text-black p-2 rounded-md hover:transition ease-in-out duration-200"
+        >
           Log Out <FiLogOut className="mt-1 ml-2" />
         </button>
       </nav>

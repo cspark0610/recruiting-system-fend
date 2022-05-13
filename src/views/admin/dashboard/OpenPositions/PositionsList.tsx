@@ -51,7 +51,7 @@ export default function PositionsList() {
             isAdmin
           />
           {loading ? (
-            <div className="absolute w-full h-[55rem] top-0 left-0 z-20">
+            <div className="absolute w-full h-[55rem] top-0 left-0">
               <LoaderSpinner
                 width="w-10"
                 height="h-10"

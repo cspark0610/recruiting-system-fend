@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import {
   ClearCandidateDetail,
+  GenerateUrl,
   GetAllCandidates,
   UpdateCandidateStatus,
 } from '../../redux/candidates/actions/CandidateAction';
@@ -102,6 +103,13 @@ const UserDialog: React.FC<Props> = ({
   };
 
   const isStatusConfirm = (secondary_status: string) => {
+    if (
+      detail.main_status === 'interested' &&
+      secondary_status === 'approved'
+    ) {
+      dispatch(GenerateUrl(detail._id));
+    }
+
     dispatch(
       UpdateCandidateStatus(detail._id, detail.main_status, secondary_status),
     );

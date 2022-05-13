@@ -61,6 +61,7 @@ const initialState: InitialState = {
     isRejected: false,
   },
   detailFinishedLoading: false,
+  url_id: '',
   user: {
     college: '',
     salary: '',
@@ -101,6 +102,14 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         detail: action.payload,
+      };
+    }
+
+    case ActionTypes.VALIDATE_TOKEN: {
+      return {
+        ...state,
+        detail: action.payload.decoded.candidate,
+        url_id: action.payload.decoded.url_id,
       };
     }
 

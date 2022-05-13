@@ -75,6 +75,17 @@ export type CleanFiltersAction = {
   type: ActionTypes.CLEAN_FILTERS;
 };
 
+export type ValidateTokenAction = {
+  type: ActionTypes.VALIDATE_TOKEN;
+  payload: {
+    status: number;
+    decoded: {
+      candidate: ICandidate;
+      url_id: string;
+    };
+  };
+};
+
 export type Action =
   | GetCandidatesAction
   | GetCandidatesFilteredAction
@@ -89,4 +100,5 @@ export type Action =
   | ClearCandidateDetailAction
   | SetDetailFinishedLoadingAction
   | CleanCandidateSuccessAction
-  | SetCandidateSuccessAction;
+  | SetCandidateSuccessAction
+  | ValidateTokenAction;

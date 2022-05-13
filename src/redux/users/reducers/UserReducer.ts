@@ -1,17 +1,28 @@
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   users: [],
+  info: {
+    _id: '',
+    name: '',
+    email: '',
+    phone: '',
+    position_name: '',
+    role: {
+      _id: '',
+      name: '',
+    },
+  },
   loading: false,
   error: {
     status: 400,
-    message: "",
+    message: '',
   },
   success: {
     status: 200,
-    message: "",
+    message: '',
   },
 };
 
@@ -23,6 +34,14 @@ function UserReducer(state = initialState, action: Action) {
         users: action.payload,
       };
     }
+
+    case ActionTypes.SET_USER_INFO: {
+      return {
+        ...state,
+        info: action.payload,
+      };
+    }
+
     case ActionTypes.SET_IS_USER_LOADING: {
       return {
         ...state,

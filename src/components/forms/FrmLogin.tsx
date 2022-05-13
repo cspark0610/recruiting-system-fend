@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
-import { BsEyeSlashFill } from "react-icons/bs";
-import { batch, useDispatch, useSelector } from "react-redux";
-import { State } from "../../redux/store/store";
-import { GetAllUsers } from "../../redux/users/actions/UserAction";
-import GoogleSignIn from "../buttons/GoogleSignIn";
-import Toast from "../extras/Toast";
+import { useEffect, useState } from 'react';
+import { BsEyeSlashFill } from 'react-icons/bs';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { State } from '../../redux/store/store';
+import { GetAllUsers, Login } from '../../redux/users/actions/UserAction';
+import { VIEW_KANBAN } from '../../config/routes/paths';
+import LoaderSpinner from '../../assets/loaderSpinner';
+import ErrorMessages from './ErrorMessages';
+import GoogleButton from '../buttons/GoogleButton';
 
 const FrmLogin = () => {
   /*  */
   const dispatch = useDispatch();
-  const users = useSelector((state: State) => state.user.users);
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [hidePassword, setHidePassword] = useState<string>("password");
+
+  const loading = useSelector((state: State) => state.user.loading);
+  const success = useSelector((state: State) => state.user.success);
+  const error = useSelector((state: State) => state.user.error);
+
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [hidePassword, setHidePassword] = useState<string>('password');
   const typePassword = hidePassword;
   const [usernameValid, setUsernameValid] = useState<boolean>(false);
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
@@ -21,7 +27,7 @@ const FrmLogin = () => {
     batch(() => {
       dispatch(GetAllUsers());
     });
-    window.document.title = "WorkAt - Login";
+    window.document.title = 'WorkAt - Login';
   }, [dispatch]);
 
   const RegExp = {
@@ -29,10 +35,10 @@ const FrmLogin = () => {
   };
 
   const showPassword = () => {
-    if (hidePassword === "password") {
-      setHidePassword("text");
+    if (hidePassword === 'password') {
+      setHidePassword('text');
     } else {
-      setHidePassword("password");
+      setHidePassword('password');
     }
   };
 
@@ -42,28 +48,29 @@ const FrmLogin = () => {
   };
 
   const handleUsername = (evt: any) => {
-    setUsername(evt.target.value.replace(RegExp, ""));
+    setUsername(evt.target.value.replace(RegExp, ''));
   };
 
   const handlePassword = (evt: any) => {
-    setPassword(evt.target.value.replace(RegExp, ""));
+    setPassword(evt.target.value.replace(RegExp, ''));
   };
 
   const handleLogin = (evt: { preventDefault: () => void }) => {
     evt.preventDefault();
     isFormValid();
-    const userData = users.find((info: any) => info.email === username);
-    if (userData) {
-      console.log("user: ", userData.email);
-      if (userData.name !== password) {
-        //Invalid password
-        console.log("invalid password");
-      } else {
-        console.log("valid password:", userData.name);
-      }
-    } else {
-      console.log("user not found");
-    }
+
+    dispatch(Login({ email: username, password }));
+  };
+
+  if (success.message.includes('Login')) {
+    window.location.href = VIEW_KANBAN;
+  }
+
+  const CLIENT_ID =
+    '564534888385-36u4qfv42jb0s38h026i2t608dukd2hh.apps.googleusercontent.com';
+
+  const handleSuccess = (result: any) => {
+    dispatch(Login({ tokenId: result.credential }, true));
   };
 
   const handleRegister = (evt: { preventDefault: () => void }) => {
@@ -76,26 +83,36 @@ const FrmLogin = () => {
         <div className="w-full p-3 mt-auto">
           <div className="relative">
             <div className="block mb-[12px]">
+              <ErrorMessages
+                errorTerms={['Invalid']}
+                errorState={error}
+                className="flex justify-center"
+              />
               <label
                 htmlFor="username"
                 className="font-raleway font-semibold text-[15px] leading-[17.61px] text-gray-color"
               >
-                User:
+                Email:
               </label>
             </div>
             <input
               className={`${
                 usernameValid
-                  ? "bg-white border-red-color border"
-                  : "bg-light-color border-light-color"
+                  ? 'bg-white border-red-color border'
+                  : 'bg-light-color border-light-color'
               } ${
-                username && "!border-cyan-color bg-light-blue"
+                username && '!border-cyan-color bg-light-blue'
               } focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
               type="text"
               id="username"
               name="username"
               value={username}
               onChange={handleUsername}
+            />
+            <ErrorMessages
+              errorTerms={['Email', 'must be an email', 'FullTimeForce']}
+              errorState={error}
+              className="flex flex-col mt-2"
             />
           </div>
         </div>
@@ -114,10 +131,10 @@ const FrmLogin = () => {
               <input
                 className={`${
                   passwordValid
-                    ? "bg-white border-red-color border"
-                    : "bg-light-color border-light-color"
+                    ? 'bg-white border-red-color border'
+                    : 'bg-light-color border-light-color'
                 } ${
-                  password && "!border-cyan-color bg-light-blue"
+                  password && '!border-cyan-color bg-light-blue'
                 } focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
                 type={typePassword}
                 id="password"
@@ -133,7 +150,16 @@ const FrmLogin = () => {
               </span>
             </div>
           </div>
+          <ErrorMessages
+            errorTerms={['Password']}
+            errorState={error}
+            className="flex flex-col mt-2"
+          />
         </div>
+
+        {loading ? (
+          <LoaderSpinner height="h-7" width="w-7" classes="mt-7 ml-[13.5rem]" />
+        ) : null}
 
         {/* buttons to login or register */}
         <div className="flex flex-row align-middle justify-center gap-5 mt-[34px]">
@@ -148,6 +174,7 @@ const FrmLogin = () => {
           <div className="flex justify-center mb-3 mobile:mt-5 laptop:mt-5 tablet:mt-16">
             <input
               className={`w-[132px] h-[54px] cursor-pointer rounded-[10px] bg-cyan-color hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway focus:outline-none`}
+              disabled={loading}
               type="submit"
               value="Log In"
               onClick={handleLogin}
@@ -168,7 +195,11 @@ const FrmLogin = () => {
         </div>
 
         {/* Button to login with google */}
-        <GoogleSignIn handleRegister={handleRegister} />
+        <GoogleButton
+          handleSuccess={handleSuccess}
+          text="signin_with"
+          CLIENT_ID={CLIENT_ID}
+        />
       </section>
     </section>
   );

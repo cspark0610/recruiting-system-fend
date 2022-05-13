@@ -29,3 +29,11 @@ export type UpdateCandidateStatusResponse = {
   status: number;
   message: string;
 };
+
+export type ValidateTokenResponse = {
+  status: number;
+  decoded: {
+    candidate: ICandidate;
+    url_id: string;
+  };
+};

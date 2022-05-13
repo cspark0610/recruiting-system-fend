@@ -2,10 +2,13 @@ export type IUser = {
   _id?: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   position_name?: string;
   phone?: string;
-  role?: Types.ObjectId;
+  role?: {
+    _id?: string;
+    name: string;
+  };
 };
 
 export type IError = {

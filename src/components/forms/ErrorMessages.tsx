@@ -1,25 +1,29 @@
-import { useSelector } from 'react-redux';
-import { State } from '../../redux/store/store';
-
 type ErrorMessagesProps = {
   errorTerms: string[];
+  errorState: any;
   className?: string;
 };
 
 export default function ErrorMessages({
   errorTerms,
+  errorState,
   className,
 }: ErrorMessagesProps) {
-  const error = useSelector((state: State) => state.positions.error);
-  const errorMessages = Object.entries(error.message).map(
-    ([_key, value]) => value,
-  );
+  let errorMessages;
+
+  if (typeof errorState.message !== 'object') {
+    errorMessages = errorState.message.split('\n');
+  } else {
+    errorMessages = Object.entries(errorState.message).map(
+      ([_key, value]) => value,
+    );
+  }
 
   return (
     <>
       {errorMessages.length === 1 &&
       errorTerms.includes(errorMessages[0] as string) ? (
-        <span className="text-red-500 ml-4">{error.message}</span>
+        <span className="text-red-500 ml-4">{errorState.message}</span>
       ) : (
         <div className={`${className}`}>
           {errorMessages.map((msg: any) =>

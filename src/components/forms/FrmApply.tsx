@@ -105,7 +105,6 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   }, [name, email, birth, phone, idiom, nation, linkedin, portfolio, file]);
 
   /*  */
-  const CreateNewUser = (user: any) => dispatch(CreateCandidate(user));
   const loading = useSelector((state: State) => state.info.loading);
 
   /* OnSubmit */
@@ -129,8 +128,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
     if (!name || !email || !phone || !idiom || !nation || !terms) {
       return;
     } else {
-      console.log(idiom, nation);
-      CreateNewUser(formData);
+      dispatch(CreateCandidate(formData));
 
       if (!loading) {
         navigate(VIEW_HOME_THANKS);
