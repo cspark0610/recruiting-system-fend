@@ -61,18 +61,12 @@ export function Login(
     dispatch<SetUserLoadingAction>({ type: ActionTypes.SET_IS_USER_LOADING });
 
     try {
-      const { data } = await ClientAxios.post<LoginUserResponse>(
-        LOGIN_USER,
-        {
-          email: userInfo.email,
-          password: userInfo.password,
-          tokenId: userInfo.tokenId,
-          googleLogin,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      const { data } = await ClientAxios.post<LoginUserResponse>(LOGIN_USER, {
+        email: userInfo.email,
+        password: userInfo.password,
+        tokenId: userInfo.tokenId,
+        googleLogin,
+      });
 
       dispatch<SetUserLoadingAction>({
         type: ActionTypes.SET_IS_USER_NOT_LOADING,

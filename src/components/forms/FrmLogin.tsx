@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BsEyeSlashFill } from 'react-icons/bs';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
-import { GetAllUsers, Login } from '../../redux/users/actions/UserAction';
+import { Login } from '../../redux/users/actions/UserAction';
 import { VIEW_KANBAN } from '../../config/routes/paths';
 import LoaderSpinner from '../../assets/loaderSpinner';
 import ErrorMessages from './ErrorMessages';
@@ -24,9 +24,6 @@ const FrmLogin = () => {
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
 
   useEffect(() => {
-    batch(() => {
-      dispatch(GetAllUsers());
-    });
     window.document.title = 'WorkAt - Login';
   }, [dispatch]);
 
@@ -183,7 +180,7 @@ const FrmLogin = () => {
         </div>
         <div className="text-center mt-[17px]">
           <span className="text-gray-color font-raleway font-semibold font-[15px] leading-[17.61px]">
-            *Forgot your password?
+            Forgot your password?
           </span>
         </div>
         <div className="flex flex-row align-middle justify-center mt-[17px]">

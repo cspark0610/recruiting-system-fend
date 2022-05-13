@@ -18,7 +18,6 @@ export const PrivateAxios = axios.create({
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem('access')}`,
   },
-  withCredentials: true,
 });
 
 export default ClientAxios;

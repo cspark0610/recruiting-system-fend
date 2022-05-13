@@ -16,6 +16,7 @@ const initialState: InitialState = {
     },
   },
   loading: false,
+  authenticated: false,
   error: {
     status: 400,
     message: '',
@@ -64,6 +65,7 @@ function UserReducer(state = initialState, action: Action) {
       return {
         ...state,
         success: action.payload,
+        authenticated: true,
       };
     }
     default:

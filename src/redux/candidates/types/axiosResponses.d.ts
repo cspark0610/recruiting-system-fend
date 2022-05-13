@@ -30,6 +30,11 @@ export type UpdateCandidateStatusResponse = {
   message: string;
 };
 
+export type GenerateUrlResponse = {
+  status: number;
+  url: string;
+};
+
 export type ValidateTokenResponse = {
   status: number;
   decoded: {

@@ -34,11 +34,12 @@ import { IPosition } from '../types/data';
 import { VIEW_LOGIN } from '../../../config/routes/paths';
 
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
+import cleanLocalStorage from '../../../utils/cleanLocalStorage';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await ClientAxios.get<GetAllPositionsResponse>(
+      const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
         `${GET_ALL_POSITIONS}?list=${list}`,
       );
 
@@ -48,6 +49,10 @@ export default function getAllPositions(list: string) {
       });
     } catch (error: any) {
       if (error.response) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
+          window.location.href = VIEW_LOGIN;
+        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -64,7 +69,7 @@ export function GetActivePositions(limit: number, page?: number) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-      const { data } = await ClientAxios.get<GetAllPositionsResponse>(
+      const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
         `${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=active`,
       );
 
@@ -76,7 +81,8 @@ export function GetActivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
           window.location.href = VIEW_LOGIN;
         }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -101,7 +107,7 @@ export function GetInactivePositions(limit: number, page?: number) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-      const { data } = await ClientAxios.get<GetAllPositionsResponse>(
+      const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
         `${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=inactive`,
       );
 
@@ -113,7 +119,8 @@ export function GetInactivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
           window.location.href = VIEW_LOGIN;
         }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -136,7 +143,7 @@ export function GetInactivePositions(limit: number, page?: number) {
 export function getPositionInfo(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await ClientAxios.get<GetPositionResponse>(
+      const { data } = await PrivateAxios.get<GetPositionResponse>(
         `${GET_ALL_POSITIONS}/${_id}`,
       );
 
@@ -160,7 +167,7 @@ export function createPosition(positionInfo: IPosition) {
     dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_LOADING });
 
     try {
-      const { data } = await ClientAxios.post<CreatePositionResponse>(
+      const { data } = await PrivateAxios.post<CreatePositionResponse>(
         CREATE_POSITION,
         positionInfo,
       );
@@ -181,7 +188,8 @@ export function createPosition(positionInfo: IPosition) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
           window.location.href = VIEW_LOGIN;
         }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
@@ -206,7 +214,7 @@ export function SetIsActive(_id: string) {
     dispatch({ type: ActionTypes.SET_IS_UPDATING });
 
     try {
-      const { data } = await ClientAxios.put<SetIsActiveResponse>(
+      const { data } = await PrivateAxios.put<SetIsActiveResponse>(
         `${SET_IS_ACTIVE}/${_id}`,
       );
 
@@ -218,7 +226,8 @@ export function SetIsActive(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
           window.location.href = VIEW_LOGIN;
         }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
@@ -267,7 +276,8 @@ export function DeletePosition(_id: string) {
       });
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401) {
+          cleanLocalStorage();
           window.location.href = VIEW_LOGIN;
         }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });

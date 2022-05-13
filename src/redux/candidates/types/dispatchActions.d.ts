@@ -62,6 +62,14 @@ export type SetCandidateSuccessAction = {
   };
 };
 
+export type GenerateUrlAction = {
+  type: ActionTypes.GENERATE_URL;
+  payload: {
+    status: number;
+    url: string;
+  };
+};
+
 export type SetCurrentFiltersAction = {
   type: ActionTypes.SET_CURRENT_FILTERS;
   payload: {
@@ -101,4 +109,5 @@ export type Action =
   | SetDetailFinishedLoadingAction
   | CleanCandidateSuccessAction
   | SetCandidateSuccessAction
-  | ValidateTokenAction;
+  | ValidateTokenAction
+  | GenerateUrlAction;

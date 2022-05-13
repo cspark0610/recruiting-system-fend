@@ -59,6 +59,7 @@ const initialState: InitialState = {
     },
     cv: '',
     isRejected: false,
+    url_link_2: '',
   },
   detailFinishedLoading: false,
   url_id: '',

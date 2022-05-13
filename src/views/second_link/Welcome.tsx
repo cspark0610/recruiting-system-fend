@@ -20,7 +20,7 @@ const Welcome = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
 
-  if (error.message === 'Invalid access token') {
+  if (error.status === 401) {
     window.location.href = VIEW_404;
   }
 
@@ -47,7 +47,7 @@ const Welcome = () => {
         <Slider />
         <Next
           name={t('submit_button.name')}
-          link={VIEW_INSTRUCTIONS}
+          link={`${VIEW_INSTRUCTIONS}?token=${token}`}
           width="mobile:w-32"
         />
       </section>

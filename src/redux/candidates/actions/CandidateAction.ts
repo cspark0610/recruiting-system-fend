@@ -53,6 +53,8 @@ import {
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 import { Filters } from '../types/data';
+import cleanLocalStorage from '../../../utils/cleanLocalStorage';
+import { VIEW_LOGIN } from '../../../config/routes/paths';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -75,6 +77,15 @@ export function GetAllCandidates() {
       });
     } catch (error: any) {
       if (error.response) {
+        if (
+          error.response.status === 401 ||
+          error.response.data.message === 'Invalid access token'
+        ) {
+          dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+          cleanLocalStorage();
+          window.location.href = VIEW_LOGIN;
+        }
+
         dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
         dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
@@ -244,10 +255,10 @@ export function GenerateUrl(_id: string) {
     try {
       const { data } = await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
 
-      return dispatch<SetCandidateSuccessAction>({
+      dispatch<SetCandidateSuccessAction>({
         type: ActionTypes.SET_CANDIDATE_SUCCESS,
         payload: {
-          status: 200,
+          status: 201,
           message: data.message,
         },
       });

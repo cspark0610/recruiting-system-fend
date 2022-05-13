@@ -6,9 +6,17 @@ import { State } from '../../../../redux/store/store';
 
 const General = () => {
   const details = useSelector((state: State) => state.info.detail);
+  const url_link_2 = details.url_link_2;
 
   const birthYear = details.birth_date?.split('-')[0];
   const age = new Date().getFullYear() - birthYear;
+
+  const handleCopy = (text: string) => {
+    if (text === '' || !text) return;
+
+    navigator.clipboard.writeText(text);
+    alert('Link copied');
+  };
 
   return (
     <div className="grid justify-items-center">
@@ -86,7 +94,7 @@ const General = () => {
                 </a>
               </span>
             </p>
-            <p className="font-normal">
+            <p className="font-normal my-2">
               Other Links: &nbsp;
               <span className="text-cyan-color">
                 <a
@@ -96,6 +104,15 @@ const General = () => {
                 >
                   {details.portfolio ? details.portfolio : 'N/A'}
                 </a>
+              </span>
+            </p>
+            <p className="font-normal">
+              Link 2 URL: &nbsp;
+              <span
+                onClick={() => handleCopy(url_link_2)}
+                className="text-cyan-color hover:cursor-pointer"
+              >
+                {url_link_2 ? url_link_2 : 'N/A'}
               </span>
             </p>
           </div>
