@@ -34,6 +34,7 @@ export type ICandidate = {
   videos_question_list?: Array<IQuestion>;
   cv?: string;
   isRejected?: boolean;
+  url_link_2: string;
   createdAt?: Date;
   updatedAt?: Date;
 };

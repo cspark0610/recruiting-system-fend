@@ -1,37 +1,33 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 /* Components */
-import Loading from "../extras/Loading";
-import Submit from "../buttons/Submit";
-import SingleSelect from "../inputs/SingleSelect";
-import TextArea from "../inputs/TextArea";
-import Currency from "../inputs/Currency";
+import Loading from '../extras/Loading';
+import Submit from '../buttons/Submit';
+import SingleSelect from '../inputs/SingleSelect';
+import TextArea from '../inputs/TextArea';
+import Currency from '../inputs/Currency';
 
 /* Paths */
-import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";
+import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from '../../config/routes/paths';
 
 /* Json files */
-import Training from "../../assets/json/College.json";
-import Available from "../../assets/json/Available.json";
-import Skills from "../../assets/json/Skills.json";
-import Coins from "../../assets/json/Coin.json";
+import Training from '../../assets/json/College.json';
+import Available from '../../assets/json/Available.json';
+import Skills from '../../assets/json/Skills.json';
+import Coins from '../../assets/json/Coin.json';
 
 /* Redux */
-import { State } from "../../redux/store/store";
-import { useDispatch, useSelector } from "react-redux";
+import { State } from '../../redux/store/store';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AddCandidate,
   DataSaveEdit,
-} from "../../redux/candidates/actions/CandidateAction";
-import MultipleSelect from "../inputs/MultipleSelect";
+} from '../../redux/candidates/actions/CandidateAction';
+import MultipleSelect from '../inputs/MultipleSelect';
 
-interface Props {
-  _id: string | null;
-}
-
-const FrmData = ({ _id }: Props) => {
+const FrmData = () => {
   /*  */
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,17 +48,19 @@ const FrmData = ({ _id }: Props) => {
 
   const { skills, training, time, coins } = optionValues;
 
+  const candidateDetail = useSelector((state: State) => state.info.detail);
+
   const DataToEdit = useSelector((state: any) => state.info.user);
   const toEdit = useSelector((state: any) => state.info.isToEdit);
   const userID = useSelector((state: any) => state.info.userId);
 
   /* States from the component */
-  let [college, setCollege] = useState({ id: 0, name: "" });
-  let [currency, setCurrency] = useState({ id: 0, name: "" });
-  let [salary, setSalary] = useState("");
-  let [available, setAvailable] = useState({ id: 0, name: "" });
-  let [skill, setSkill] = useState<string | Blob>("");
-  let [description, setDescription] = useState("");
+  let [college, setCollege] = useState({ id: 0, name: '' });
+  let [currency, setCurrency] = useState({ id: 0, name: '' });
+  let [salary, setSalary] = useState('');
+  let [available, setAvailable] = useState({ id: 0, name: '' });
+  let [skill, setSkill] = useState<string | Blob>('');
+  let [description, setDescription] = useState('');
 
   /* Values which will be validated */
   const [isCollegeValid, setIsCollegeValid] = useState(false);
@@ -77,19 +75,19 @@ const FrmData = ({ _id }: Props) => {
 
   /* Function to store validation */
   const isFormValid = () => {
-    college.name === "" ? setIsCollegeValid(true) : setIsCollegeValid(false);
-    currency.name === "" ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
-    salary === "" ? setIsSalaryValid(true) : setIsSalaryValid(false);
+    college.name === '' ? setIsCollegeValid(true) : setIsCollegeValid(false);
+    currency.name === '' ? setIsCurrencyValid(true) : setIsCurrencyValid(false);
+    salary === '' ? setIsSalaryValid(true) : setIsSalaryValid(false);
     !skill ? setIsSkillValid(true) : setIsSkillValid(false);
   };
 
   /* FORM DATA */
   const formData = new FormData();
-  formData.append("academic_training", college.name);
-  formData.append("salary_expectations", salary);
-  formData.append("available_from", available.name);
-  formData.append("skill", skill);
-  formData.append("working_reason", description);
+  formData.append('academic_training', college.name);
+  formData.append('salary_expectations', salary);
+  formData.append('available_from', available.name);
+  formData.append('skill', skill);
+  formData.append('working_reason', description);
 
   /* OnSubmit */
   const onSubmit = (evt: any) => {
@@ -122,12 +120,12 @@ const FrmData = ({ _id }: Props) => {
     navigate(VIEW_VIDEO_COMPLETED);
   };
 
-  const name_user = "Sebastian Montenegro Abad";
+  const name = candidateDetail.name;
 
   return (
     <section className="grid place-items-center h-full mt-10 bg-white mobile:p-5">
       <h2 className="font-raleway text-gray-color mobile:text-sm laptop:text-xl mb-3 mobile:w-full laptop:w-9/12 tablet:w-11/12">
-        {t("info.title", { name_user })}
+        Hello, {name}
       </h2>
       <section className="laptop:w-9/12 mobile:w-full tablet:w-11/12 bg-white">
         <div className="flex flex-wrap -mx-3">
@@ -136,8 +134,8 @@ const FrmData = ({ _id }: Props) => {
             data={training}
             for="college"
             id="college"
-            label={t("info.idiom.label")}
-            placeholder={t("info.idiom.placeholder")}
+            label={t('info.idiom.label')}
+            placeholder={t('info.idiom.placeholder')}
             setValue={setCollege}
             showAlert={isCollegeValid}
             value={college}
@@ -145,8 +143,8 @@ const FrmData = ({ _id }: Props) => {
           />
           <Currency
             id="salary"
-            label={t("info.currency.placeholder")}
-            placeholder={t("info.currency.placeholder")}
+            label={t('info.currency.placeholder')}
+            placeholder={t('info.currency.placeholder')}
             RegExp={RegExp.numbers}
             setValue={setSalary}
             showAlert={isSalaryValid}
@@ -161,8 +159,8 @@ const FrmData = ({ _id }: Props) => {
             data={time}
             for="available"
             id="available"
-            label={t("info.available.label")}
-            placeholder={t("info.available.placeholder")}
+            label={t('info.available.label')}
+            placeholder={t('info.available.placeholder')}
             setValue={setAvailable}
             value={available}
             width="laptop:w-1/3 mobile:w-1/2 tablet:w-1/3"
@@ -183,7 +181,7 @@ const FrmData = ({ _id }: Props) => {
         </div>
         {!toEdit ? (
           <Submit
-            name={t("submit_button.name")}
+            name={t('submit_button.name')}
             width="w-full tablet:w-28"
             onSubmit={onSubmit}
           />
