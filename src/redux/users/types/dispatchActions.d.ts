@@ -6,6 +6,11 @@ export type GetUsersActions = {
   payload: IUser[];
 };
 
+export type SetUserInfoAction = {
+  type: ActionTypes.SET_USER_INFO;
+  payload: IUser;
+};
+
 export type SetUserLoadingAction = {
   type: ActionTypes.SET_IS_USER_LOADING | ActionTypes.SET_IS_USER_NOT_LOADING;
 };
@@ -22,6 +27,7 @@ export type SetUserSuccessAction = {
 
 export type Action =
   | GetUsersActions
+  | SetUserInfoAction
   | SetUserLoadingAction
   | SetUserErrorAction
   | SetUserSuccessAction;

@@ -62,6 +62,14 @@ export type SetCandidateSuccessAction = {
   };
 };
 
+export type GenerateUrlAction = {
+  type: ActionTypes.GENERATE_URL;
+  payload: {
+    status: number;
+    url: string;
+  };
+};
+
 export type SetCurrentFiltersAction = {
   type: ActionTypes.SET_CURRENT_FILTERS;
   payload: {
@@ -73,6 +81,17 @@ export type SetCurrentFiltersAction = {
 
 export type CleanFiltersAction = {
   type: ActionTypes.CLEAN_FILTERS;
+};
+
+export type ValidateTokenAction = {
+  type: ActionTypes.VALIDATE_TOKEN;
+  payload: {
+    status: number;
+    decoded: {
+      candidate: ICandidate;
+      url_id: string;
+    };
+  };
 };
 
 export type Action =
@@ -89,4 +108,6 @@ export type Action =
   | ClearCandidateDetailAction
   | SetDetailFinishedLoadingAction
   | CleanCandidateSuccessAction
-  | SetCandidateSuccessAction;
+  | SetCandidateSuccessAction
+  | ValidateTokenAction
+  | GenerateUrlAction;

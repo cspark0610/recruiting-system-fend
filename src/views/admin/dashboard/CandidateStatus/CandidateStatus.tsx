@@ -21,6 +21,9 @@ export default function CandidateStatus() {
 
   const success = useSelector((state: State) => state.info.success);
   const error = useSelector((state: State) => state.info.error);
+  const isAuthenticated = useSelector(
+    (state: State) => state.user.authenticated,
+  );
   let candidates = useSelector((state: State) => state.info.candidates);
 
   candidates = getCandidatesByColumn(candidates);
@@ -37,7 +40,7 @@ export default function CandidateStatus() {
       dispatch(GetAllCandidates());
     });
     window.document.title = 'WorkAt - Candidate Status';
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div>

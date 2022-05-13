@@ -12,7 +12,6 @@ export default function GoogleButton({
   handleSuccess,
 }: GoogleButtonProps) {
   const divRef = useRef<HTMLDivElement>(null);
-  let btnText = text;
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.google || !divRef.current) {
@@ -27,13 +26,14 @@ export default function GoogleButton({
       window.google.accounts.id.renderButton(divRef.current, {
         type: 'standard',
         theme: 'outline',
-        text: btnText,
+        text,
         size: 'large',
       });
     } catch (error) {
       console.error(error);
     }
-  }, [CLIENT_ID, handleSuccess]);
+
+  }, [CLIENT_ID, handleSuccess, text]);
 
   return <div ref={divRef} className="flex justify-center mt-4"></div>;
 }

@@ -1,15 +1,34 @@
-import { useTranslation } from "react-i18next";
-import Next from "../../components/buttons/Next";
-import Lang from "../../components/extras/Lang";
-import Header from "../../components/header/Header";
-import CameraOn from "../../components/recorder/CameraOn";
-import { VIEW_BEFORE_STARTING } from "../../config/routes/paths";
-import { UseCamera } from "../../hooks/useCamera";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { ValidateToken } from '../../redux/candidates/actions/CandidateAction';
+import Next from '../../components/buttons/Next';
+import Lang from '../../components/extras/Lang';
+import Header from '../../components/header/Header';
+import CameraOn from '../../components/recorder/CameraOn';
+import { VIEW_404, VIEW_BEFORE_STARTING } from '../../config/routes/paths';
+import { State } from '../../redux/store/store';
+import { UseCamera } from '../../hooks/useCamera';
 
 const Details = () => {
   /*  */
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { isCameraOn, init } = UseCamera();
+
+  const error = useSelector((state: State) => state.info.error);
+
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+
+  if (error.status === 401) {
+    window.location.href = VIEW_404;
+  }
+
+  useEffect(() => {
+    dispatch(ValidateToken(token!));
+  }, [dispatch, token]);
 
   return (
     <>
@@ -25,21 +44,21 @@ const Details = () => {
           </div>
           <div className="bg-white">
             <h2 className="font-raleway font-semibold text-cyan-color mobile:text-lg laptop:text-[22px]">
-              {t("details.title")}
+              {t('details.title')}
             </h2>
             <p className="font-raleway font-normal text-cyan-color mobile:text-base laptop:text-xl mt-2">
-              {t("details.sub-title.line_1")}
-              <br /> {t("details.sub-title.line_2")}
+              {t('details.sub-title.line_1')}
+              <br /> {t('details.sub-title.line_2')}
             </p>
             <ul className="list-disc font-raleway text-gray-color mobile:text-sm laptop:text-xs ml-5 mt-5 w-[283px]">
-              <li className="my-2">{t("details.rules.line_1")}</li>
-              <li className="my-2">{t("details.rules.line_2")}</li>
-              <li className="my-2">{t("details.rules.line_3")}</li>
-              <li className="my-2">{t("details.rules.line_4")}</li>
+              <li className="my-2">{t('details.rules.line_1')}</li>
+              <li className="my-2">{t('details.rules.line_2')}</li>
+              <li className="my-2">{t('details.rules.line_3')}</li>
+              <li className="my-2">{t('details.rules.line_4')}</li>
             </ul>
             <div className="grid place-content-start w-full">
               <Next
-                name={t("instructions.get_started")}
+                name={t('instructions.get_started')}
                 link={VIEW_BEFORE_STARTING}
                 width="laptop:w-[155px] laptop:h-[59px] mobile:w-[155px] mobile:h-[59px]"
               />

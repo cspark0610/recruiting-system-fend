@@ -26,6 +26,7 @@ export default function FrmPosition() {
 
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
+  const error = useSelector((state: State) => state.positions.error);
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -101,7 +102,7 @@ export default function FrmPosition() {
                 </label>
               </div>
             ))}
-            <ErrorMessages errorTerms={['priority']} />
+            <ErrorMessages errorTerms={['priority']} errorState={error} />
           </div>
         </div>
         <div className="flex flex-col">
@@ -121,6 +122,7 @@ export default function FrmPosition() {
               />
               <ErrorMessages
                 errorTerms={['Position']}
+                errorState={error}
                 className="flex flex-col ml-4"
               />
             </div>
@@ -139,6 +141,7 @@ export default function FrmPosition() {
               />
               <ErrorMessages
                 errorTerms={['Client']}
+                errorState={error}
                 className="flex flex-col ml-4"
               />
             </div>
@@ -159,6 +162,7 @@ export default function FrmPosition() {
               />
               <ErrorMessages
                 errorTerms={['RIE', 'rie_link']}
+                errorState={error}
                 className="flex flex-col ml-4"
               />
             </div>
@@ -177,6 +181,7 @@ export default function FrmPosition() {
               />
               <ErrorMessages
                 errorTerms={['Recruiter', 'recruiter_filter']}
+                errorState={error}
                 className="flex flex-col ml-4"
               />
             </div>
@@ -196,6 +201,7 @@ export default function FrmPosition() {
               />
               <ErrorMessages
                 errorTerms={['designate']}
+                errorState={error}
                 className="flex flex-col ml-1"
               />
             </div>

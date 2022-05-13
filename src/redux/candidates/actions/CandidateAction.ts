@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
-import { ActionTypes } from "../types/index";
+import { ActionTypes } from '../types/index';
 
 import {
   CreateCandidateResponse,
@@ -8,7 +8,8 @@ import {
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
   UpdateCandidateStatusResponse,
-} from "../types/axiosResponses";
+  ValidateTokenResponse,
+} from '../types/axiosResponses';
 
 import {
   CreateCandidateAction,
@@ -25,7 +26,8 @@ import {
   SetCandidateSuccessAction,
   SetUpdatingCandidateAction,
   SetCandidateLoadingAction,
-} from "../types/dispatchActions";
+  ValidateTokenAction,
+} from '../types/dispatchActions';
 
 import {
   ADD_CANDIDATE,
@@ -39,16 +41,20 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 import {
   CREATE_CANDIDATE,
+  GENERATE_URL,
   GET_ALL_CANDIDATES,
   GET_ALL_CANDIDATES_FILTERED,
   POST_CANDIDATE,
   UPDATE_STATUS,
-} from "../../../config/routes/endpoints";
-import ClientAxios from "../../../config/api/axios";
-import { Filters } from "../types/data";
+  VALIDATE_TOKEN,
+} from '../../../config/routes/endpoints';
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
+import { Filters } from '../types/data';
+import cleanLocalStorage from '../../../utils/cleanLocalStorage';
+import { VIEW_LOGIN } from '../../../config/routes/paths';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -57,8 +63,8 @@ export function GetAllCandidates() {
     });
 
     try {
-      const { data } = await ClientAxios.get<GetCandidatesResponse>(
-        GET_ALL_CANDIDATES
+      const { data } = await PrivateAxios.get<GetCandidatesResponse>(
+        GET_ALL_CANDIDATES,
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -71,6 +77,15 @@ export function GetAllCandidates() {
       });
     } catch (error: any) {
       if (error.response) {
+        if (
+          error.response.status === 401 ||
+          error.response.data.message === 'Invalid access token'
+        ) {
+          dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
+          cleanLocalStorage();
+          window.location.href = VIEW_LOGIN;
+        }
+
         dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
         dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
@@ -91,8 +106,8 @@ export function GetAllCandidates() {
 export function GetCandidateInfo(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await ClientAxios.get<GetCandidateInfoResponse>(
-        `${GET_ALL_CANDIDATES}/${_id}`
+      const { data } = await PrivateAxios.get<GetCandidateInfoResponse>(
+        `${GET_ALL_CANDIDATES}/${_id}`,
       );
 
       dispatch<SetDetailFinishedLoadingAction>({
@@ -141,14 +156,9 @@ export function GetCandidatesFiltered(filters: Filters) {
     });
 
     try {
-      const { data } = await ClientAxios.post<GetCandidatesFilteredResponse>(
+      const { data } = await PrivateAxios.post<GetCandidatesFilteredResponse>(
         GET_ALL_CANDIDATES_FILTERED,
         filters,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -207,7 +217,7 @@ export function CreateCandidate(candidateInfo: any) {
 
       const { data } = await ClientAxios.post<CreateCandidateResponse>(
         CREATE_CANDIDATE,
-        candidateInfo
+        candidateInfo,
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -217,6 +227,40 @@ export function CreateCandidate(candidateInfo: any) {
       return dispatch<CreateCandidateAction>({
         type: ActionTypes.CREATE_CANDIDATE,
         payload: data.candidate,
+      });
+    } catch (error: any) {
+      if (error.response) {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      }
+      dispatch<SetCandidateLoadingAction>({
+        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+      });
+      dispatch<SetCandidateErrorAction>({
+        type: ActionTypes.SET_CANDIDATE_ERROR,
+        payload: error,
+      });
+    }
+  };
+}
+
+export function GenerateUrl(_id: string) {
+  return async function (dispatch: Dispatch) {
+    try {
+      const { data } = await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
+
+      dispatch<SetCandidateSuccessAction>({
+        type: ActionTypes.SET_CANDIDATE_SUCCESS,
+        payload: {
+          status: 201,
+          message: data.message,
+        },
       });
     } catch (error: any) {
       if (error.response) {
@@ -259,7 +303,7 @@ export function AddCandidate(user: any) {
 export function UpdateCandidateStatus(
   _id: string,
   main_status: string,
-  secondary_status: string
+  secondary_status: string,
 ) {
   return async function (dispatch: Dispatch) {
     dispatch<SetUpdatingCandidateAction>({
@@ -267,13 +311,17 @@ export function UpdateCandidateStatus(
     });
 
     try {
-      const { data } = await ClientAxios.put<UpdateCandidateStatusResponse>(
+      const { data } = await PrivateAxios.put<UpdateCandidateStatusResponse>(
         `${UPDATE_STATUS}/${_id}`,
         {
           main_status,
           secondary_status,
-        }
+        },
       );
+
+      if (main_status === 'interested' && secondary_status === 'approved') {
+        GenerateUrl(_id);
+      }
 
       dispatch<SetUpdatingCandidateAction>({
         type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
@@ -297,6 +345,28 @@ export function UpdateCandidateStatus(
         type: ActionTypes.SET_CANDIDATE_ERROR,
         payload: error,
       });
+    }
+  };
+}
+
+export function ValidateToken(token: string) {
+  return async function (dispatch: Dispatch) {
+    try {
+      const { data } = await ClientAxios.post<ValidateTokenResponse>(
+        `${VALIDATE_TOKEN}?token=${token}`,
+      );
+
+      return dispatch<ValidateTokenAction>({
+        type: ActionTypes.VALIDATE_TOKEN,
+        payload: data,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      }
     }
   };
 }
