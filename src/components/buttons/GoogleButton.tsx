@@ -32,6 +32,7 @@ export default function GoogleButton({
     } catch (error) {
       console.error(error);
     }
+
   }, [CLIENT_ID, handleSuccess, text]);
 
   return <div ref={divRef} className="flex justify-center mt-4"></div>;
