@@ -6,7 +6,7 @@ import Header from './../../components/header/Header';
 const Data = () => {
   /*  */
   const [searchParams] = useSearchParams();
-  const id = searchParams.get('job_id');
+  const id = searchParams.get('position_id');
 
   return (
     <>

@@ -10,7 +10,7 @@ import { State } from '../../redux/store/store';
 import Modal from '../extras/Modal';
 import Item from '../openPositions/Item';
 import Pagination from './Pagination';
-import PaginationData from '../../config/paginationData';
+import PaginationData from '../../config/types/paginationData';
 
 type ListProps = {
   title: string;

@@ -155,10 +155,6 @@ const FrmLogin = () => {
           />
         </div>
 
-        {loading ? (
-          <LoaderSpinner height="h-7" width="w-7" classes="mt-7 ml-[13.5rem]" />
-        ) : null}
-
         {/* buttons to login or register */}
         <div className="flex flex-row align-middle justify-center gap-5 mt-[34px]">
           <div className="flex justify-center mb-3 mobile:mt-5 laptop:mt-5 tablet:mt-16">
@@ -170,13 +166,21 @@ const FrmLogin = () => {
             />
           </div>
           <div className="flex justify-center mb-3 mobile:mt-5 laptop:mt-5 tablet:mt-16">
-            <input
-              className={`w-[132px] h-[54px] cursor-pointer rounded-[10px] bg-cyan-color hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway focus:outline-none`}
-              disabled={loading}
-              type="submit"
-              value="Log In"
-              onClick={handleLogin}
-            />
+            {loading ? (
+              <LoaderSpinner height="h-8" width="w-[8.2rem]" classes="mt-2" />
+            ) : (
+              <button
+                disabled={loading}
+                onClick={handleLogin}
+                className="w-[132px] h-[54px] cursor-pointer rounded-[10px] bg-cyan-color hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway focus:outline-none"
+              >
+                {loading ? (
+                  <LoaderSpinner height="h-8" width="w-[8.2rem]" />
+                ) : (
+                  'Log In'
+                )}
+              </button>
+            )}
           </div>
         </div>
         <div className="text-center mt-[17px]">

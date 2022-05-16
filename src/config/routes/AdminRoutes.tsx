@@ -8,15 +8,37 @@ import CandidateStatus from '../../views/admin/dashboard/CandidateStatus/Candida
 import Navbar from '../../components/kanban/Navbar';
 import NewPosition from '../../views/admin/dashboard/OpenPositions/NewPosition';
 import PositionsList from '../../views/admin/dashboard/OpenPositions/PositionsList';
+import PrivateRoute from '../../components/Routes/PrivateRoute';
 
 export default function AdminRoutes() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path={VIEW_KANBAN} element={<CandidateStatus />} />
-        <Route path={VIEW_OPEN_POSITIONS} element={<PositionsList />} />
-        <Route path={VIIEW_CREATE_NEW_POSITION} element={<NewPosition />} />
+        <Route
+          path={VIEW_KANBAN}
+          element={
+            <PrivateRoute>
+              <CandidateStatus />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={VIEW_OPEN_POSITIONS}
+          element={
+            <PrivateRoute>
+              <PositionsList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={VIIEW_CREATE_NEW_POSITION}
+          element={
+            <PrivateRoute>
+              <NewPosition />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

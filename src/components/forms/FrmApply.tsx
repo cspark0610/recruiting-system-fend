@@ -12,7 +12,7 @@ import Loading from '../extras/Loading';
 import Date from '../inputs/Date';
 
 /* Paths */
-import { VIEW_HOME_THANKS } from '../../config/routes/paths';
+import { VIEW_APPLY_THANKS } from '../../config/routes/paths';
 
 /* Json files */
 import Countries from '../../assets/json/Countries.json';
@@ -131,7 +131,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
       dispatch(CreateCandidate(formData));
 
       if (!loading) {
-        navigate(VIEW_HOME_THANKS);
+        navigate(VIEW_APPLY_THANKS);
       }
     }
   };

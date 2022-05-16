@@ -16,6 +16,7 @@ import {
 } from '../../../config/routes/endpoints';
 import { VIEW_LOGIN } from '../../../config/routes/paths';
 import cleanLocalStorage from '../../../utils/cleanLocalStorage';
+import setLocalStorage from '../../../utils/setLocalStorage';
 
 export function GetAllUsers() {
   return async (dispatch: Dispatch) => {
@@ -72,8 +73,8 @@ export function Login(
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
       });
 
-      window.localStorage.setItem('access', data.access_token);
-      window.localStorage.setItem('user', JSON.stringify(data.user));
+      setLocalStorage('access', data.access_token);
+      setLocalStorage('user', JSON.stringify(data.user));
 
       dispatch<SetUserSuccessAction>({
         type: ActionTypes.SET_USER_SUCCESS,
