@@ -8,7 +8,7 @@ import {
   SetUserLoadingAction,
   SetUserSuccessAction,
 } from '../types/dispatchActions';
-import ClientAxios from '../../../config/api/axios';
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 import {
   GET_ALL_USERS,
   LOGIN_USER,
@@ -16,6 +16,7 @@ import {
 } from '../../../config/routes/endpoints';
 import { VIEW_LOGIN } from '../../../config/routes/paths';
 import cleanLocalStorage from '../../../utils/cleanLocalStorage';
+import setLocalStorage from '../../../utils/setLocalStorage';
 
 export function GetAllUsers() {
   return async (dispatch: Dispatch) => {
@@ -24,7 +25,7 @@ export function GetAllUsers() {
     });
 
     try {
-      const { data } = await ClientAxios.get<GetUsersResponse>(GET_ALL_USERS);
+      const { data } = await PrivateAxios.get<GetUsersResponse>(GET_ALL_USERS);
 
       dispatch<SetUserLoadingAction>({
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
@@ -72,8 +73,8 @@ export function Login(
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
       });
 
-      window.localStorage.setItem('access', data.access_token);
-      window.localStorage.setItem('user', JSON.stringify(data.user));
+      setLocalStorage('access', data.access_token);
+      setLocalStorage('user', JSON.stringify(data.user));
 
       dispatch<SetUserSuccessAction>({
         type: ActionTypes.SET_USER_SUCCESS,
@@ -103,7 +104,7 @@ export function LogOut() {
   return async function (dispatch: Dispatch) {
     cleanLocalStorage();
 
-    await ClientAxios.post(LOGOUT_USER, {}, { withCredentials: true });
+    await PrivateAxios.post(LOGOUT_USER);
 
     window.location.href = VIEW_LOGIN;
 

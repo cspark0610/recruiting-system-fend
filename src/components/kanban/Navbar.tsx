@@ -1,15 +1,14 @@
 import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import {
-  VIEW_KANBAN,
-  VIEW_LOGIN,
-  VIEW_OPEN_POSITIONS,
-} from '../../config/routes/paths';
+import { VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
+import { LogOut } from '../../redux/users/actions/UserAction';
 import detectOutsideClick from '../../utils/detectOutsideClick';
-import cleanLocalStorage from '../../utils/cleanLocalStorage';
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
   const userInfo = window.localStorage.getItem('user')
@@ -20,8 +19,7 @@ export default function Navbar() {
   detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
 
   const handleLogout = () => {
-    cleanLocalStorage();
-    window.location.href = VIEW_LOGIN;
+    dispatch(LogOut());
   };
 
   return (

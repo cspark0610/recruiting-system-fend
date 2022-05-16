@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import PaginationData from '../../config/paginationData';
+import PaginationData from '../../config/types/paginationData';
 import {
   GetActivePositions,
   GetInactivePositions,

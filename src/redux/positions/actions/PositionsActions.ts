@@ -31,10 +31,8 @@ import {
 } from '../../../config/routes/endpoints';
 
 import { IPosition } from '../types/data';
-import { VIEW_LOGIN } from '../../../config/routes/paths';
 
-import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
-import cleanLocalStorage from '../../../utils/cleanLocalStorage';
+import { PrivateAxios } from '../../../config/api/axios';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
@@ -49,10 +47,6 @@ export default function getAllPositions(list: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -81,10 +75,6 @@ export function GetActivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -119,10 +109,6 @@ export function GetInactivePositions(limit: number, page?: number) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         dispatch<SetPositionErrorAction>({
@@ -188,10 +174,6 @@ export function createPosition(positionInfo: IPosition) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
         return dispatch<SetPositionErrorAction>({
@@ -226,10 +208,6 @@ export function SetIsActive(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
 
         dispatch<SetPositionErrorAction>({
@@ -276,10 +254,6 @@ export function DeletePosition(_id: string) {
       });
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 401) {
-          cleanLocalStorage();
-          window.location.href = VIEW_LOGIN;
-        }
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
 
         dispatch<SetPositionErrorAction>({
