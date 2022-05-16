@@ -114,23 +114,22 @@ const Modal: React.FC<Props> = ({
                 >
                   {t('modal.buttons.cancel')}
                 </button>
-
                 <button
                   type="button"
-                  className="w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
+                  className="flex items-center justify-center w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
                   onClick={isVerify}
                 >
-                  {t('modal.buttons.ok')}
+                  {updatingCandidate || updatingPosition ? (
+                    <LoaderSpinner
+                      height="h-7"
+                      width="w-7"
+                      stroke="white"
+                      fill="white"
+                    />
+                  ) : (
+                    'Continue'
+                  )}
                 </button>
-                <div
-                  className={
-                    updatingCandidate || updatingPosition
-                      ? 'flex items-center'
-                      : 'flex items-center invisible'
-                  }
-                >
-                  <LoaderSpinner height="h-5" width="w-5" />
-                </div>
               </div>
             </div>
           </Transition.Child>

@@ -1,6 +1,6 @@
 /* PATH FROM LINK 1 */
-export const VIEW_HOME = '/apply';
-export const VIEW_HOME_THANKS = '/apply/thank-you';
+export const VIEW_APPLY = '/apply';
+export const VIEW_APPLY_THANKS = '/apply/thank-you';
 
 /* PATH FROM LINK 2 */
 export const VIEW_WELCOME = '/welcome';

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
-import { VIEW_HOME } from '../../config/routes/paths';
+import { VIEW_APPLY } from '../../config/routes/paths';
 
 type CreateNewDropdownProps = {
   setShowCreateDropdown: (showCreateDropdown: boolean) => void;
@@ -17,7 +17,7 @@ export default function CreateNewDropdown({
       {positions.map((pos) => (
         <div key={pos._id} className="border-b pb-2 w-48">
           <a
-            href={`${VIEW_HOME}?job_id=${pos._id}`}
+            href={`${VIEW_APPLY}?position_id=${pos._id}`}
             rel="noopener noreferrer"
             target="_blank"
           >
