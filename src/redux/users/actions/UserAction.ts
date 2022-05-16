@@ -104,7 +104,7 @@ export function LogOut() {
   return async function (dispatch: Dispatch) {
     cleanLocalStorage();
 
-    await PrivateAxios.post(LOGOUT_USER, {});
+    await PrivateAxios.post(LOGOUT_USER);
 
     window.location.href = VIEW_LOGIN;
 
