@@ -1,9 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import cleanLocalStorage from '../../utils/cleanLocalStorage';
 import setLocalStorage from '../../utils/setLocalStorage';
 import store from '../../redux/store/store';
-import { LOGOUT_USER, REFRESH_TOKENS } from '../routes/endpoints';
-import { VIEW_LOGIN } from '../routes/paths';
+import { REFRESH_TOKENS } from '../routes/endpoints';
 import { LogOut } from '../../redux/users/actions/UserAction';
 
 const { NODE_ENV } = process.env;
