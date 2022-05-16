@@ -8,7 +8,7 @@ import {
   SetUserLoadingAction,
   SetUserSuccessAction,
 } from '../types/dispatchActions';
-import ClientAxios from '../../../config/api/axios';
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 import {
   GET_ALL_USERS,
   LOGIN_USER,
@@ -25,7 +25,7 @@ export function GetAllUsers() {
     });
 
     try {
-      const { data } = await ClientAxios.get<GetUsersResponse>(GET_ALL_USERS);
+      const { data } = await PrivateAxios.get<GetUsersResponse>(GET_ALL_USERS);
 
       dispatch<SetUserLoadingAction>({
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
@@ -104,7 +104,7 @@ export function LogOut() {
   return async function (dispatch: Dispatch) {
     cleanLocalStorage();
 
-    await ClientAxios.post(LOGOUT_USER, {}, { withCredentials: true });
+    await PrivateAxios.post(LOGOUT_USER, {});
 
     window.location.href = VIEW_LOGIN;
 
