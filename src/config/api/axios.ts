@@ -11,7 +11,7 @@ const { dispatch } = store;
 
 const refresh = async () => {
   try {
-    const { data } = await PrivateAxios.post(REFRESH_TOKENS, {});
+    const { data } = await PrivateAxios.post(REFRESH_TOKENS);
     setLocalStorage('access', data.accessToken.token);
 
     return data.accessToken.token;
