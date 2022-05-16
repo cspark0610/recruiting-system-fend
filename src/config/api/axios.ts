@@ -1,24 +1,24 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import cleanLocalStorage from '../../utils/cleanLocalStorage';
 import setLocalStorage from '../../utils/setLocalStorage';
-import { LOGOUT_USER, REFRESH_TOKENS } from '../routes/endpoints';
-import { VIEW_LOGIN } from '../routes/paths';
+import store from '../../redux/store/store';
+import { REFRESH_TOKENS } from '../routes/endpoints';
+import { LogOut } from '../../redux/users/actions/UserAction';
 
 const { NODE_ENV } = process.env;
 const accessToken = window.localStorage.getItem('access');
 
+const { dispatch } = store;
+
 const refresh = async () => {
   try {
-    const { data } = await PrivateAxios.post(REFRESH_TOKENS, {});
+    const { data } = await PrivateAxios.post(REFRESH_TOKENS);
     setLocalStorage('access', data.accessToken.token);
 
     return data.accessToken.token;
   } catch (error) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
-        cleanLocalStorage();
-        await axios.post(LOGOUT_USER);
-        window.location.href = VIEW_LOGIN;
+        dispatch(LogOut());
       }
     }
   }
