@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import InputConclusion from "../../../inputs/InputConclusion";
 
@@ -11,8 +11,8 @@ const Conclusion = () => {
   /*  */
   const dispatch = useDispatch();
 
-  const [goodComment, setGoodComment] = useState([""]);
-  const [badComment, setBadComment] = useState([""]);
+  const [goodComment, setGoodComment] = useState("");
+  const [badComment, setBadComment] = useState("");
   const candidateName = useSelector((state: State) => state.info.detail.name);
   const candidateId = useSelector((state: State) => state.info.detail._id);
   const candidateConclusion = useSelector(
@@ -28,8 +28,8 @@ const Conclusion = () => {
       })
     );
     /* clean input field */
-    setGoodComment([""]);
-    setBadComment([""]);
+    setGoodComment("");
+    setBadComment("");
   };
 
   return (
@@ -46,18 +46,28 @@ const Conclusion = () => {
               Yes
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[422px] h-[372px]">
-              <div className="absolute top-5 right-5 z-10">
+              <div className="absolute top-5 right-[21px] z-10">
                 {candidateConclusion.good.length === 0
                   ? ""
                   : candidateConclusion.good.map(
-                      (feedback: { good: string[]; id: number }) => (
+                      (value: string, index: number) => (
                         <div
-                          key={feedback.id}
-                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
                         >
-                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
-                            {feedback.good}
-                          </p>
+                          <img
+                            className=""
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/images/picture-profile.svg`
+                            }
+                            alt="profile-picture"
+                          />
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
                         </div>
                       )
                     )}
@@ -86,18 +96,27 @@ const Conclusion = () => {
               No
             </p>
             <div className="relative bg-light-color border-light-color rounded-[10px] w-[422px] h-[372px]">
-              <div className="absolute top-5 right-5 z-10">
+              <div className="absolute top-5 right-[21px] z-10">
                 {candidateConclusion.bad.length === 0
                   ? ""
                   : candidateConclusion.bad.map(
-                      (feedback: { bad: string[]; id: number }) => (
+                      (value: string, index: number) => (
                         <div
-                          key={feedback.id}
-                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
                         >
-                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
-                            {feedback.bad}
-                          </p>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/images/picture-profile.svg`
+                            }
+                            alt="profile-picture"
+                          />
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
                         </div>
                       )
                     )}
@@ -112,7 +131,7 @@ const Conclusion = () => {
                     value={badComment}
                     setValue={setBadComment}
                   />
-                  <button>
+                  <button onClick={onSubmit}>
                     <IoSend className="text-gray-color w-[16px] h-[14px] ml-[8px] cursor-pointer" />
                   </button>
                 </div>
