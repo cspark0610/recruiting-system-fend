@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { BsFillTelephoneFill } from 'react-icons/bs';
-import { FaMapMarkerAlt, FaRegFileWord } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRegFileWord, FaRegFilePdf } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { State } from '../../../../redux/store/store';
 
@@ -78,9 +78,11 @@ const General = () => {
 
           <div>
             <p className="font-normal flex items-center my-5">
-              <FaRegFileWord className="text-cyan-color w-[19px] h-[26px]" />{' '}
+              <FaRegFilePdf className="text-cyan-color w-[20px] h-[26px]" />{' '}
               &nbsp;
-              <span className="text-cyan-color">CV</span>
+              <span className="text-cyan-color text-lg ml-3 font-medium">
+                CV
+              </span>
             </p>
             <p className="font-normal my-[10px]">
               Linkedin: &nbsp;
@@ -158,15 +160,19 @@ const General = () => {
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5 flex">
             <span>Tech Skills: </span>
-            {details.skills ? (
-              details.skills.map((skill: string, index: number) => (
-                <div key={index}>
-                  <span>{skill}</span>
-                </div>
-              ))
-            ) : (
-              <span>N/A</span>
-            )}
+            <div className="flex w-72 flex-wrap gap-y-3">
+              {details.skills ? (
+                details.skills.map((skill: string, index: number) => (
+                  <div key={index} className="ml-2">
+                    <span className="text-white font-medium bg-cyan-color rounded-full p-1 px-2">
+                      {skill}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <span>N/A</span>
+              )}
+            </div>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
