@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { FiClock } from 'react-icons/fi';
-import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction';
-import UserDialog from '../dialog/UserDialog';
-import getCardTopBorderColor from '../../utils/getCardTopBorderColor';
-import '../../assets/scss/Card.scss';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { FiClock } from "react-icons/fi";
+import { GetCandidateInfo } from "../../redux/candidates/actions/CandidateAction";
+import UserDialog from "../dialog/UserDialog";
+import getCardTopBorderColor from "../../utils/getCardTopBorderColor";
+import "../../assets/scss/Card.scss";
+import getCandidatesByColumn from "../../utils/getCandidatesByColumn";
 
 type CardProps = {
   _id: string;
@@ -42,7 +43,7 @@ export default function Card({
       <div className="ml-4">
         <p className="font-medium text-lg">{name}</p>
         <p className="font-light">
-          {position ? position : 'No position applied to'}
+          {position ? position : "No position applied to"}
         </p>
         <section className="flex flex-row gap-24 pt-4 pb-4">
           <span className="flex font-light pt-4">
