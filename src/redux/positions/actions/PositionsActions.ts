@@ -49,7 +49,7 @@ export default function getAllPositions(list: string) {
       if (error.response) {
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
@@ -77,17 +77,18 @@ export function GetActivePositions(limit: number, page?: number) {
       if (error.response) {
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
-      }
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+      } else {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      dispatch<SetPositionErrorAction>({
-        type: ActionTypes.SET_POSITION_ERROR,
-        payload: error,
-      });
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
     }
   };
 }
@@ -111,17 +112,18 @@ export function GetInactivePositions(limit: number, page?: number) {
       if (error.response) {
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
-      }
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+      } else {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      dispatch<SetPositionErrorAction>({
-        type: ActionTypes.SET_POSITION_ERROR,
-        payload: error,
-      });
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
     }
   };
 }
@@ -139,7 +141,7 @@ export function getPositionInfo(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error,
         });
@@ -180,13 +182,14 @@ export function createPosition(positionInfo: IPosition) {
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
-      }
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+      } else {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      return dispatch<SetPositionErrorAction>({
-        type: ActionTypes.SET_POSITION_ERROR,
-        payload: error,
-      });
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
     }
   };
 }
@@ -210,17 +213,18 @@ export function SetIsActive(_id: string) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
 
-        dispatch<SetPositionErrorAction>({
+        return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
-      }
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+      } else {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      dispatch<SetPositionErrorAction>({
-        type: ActionTypes.SET_POSITION_ERROR,
-        payload: error,
-      });
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
     }
   };
 }
@@ -260,13 +264,14 @@ export function DeletePosition(_id: string) {
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
-      }
-      dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+      } else {
+        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
 
-      dispatch<SetPositionErrorAction>({
-        type: ActionTypes.SET_POSITION_ERROR,
-        payload: error,
-      });
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
     }
   };
 }

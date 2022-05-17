@@ -76,18 +76,20 @@ export function GetAllCandidates() {
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
-        dispatch<SetCandidateErrorAction>({
+
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -112,18 +114,19 @@ export function GetCandidateInfo(_id: string) {
         dispatch<SetCandidateLoadingAction>({
           type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
         });
-        dispatch<SetCandidateErrorAction>({
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -177,7 +180,8 @@ export function GetCandidatesFiltered(filters: Filters) {
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
-        dispatch<SetCurrentFiltersAction>({
+
+        return dispatch<SetCurrentFiltersAction>({
           type: ActionTypes.SET_CURRENT_FILTERS,
           payload: {
             position: filters.position,
@@ -185,14 +189,15 @@ export function GetCandidatesFiltered(filters: Filters) {
             query: filters.query,
           },
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -235,14 +240,15 @@ export function CreateCandidate(candidateInfo: any) {
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -265,18 +271,19 @@ export function GenerateUrl(_id: string) {
           type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
         });
 
-        dispatch<SetCandidateErrorAction>({
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -330,18 +337,19 @@ export function UpdateCandidateStatus(
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetCandidateErrorAction>({
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -359,7 +367,7 @@ export function ValidateToken(token: string) {
       });
     } catch (error) {
       if (error.response) {
-        dispatch<SetCandidateErrorAction>({
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });

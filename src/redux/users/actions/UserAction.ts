@@ -38,18 +38,19 @@ export function GetAllUsers() {
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
-        dispatch<SetUserErrorAction>({
+        return dispatch<SetUserErrorAction>({
           type: ActionTypes.SET_USER_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetUserLoadingAction>({
+          type: ActionTypes.SET_IS_USER_NOT_LOADING,
+        });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetUserLoadingAction>({
-        type: ActionTypes.SET_IS_USER_NOT_LOADING,
-      });
-      dispatch<SetUserErrorAction>({
-        type: ActionTypes.SET_USER_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -93,9 +94,15 @@ export function Login(
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
-        dispatch<SetUserErrorAction>({
+        return dispatch<SetUserErrorAction>({
           type: ActionTypes.SET_USER_ERROR,
           payload: error.response.data,
+        });
+      } else {
+        dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error,
         });
       }
     }
