@@ -1,5 +1,5 @@
-import FrmLogin from "../../components/forms/FrmLogin";
-import Header from "../../components/header/Header";
+import FrmLogin from '../../components/forms/FrmLogin';
+import Header from '../../components/header/Header';
 
 const Login = () => {
   return (
