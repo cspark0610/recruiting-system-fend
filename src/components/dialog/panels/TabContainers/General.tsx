@@ -158,9 +158,9 @@ const General = () => {
             </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
-          <div className="my-5 flex">
+          <div className="my-5 flex h-20">
             <span>Tech Skills: </span>
-            <div className="flex w-72 flex-wrap gap-y-3">
+            <div className="flex w-[19rem] pt-1 overflow-y-auto flex-wrap gap-y-3">
               {details.skills ? (
                 details.skills.map((skill: string, index: number) => (
                   <div key={index} className="ml-2">
@@ -178,6 +178,7 @@ const General = () => {
           <div className="my-5">
             <span>Interview Skills:</span>
           </div>
+          <hr className="text-light-color w-[349.44px]" />
         </div>
       </section>
     </div>
