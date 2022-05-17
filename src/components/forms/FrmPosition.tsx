@@ -10,23 +10,21 @@ import ErrorMessages from './ErrorMessages';
 import priorities from '../../config/positions/constants';
 
 type OptionValues = {
-  id: number;
+  id: string;
   name: string;
 };
-
-const data: Array<OptionValues> = [
-  {
-    id: 1,
-    name: 'Usuario prueba',
-  },
-];
 
 export default function FrmPosition() {
   const dispatch = useDispatch();
 
+  const users = useSelector((state: State) => state.user.users);
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
   const error = useSelector((state: State) => state.positions.error);
+
+  const data: OptionValues[] = users.reduce((prev: any, user: any) => {
+    return [...prev, { id: user._id, name: user.name }];
+  }, []);
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');

@@ -23,6 +23,8 @@ const FrmLogin = () => {
   const [usernameValid, setUsernameValid] = useState<boolean>(false);
   const [passwordValid, setPasswordValid] = useState<boolean>(false);
 
+  const expiredSessionError = window.localStorage.getItem('refresh_error');
+
   useEffect(() => {
     window.document.title = 'WorkAt - Login';
   }, [dispatch]);
@@ -60,7 +62,7 @@ const FrmLogin = () => {
   };
 
   if (success.message.includes('Login')) {
-    window.location.href = VIEW_KANBAN;
+    window.location.assign(VIEW_KANBAN);
   }
 
   const CLIENT_ID =
@@ -80,6 +82,11 @@ const FrmLogin = () => {
         <div className="w-full p-3 mt-auto">
           <div className="relative">
             <div className="block mb-[12px]">
+              {expiredSessionError ? (
+                <span className="flex items-center justify-center text-red-500">
+                  {expiredSessionError}
+                </span>
+              ) : null}
               <ErrorMessages
                 errorTerms={['Invalid']}
                 errorState={error}

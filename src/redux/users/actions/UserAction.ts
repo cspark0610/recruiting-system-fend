@@ -33,7 +33,7 @@ export function GetAllUsers() {
 
       return dispatch<GetUsersActions>({
         type: ActionTypes.GET_USERS,
-        payload: data.users,
+        payload: data.allUsers,
       });
     } catch (error: any) {
       if (error.response) {
@@ -73,6 +73,8 @@ export function Login(
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
       });
 
+      cleanLocalStorage();
+
       setLocalStorage('access', data.access_token);
       setLocalStorage('user', JSON.stringify(data.user));
 
@@ -101,19 +103,11 @@ export function Login(
 }
 
 export function LogOut() {
-  return async function (dispatch: Dispatch) {
+  return async function (_dispatch: Dispatch) {
     cleanLocalStorage();
 
     await PrivateAxios.post(LOGOUT_USER);
 
-    window.location.href = VIEW_LOGIN;
-
-    dispatch<SetUserSuccessAction>({
-      type: ActionTypes.SET_USER_SUCCESS,
-      payload: {
-        status: 200,
-        message: 'Logout Successful',
-      },
-    });
+    window.location.assign(VIEW_LOGIN);
   };
 }
