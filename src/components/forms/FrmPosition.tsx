@@ -4,7 +4,6 @@ import { createPosition } from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
-import Submit from '../buttons/Submit';
 import LoaderSpinner from '../../assets/loaderSpinner';
 import ErrorMessages from './ErrorMessages';
 import priorities from '../../config/positions/constants';
@@ -43,7 +42,7 @@ export default function FrmPosition() {
     numbers: /\D/g,
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const recruitersName = designated_recruiters.map(
@@ -206,15 +205,25 @@ export default function FrmPosition() {
           </div>
         </div>
 
-        <div className="z-10 mt-10">
-          <Submit name="Create" width="10" onSubmit={handleSubmit} />
+        <div className="z-10 mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={loading}
+            className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
+          >
+            {loading ? (
+              <LoaderSpinner
+                width="w-7"
+                height="h-7"
+                stroke="white"
+                fill="white"
+              />
+            ) : (
+              'Create'
+            )}
+          </button>
         </div>
-        {loading ? (
-          <div className="flex space-x-2 mt-4 items-center justify-center">
-            <span className="font-semibold">Creating New Position...</span>
-            <LoaderSpinner width="w-4" height="h-4" />
-          </div>
-        ) : null}
       </section>
     </div>
   );
