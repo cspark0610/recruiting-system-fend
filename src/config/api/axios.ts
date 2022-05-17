@@ -29,7 +29,7 @@ const ClientAxios = axios.create({
   /* API to which the app is going to connect to the database */
   baseURL:
     NODE_ENV === "development"
-      ? "https://fulltimeforce-video-interview.herokuapp.com"
+      ? "http://localhost:3001"
       : "https://fulltimeforce-video-interview.herokuapp.com",
   withCredentials: true,
 });
@@ -38,7 +38,7 @@ const ClientAxios = axios.create({
 const PrivateAxios = axios.create({
   baseURL:
     NODE_ENV === "development"
-      ? "https://fulltimeforce-video-interview.herokuapp.com"
+      ? "http://localhost:3001"
       : "https://fulltimeforce-video-interview.herokuapp.com",
 });
 
