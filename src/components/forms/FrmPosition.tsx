@@ -187,7 +187,7 @@ export default function FrmPosition() {
             <div>
               <MultiSelect
                 options={data}
-                className="w-[51.5rem] hover:cursor-pointer pb-2"
+                className="w-[51.5rem] z-20 hover:cursor-pointer pb-2"
                 placeholder="Designated Recruiter"
                 hidePlaceholder={true}
                 avoidHighlightFirstOption={true}
@@ -205,7 +205,7 @@ export default function FrmPosition() {
           </div>
         </div>
 
-        <div className="z-10 mt-10 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <button
             type="button"
             onClick={handleSubmit}
