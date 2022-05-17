@@ -106,6 +106,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
 
   /*  */
   const loading = useSelector((state: State) => state.info.loading);
+  const success = useSelector((state: State) => state.info.success);
 
   /* OnSubmit */
   const onSubmit = (evt: any) => {
@@ -129,12 +130,12 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
       return;
     } else {
       dispatch(CreateCandidate(formData));
-
-      if (!loading) {
-        navigate(VIEW_APPLY_THANKS);
-      }
     }
   };
+
+  if (!loading && success.status === 201) {
+    window.location.assign(VIEW_APPLY_THANKS);
+  }
 
   let job_title = positionInfo.title;
 

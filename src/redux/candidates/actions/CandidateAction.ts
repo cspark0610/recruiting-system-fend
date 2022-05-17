@@ -213,6 +213,14 @@ export function CreateCandidate(candidateInfo: any) {
         type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
       });
 
+      dispatch<SetCandidateSuccessAction>({
+        type: ActionTypes.SET_CANDIDATE_SUCCESS,
+        payload: {
+          status: 201,
+          message: 'Created successfully',
+        },
+      });
+
       return dispatch<CreateCandidateAction>({
         type: ActionTypes.CREATE_CANDIDATE,
         payload: data.candidate,
