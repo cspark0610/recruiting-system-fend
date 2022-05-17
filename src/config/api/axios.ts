@@ -8,7 +8,7 @@ const { NODE_ENV } = process.env;
 
 const { dispatch } = store;
 
-const accessToken = window.localStorage.getItem('access');
+const accessToken = window.localStorage.getItem("access");
 
 const refresh = async () => {
   try {
@@ -21,8 +21,8 @@ const refresh = async () => {
       if (error.response.status === 401 || error.response.status === 400) {
         dispatch(LogOut());
         setLocalStorage(
-          'refresh_error',
-          'Your session has expired. Please login again.',
+          "refresh_error",
+          "Your session has expired. Please login again."
         );
       }
     }
@@ -34,7 +34,7 @@ const ClientAxios = axios.create({
   /* API to which the app is going to connect to the database */
   baseURL:
     NODE_ENV === "development"
-      ? "http://localhost:3001"
+      ? "https://fulltimeforce-video-interview.herokuapp.com"
       : "https://fulltimeforce-video-interview.herokuapp.com",
   withCredentials: true,
 });
@@ -43,7 +43,7 @@ const ClientAxios = axios.create({
 const PrivateAxios = axios.create({
   baseURL:
     NODE_ENV === "development"
-      ? "http://localhost:3001"
+      ? "https://fulltimeforce-video-interview.herokuapp.com"
       : "https://fulltimeforce-video-interview.herokuapp.com",
 });
 

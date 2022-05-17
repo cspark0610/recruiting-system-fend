@@ -30,6 +30,11 @@ export type UpdateCandidateStatusResponse = {
   message: string;
 };
 
+export type UpdateCandidateInfoResponse = {
+  status: number;
+  message: string;
+};
+
 export type UpdateCandidateConclusionResponse = {
   status: number;
   message: string;

@@ -224,7 +224,7 @@ export function CreateCandidate(candidateInfo: any) {
         type: ActionTypes.SET_CANDIDATE_SUCCESS,
         payload: {
           status: 201,
-          message: 'Created successfully',
+          message: "Created successfully",
         },
       });
 
@@ -358,19 +358,21 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  conclusion: { good: string; bad: string }
+  candidate: { good: string[]; bad: string[] }
 ) {
   return async function (dispatch: Dispatch) {
     dispatch<SetUpdatingCandidateAction>({
       type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
     });
 
+    console.log("my data:", candidate);
+
     try {
       const { data } =
         await PrivateAxios.put<UpdateCandidateConclusionResponse>(
           `${UPDATE_CONCLUSION}/${_id}`,
           {
-            conclusion,
+            candidate,
           }
         );
 
