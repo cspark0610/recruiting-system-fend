@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 /* Components */
@@ -30,7 +29,6 @@ interface Props {
 
 const FrmApply: React.FC<Props> = ({ _id }) => {
   /*  */
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
