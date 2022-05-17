@@ -5,9 +5,10 @@ import { REFRESH_TOKENS } from "../routes/endpoints";
 import { LogOut } from "../../redux/users/actions/UserAction";
 
 const { NODE_ENV } = process.env;
-const accessToken = window.localStorage.getItem("access");
 
 const { dispatch } = store;
+
+const accessToken = window.localStorage.getItem('access');
 
 const refresh = async () => {
   try {
@@ -19,6 +20,10 @@ const refresh = async () => {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
         dispatch(LogOut());
+        setLocalStorage(
+          'refresh_error',
+          'Your session has expired. Please login again.',
+        );
       }
     }
   }

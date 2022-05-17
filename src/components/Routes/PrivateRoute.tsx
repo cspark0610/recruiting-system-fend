@@ -9,5 +9,5 @@ export default function PrivateRoute({ children }: PrivateRouteProps) {
 
   return accessToken && accessToken !== ''
     ? children
-    : (window.location.href = VIEW_LOGIN);
+    : window.location.assign(VIEW_LOGIN);
 }
