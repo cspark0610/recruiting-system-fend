@@ -1,4 +1,4 @@
-import { ICandidate } from "./data";
+import { ICandidate, IConclusions } from "./data";
 
 export type GetCandidatesResponse = {
   status: number;
@@ -31,6 +31,11 @@ export type UpdateCandidateStatusResponse = {
 };
 
 export type UpdateCandidateConclusionResponse = {
+  status: number;
+  candidate: IConclusions;
+};
+
+export type UpdateCandidateInfoResponse = {
   status: number;
   message: string;
 };

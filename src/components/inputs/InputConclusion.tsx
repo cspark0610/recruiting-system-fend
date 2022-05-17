@@ -2,7 +2,7 @@ interface Props {
   id: string;
   name: string;
   placeholder: string;
-  value: string;
+  value: any;
   setValue: any;
 }
 
