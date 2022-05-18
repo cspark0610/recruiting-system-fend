@@ -11,8 +11,8 @@ const Conclusion = () => {
   /*  */
   const dispatch = useDispatch();
 
-  const [goodComment, setGoodComment] = useState("");
-  const [badComment, setBadComment] = useState("");
+  const [goodComment, setGoodComment] = useState<string>("");
+  const [badComment, setBadComment] = useState<string>("");
   const candidateName = useSelector((state: State) => state.info.detail.name);
   const candidateId = useSelector((state: State) => state.info.detail._id);
   const candidateConclusion = useSelector(
@@ -21,12 +21,16 @@ const Conclusion = () => {
 
   const onSubmit = (evt: any) => {
     evt.preventDefault();
-    dispatch(
-      UpdateCandidateConclusion(candidateId, {
-        good: goodComment,
-        bad: badComment,
-      })
-    );
+    if (!goodComment || !badComment) {
+      alert("you must to complete empty field");
+    } else {
+      dispatch(
+        UpdateCandidateConclusion(candidateId, {
+          good: goodComment,
+          bad: badComment,
+        })
+      );
+    }
     /* clean input field */
     setGoodComment("");
     setBadComment("");
