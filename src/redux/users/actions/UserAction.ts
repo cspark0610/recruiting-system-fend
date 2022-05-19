@@ -33,23 +33,24 @@ export function GetAllUsers() {
 
       return dispatch<GetUsersActions>({
         type: ActionTypes.GET_USERS,
-        payload: data.users,
+        payload: data.allUsers,
       });
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
-        dispatch<SetUserErrorAction>({
+        return dispatch<SetUserErrorAction>({
           type: ActionTypes.SET_USER_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetUserLoadingAction>({
+          type: ActionTypes.SET_IS_USER_NOT_LOADING,
+        });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetUserLoadingAction>({
-        type: ActionTypes.SET_IS_USER_NOT_LOADING,
-      });
-      dispatch<SetUserErrorAction>({
-        type: ActionTypes.SET_USER_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -73,6 +74,8 @@ export function Login(
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
       });
 
+      cleanLocalStorage();
+
       setLocalStorage('access', data.access_token);
       setLocalStorage('user', JSON.stringify(data.user));
 
@@ -91,9 +94,15 @@ export function Login(
     } catch (error: any) {
       if (error.response) {
         dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
-        dispatch<SetUserErrorAction>({
+        return dispatch<SetUserErrorAction>({
           type: ActionTypes.SET_USER_ERROR,
           payload: error.response.data,
+        });
+      } else {
+        dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error,
         });
       }
     }
@@ -101,19 +110,11 @@ export function Login(
 }
 
 export function LogOut() {
-  return async function (dispatch: Dispatch) {
+  return async function (_dispatch: Dispatch) {
     cleanLocalStorage();
 
     await PrivateAxios.post(LOGOUT_USER);
 
-    window.location.href = VIEW_LOGIN;
-
-    dispatch<SetUserSuccessAction>({
-      type: ActionTypes.SET_USER_SUCCESS,
-      payload: {
-        status: 200,
-        message: 'Logout Successful',
-      },
-    });
+    window.location.assign(VIEW_LOGIN);
   };
 }

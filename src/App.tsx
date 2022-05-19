@@ -7,7 +7,7 @@ const App = () => {
   const currentUrl = window.location.pathname.split('/');
 
   if (currentUrl[0] === '' && currentUrl[1] === '') {
-    window.location.href = VIEW_LOGIN;
+    window.location.assign(VIEW_LOGIN);
   }
 
   return (

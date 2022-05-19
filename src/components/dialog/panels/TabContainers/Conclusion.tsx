@@ -1,41 +1,40 @@
-import { useEffect, useState } from 'react';
-import { IoSend } from 'react-icons/io5';
+import { useEffect, useState } from "react";
+import { IoSend } from "react-icons/io5";
+import InputConclusion from "../../../inputs/InputConclusion";
 
 /* Redux */
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  AddConclusion,
-  GetConclusion,
-} from '../../../../redux/conclusions/actions/ConclusionAction';
-import { State } from '../../../../redux/store/store';
-import InputConclusion from '../../../inputs/InputConclusion';
+import { useDispatch, useSelector } from "react-redux";
+import { UpdateCandidateConclusion } from "../../../../redux/candidates/actions/CandidateAction";
+import { State } from "../../../../redux/store/store";
 
 const Conclusion = () => {
   /*  */
   const dispatch = useDispatch();
 
-  const [positiveComment, setPositiveComment] = useState('');
-  const [negativeComment, setNegativeComment] = useState('');
-
-  const AddNewConclusion = (feed: any) => dispatch(AddConclusion(feed));
-
-  const onSubmit = () => {
-    AddNewConclusion({
-      positiveComment,
-    });
-
-    /* Clear fields */
-    setPositiveComment('');
-    setNegativeComment('');
-  };
-
-  useEffect(() => {
-    const LoadComment = () => dispatch(GetConclusion());
-    LoadComment();
-  }, []);
-
-  const comments = useSelector((state: any) => state.feed.feed);
+  const [goodComment, setGoodComment] = useState<string>("");
+  const [badComment, setBadComment] = useState<string>("");
   const candidateName = useSelector((state: State) => state.info.detail.name);
+  const candidateId = useSelector((state: State) => state.info.detail._id);
+  const candidateConclusion = useSelector(
+    (state: State) => state.info.detail.conclusions
+  );
+
+  const onSubmit = (evt: any) => {
+    evt.preventDefault();
+    if (!goodComment || !badComment) {
+      alert("you must to complete empty field");
+    } else {
+      dispatch(
+        UpdateCandidateConclusion(candidateId, {
+          good: goodComment,
+          bad: badComment,
+        })
+      );
+    }
+    /* clean input field */
+    setGoodComment("");
+    setBadComment("");
+  };
 
   return (
     <div className="grid justify-items-center">
@@ -44,27 +43,37 @@ const Conclusion = () => {
           {candidateName}
         </p>
       </div>
-      <section className="grid justify-items-center grid-cols-2 gap-[10px]">
+      <section className="grid justify-items-center grid-cols-2 gap-[10px] w-[85%]">
         <div className="w-full">
           <div className="my-[32px]">
             <p className="font-raleway text-gray-color text-[15px] font-bold uppercase my-3">
               Yes
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[422px] h-[372px]">
-              <div className="absolute top-5 right-5 z-10">
-                {comments.length === 0
-                  ? ''
-                  : comments.map(
-                      (comment: { positiveComment: string[]; id: number }) => (
+              <div className="absolute top-5 right-[21px] z-10">
+                {candidateConclusion.good.length === 0
+                  ? ""
+                  : candidateConclusion.good.map(
+                      (value: string, index: number) => (
                         <div
-                          key={comment.id}
-                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
                         >
-                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
-                            {comment.positiveComment}
-                          </p>
+                          <img
+                            className=""
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/images/picture-profile.svg`
+                            }
+                            alt="profile-picture"
+                          />
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
                         </div>
-                      ),
+                      )
                     )}
               </div>
               <div className="absolute bottom-4 left-5">
@@ -74,8 +83,8 @@ const Conclusion = () => {
                     id="positive"
                     name="positive"
                     placeholder="Aa"
-                    value={positiveComment}
-                    setValue={setPositiveComment}
+                    value={goodComment}
+                    setValue={setGoodComment}
                   />
                   <button onClick={onSubmit}>
                     <IoSend className="text-gray-color w-[16px] h-[14px] ml-[8px] cursor-pointer" />
@@ -91,20 +100,29 @@ const Conclusion = () => {
               No
             </p>
             <div className="relative bg-light-color border-light-color rounded-[10px] w-[422px] h-[372px]">
-              <div className="absolute top-5 right-5 z-10">
-                {comments.length === 0
-                  ? ''
-                  : comments.map(
-                      (comment: { positiveComment: string[]; id: number }) => (
+              <div className="absolute top-5 right-[21px] z-10">
+                {candidateConclusion.bad.length === 0
+                  ? ""
+                  : candidateConclusion.bad.map(
+                      (value: string, index: number) => (
                         <div
-                          key={comment.id}
-                          className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2"
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
                         >
-                          <p className="font-raleway text-white text-xs text-right py-1 px-4">
-                            {comment.positiveComment}
-                          </p>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/images/picture-profile.svg`
+                            }
+                            alt="profile-picture"
+                          />
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
                         </div>
-                      ),
+                      )
                     )}
               </div>
               <div className="absolute bottom-4 left-5">
@@ -114,10 +132,10 @@ const Conclusion = () => {
                     id="negative"
                     name="negative"
                     placeholder="Aa"
-                    value={negativeComment}
-                    setValue={setNegativeComment}
+                    value={badComment}
+                    setValue={setBadComment}
                   />
-                  <button>
+                  <button onClick={onSubmit}>
                     <IoSend className="text-gray-color w-[16px] h-[14px] ml-[8px] cursor-pointer" />
                   </button>
                 </div>

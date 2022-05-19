@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { BsFillTelephoneFill } from 'react-icons/bs';
-import { FaMapMarkerAlt, FaRegFileWord } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRegFilePdf } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { State } from '../../../../redux/store/store';
 
@@ -78,9 +78,11 @@ const General = () => {
 
           <div>
             <p className="font-normal flex items-center my-5">
-              <FaRegFileWord className="text-cyan-color w-[19px] h-[26px]" />{' '}
+              <FaRegFilePdf className="text-cyan-color w-[20px] h-[26px]" />{' '}
               &nbsp;
-              <span className="text-cyan-color">CV</span>
+              <span className="text-cyan-color text-lg ml-3 font-medium">
+                CV
+              </span>
             </p>
             <p className="font-normal my-[10px]">
               Linkedin: &nbsp;
@@ -118,14 +120,20 @@ const General = () => {
           </div>
         </div>
         {/* SECOND GRID */}
-        <div className="w-full my-[48px] font-raleway text-gray-color text-[12px]">
+        <div
+          className={`w-full my-[48px] font-raleway text-[12px] ${
+            details.main_status === 'interested'
+              ? 'text-[#B3B9C0]'
+              : 'text-gray-color'
+          }`}
+        >
           <div className="my-[12px]">
             <span>Why are you interesting in working with FTF</span>
             <textarea
               name="description"
               id="description"
               value={details.working_reason ? details.working_reason : 'N/A'}
-              className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway text-gray-color my-3"
+              className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway my-3"
               maxLength={280}
               readOnly
             />
@@ -133,7 +141,7 @@ const General = () => {
           <div className="my-5 flex flex-row">
             <p>
               Salary Expectations:{' '}
-              <span className="font-bold text-gray-color">
+              <span className="font-bold">
                 {details.salary_expectations
                   ? details.salary_expectations
                   : 'N/A'}
@@ -141,7 +149,7 @@ const General = () => {
             </p>
             <p className="ml-[45px]">
               Available from:{' '}
-              <span className="font-bold text-gray-color">
+              <span className="font-bold">
                 {details.available_from ? details.available_from : 'N/A'}
               </span>
             </p>
@@ -151,27 +159,32 @@ const General = () => {
             <p>
               English Evaluation:{' '}
               <span className="bg-light-color w-[43px] h-[28px] rounded-[5px] px-3 py-1">
-                B2
+                N/A
               </span>
             </p>
           </div>
           <hr className="text-light-color w-[349.44px]" />
-          <div className="my-5 flex">
+          <div className="my-5 flex h-20">
             <span>Tech Skills: </span>
-            {details.skills ? (
-              details.skills.map((skill: string, index: number) => (
-                <div key={index}>
-                  <span>{skill}</span>
-                </div>
-              ))
-            ) : (
-              <span>N/A</span>
-            )}
+            <div className="flex w-[19rem] pt-1 overflow-y-auto flex-wrap gap-y-3">
+              {details.skills ? (
+                details.skills.map((skill: string, index: number) => (
+                  <div key={index} className="ml-2">
+                    <span className="text-white font-medium bg-cyan-color rounded-full p-1 px-2">
+                      {skill}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <span>N/A</span>
+              )}
+            </div>
           </div>
           <hr className="text-light-color w-[349.44px]" />
           <div className="my-5">
             <span>Interview Skills:</span>
           </div>
+          <hr className="text-light-color w-[349.44px]" />
         </div>
       </section>
     </div>

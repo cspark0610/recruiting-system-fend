@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   ClearErrors,
@@ -5,6 +6,7 @@ import {
 } from '../../../../redux/positions/actions/PositionsActions';
 import { State } from '../../../../redux/store/store';
 import FrmPosition from '../../../../components/forms/FrmPosition';
+import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
 
 export default function NewPosition() {
   const dispatch = useDispatch();
@@ -22,6 +24,10 @@ export default function NewPosition() {
       dispatch(ClearErrors(dispatch));
     }, 5000);
   }
+
+  useEffect(() => {
+    dispatch(GetAllUsers());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col">
