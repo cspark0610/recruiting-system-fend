@@ -22,12 +22,12 @@ const InputConclusion: React.FC<Props> = ({
     <>
       <input
         id={id}
-        name={name}
         type="text"
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="focus:outline-none focus:bg-white appearance-none w-[354px] h-[24px] rounded-[83px] px-4 font-raleway text-gray-color text-[12px] placeholder:text-gray-color placeholder:font-raleway"
+        className="resize-none whitespace-pre focus:outline-none focus:bg-white appearance-none w-[354px] h-[24px] rounded-[83px] px-4 font-raleway text-gray-color text-[12px] placeholder:text-gray-color placeholder:font-raleway"
       />
     </>
   );

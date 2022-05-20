@@ -75,9 +75,13 @@ const ListDialog: React.FC<Props> = ({
       <div className="absolute top-[17rem] left-[1.0rem] bg-white p-3 rounded-lg">
         <span className="text-xs">Assigned Recruiters:</span>
         <ul className="ml-6 list-disc">
-          {detail.designated_recruiters.map((recruiter: string) => (
-            <li className="text-xs">{recruiter}</li>
-          ))}
+          {detail.designated_recruiters.map(
+            (recruiter: string, index: number) => (
+              <li key={index} className="text-xs">
+                {recruiter}
+              </li>
+            ),
+          )}
         </ul>
       </div>
 
