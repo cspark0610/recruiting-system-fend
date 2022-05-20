@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ClearCandidateDetail,
   GenerateUrl,
-  GetAllCandidates,
   UpdateCandidateStatus,
 } from '../../redux/candidates/actions/CandidateAction';
 import { State } from '../../redux/store/store';
@@ -24,11 +23,11 @@ const UserDialog: React.FC<Props> = ({
   setIsModalLoading,
 }) => {
   const dispatch = useDispatch();
+
   const isDetailFinishedLoading = useSelector(
     (state: State) => state.info.detailFinishedLoading,
   );
   const detail = useSelector((state: State) => state.info.detail);
-  const success = useSelector((state: State) => state.info.success);
 
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
@@ -70,14 +69,6 @@ const UserDialog: React.FC<Props> = ({
       setIsModalLoading(false);
     }
   }, [isDetailFinishedLoading, setIsModalLoading]);
-
-  useEffect(() => {
-    if (success.message !== '') {
-      batch(() => {
-        dispatch(GetAllCandidates());
-      });
-    }
-  }, [success.message, dispatch]);
 
   // clears the candidate detail when the modal is closed
   useEffect(() => {
