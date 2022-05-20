@@ -97,6 +97,8 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
                 positionName={item.title}
                 designated={item.designated}
                 inactive={inactive}
+                rie_link={item.rie_link}
+                recruiter_filter={item.recruiter_filter}
                 priority={item.priority}
                 _id={item._id!}
                 isAdmin={isAdmin}
