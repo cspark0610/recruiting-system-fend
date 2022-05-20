@@ -368,21 +368,18 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  candidate: { good: string; bad: string },
+  candidate: { good?: string; bad?: string },
 ) {
   return async function (dispatch: Dispatch) {
-    dispatch<SetUpdatingCandidateAction>({
-      type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
-    });
-
     try {
-      const { data } =
-        await PrivateAxios.put<UpdateCandidateConclusionResponse>(
-          `${UPDATE_CONCLUSION}/${_id}`,
-          candidate,
-        );
+      dispatch<SetUpdatingCandidateAction>({
+        type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
+      });
 
-      console.log(data.candidate);
+      await PrivateAxios.put<UpdateCandidateConclusionResponse>(
+        `${UPDATE_CONCLUSION}/${_id}`,
+        candidate,
+      );
 
       dispatch<SetUpdatingCandidateAction>({
         type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
@@ -390,22 +387,26 @@ export function UpdateCandidateConclusion(
 
       return dispatch<UpdateCandidateConclusionAction>({
         type: ActionTypes.UPDATE_CONCLUSION,
-        payload: data.candidate,
+        payload: candidate,
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetCandidateErrorAction>({
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }

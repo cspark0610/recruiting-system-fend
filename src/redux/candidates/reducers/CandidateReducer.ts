@@ -131,7 +131,17 @@ function CandidateReducer(state = initialState, action: Action) {
     case ActionTypes.UPDATE_CONCLUSION: {
       return {
         ...state,
-        candidates: action.payload,
+        detail: {
+          ...state.detail,
+          conclusions: {
+            good: action.payload.good
+              ? state.detail.conclusions?.good.concat(action.payload.good)
+              : state.detail.conclusions?.good,
+            bad: action.payload.bad
+              ? state.detail.conclusions?.bad.concat(action.payload.bad)
+              : state.detail.conclusions?.bad,
+          },
+        },
       };
     }
 

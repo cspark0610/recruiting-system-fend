@@ -11,7 +11,7 @@ export default function Navbar() {
 
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
-  const userInfo = window.localStorage.getItem('user')
+  const currentUser = window.localStorage.getItem('user')
     ? JSON.parse(window.localStorage.getItem('user') as string)
     : null;
 
@@ -27,9 +27,9 @@ export default function Navbar() {
       <nav className="flex flex-row text-white items-center justify-evenly p-4 bg-[#475564]">
         <div className="relative" ref={profileMenuRef}>
           <div className="flex space-x-3">
-            {userInfo?.picture ? (
+            {currentUser?.picture ? (
               <img
-                src={userInfo.picture}
+                src={currentUser.picture}
                 alt="profile pic"
                 className="w-10 h-10 rounded-full"
               />
@@ -38,7 +38,7 @@ export default function Navbar() {
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               className="font-medium"
             >
-              Hello {userInfo?.name.split(' ')[0] || 'User'}
+              Hello {currentUser?.name.split(' ')[0] || 'User'}
             </button>
           </div>
           <div
