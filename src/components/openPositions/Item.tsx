@@ -10,6 +10,8 @@ import getPositionPriorityColor from '../../utils/getPositionPriorityColor';
 type ItemProps = {
   positionName: string;
   designated: string[];
+  rie_link: string;
+  recruiter_filter: string;
   inactive: boolean;
   priority: string;
   _id: string;
@@ -20,6 +22,8 @@ export default function Item({
   positionName,
   designated,
   inactive,
+  rie_link,
+  recruiter_filter,
   priority,
   _id,
   isAdmin,
@@ -53,19 +57,21 @@ export default function Item({
                 : 'flex flex-col w-40 mt-2'
             }
           >
-            <p>{positionName}</p>
-            {designated && designated.length > 0
-              ? designated.map((user: any) => (
-                  <div key={user._id} className="divide-x">
-                    <p>{user.name}</p>
-                  </div>
-                ))
-              : null}
+            <p className="ml-2">{positionName}</p>
+            <div className="flex flex-nowrap w-screen divide-x divide-black mt-4">
+              {designated && designated.length > 0
+                ? designated.map((user: any) => (
+                    <div key={user._id}>
+                      <p className="px-2">{user.name}</p>
+                    </div>
+                  ))
+                : null}
+            </div>
           </div>
           {isAdmin ? (
             <div className="relative desktop:pr-[30rem]">
               <div className="mt-2">
-                <p className={`p-1 px-4 rounded-lg ${priorityClass}`}>
+                <p className={`p-1 px-4 text-sm rounded-lg ${priorityClass}`}>
                   {priority}
                 </p>
               </div>
@@ -79,7 +85,9 @@ export default function Item({
           </button>
         </div>
       </div>
-      {isOpen ? <SubMenu /> : null}
+      {isOpen ? (
+        <SubMenu rie_link={rie_link} recruiter_filter={recruiter_filter} />
+      ) : null}
     </div>
   );
 }
