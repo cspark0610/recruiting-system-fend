@@ -103,6 +103,11 @@ export default function FrmPosition() {
           </div>
         </div>
         <div className="flex flex-col">
+          <ErrorMessages
+            errorTerms={['registered']}
+            errorState={error}
+            className="flex justify-center pb-2"
+          />
           <div className="flex justify-center">
             <div className="flex flex-col">
               <Text
@@ -183,7 +188,7 @@ export default function FrmPosition() {
               />
             </div>
           </div>{' '}
-          <div className="flex justify-center mt-2">
+          <div className="mt-2 mx-auto">
             <div>
               <MultiSelect
                 options={data}
