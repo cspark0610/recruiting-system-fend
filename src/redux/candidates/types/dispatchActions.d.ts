@@ -1,5 +1,5 @@
-import { ActionTypes } from "../types/index";
-import { ICandidate, IConclusions, IError } from "./data";
+import { ActionTypes } from '../types/index';
+import { ICandidate, IConclusions, IError } from './data';
 
 export type GetCandidatesAction = {
   type: ActionTypes.GET_CANDIDATES;
@@ -18,6 +18,15 @@ export type GetCandidateInfoAction = {
 
 export type ClearCandidateDetailAction = {
   type: ActionTypes.CLEAR_CANDIDATE_DETAIL;
+};
+
+export type UpdateCandidateStatusAction = {
+  type: ActionTypes.UPDATE_STATUS;
+  payload: {
+    _id: string;
+    main_status: string;
+    secondary_status: string;
+  };
 };
 
 export type CleanCandidateSuccessAction = {
@@ -107,6 +116,7 @@ export type Action =
   | CreateCandidateAction
   | SetCandidateErrorAction
   | ClearCandidateErrorAction
+  | UpdateCandidateStatusAction
   | GetCandidateInfoAction
   | SetCurrentFiltersAction
   | CleanFiltersAction

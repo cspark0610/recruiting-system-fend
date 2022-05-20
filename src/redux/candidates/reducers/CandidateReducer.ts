@@ -10,66 +10,66 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index';
+import { InitialState } from '../types/states';
+import { Action } from '../types/dispatchActions';
 
 const initialState: InitialState = {
   candidates: [],
   detail: {
-    _id: "",
-    name: "",
-    email: "",
+    _id: '',
+    name: '',
+    email: '',
     conclusions: {
       good: [],
       bad: [],
     },
-    country: "",
-    english_level: "",
-    academic_training: "",
+    country: '',
+    english_level: '',
+    academic_training: '',
     phone: 0,
     position: {
-      _id: "",
-      title: "",
-      client_name: "",
-      rie_link: "",
+      _id: '',
+      title: '',
+      client_name: '',
+      rie_link: '',
       designated: [],
-      priority: "",
-      recruiter_filter: "",
-      url: "",
+      priority: '',
+      recruiter_filter: '',
+      url: '',
       isActive: true,
       skills_required: [],
       video_questions_list: [],
     },
-    working_reason: "",
-    main_status: "",
-    secondary_status: "",
+    working_reason: '',
+    main_status: '',
+    secondary_status: '',
     designated_recruiters: [],
     skills: [],
-    linkedin: "",
-    portfolio: "",
+    linkedin: '',
+    portfolio: '',
     createdAt: undefined,
     updatedAt: undefined,
     video_recording_url: {
-      _id: "",
-      short_url: "",
+      _id: '',
+      short_url: '',
       expiresAt: undefined,
     },
-    cv: "",
+    cv: '',
     isRejected: false,
-    url_link_2: "",
+    url_link_2: '',
   },
   detailFinishedLoading: false,
-  url_id: "",
+  url_id: '',
   user: {
-    college: "",
-    salary: "",
-    available: "",
-    skills: [""],
-    description: "",
-    video: "",
+    college: '',
+    salary: '',
+    available: '',
+    skills: [''],
+    description: '',
+    video: '',
   },
   userId: null,
   isUserEdit: false,
@@ -77,16 +77,16 @@ const initialState: InitialState = {
   updating: false,
   error: {
     status: 400,
-    message: "",
+    message: '',
   },
   success: {
     status: 200,
-    message: "",
+    message: '',
   },
   currentFilters: {
     position: [],
     status: [],
-    query: "",
+    query: '',
   },
 };
 
@@ -132,6 +132,26 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         candidates: action.payload,
+      };
+    }
+
+    case ActionTypes.UPDATE_STATUS: {
+      return {
+        ...state,
+        candidates: state.candidates.map((candidate) =>
+          candidate._id === action.payload._id
+            ? {
+                ...candidate,
+                main_status: action.payload.main_status,
+                secondary_status: action.payload.secondary_status,
+              }
+            : candidate,
+        ),
+        detail: {
+          ...state.detail,
+          main_status: action.payload.main_status,
+          secondary_status: action.payload.secondary_status,
+        },
       };
     }
 
@@ -182,7 +202,7 @@ function CandidateReducer(state = initialState, action: Action) {
         ...state,
         success: {
           status: 200,
-          message: "",
+          message: '',
         },
       };
     }
@@ -199,7 +219,7 @@ function CandidateReducer(state = initialState, action: Action) {
         ...state,
         error: {
           status: 400,
-          message: "",
+          message: '',
         },
       };
     }
@@ -210,7 +230,7 @@ function CandidateReducer(state = initialState, action: Action) {
         currentFilters: {
           position: [],
           status: [],
-          query: "",
+          query: '',
         },
       };
     }
@@ -219,45 +239,45 @@ function CandidateReducer(state = initialState, action: Action) {
       return {
         ...state,
         detail: {
-          _id: "",
-          name: "",
-          email: "",
+          _id: '',
+          name: '',
+          email: '',
           conclusions: {
-            good: [""],
-            bad: [""],
+            good: [''],
+            bad: [''],
           },
-          country: "",
-          english_level: "",
-          academic_training: "",
+          country: '',
+          english_level: '',
+          academic_training: '',
           phone: 123,
           position: {
-            _id: "",
-            title: "",
-            client_name: "",
-            rie_link: "",
-            designated: [""],
-            priority: "",
-            recruiter_filter: "",
-            url: "",
+            _id: '',
+            title: '',
+            client_name: '',
+            rie_link: '',
+            designated: [''],
+            priority: '',
+            recruiter_filter: '',
+            url: '',
             isActive: true,
             skills_required: [],
             video_questions_list: [],
           },
-          working_reason: "",
-          main_status: "interested",
-          secondary_status: "new entry",
+          working_reason: '',
+          main_status: 'interested',
+          secondary_status: 'new entry',
           designated_recruiters: [],
           skills: [],
-          linkedin: "",
-          portfolio: "",
+          linkedin: '',
+          portfolio: '',
           createdAt: undefined,
           updatedAt: undefined,
           video_recording_url: {
-            _id: "",
-            short_url: "",
+            _id: '',
+            short_url: '',
             expiresAt: undefined,
           },
-          cv: "",
+          cv: '',
           isRejected: false,
         },
       };
