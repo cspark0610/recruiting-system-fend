@@ -27,7 +27,7 @@ const Conclusion = () => {
   const onSubmit = (evt: any) => {
     evt.preventDefault();
     if (!goodComment && !badComment) {
-      alert('you must to complete empty field');
+      return;
     } else {
       dispatch(
         UpdateCandidateConclusion(_id, {
