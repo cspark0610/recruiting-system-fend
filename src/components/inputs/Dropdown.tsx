@@ -53,8 +53,8 @@ const Dropdown = () => {
                       className="ml-2 mr-2 focus:outline-none"
                       type="checkbox"
                       name={title}
-                      checked={position.indexOf(title) !== -1 ? true : false}
-                      value={title}
+                      checked={position.indexOf(_id!) !== -1 ? true : false}
+                      value={_id}
                       onChange={handlePositionCaptureCheck}
                     />
                     <label
