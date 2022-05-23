@@ -28,6 +28,7 @@ const UserDialog: React.FC<Props> = ({
     (state: State) => state.info.detailFinishedLoading,
   );
   const detail = useSelector((state: State) => state.info.detail);
+  const success = useSelector((state: State) => state.info.success);
 
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
@@ -39,6 +40,7 @@ const UserDialog: React.FC<Props> = ({
   const [color, setColor] = useState('bg-gray-color');
 
   /* STATES OF CONTROL FROM MODAL */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
@@ -77,6 +79,24 @@ const UserDialog: React.FC<Props> = ({
     };
   }, [dispatch]);
 
+  const closeActionModalOnSuccess = () => {
+    if (approve) {
+      setApproved(false);
+    }
+
+    if (doubting) {
+      setDoubting(false);
+    }
+
+    if (dismiss) {
+      setDismiss(false);
+    }
+
+    if (reject) {
+      setReject(false);
+    }
+  };
+
   const isApproved = () => {
     setApproved(!approve);
   };
@@ -105,6 +125,10 @@ const UserDialog: React.FC<Props> = ({
       UpdateCandidateStatus(detail._id, detail.main_status, secondary_status),
     );
   };
+
+  if (success.message !== '') {
+    closeActionModalOnSuccess();
+  }
 
   return (
     <>
