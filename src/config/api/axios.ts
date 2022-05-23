@@ -3,6 +3,7 @@ import setLocalStorage from '../../utils/setLocalStorage';
 import store from '../../redux/store/store';
 import { REFRESH_TOKENS } from '../routes/endpoints';
 import { LogOut } from '../../redux/users/actions/UserAction';
+import { RefreshTokenResponse } from '../../redux/users/types/axiosResponses';
 
 const { NODE_ENV } = process.env;
 
@@ -12,11 +13,13 @@ const accessToken = window.localStorage.getItem('access');
 
 const refresh = async () => {
   try {
-    const { data } = await PrivateAxios.post(REFRESH_TOKENS);
+    const { data } = await PrivateAxios.post<RefreshTokenResponse>(
+      REFRESH_TOKENS,
+    );
     setLocalStorage('access', data.accessToken.token);
 
     return data.accessToken.token;
-  } catch (error) {
+  } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
         dispatch(LogOut());

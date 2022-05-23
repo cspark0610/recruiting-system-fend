@@ -11,3 +11,9 @@ export type LoginUserResponse = {
   refresh_token: string;
   user: IUser;
 };
+
+export type RefreshTokenResponse = {
+  accessToken: {
+    token: string;
+  }
+}
