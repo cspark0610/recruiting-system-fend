@@ -8,7 +8,6 @@ import LoaderSpinner from '../../assets/loaderSpinner';
 import ErrorMessages from './ErrorMessages';
 import GoogleButton from '../buttons/GoogleButton';
 
-
 const FrmLogin = () => {
   /*  */
   const dispatch = useDispatch();

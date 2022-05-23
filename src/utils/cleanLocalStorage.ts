@@ -1,5 +1,8 @@
 export default function cleanLocalStorage() {
-  window.localStorage.removeItem('refresh_error');
-  window.localStorage.removeItem('access');
-  window.localStorage.removeItem('user');
+  const localStorage = Object.entries(window.localStorage);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  for (let [key, _value] of localStorage) {
+    window.localStorage.removeItem(key);
+  }
 }

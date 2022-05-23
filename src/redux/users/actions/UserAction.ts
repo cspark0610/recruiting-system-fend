@@ -76,8 +76,10 @@ export function Login(
 
       cleanLocalStorage();
 
-      setLocalStorage('access', data.access_token);
-      setLocalStorage('user', JSON.stringify(data.user));
+      setLocalStorage({
+        access: data.access_token,
+        user: JSON.stringify(data.user),
+      });
 
       dispatch<SetUserSuccessAction>({
         type: ActionTypes.SET_USER_SUCCESS,

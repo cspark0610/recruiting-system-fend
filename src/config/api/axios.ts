@@ -16,17 +16,16 @@ const refresh = async () => {
     const { data } = await PrivateAxios.post<RefreshTokenResponse>(
       REFRESH_TOKENS,
     );
-    setLocalStorage('access', data.accessToken.token);
+    setLocalStorage({ access: data.accessToken.token });
 
     return data.accessToken.token;
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
         dispatch(LogOut());
-        setLocalStorage(
-          'refresh_error',
-          'Your session has expired. Please login again.',
-        );
+        setLocalStorage({
+          refresh_error: 'Your session has expired. Please login again.',
+        });
       }
     }
   }
