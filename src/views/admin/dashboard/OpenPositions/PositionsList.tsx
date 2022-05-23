@@ -33,7 +33,7 @@ export default function PositionsList() {
       dispatch(GetActivePositions(6, 1));
       dispatch(GetInactivePositions(6, 1));
     });
-  }, [dispatch, success.message]);
+  }, [dispatch]);
 
   return (
     <div className={isAdmin ? 'mt-32 md:w-screen' : 'mt-48 md:w-screen'}>

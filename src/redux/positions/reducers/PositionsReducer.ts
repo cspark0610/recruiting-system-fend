@@ -99,7 +99,7 @@ const PositionsReducer = (state = initialState, action: Action) => {
     case ActionTypes.CREATE_POSITION: {
       return {
         ...state,
-        positions: state.data.docs.concat(action.payload),
+        docs: state.data.docs.concat(action.payload),
       };
     }
 

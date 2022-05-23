@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
-import { ActionTypes } from "../types/index";
+import { ActionTypes } from '../types/index';
 
 import {
   CreateCandidateResponse,
@@ -8,10 +8,9 @@ import {
   GetCandidatesFilteredResponse,
   GetCandidatesResponse,
   UpdateCandidateConclusionResponse,
-  UpdateCandidateInfoResponse,
   UpdateCandidateStatusResponse,
   ValidateTokenResponse,
-} from "../types/axiosResponses";
+} from '../types/axiosResponses';
 
 import {
   CreateCandidateAction,
@@ -30,7 +29,8 @@ import {
   SetCandidateLoadingAction,
   ValidateTokenAction,
   UpdateCandidateConclusionAction,
-} from "../types/dispatchActions";
+  UpdateCandidateStatusAction,
+} from '../types/dispatchActions';
 
 import {
   ADD_CANDIDATE,
@@ -44,7 +44,7 @@ import {
   DATA_EDIT,
   DATA_EDIT_SUCCESS,
   DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types';
 import {
   CREATE_CANDIDATE,
   GENERATE_URL,
@@ -54,9 +54,9 @@ import {
   UPDATE_CONCLUSION,
   UPDATE_STATUS,
   VALIDATE_TOKEN,
-} from "../../../config/routes/endpoints";
-import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
-import { Filters } from "../types/data";
+} from '../../../config/routes/endpoints';
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
+import { Filters } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -66,7 +66,7 @@ export function GetAllCandidates() {
 
     try {
       const { data } = await PrivateAxios.get<GetCandidatesResponse>(
-        GET_ALL_CANDIDATES
+        GET_ALL_CANDIDATES,
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -102,7 +102,7 @@ export function GetCandidateInfo(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
       const { data } = await PrivateAxios.get<GetCandidateInfoResponse>(
-        `${GET_ALL_CANDIDATES}/${_id}`
+        `${GET_ALL_CANDIDATES}/${_id}`,
       );
 
       dispatch<SetDetailFinishedLoadingAction>({
@@ -154,7 +154,7 @@ export function GetCandidatesFiltered(filters: Filters) {
     try {
       const { data } = await PrivateAxios.post<GetCandidatesFilteredResponse>(
         GET_ALL_CANDIDATES_FILTERED,
-        filters
+        filters,
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -215,7 +215,7 @@ export function CreateCandidate(candidateInfo: any) {
 
       const { data } = await ClientAxios.post<CreateCandidateResponse>(
         CREATE_CANDIDATE,
-        candidateInfo
+        candidateInfo,
       );
 
       dispatch<SetCandidateLoadingAction>({
@@ -226,7 +226,7 @@ export function CreateCandidate(candidateInfo: any) {
         type: ActionTypes.SET_CANDIDATE_SUCCESS,
         payload: {
           status: 201,
-          message: "Created successfully",
+          message: 'Created successfully',
         },
       });
 
@@ -311,7 +311,7 @@ export function AddCandidate(user: any) {
 export function UpdateCandidateStatus(
   _id: string,
   main_status: string,
-  secondary_status: string
+  secondary_status: string,
 ) {
   return async function (dispatch: Dispatch) {
     dispatch<SetUpdatingCandidateAction>({
@@ -324,20 +324,28 @@ export function UpdateCandidateStatus(
         {
           main_status,
           secondary_status,
-        }
+        },
       );
-
-      if (main_status === "interested" && secondary_status === "approved") {
-        GenerateUrl(_id);
-      }
 
       dispatch<SetUpdatingCandidateAction>({
         type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
       });
 
-      return dispatch<SetCandidateSuccessAction>({
+      dispatch<SetCandidateSuccessAction>({
         type: ActionTypes.SET_CANDIDATE_SUCCESS,
-        payload: data,
+        payload: {
+          status: data.status,
+          message: data.message,
+        },
+      });
+
+      return dispatch<UpdateCandidateStatusAction>({
+        type: ActionTypes.UPDATE_STATUS,
+        payload: {
+          _id,
+          main_status: data.main_status,
+          secondary_status: data.secondary_status,
+        },
       });
     } catch (error: any) {
       if (error.response) {
@@ -360,21 +368,18 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  candidate: { good: string; bad: string }
+  candidate: { good?: string; bad?: string },
 ) {
   return async function (dispatch: Dispatch) {
-    dispatch<SetUpdatingCandidateAction>({
-      type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
-    });
-
     try {
-      const { data } =
-        await PrivateAxios.put<UpdateCandidateConclusionResponse>(
-          `${UPDATE_CONCLUSION}/${_id}`,
-          candidate
-        );
+      dispatch<SetUpdatingCandidateAction>({
+        type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
+      });
 
-      console.log(data.candidate);
+      await PrivateAxios.put<UpdateCandidateConclusionResponse>(
+        `${UPDATE_CONCLUSION}/${_id}`,
+        candidate,
+      );
 
       dispatch<SetUpdatingCandidateAction>({
         type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
@@ -382,22 +387,26 @@ export function UpdateCandidateConclusion(
 
       return dispatch<UpdateCandidateConclusionAction>({
         type: ActionTypes.UPDATE_CONCLUSION,
-        payload: data.candidate,
+        payload: candidate,
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch<SetCandidateErrorAction>({
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
         });
+      } else {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
       }
-      dispatch<SetCandidateLoadingAction>({
-        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-      });
-      dispatch<SetCandidateErrorAction>({
-        type: ActionTypes.SET_CANDIDATE_ERROR,
-        payload: error,
-      });
     }
   };
 }
@@ -406,7 +415,7 @@ export function ValidateToken(token: string) {
   return async function (dispatch: Dispatch) {
     try {
       const { data } = await ClientAxios.post<ValidateTokenResponse>(
-        `${VALIDATE_TOKEN}?token=${token}`
+        `${VALIDATE_TOKEN}?token=${token}`,
       );
 
       return dispatch<ValidateTokenAction>({

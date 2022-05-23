@@ -1,4 +1,4 @@
-import { ICandidate, IConclusions } from "./data";
+import { ICandidate, IConclusions } from './data';
 
 export type GetCandidatesResponse = {
   status: number;
@@ -28,6 +28,8 @@ export type CreateCandidateResponse = {
 export type UpdateCandidateStatusResponse = {
   status: number;
   message: string;
+  main_status: string;
+  secondary_status: string;
 };
 
 export type UpdateCandidateConclusionResponse = {

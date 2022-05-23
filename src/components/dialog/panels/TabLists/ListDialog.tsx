@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
-import { Tab } from "@headlessui/react";
-import DialogControl from "../../../buttons/DialogControl";
-import { State } from "../../../../redux/store/store";
-import getCandidatesByColumn from "../../../../utils/getCandidatesByColumn";
+import { useSelector } from 'react-redux';
+import { Tab } from '@headlessui/react';
+import DialogControl from '../../../buttons/DialogControl';
+import { State } from '../../../../redux/store/store';
 
 interface Props {
   isApproved: any;
@@ -13,7 +12,7 @@ interface Props {
 }
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 const ListDialog: React.FC<Props> = ({
@@ -38,7 +37,7 @@ const ListDialog: React.FC<Props> = ({
         className={({ selected }) =>
           classNames(
             `absolute top-[87px] left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none`,
-            selected ? "bg-white rounded-l-[5px] text-cyan-color" : ""
+            selected ? 'bg-white rounded-l-[5px] text-cyan-color' : '',
           )
         }
       >
@@ -49,9 +48,9 @@ const ListDialog: React.FC<Props> = ({
         className={({ selected }) =>
           classNames(
             `${
-              detail.main_status === "interested" ? "hidden" : "block"
+              detail.main_status === 'interested' ? 'hidden' : 'block'
             } absolute top-[130px] left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none`,
-            selected ? "bg-white rounded-l-[5px] text-cyan-color" : ""
+            selected ? 'bg-white rounded-l-[5px] text-cyan-color' : '',
           )
         }
       >
@@ -62,28 +61,41 @@ const ListDialog: React.FC<Props> = ({
         className={({ selected }) =>
           classNames(
             `absolute ${
-              detail.main_status === "interested"
-                ? "top-[130px]"
-                : "top-[173px]"
+              detail.main_status === 'interested'
+                ? 'top-[130px]'
+                : 'top-[173px]'
             } left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none`,
-            selected ? "bg-white rounded-l-[5px] text-cyan-color" : ""
+            selected ? 'bg-white rounded-l-[5px] text-cyan-color' : '',
           )
         }
       >
         Conclusions
       </Tab>
 
+      <div className="absolute top-[17rem] left-[1.0rem] bg-white p-3 rounded-lg">
+        <span className="text-xs">Assigned Recruiters:</span>
+        <ul className="ml-6 list-disc">
+          {detail.designated_recruiters.map(
+            (recruiter: string, index: number) => (
+              <li key={index} className="text-xs">
+                {recruiter}
+              </li>
+            ),
+          )}
+        </ul>
+      </div>
+
       {/* Buttons to control the postulation'status of a user */}
       <div
         className={`${
-          isConfirmed ? "hidden" : "block"
-        } absolute top-[300px] left-[40px]`}
+          isConfirmed ? 'hidden' : 'block'
+        } absolute top-[370px] left-[40px]`}
       >
         <div className="grid grid-cols-1">
-          {detail.secondary_status === "approved" ? null : (
+          {detail.secondary_status === 'approved' ? null : (
             <>
-              {detail.secondary_status !== "approved" &&
-                detail.secondary_status !== "dismissed" && (
+              {detail.secondary_status !== 'approved' &&
+                detail.secondary_status !== 'dismissed' && (
                   <DialogControl
                     classes="bg-green-color"
                     onClick={isApproved}
@@ -91,8 +103,8 @@ const ListDialog: React.FC<Props> = ({
                     needIcon={false}
                   />
                 )}
-              {detail.secondary_status !== "doubting" &&
-                detail.secondary_status !== "dismissed" && (
+              {detail.secondary_status !== 'doubting' &&
+                detail.secondary_status !== 'dismissed' && (
                   <DialogControl
                     classes="bg-yellow-color"
                     onClick={isDoubting}
@@ -100,7 +112,7 @@ const ListDialog: React.FC<Props> = ({
                     needIcon={false}
                   />
                 )}
-              {detail.secondary_status !== "dismissed" && (
+              {detail.secondary_status !== 'dismissed' && (
                 <DialogControl
                   classes="bg-red-dark"
                   onClick={isDismiss}

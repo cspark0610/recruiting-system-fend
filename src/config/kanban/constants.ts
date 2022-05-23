@@ -36,4 +36,5 @@ const secondaryStatus: SecondaryStatus = [
     color: 'bg-[#475564]',
   },
 ];
+
 export default secondaryStatus;

@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import store from '../../store/store';
 
 import { ActionTypes } from '../types/actionNames';
 
@@ -13,6 +14,7 @@ import {
   SetLoadingAction,
   GetActivePositionsAction,
   GetInactivePositionsAction,
+  SetIsPositionUpdatingAction,
 } from '../types/dispatchActions';
 
 import {
@@ -196,14 +198,21 @@ export function createPosition(positionInfo: IPosition) {
 
 export function SetIsActive(_id: string) {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_UPDATING });
+    dispatch<SetIsPositionUpdatingAction>({
+      type: ActionTypes.SET_IS_UPDATING,
+    });
 
     try {
       const { data } = await PrivateAxios.put<SetIsActiveResponse>(
         `${SET_IS_ACTIVE}/${_id}`,
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
+      dispatch<SetIsPositionUpdatingAction>({
+        type: ActionTypes.SET_IS_NOT_UPDATING,
+      });
+
+      store.dispatch(GetActivePositions(6, 1));
+      store.dispatch(GetInactivePositions(6, 1));
 
       return dispatch<SetSuccessAction>({
         type: ActionTypes.SET_SUCCESS,
@@ -211,14 +220,18 @@ export function SetIsActive(_id: string) {
       });
     } catch (error: any) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
 
         return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       } else {
-        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
 
         return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
@@ -243,14 +256,21 @@ export function ClearSuccess(dispatch: Dispatch) {
 
 export function DeletePosition(_id: string) {
   return async function (dispatch: Dispatch) {
-    dispatch({ type: ActionTypes.SET_IS_UPDATING });
+    dispatch<SetIsPositionUpdatingAction>({
+      type: ActionTypes.SET_IS_UPDATING,
+    });
 
     try {
       const { data } = await PrivateAxios.delete<DeletePositionResponse>(
         `${DELETE_POSITION}/${_id}`,
       );
 
-      dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
+      dispatch<SetIsPositionUpdatingAction>({
+        type: ActionTypes.SET_IS_NOT_UPDATING,
+      });
+
+      store.dispatch(GetActivePositions(6, 1));
+      store.dispatch(GetInactivePositions(6, 1));
 
       return dispatch<SetSuccessAction>({
         type: ActionTypes.SET_SUCCESS,
@@ -258,14 +278,18 @@ export function DeletePosition(_id: string) {
       });
     } catch (error) {
       if (error.response) {
-        dispatch({ type: ActionTypes.SET_IS_NOT_UPDATING });
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
 
         dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
           payload: error.response.data,
         });
       } else {
-        dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
 
         return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,

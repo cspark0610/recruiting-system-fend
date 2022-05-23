@@ -1,6 +1,55 @@
 import { ICandidate } from '../redux/candidates/types/data';
 
-const getCandidatesByColumn = (candidates: ICandidate[]) => {
+const headers = [
+  {
+    key: 'interested',
+    text: 'Interested in',
+  },
+  {
+    key: 'applying',
+    text: 'Applying for',
+  },
+  {
+    key: 'meeting',
+    text: 'Meeting for',
+  },
+  {
+    key: 'chosen',
+    text: 'Chosen for',
+  },
+];
+
+const cardColor = [
+  {
+    name: 'new entry',
+    color: 'card card-new',
+  },
+  {
+    name: 'dismissed',
+    color: 'card card-dismissed',
+  },
+  {
+    name: 'doubting',
+    color: 'card card-doubting',
+  },
+  {
+    name: 'approved',
+    color: 'card card-approved',
+  },
+];
+
+export function getDetailHeaderText(main_status: string) {
+  return headers.find((header) => header.key === main_status)?.text;
+}
+
+export function getTopBorderColor(secondary_status: string) {
+  const cardBorderColor = cardColor.find(
+    (item) => item.name === secondary_status,
+  )?.color;
+  return cardBorderColor;
+}
+
+export const sortByColumn = (candidates: ICandidate[]) => {
   const interested = candidates
     .filter((candidate) => candidate.main_status === 'interested')
     .sort((a, b) => {
@@ -59,5 +108,3 @@ const getCandidatesByColumn = (candidates: ICandidate[]) => {
     chosen,
   };
 };
-
-export default getCandidatesByColumn;
