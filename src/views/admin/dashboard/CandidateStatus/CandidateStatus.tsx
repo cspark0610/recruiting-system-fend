@@ -14,7 +14,7 @@ import {
   MeetingInfo,
   ChosenInfo,
 } from '../../../../config/kanban/columnGuideInfo';
-import getCandidatesByColumn from '../../../../utils/getCandidatesByColumn';
+import { sortByColumn } from '../../../../utils/candidates';
 
 export default function CandidateStatus() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function CandidateStatus() {
   );
   let candidates = useSelector((state: State) => state.info.candidates);
 
-  candidates = getCandidatesByColumn(candidates);
+  candidates = sortByColumn(candidates);
 
   if (success.message !== '') {
     setTimeout(() => {
