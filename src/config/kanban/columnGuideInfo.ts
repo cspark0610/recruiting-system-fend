@@ -83,7 +83,7 @@ export const ChosenInfo: IColumnInfo = {
       color: 'bg-[#475564]',
     },
     {
-      text: 'CEO had the meeting and has aproved the candidate',
+      text: 'CEO had the meeting and has approved the candidate',
       id: 2,
       color: 'bg-[#35C549]',
     },
