@@ -8,7 +8,6 @@ COPY package*.json ./
 COPY tsconfig.json ./
 
 RUN npm install
-RUN npm install react-scripts
 
 COPY . .
 
