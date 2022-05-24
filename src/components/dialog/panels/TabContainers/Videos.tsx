@@ -4,7 +4,7 @@ import { State } from '../../../../redux/store/store';
 import QskInterview from '../../../extras/QskInterview';
 
 const Videos = () => {
-  const candidateName = useSelector((state: State) => state.info.detail.name);
+  const detail = useSelector((state: State) => state.info.detail);
   /*  */
   let video = '';
 
@@ -12,7 +12,7 @@ const Videos = () => {
     <div className="grid justify-items-center">
       <div className="mt-[48px] grid justify-items-start w-[85%]">
         <p className="font-raleway font-semibold text-gray-color text-[20px]">
-          {candidateName}
+          {detail.name}
         </p>
       </div>
       <section className="grid justify-items-center grid-cols-2 gap-[36px] w-[85%]">
@@ -29,7 +29,7 @@ const Videos = () => {
               )}
             </div>
             <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
-              *This candidate haven't completed any task yet
+              *This candidate has not uploaded any video yet.
             </p>
           </div>
         </div>

@@ -44,6 +44,7 @@ const initialState: InitialState = {
       video_questions_list: [],
     },
     working_reason: '',
+    videos_question_list: [],
     main_status: '',
     secondary_status: '',
     designated_recruiters: [],
