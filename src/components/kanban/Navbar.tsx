@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
+import { VIEW_EXPERT, VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import { LogOut } from '../../redux/users/actions/UserAction';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 
