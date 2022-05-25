@@ -73,9 +73,17 @@ export default function Navbar() {
             >
               Candidates Status
             </NavLink>
-            <button className="px-3 focus:text-cyan-400 focus:underline focus:underline-offset-8">
+            
+            <NavLink
+              to={VIEW_EXPERT}
+              className={({ isActive }) =>
+                isActive
+                  ? 'px-3 text-cyan-400 underline underline-offset-8'
+                  : 'px-3 text-white'
+              }
+            >
               Expert
-            </button>
+            </NavLink>
           </ul>
         </div>
         <button
