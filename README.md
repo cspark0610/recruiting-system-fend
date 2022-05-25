@@ -4,7 +4,7 @@ WorkAt frontend project migration - Fulltimeforce
 
 ## You have to follow these steps to run the project locally
 
-**First of all, make you sure you are using Node `16.14.0` and NPM `8.3.1`, since these are the versions the project runs on.**
+**First of all, make sure you are using Node `16.14.0` and NPM `8.3.1`, since these are the versions the project runs on.**
 
 Then, once you have that settled, follow these steps:
 
