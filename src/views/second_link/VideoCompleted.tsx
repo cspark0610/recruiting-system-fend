@@ -1,25 +1,26 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { RiEdit2Fill } from "react-icons/ri";
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { RiEdit2Fill } from 'react-icons/ri';
 
-import Submit from "../../components/buttons/Submit";
-import Lang from "../../components/extras/Lang";
-import Header from "../../components/header/Header";
+import Submit from '../../components/buttons/Submit';
+import Lang from '../../components/extras/Lang';
+import Header from '../../components/header/Header';
 
 /* Redux */
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import {
   GetData,
   DataEdit,
-} from "../../redux/candidates/actions/CandidateAction";
+  ValidateToken,
+} from '../../redux/candidates/actions/CandidateAction';
 import {
   VIEW_BEFORE_STARTING,
   VIEW_REQUIRED_STEPS,
-} from "../../config/routes/paths";
-import { State } from "../../redux/store/store";
+} from '../../config/routes/paths';
+import { State } from '../../redux/store/store';
 
-import { useTranslation } from "react-i18next";
-import VideoPlayer from "../../components/recorder/player/VideoPlayer";
+import { useTranslation } from 'react-i18next';
+import VideoPlayer from '../../components/recorder/player/VideoPlayer';
 
 const VideoCompleted = () => {
   /*  */
@@ -29,12 +30,19 @@ const VideoCompleted = () => {
 
   const candidateID = useSelector((state: State) => state.info.candidates._id);
 
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+
   useEffect(() => {
     if (candidateID) {
       const loadInfo = () => dispatch(GetData(candidateID));
       loadInfo();
     }
   }, [candidateID, dispatch]);
+
+  useEffect(() => {
+    dispatch(ValidateToken(token!));
+  }, [dispatch, token]);
 
   const candidate = useSelector((state: State) => state.info.candidates);
 
@@ -59,10 +67,10 @@ const VideoCompleted = () => {
           <section className="grid justify-items-center content-center mobile:gap-10 laptop:gap-10 mobile:grid-rows-1 tablet:grid-cols-2 laptop:grid-cols-2 md:px-5 w-full">
             <div className="font-raleway text-gray-color bg-white w-4/5">
               <h2 className="mobile:text-lg laptop:text-2xl">
-                {t("video-completed.title")}
+                {t('video-completed.title')}
               </h2>
               <span className="mobile:text-sm laptop:text-base">
-                {t("video-completed.sub-title")}
+                {t('video-completed.sub-title')}
               </span>
               <div className="mobile:block tablet:hidden laptop:hidden">
                 <VideoPlayer
@@ -73,7 +81,7 @@ const VideoCompleted = () => {
               </div>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.studies")}{" "}
+                {t('video-completed.studies')}{' '}
                 <span className="text-cyan-color font-bold">
                   {candidate.academic_training}
                 </span>
@@ -88,7 +96,7 @@ const VideoCompleted = () => {
               </p>
               <hr className="w-ful my-5" />
               <h2 className="font-raleway font-normal mobile:text-xs laptop:text-sm text-font-color mb-2">
-                {t("video-completed.text-area-title")}
+                {t('video-completed.text-area-title')}
               </h2>
               <div className="relative bg-light-color rounded-[10px] px-2 py-1 min-w-full mobile:w-[336px] mobile:h-[121px] laptop:w-[350px] laptop:h-[121px]">
                 <p className="text-gray-color font-raleway font-light text-sm p-2 text-justify">
@@ -106,7 +114,7 @@ const VideoCompleted = () => {
               </div>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm">
-                {t("video-completed.skill-title")}{" "}
+                {t('video-completed.skill-title')}{' '}
               </p>
               <div className="grid grid-cols-2 gap-2 mt-2">
                 {candidate.skill &&
@@ -118,12 +126,12 @@ const VideoCompleted = () => {
                       >
                         {candidate.skill && ability.name}
                       </span>
-                    )
+                    ),
                   )}
               </div>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.salary-title")}{" "}
+                {t('video-completed.salary-title')}{' '}
                 {candidate.salary_expectations}
                 <button
                   type="submit"
@@ -136,7 +144,7 @@ const VideoCompleted = () => {
               </p>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-                {t("video-completed.available-title")}{" "}
+                {t('video-completed.available-title')}{' '}
                 {candidate.available_from}
                 <button
                   type="submit"
@@ -158,7 +166,7 @@ const VideoCompleted = () => {
               </div>
               <div className="grid justify-items-center mobile:w-auto tablet:w-[400px] laptop:w-[400px] mobile:mt-[-5px] tablet:mt-[39px] laptop:mt-[39px]">
                 <Submit
-                  name={t("video-completed.send")}
+                  name={t('video-completed.send')}
                   width="laptop:w-[163px] laptop:h-[59px] mobile:w-[163px] mobile:h-[59px]"
                 />
               </div>
