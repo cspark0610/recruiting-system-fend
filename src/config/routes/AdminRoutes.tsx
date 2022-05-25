@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import {
+  VIEW_EXPERT,
   VIEW_KANBAN,
   VIEW_OPEN_POSITIONS,
   VIIEW_CREATE_NEW_POSITION,
@@ -9,6 +10,7 @@ import Navbar from '../../components/kanban/Navbar';
 import NewPosition from '../../views/admin/dashboard/OpenPositions/NewPosition';
 import PositionsList from '../../views/admin/dashboard/OpenPositions/PositionsList';
 import PrivateRoute from '../../components/Routes/PrivateRoute';
+import ExpertView from '../../views/admin/dashboard/ExpertView/ExpertView';
 
 export default function AdminRoutes() {
   return (
@@ -36,6 +38,14 @@ export default function AdminRoutes() {
           element={
             <PrivateRoute>
               <NewPosition />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={VIEW_EXPERT}
+          element={
+            <PrivateRoute>
+              <ExpertView/>
             </PrivateRoute>
           }
         />
