@@ -16,9 +16,9 @@ const refresh = async () => {
     const { data } = await PrivateAxios.post<RefreshTokenResponse>(
       REFRESH_TOKENS,
     );
-    setStorage({ access: data.accessToken.token });
+    setStorage({ access: data.accessToken });
 
-    return data.accessToken.token;
+    return data.accessToken;
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
