@@ -1,19 +1,13 @@
-# workart
+# WorkAt
 
-Workart project - FullTimeForce
+WorkAt frontend migration project - Fulltimeforce
 
-## Preview
+## You have to follow these steps to run the project locally
 
-## You have to follow next steps to run this project:
+**First of all, make you sure you are using Node `16.14.0` and NPM `8.3.1`, since these are the versions the project runs on.**
 
-1. git clone https://github.com/CesarHR-FTF/workat.git
-2. Run: `npm install` once you've cloned this project
-3. Install: `npm install -g json-server` once you've cloned this project
-4. Run: `npm start` once the installation has completed
-5. Run: `json-server database.json --port 4000` at the same time step 4
+Then, once you have that settled, follow these steps:
 
-## To execute the tests
-
-1. Run: `npm test`
-2. Press `a` to execute all tests or `p` to search by filename
-3. If you want to quit, press `q`
+1. Clone the repository.
+3. Head inside the root of the project folder and run the command `npm install` to install all the dependencies.
+4. Once that is done, run `npm start` to run the project on `localhost:3000`
