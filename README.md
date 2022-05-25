@@ -1,6 +1,6 @@
 # WorkAt
 
-WorkAt frontend migration project - Fulltimeforce
+WorkAt frontend project migration - Fulltimeforce
 
 ## You have to follow these steps to run the project locally
 
