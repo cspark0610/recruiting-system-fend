@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPosition } from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
@@ -20,6 +20,8 @@ export default function FrmPosition() {
   const loading = useSelector((state: State) => state.positions.loading);
   const success = useSelector((state: State) => state.positions.success);
   const error = useSelector((state: State) => state.positions.error);
+
+  const multiselectRef = useRef<MultiSelect>(null);
 
   const data: OptionValues[] = users.reduce((prev: any, user: any) => {
     return [...prev, { id: user._id, name: user.name }];
@@ -69,6 +71,7 @@ export default function FrmPosition() {
       setRecruiterGuide('');
       setDesignated_recruiters([]);
       setSelectedPriority('');
+      multiselectRef.current?.resetSelectedValues();
     }
   }, [success.message]);
 
@@ -197,6 +200,7 @@ export default function FrmPosition() {
                 hidePlaceholder={true}
                 avoidHighlightFirstOption={true}
                 displayValue="name"
+                ref={multiselectRef}
                 onSelect={setDesignated_recruiters}
                 onRemove={setDesignated_recruiters}
                 selectedValues={designated_recruiters}
