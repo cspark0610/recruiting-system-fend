@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { IoSend } from 'react-icons/io5';
 import InputConclusion from '../../../inputs/InputConclusion';
 import LoaderSpinner from '../../../../assets/loaderSpinner';
@@ -18,6 +18,9 @@ const Conclusion = () => {
 
   const currentCandidate = useSelector((state: State) => state.info.detail);
   const updating = useSelector((state: State) => state.info.updating);
+
+  const lastGoodConclusion = useRef<HTMLDivElement>(null);
+  const lastBadConclusion = useRef<HTMLDivElement>(null);
 
   const { _id, name, conclusions } = currentCandidate;
 
@@ -55,6 +58,14 @@ const Conclusion = () => {
     setGoodComment('');
     setBadComment('');
   };
+
+  useEffect(() => {
+    lastGoodConclusion.current?.scrollIntoView(false);
+  }, [conclusions.good]);
+
+  useEffect(() => {
+    lastBadConclusion.current?.scrollIntoView(false);
+  }, [conclusions.bad]);
 
   return (
     <div className="grid justify-items-center">
@@ -99,6 +110,14 @@ const Conclusion = () => {
                             </p>
                           </div>
                         </div>
+                        <div
+                          ref={
+                            conclusions.good.indexOf(value) ===
+                            conclusions.good.length - 1
+                              ? lastGoodConclusion
+                              : null
+                          }
+                        ></div>
                       </>
                     ))}
               </div>
@@ -161,6 +180,14 @@ const Conclusion = () => {
                             </p>
                           </div>
                         </div>
+                        <div
+                          ref={
+                            conclusions.bad.indexOf(value) ===
+                            conclusions.bad.length - 1
+                              ? lastBadConclusion
+                              : null
+                          }
+                        ></div>
                       </>
                     ))}
               </div>
