@@ -14,7 +14,7 @@ export default function SubMenu({ rie_link, recruiter_filter }: SubMenuProps) {
           <span>
             <IoMdArrowDropright className="mt-1" />
           </span>
-          <span>RIE</span>
+          <span className="font-raleway">RIE</span>
           <a href={rie_link} target="_blank" rel="noopener noreferrer">
             <BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
           </a>
@@ -23,7 +23,7 @@ export default function SubMenu({ rie_link, recruiter_filter }: SubMenuProps) {
           <span>
             <IoMdArrowDropright className="mt-1" />
           </span>
-          <span>Recruiter Filter</span>
+          <span className="font-raleway">Recruiter Filter</span>
           <a href={recruiter_filter} target="_blank" rel="noopener noreferrer">
             <BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
           </a>
@@ -32,7 +32,7 @@ export default function SubMenu({ rie_link, recruiter_filter }: SubMenuProps) {
           <span>
             <IoMdArrowDropright className="mt-1" />
           </span>
-          <span>Video Questions</span>
+          <span className="font-raleway">Video Questions</span>
           <span>
             <BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
           </span>

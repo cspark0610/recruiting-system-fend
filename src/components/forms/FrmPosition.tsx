@@ -80,7 +80,7 @@ export default function FrmPosition() {
       <section className="flex flex-col mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
         <div className="ml-52 pb-4">
           <div className=" pb-2">
-            <span>Select Priority:</span>
+            <span className="font-raleway font-medium">Select Priority:</span>
           </div>
           <div className="flex space-x-3">
             {priorities.map((priority) => (
@@ -88,14 +88,14 @@ export default function FrmPosition() {
                 <input
                   type="checkbox"
                   name={priority.name}
-                  className="hover:cursor-pointer"
+                  className="hover:cursor-pointer font-raleway"
                   id={priority.id.toString()}
                   value={priority.name}
                   onChange={(e) => setSelectedPriority(e.target.value)}
                   checked={selectedPriority === priority.name ? true : false}
                 />
                 <label
-                  className="ml-3 hover:cursor-pointer"
+                  className="ml-3 hover:cursor-pointer font-raleway"
                   htmlFor={priority.id.toString()}
                 >
                   {priority.displayName}
@@ -195,7 +195,7 @@ export default function FrmPosition() {
             <div className="flex flex-col w-[51.5rem]">
               <MultiSelect
                 options={data}
-                className="z-20 hover:cursor-pointer pb-2"
+                className="z-20 hover:cursor-pointer pb-2 font-raleway"
                 placeholder="Designated Recruiter"
                 hidePlaceholder={true}
                 avoidHighlightFirstOption={true}

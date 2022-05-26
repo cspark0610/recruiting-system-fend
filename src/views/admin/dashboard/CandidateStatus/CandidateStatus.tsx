@@ -78,7 +78,7 @@ export default function CandidateStatus() {
           }
         >
           {error.message !== '' && (
-            <span className="text-white">
+            <span className="text-white font-raleway">
               There was an error while connecting to the server. Please check
               your internet connection and try again.
             </span>
@@ -92,7 +92,7 @@ export default function CandidateStatus() {
           }
         >
           {success.message !== '' && (
-            <span className="text-white">{success.message}</span>
+            <span className="text-white font-raleway">{success.message}</span>
           )}
         </div>
       </div>

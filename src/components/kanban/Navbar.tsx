@@ -2,7 +2,11 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { VIEW_EXPERT, VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
+import {
+  VIEW_EXPERT,
+  VIEW_KANBAN,
+  VIEW_OPEN_POSITIONS,
+} from '../../config/routes/paths';
 import { LogOut } from '../../redux/users/actions/UserAction';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 
@@ -36,7 +40,7 @@ export default function Navbar() {
             ) : null}
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="font-medium"
+              className="font-semibold font-raleway"
             >
               Hello {currentUser?.name.split(' ')[0] || 'User'}
             </button>
@@ -48,7 +52,9 @@ export default function Navbar() {
                 : 'duration-200 opacity-0 invisible absolute w-52 mt-2'
             }
           >
-            <button className="text-black px-3 py-2">My Profile</button>
+            <button className="text-black px-3 py-2 font-raleway">
+              My Profile
+            </button>
           </div>
         </div>
         <div className="text-lg text-white mr-16 font-light">
@@ -57,8 +63,8 @@ export default function Navbar() {
               to={VIEW_OPEN_POSITIONS}
               className={({ isActive }) =>
                 isActive
-                  ? 'px-3 text-cyan-400 underline underline-offset-8 '
-                  : 'px-3 text-white'
+                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8 '
+                  : 'px-3 text-white font-raleway'
               }
             >
               Open Positions
@@ -67,19 +73,19 @@ export default function Navbar() {
               to={VIEW_KANBAN}
               className={({ isActive }) =>
                 isActive
-                  ? 'px-3 text-cyan-400 underline underline-offset-8'
-                  : 'px-3 text-white'
+                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8'
+                  : 'px-3 text-white font-raleway'
               }
             >
               Candidates Status
             </NavLink>
-            
+
             <NavLink
               to={VIEW_EXPERT}
               className={({ isActive }) =>
                 isActive
-                  ? 'px-3 text-cyan-400 underline underline-offset-8'
-                  : 'px-3 text-white'
+                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8'
+                  : 'px-3 text-white font-raleway'
               }
             >
               Expert
@@ -88,7 +94,7 @@ export default function Navbar() {
         </div>
         <button
           onClick={handleLogout}
-          className="flex font-medium hover:cursor-pointer hover:bg-white hover:text-black py-2 px-3 rounded-md hover:transition ease-in-out duration-200"
+          className="flex font-semibold font-raleway hover:cursor-pointer hover:bg-white hover:text-black py-2 px-3 rounded-md hover:transition ease-in-out duration-200"
         >
           Log Out <FiLogOut className="mt-1 ml-2" />
         </button>

@@ -67,7 +67,7 @@ const Dropdown = () => {
                 </div>
               </div>
             ))}
-            <button className="bg-transparent border-0 my-6 mx-4 text-gray-color font-raleway font-semibold mobile:text-xs laptop:text-sm">
+            <button className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold font-raleway transition ease duration-300 hover:bg-[#475564] hover:text-white">
               Apply
             </button>
           </div>

@@ -40,17 +40,17 @@ export default function Card({
   return (
     <article className={card}>
       <div className="ml-4">
-        <p className="font-medium text-lg">{name}</p>
-        <p className="font-light">
+        <p className="text-lg font-raleway font-semibold">{name}</p>
+        <p className="font-light font-raleway">
           {position ? position : 'No position applied to'}
         </p>
-        <section className="flex flex-row gap-24 pt-4 pb-4">
-          <span className="flex font-light pt-4">
+        <section className="flex flex-row gap-20 pt-4 pb-4">
+          <span className="flex font-raleway pt-4">
             <FiClock className="mt-[0.25rem] mr-[0.5rem] text-lg" /> 1 week
           </span>
           <button
             onClick={isOpen}
-            className="border border-black rounded-md px-5 transition ease duration-150 hover:bg-[#475564] hover:text-white"
+            className="border border-black rounded-md px-5 transition ease duration-150 hover:bg-[#475564] hover:text-white font-raleway"
           >
             Open
           </button>

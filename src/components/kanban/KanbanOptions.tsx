@@ -51,7 +51,7 @@ export default function KanbanOptions() {
           {showSearch ? <Search /> : null}
         </div>
         <button
-          className="text-[#00ADEF] transition ease duration-200 hover:bg-sky-400 hover:text-white px-2 rounded-md"
+          className="text-[#00ADEF] transition ease duration-200 hover:bg-sky-400 hover:text-white px-2 rounded-md font-raleway"
           onClick={handleCleanFilters}
         >
           Clean Filters
