@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { IoIosArrowDropdownCircle } from 'react-icons/io';
 import { State } from '../../redux/store/store';
 import detectOutsideClick from '../../utils/detectOutsideClick';
+import Apply from '../buttons/Apply';
 
 const Dropdown = () => {
   /*  */
@@ -67,9 +68,7 @@ const Dropdown = () => {
                 </div>
               </div>
             ))}
-            <button className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold font-raleway transition ease duration-300 hover:bg-[#475564] hover:text-white">
-              Apply
-            </button>
+            <Apply onClick={() => console.log('set')} />
           </div>
         </div>
       </div>
