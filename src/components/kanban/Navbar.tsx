@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import {
   VIEW_EXPERT,
