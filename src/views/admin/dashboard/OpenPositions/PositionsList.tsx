@@ -87,7 +87,7 @@ export default function PositionsList() {
         }
       >
         {error.message !== '' && (
-          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
             There was an error while connecting to the server. Please check your
             internet connection and try again.
           </span>
@@ -101,7 +101,7 @@ export default function PositionsList() {
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-raleway font-seibold">
             {success.message}
           </span>
         )}

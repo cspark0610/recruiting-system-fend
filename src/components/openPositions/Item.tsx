@@ -57,12 +57,12 @@ export default function Item({
                 : 'flex flex-col w-40 mt-2'
             }
           >
-            <p className="ml-2">{positionName}</p>
+            <p className="ml-2 font-raleway">{positionName}</p>
             <div className="flex flex-nowrap w-screen divide-x divide-black mt-4">
               {designated && designated.length > 0
                 ? designated.map((user: any) => (
                     <div key={user._id}>
-                      <p className="px-2">{user.name}</p>
+                      <p className="text-sm px-2 font-raleway">{user.name}</p>
                     </div>
                   ))
                 : null}
@@ -71,7 +71,9 @@ export default function Item({
           {isAdmin ? (
             <div className="relative desktop:pr-[30rem]">
               <div className="mt-2">
-                <p className={`p-1 px-4 text-sm rounded-lg ${priorityClass}`}>
+                <p
+                  className={`p-1 px-4 text-sm rounded-lg font-raleway ${priorityClass}`}
+                >
                   {priority}
                 </p>
               </div>
@@ -79,8 +81,8 @@ export default function Item({
           ) : null}
         </div>
         <div className="flex space-x-6 laptop:mr-16 desktop:mr-16 items-center">
-          <span className="mt-2">March 15</span>
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <span className="mt-2 font-raleway">March 15</span>
+          <button onClick={() => setIsOpen(!isOpen)} className="font-raleway">
             <AiOutlineDown className={isOpen ? 'mt-2 rotate-180' : 'mt-2'} />
           </button>
         </div>

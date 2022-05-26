@@ -94,7 +94,7 @@ const Conclusion = () => {
                           className="flex h-[0.7rem] items-center justify-between"
                         >
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
-                          <div className="text-sm text-gray-400">
+                          <div className="text-sm text-gray-400 font-raleway">
                             {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
@@ -164,7 +164,7 @@ const Conclusion = () => {
                           className="flex h-[0.7rem] items-center justify-between"
                         >
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
-                          <div className="text-sm text-gray-400">
+                          <div className="text-sm text-gray-400 font-raleway">
                             {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>

@@ -5,8 +5,8 @@ import {
   ClearSuccess,
 } from '../../../../redux/positions/actions/PositionsActions';
 import { State } from '../../../../redux/store/store';
-import FrmPosition from '../../../../components/forms/FrmPosition';
 import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
+import FrmPosition from '../../../../components/forms/FrmPosition';
 
 export default function NewPosition() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function NewPosition() {
 
   return (
     <div className="flex flex-col">
-      <span className="flex justify-center text-[#475564] text-2xl font-semibold mt-32">
+      <span className="flex justify-center text-[#475564] text-2xl font-raleway font-semibold mt-32">
         Create New Position
       </span>
       <FrmPosition />
@@ -43,7 +43,7 @@ export default function NewPosition() {
         }
       >
         {error.message !== '' && (
-          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
             There was an error while connecting to the server. Please check your
             internet connection and try again.
           </span>
@@ -57,7 +57,7 @@ export default function NewPosition() {
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-raleway font-seibold">
             {success.message}
           </span>
         )}

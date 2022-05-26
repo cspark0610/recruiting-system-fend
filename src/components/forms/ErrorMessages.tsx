@@ -23,13 +23,15 @@ export default function ErrorMessages({
     <>
       {errorMessages.length === 1 &&
       errorTerms.includes(errorMessages[0] as string) ? (
-        <span className="text-red-500 ml-4">{errorState.message}</span>
+        <span className="text-red-500 ml-4 font-raleway">
+          {errorState.message}
+        </span>
       ) : (
         <div className={`${className}`}>
           {errorMessages.map((msg: any) =>
             errorTerms.map((err) =>
               msg.includes(err) ? (
-                <span key={msg} className="text-red-500">
+                <span key={msg} className="text-red-500 font-raleway">
                   {msg}
                 </span>
               ) : null,
