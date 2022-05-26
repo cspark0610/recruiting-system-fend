@@ -27,7 +27,11 @@ import {
 } from '../../redux/candidates/actions/CandidateAction';
 import MultipleSelect from '../inputs/MultipleSelect';
 
-const FrmData = () => {
+type Props = {
+  token: string;
+};
+
+const FrmData: React.FC<Props> = ({ token }) => {
   /*  */
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -99,7 +103,7 @@ const FrmData = () => {
       return;
     } else {
       AddNewCandidate(formData);
-      navigate(VIEW_DETAILS);
+      navigate(`${VIEW_DETAILS}?token=${token}`);
     }
   };
 

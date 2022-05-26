@@ -36,7 +36,13 @@ export default function PositionsList() {
   }, [dispatch]);
 
   return (
-    <div className={isAdmin ? 'mt-32 md:w-screen' : 'mt-48 md:w-screen'}>
+    <div
+      className={
+        isAdmin
+          ? 'mt-32 md:w-screen overflow-x-hidden'
+          : 'mt-48 md:w-screen overflow-x-hidden'
+      }
+    >
       {isAdmin ? (
         <div className="flex justify-end laptop:mr-[18rem] desktop:mr-[22rem] pb-6">
           <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />

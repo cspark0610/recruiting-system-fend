@@ -55,27 +55,36 @@ const Conclusion = () => {
               Yes
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
-              <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-4 overflow-y-auto">
+              <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
                 {conclusions.good.length === 0
                   ? ''
                   : conclusions.good.map((value: string, index: number) => (
-                      <div
-                        key={index}
-                        className="flex flex-row-reverse gap-[11px]"
-                      >
-                        {currentUser.picture ? (
-                          <img
-                            className="rounded-full h-8"
-                            src={currentUser.picture}
-                            alt="profile"
-                          />
-                        ) : null}
-                        <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
-                          <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
-                            {value}
-                          </p>
+                      <>
+                        <div className="flex h-[0.5rem] items-center justify-between">
+                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="text-sm text-gray-400">
+                            {currentCandidate.main_status}
+                          </div>
+                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                         </div>
-                      </div>
+                        <div
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
+                        >
+                          {currentUser.picture ? (
+                            <img
+                              className="rounded-full h-8"
+                              src={currentUser.picture}
+                              alt="profile"
+                            />
+                          ) : null}
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
+                        </div>
+                      </>
                     ))}
               </div>
               <div className="absolute bottom-4 left-5">
@@ -108,27 +117,36 @@ const Conclusion = () => {
               No
             </p>
             <div className="relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
-              <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-4 overflow-y-auto">
+              <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
                 {conclusions.bad.length === 0
                   ? ''
                   : conclusions.bad.map((value: string, index: number) => (
-                      <div
-                        key={index}
-                        className="flex flex-row-reverse gap-[11px]"
-                      >
-                        {currentUser.picture ? (
-                          <img
-                            className="rounded-full h-8"
-                            src={currentUser.picture}
-                            alt="profile"
-                          />
-                        ) : null}
-                        <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
-                          <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
-                            {value}
-                          </p>
+                      <>
+                        <div className="flex h-[0.5rem] items-center justify-between">
+                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="text-sm text-gray-400">
+                            {currentCandidate.main_status}
+                          </div>
+                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                         </div>
-                      </div>
+                        <div
+                          key={index}
+                          className="flex flex-row-reverse gap-[11px]"
+                        >
+                          {currentUser.picture ? (
+                            <img
+                              className="rounded-full h-8"
+                              src={currentUser.picture}
+                              alt="profile"
+                            />
+                          ) : null}
+                          <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
+                            <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
+                              {value}
+                            </p>
+                          </div>
+                        </div>
+                      </>
                     ))}
               </div>
               <div className="absolute bottom-4 left-5">

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
+import { VIEW_EXPERT, VIEW_KANBAN, VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import { LogOut } from '../../redux/users/actions/UserAction';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 
@@ -73,9 +73,17 @@ export default function Navbar() {
             >
               Candidates Status
             </NavLink>
-            <button className="px-3 focus:text-cyan-400 focus:underline focus:underline-offset-8">
+            
+            <NavLink
+              to={VIEW_EXPERT}
+              className={({ isActive }) =>
+                isActive
+                  ? 'px-3 text-cyan-400 underline underline-offset-8'
+                  : 'px-3 text-white'
+              }
+            >
               Expert
-            </button>
+            </NavLink>
           </ul>
         </div>
         <button
