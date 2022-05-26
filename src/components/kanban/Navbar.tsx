@@ -9,6 +9,7 @@ import {
 } from '../../config/routes/paths';
 import { LogOut } from '../../redux/users/actions/UserAction';
 import detectOutsideClick from '../../utils/detectOutsideClick';
+import NavItem from './NavItem';
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -59,37 +60,9 @@ export default function Navbar() {
         </div>
         <div className="text-lg text-white mr-16 font-light">
           <ul className="flex divide-x divide-solid">
-            <NavLink
-              to={VIEW_OPEN_POSITIONS}
-              className={({ isActive }) =>
-                isActive
-                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8 '
-                  : 'px-3 text-white font-raleway'
-              }
-            >
-              Open Positions
-            </NavLink>
-            <NavLink
-              to={VIEW_KANBAN}
-              className={({ isActive }) =>
-                isActive
-                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8'
-                  : 'px-3 text-white font-raleway'
-              }
-            >
-              Candidates Status
-            </NavLink>
-
-            <NavLink
-              to={VIEW_EXPERT}
-              className={({ isActive }) =>
-                isActive
-                  ? 'px-3 text-cyan-400 font-raleway underline underline-offset-8'
-                  : 'px-3 text-white font-raleway'
-              }
-            >
-              Expert
-            </NavLink>
+            <NavItem to={VIEW_OPEN_POSITIONS} text="Open Positions" />
+            <NavItem to={VIEW_KANBAN} text="Candidates Status" />
+            <NavItem to={VIEW_EXPERT} text="Expert" />
           </ul>
         </div>
         <button
