@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import setLocalStorage from '../../utils/setLocalStorage';
 import store from '../../redux/store/store';
+import { setStorage } from '../../utils/localStorage';
 import { REFRESH_TOKENS } from '../routes/endpoints';
 import { LogOut } from '../../redux/users/actions/UserAction';
 import { RefreshTokenResponse } from '../../redux/users/types/axiosResponses';
@@ -16,17 +16,16 @@ const refresh = async () => {
     const { data } = await PrivateAxios.post<RefreshTokenResponse>(
       REFRESH_TOKENS,
     );
-    setLocalStorage('access', data.accessToken.token);
+    setStorage({ access: data.accessToken });
 
-    return data.accessToken.token;
+    return data.accessToken;
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 400) {
         dispatch(LogOut());
-        setLocalStorage(
-          'refresh_error',
-          'Your session has expired. Please login again.',
-        );
+        setStorage({
+          refresh_error: 'Your session has expired. Please login again.',
+        });
       }
     }
   }

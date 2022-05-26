@@ -189,7 +189,7 @@ export default function FrmPosition() {
             </div>
           </div>{' '}
           <div className="mt-2 mx-auto">
-            <div>
+            <div className="flex flex-col">
               <MultiSelect
                 options={data}
                 className="w-[51.5rem] z-20 hover:cursor-pointer pb-2"

@@ -3,7 +3,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import { State } from '../../redux/store/store';
 import secondaryStatus from '../../config/kanban/constants';
 import Dropdown from '../inputs/Dropdown';
-import getCandidateDetailHeader from '../../utils/getCandidateDetailHeader';
+import { getDetailHeaderText } from '../../utils/candidates';
 
 interface Props {
   isClose: any;
@@ -18,7 +18,7 @@ const HeaderDialog: React.FC<Props> = ({ isClose, color }) => {
     (status) => status.value === details.secondary_status,
   )?.color;
 
-  const headerMainText = getCandidateDetailHeader(details.main_status);
+  const headerMainText = getDetailHeaderText(details.main_status);
 
   return (
     <h4 className={headerColor ? headerColor : color}>

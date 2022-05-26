@@ -15,8 +15,7 @@ import {
   LOGOUT_USER,
 } from '../../../config/routes/endpoints';
 import { VIEW_LOGIN } from '../../../config/routes/paths';
-import cleanLocalStorage from '../../../utils/cleanLocalStorage';
-import setLocalStorage from '../../../utils/setLocalStorage';
+import { setStorage, cleanStorage } from '../../../utils/localStorage';
 
 export function GetAllUsers() {
   return async (dispatch: Dispatch) => {
@@ -74,10 +73,12 @@ export function Login(
         type: ActionTypes.SET_IS_USER_NOT_LOADING,
       });
 
-      cleanLocalStorage();
+      cleanStorage();
 
-      setLocalStorage('access', data.access_token);
-      setLocalStorage('user', JSON.stringify(data.user));
+      setStorage({
+        access: data.access_token,
+        user: JSON.stringify(data.user),
+      });
 
       dispatch<SetUserSuccessAction>({
         type: ActionTypes.SET_USER_SUCCESS,
@@ -111,7 +112,7 @@ export function Login(
 
 export function LogOut() {
   return async function (_dispatch: Dispatch) {
-    cleanLocalStorage();
+    cleanStorage();
 
     await PrivateAxios.post(LOGOUT_USER);
 

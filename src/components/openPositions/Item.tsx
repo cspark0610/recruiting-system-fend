@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AiOutlineDown } from 'react-icons/ai';
 import { State } from '../../redux/store/store';
+import getPriorityColor from '../../utils/positions';
 import Toggle from './Toggle';
 import SubMenu from './SubMenu';
 import LoaderSpinner from '../../assets/loaderSpinner';
-import getPositionPriorityColor from '../../utils/getPositionPriorityColor';
 
 type ItemProps = {
   positionName: string;
@@ -32,7 +32,7 @@ export default function Item({
   const [isToggled, setIsToggled] = useState<boolean>(false);
 
   const updating = useSelector((state: State) => state.positions.updating);
-  const priorityClass = getPositionPriorityColor(priority);
+  const priorityClass = getPriorityColor(priority);
 
   return (
     <div className="flex laptop:flex-col">
