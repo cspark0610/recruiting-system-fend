@@ -30,8 +30,8 @@ export default function Column({ title, column_info, items }: ColumnProps) {
         <AiOutlineDown
           className={
             isOpen
-              ? 'w-4 mt-2 ml-4 rotate-180 transition ease-in-out duration-200'
-              : 'w-4 mt-2 ml-4 duration-200'
+              ? 'w-4 mt-1 ml-4 rotate-180 transition ease-in-out duration-200'
+              : 'w-4 mt-1 ml-4 duration-200'
           }
         />
       </button>
