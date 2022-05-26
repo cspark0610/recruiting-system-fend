@@ -192,10 +192,10 @@ export default function FrmPosition() {
             </div>
           </div>{' '}
           <div className="mt-2 mx-auto">
-            <div className="flex flex-col">
+            <div className="flex flex-col w-[51.5rem]">
               <MultiSelect
                 options={data}
-                className="w-[51.5rem] z-20 hover:cursor-pointer pb-2"
+                className="z-20 hover:cursor-pointer pb-2"
                 placeholder="Designated Recruiter"
                 hidePlaceholder={true}
                 avoidHighlightFirstOption={true}
