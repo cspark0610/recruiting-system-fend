@@ -1,11 +1,16 @@
 import { useSelector } from 'react-redux';
 import { BsPlay } from 'react-icons/bs';
 import { State } from '../../../../redux/store/store';
+import { IQuestion } from '../../../../redux/positions/types/data';
 import QskInterview from '../../../extras/QskInterview';
 
 const Videos = () => {
   const detail = useSelector((state: State) => state.info.detail);
-  /*  */
+
+  const hasUploaded = detail?.videos_question_list.filter(
+    (video: IQuestion) => video.video_key,
+  );
+
   let video = '';
 
   return (
@@ -28,9 +33,11 @@ const Videos = () => {
                 </video>
               )}
             </div>
-            <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
-              *This candidate has not uploaded any video yet.
-            </p>
+            {hasUploaded.length === 0 ? (
+              <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
+                *This candidate has not uploaded any video yet.
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="w-full">
