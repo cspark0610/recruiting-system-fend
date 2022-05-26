@@ -1,8 +1,19 @@
 import { IPosition, IQuestion } from '../../positions/types/data';
 
+export type IConclusionInv = {
+  comment: string;
+  context: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    picture?: string;
+  };
+};
+
 export type IConclusions = {
-  good: Array<string>;
-  bad: Array<string>;
+  good: Array<IConclusionInv>;
+  bad: Array<IConclusionInv>;
 };
 
 export type IVideoRecordingUrl = {

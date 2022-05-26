@@ -1,5 +1,5 @@
 import { ActionTypes } from '../types/index';
-import { ICandidate, IError } from './data';
+import { ICandidate, IError, IConclusionInv } from './data';
 
 export type GetCandidatesAction = {
   type: ActionTypes.GET_CANDIDATES;
@@ -66,8 +66,8 @@ export type CreateCandidateAction = {
 export type UpdateCandidateConclusionAction = {
   type: ActionTypes.UPDATE_CONCLUSION;
   payload: {
-    good?: string;
-    bad?: string;
+    good?: IConclusionInv;
+    bad?: IConclusionInv;
   };
 };
 
