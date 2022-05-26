@@ -72,30 +72,26 @@ const UserDialog: React.FC<Props> = ({
     }
   }, [isDetailFinishedLoading, setIsModalLoading]);
 
+  useEffect(() => {
+    if (success.message !== '' && approve) {
+      setApproved(false);
+    } else if (success.message !== '' && doubting) {
+      setDoubting(false);
+    } else if (success.message !== '' && dismiss) {
+      setDismiss(false);
+    } else {
+      if (success.message !== '' && reject) {
+        setReject(false);
+      }
+    }
+  }, [success, approve, doubting, dismiss, reject]);
+
   // clears the candidate detail when the modal is closed
   useEffect(() => {
     return () => {
       dispatch(ClearCandidateDetail(dispatch));
     };
   }, [dispatch]);
-
-  const closeActionModalOnSuccess = () => {
-    if (approve) {
-      setApproved(false);
-    }
-
-    if (doubting) {
-      setDoubting(false);
-    }
-
-    if (dismiss) {
-      setDismiss(false);
-    }
-
-    if (reject) {
-      setReject(false);
-    }
-  };
 
   const isApproved = () => {
     setApproved(!approve);
@@ -125,10 +121,6 @@ const UserDialog: React.FC<Props> = ({
       UpdateCandidateStatus(detail._id, detail.main_status, secondary_status),
     );
   };
-
-  if (success.message !== '') {
-    closeActionModalOnSuccess();
-  }
 
   return (
     <>
