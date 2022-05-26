@@ -28,6 +28,7 @@ const UserDialog: React.FC<Props> = ({
     (state: State) => state.info.detailFinishedLoading,
   );
   const detail = useSelector((state: State) => state.info.detail);
+  const success = useSelector((state: State) => state.info.success);
 
   /* STATES OF CONTROL FROM BUTTONS */
   const [approve, setApproved] = useState(false);
@@ -39,6 +40,7 @@ const UserDialog: React.FC<Props> = ({
   const [color, setColor] = useState('bg-gray-color');
 
   /* STATES OF CONTROL FROM MODAL */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
@@ -69,6 +71,20 @@ const UserDialog: React.FC<Props> = ({
       setIsModalLoading(false);
     }
   }, [isDetailFinishedLoading, setIsModalLoading]);
+
+  useEffect(() => {
+    if (success.message !== '' && approve) {
+      setApproved(false);
+    } else if (success.message !== '' && doubting) {
+      setDoubting(false);
+    } else if (success.message !== '' && dismiss) {
+      setDismiss(false);
+    } else {
+      if (success.message !== '' && reject) {
+        setReject(false);
+      }
+    }
+  }, [success, approve, doubting, dismiss, reject]);
 
   // clears the candidate detail when the modal is closed
   useEffect(() => {
