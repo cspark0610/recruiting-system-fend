@@ -80,7 +80,7 @@ const Conclusion = () => {
             <p className="font-raleway text-gray-color text-[15px] font-bold uppercase my-3">
               Yes
             </p>
-            <div className=" relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
+            <div className="relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
               <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
                 {conclusions.good.length === 0
                   ? ''
