@@ -56,7 +56,7 @@ import {
   VALIDATE_TOKEN,
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
-import { Filters } from '../types/data';
+import { Filters, IConclusionInv } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -368,7 +368,7 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  candidate: { good?: string; bad?: string },
+  candidate: { good?: IConclusionInv; bad?: IConclusionInv },
 ) {
   return async function (dispatch: Dispatch) {
     try {

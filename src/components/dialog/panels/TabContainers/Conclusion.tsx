@@ -7,6 +7,7 @@ import LoaderSpinner from '../../../../assets/loaderSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateCandidateConclusion } from '../../../../redux/candidates/actions/CandidateAction';
 import { State } from '../../../../redux/store/store';
+import { IConclusionInv } from '../../../../redux/candidates/types/data';
 
 const Conclusion = () => {
   /*  */
@@ -31,8 +32,22 @@ const Conclusion = () => {
     } else {
       dispatch(
         UpdateCandidateConclusion(_id, {
-          good: goodComment !== '' ? goodComment : undefined,
-          bad: badComment !== '' ? badComment : undefined,
+          good:
+            goodComment !== ''
+              ? {
+                  comment: goodComment,
+                  context: currentCandidate.main_status,
+                  user: currentUser,
+                }
+              : undefined,
+          bad:
+            badComment !== ''
+              ? {
+                  comment: badComment,
+                  context: currentCandidate.main_status,
+                  user: currentUser,
+                }
+              : undefined,
         }),
       );
     }
@@ -58,29 +73,29 @@ const Conclusion = () => {
               <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
                 {conclusions.good.length === 0
                   ? ''
-                  : conclusions.good.map((value: string, index: number) => (
+                  : conclusions.good.map((value: IConclusionInv) => (
                       <>
-                        <div className="flex h-[0.5rem] items-center justify-between">
+                        <div
+                          key={value.user?._id}
+                          className="flex h-[0.5rem] items-center justify-between"
+                        >
                           <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                           <div className="text-sm text-gray-400">
-                            {currentCandidate.main_status}
+                            {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                         </div>
-                        <div
-                          key={index}
-                          className="flex flex-row-reverse gap-[11px]"
-                        >
-                          {currentUser.picture ? (
+                        <div className="flex flex-row-reverse gap-[11px]">
+                          {value.user?.picture ? (
                             <img
                               className="rounded-full h-8"
-                              src={currentUser.picture}
+                              src={value.user?.picture}
                               alt="profile"
                             />
                           ) : null}
                           <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
                             <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
-                              {value}
+                              {value.comment}
                             </p>
                           </div>
                         </div>
@@ -120,29 +135,29 @@ const Conclusion = () => {
               <div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
                 {conclusions.bad.length === 0
                   ? ''
-                  : conclusions.bad.map((value: string, index: number) => (
+                  : conclusions.bad.map((value: IConclusionInv) => (
                       <>
-                        <div className="flex h-[0.5rem] items-center justify-between">
+                        <div
+                          key={value.user?._id}
+                          className="flex h-[0.5rem] items-center justify-between"
+                        >
                           <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                           <div className="text-sm text-gray-400">
-                            {currentCandidate.main_status}
+                            {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
                         </div>
-                        <div
-                          key={index}
-                          className="flex flex-row-reverse gap-[11px]"
-                        >
-                          {currentUser.picture ? (
+                        <div className="flex flex-row-reverse gap-[11px]">
+                          {value.user?.picture ? (
                             <img
                               className="rounded-full h-8"
-                              src={currentUser.picture}
+                              src={value.user?.picture}
                               alt="profile"
                             />
                           ) : null}
                           <div className="bg-cyan-color rounded-[5px] w-[336px] h-auto my-2">
                             <p className="break-words font-raleway text-white text-xs text-right py-1 px-4">
-                              {value}
+                              {value.comment}
                             </p>
                           </div>
                         </div>
