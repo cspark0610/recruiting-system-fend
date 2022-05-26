@@ -22,7 +22,10 @@ const Conclusion = () => {
   const lastGoodConclusion = useRef<HTMLDivElement>(null);
   const lastBadConclusion = useRef<HTMLDivElement>(null);
 
-  const { _id, name, conclusions } = currentCandidate;
+  const { _id, name, conclusions, main_status } = currentCandidate;
+
+  const mainStatusUppercase =
+    main_status[0].toUpperCase() + main_status.slice(1);
 
   const currentUser = window.localStorage.getItem('user')
     ? JSON.parse(window.localStorage.getItem('user') as string)
@@ -39,7 +42,7 @@ const Conclusion = () => {
             goodComment !== ''
               ? {
                   comment: goodComment,
-                  context: currentCandidate.main_status,
+                  context: mainStatusUppercase,
                   user: currentUser,
                 }
               : undefined,
@@ -47,7 +50,7 @@ const Conclusion = () => {
             badComment !== ''
               ? {
                   comment: badComment,
-                  context: currentCandidate.main_status,
+                  context: mainStatusUppercase,
                   user: currentUser,
                 }
               : undefined,
@@ -88,13 +91,13 @@ const Conclusion = () => {
                       <>
                         <div
                           key={value.user?._id}
-                          className="flex h-[0.5rem] items-center justify-between"
+                          className="flex h-[0.7rem] items-center justify-between"
                         >
-                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="w-36 h-[0.1rem] bg-gray-300"></div>
                           <div className="text-sm text-gray-400">
                             {value.context}
                           </div>
-                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="w-36 h-[0.1rem] bg-gray-300"></div>
                         </div>
                         <div className="flex flex-row-reverse gap-[11px]">
                           {value.user?.picture ? (
@@ -158,13 +161,13 @@ const Conclusion = () => {
                       <>
                         <div
                           key={value.user?._id}
-                          className="flex h-[0.5rem] items-center justify-between"
+                          className="flex h-[0.7rem] items-center justify-between"
                         >
-                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="w-36 h-[0.1rem] bg-gray-300"></div>
                           <div className="text-sm text-gray-400">
                             {value.context}
                           </div>
-                          <div className="w-36 h-[0.1rem] text-gray-400 bg-gray-400"></div>
+                          <div className="w-36 h-[0.1rem] bg-gray-300"></div>
                         </div>
                         <div className="flex flex-row-reverse gap-[11px]">
                           {value.user?.picture ? (
