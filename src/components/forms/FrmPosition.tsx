@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { createPosition } from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
 import MultiSelect from 'multiselect-react-dropdown';
@@ -8,7 +7,6 @@ import Text from '../inputs/Text';
 import LoaderSpinner from '../../assets/loaderSpinner';
 import ErrorMessages from './ErrorMessages';
 import priorities from '../../config/positions/constants';
-import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 
 type OptionValues = {
   id: string;
@@ -17,7 +15,6 @@ type OptionValues = {
 
 export default function FrmPosition() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const users = useSelector((state: State) => state.user.users);
   const loading = useSelector((state: State) => state.positions.loading);
@@ -76,7 +73,7 @@ export default function FrmPosition() {
       setSelectedPriority('');
       multiselectRef.current?.resetSelectedValues();
     }
-  }, [success.message, navigate]);
+  }, [success.message]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
