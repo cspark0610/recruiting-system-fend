@@ -9,6 +9,11 @@ type SubMenuProps = {
 export default function SubMenu({ rie_link, recruiter_filter }: SubMenuProps) {
   return (
     <div className="ml-12 py-4 bg-[#FAFAFA] border-b-2">
+      <div className="flex justify-end pr-12">
+        <button className="bg-[#00ADEF] text-white w-fit px-2 rounded-md">
+          Edit
+        </button>
+      </div>
       <div className="flex flex-col ml-5 gap-y-4">
         <div className="flex space-x-1">
           <span>
