@@ -260,15 +260,7 @@ export function CreateCandidate(candidateInfo: any) {
 export function GenerateUrl(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
-
-      dispatch<SetCandidateSuccessAction>({
-        type: ActionTypes.SET_CANDIDATE_SUCCESS,
-        payload: {
-          status: 201,
-          message: data.message,
-        },
-      });
+      await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
     } catch (error: any) {
       if (error.response) {
         dispatch<SetCandidateLoadingAction>({
