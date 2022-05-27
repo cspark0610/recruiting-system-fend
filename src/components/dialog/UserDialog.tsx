@@ -41,7 +41,7 @@ const UserDialog: React.FC<Props> = ({
 
   /* STATES OF CONTROL FROM MODAL */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isConfirm, setIsConfirm] = useState(false);
+  const [isConfirm] = useState(false);
 
   useEffect(() => {
     if (approve && isConfirm) {
@@ -72,6 +72,7 @@ const UserDialog: React.FC<Props> = ({
     }
   }, [isDetailFinishedLoading, setIsModalLoading]);
 
+  // closes the action modal when an action is dispatched successfully
   useEffect(() => {
     if (success.message !== '' && approve) {
       setApproved(false);
