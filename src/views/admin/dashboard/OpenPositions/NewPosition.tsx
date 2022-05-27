@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   ClearErrors,
   ClearSuccess,
+  GetPositionInfoReducer,
 } from '../../../../redux/positions/actions/PositionsActions';
 import { State } from '../../../../redux/store/store';
 import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
@@ -12,6 +14,10 @@ export default function NewPosition() {
   const dispatch = useDispatch();
   const success = useSelector((state: State) => state.positions.success);
   const error = useSelector((state: State) => state.positions.error);
+
+  const { _id } = useParams();
+
+  const isAdd = !_id;
 
   if (success.message !== '') {
     setTimeout(() => {
@@ -29,12 +35,18 @@ export default function NewPosition() {
     dispatch(GetAllUsers());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!isAdd) {
+      dispatch(GetPositionInfoReducer(_id!));
+    }
+  }, [dispatch, _id, isAdd]);
+
   return (
     <div className="flex flex-col">
       <span className="flex justify-center text-[#475564] text-2xl font-raleway font-semibold mt-32">
-        Create New Position
+        {isAdd ? 'Create New Position' : 'Edit Position'}
       </span>
-      <FrmPosition />
+      <FrmPosition _id={!isAdd ? _id : undefined} />
       <div
         className={
           error.message !== '' && error.message.includes('Network Error')

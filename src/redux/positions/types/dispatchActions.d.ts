@@ -57,6 +57,11 @@ export type GetPositionInfoAction = {
   payload: IPosition;
 };
 
+export type GetPositionInfoReducerAction = {
+  type: ActionTypes.GET_POSITION_INFO_REDUCER;
+  payload: string;
+};
+
 export type CreatePositionAction = {
   type: ActionTypes.CREATE_POSITION;
   payload: IPosition;
@@ -107,4 +112,5 @@ export type Action =
   | SetIsActivePositionAction
   | SetSuccessAction
   | ClearSuccessAction
-  | SetIsPositionUpdatingAction;
+  | SetIsPositionUpdatingAction
+  | GetPositionInfoReducerAction;

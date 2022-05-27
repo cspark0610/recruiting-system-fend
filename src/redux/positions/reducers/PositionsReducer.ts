@@ -96,6 +96,13 @@ const PositionsReducer = (state = initialState, action: Action) => {
       };
     }
 
+    case ActionTypes.GET_POSITION_INFO_REDUCER: {
+      return {
+        ...state,
+        info: state.data.docs.find((item) => item._id === action.payload),
+      };
+    }
+
     case ActionTypes.CREATE_POSITION: {
       return {
         ...state,

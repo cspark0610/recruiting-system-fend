@@ -15,6 +15,7 @@ import {
   GetActivePositionsAction,
   GetInactivePositionsAction,
   SetIsPositionUpdatingAction,
+  GetPositionInfoReducerAction,
 } from '../types/dispatchActions';
 
 import {
@@ -149,6 +150,15 @@ export function getPositionInfo(_id: string) {
         });
       }
     }
+  };
+}
+
+export function GetPositionInfoReducer(_id: string) {
+  return async function (dispatch: Dispatch) {
+    return dispatch<GetPositionInfoReducerAction>({
+      type: ActionTypes.GET_POSITION_INFO_REDUCER,
+      payload: _id,
+    });
   };
 }
 

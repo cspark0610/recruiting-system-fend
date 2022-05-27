@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
+import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
 import {
   GetActivePositions,
@@ -45,7 +45,7 @@ export default function PositionsList() {
     >
       {isAdmin ? (
         <div className="flex justify-end laptop:mr-[18rem] desktop:mr-[22rem] pb-6">
-          <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
+          <CreateNew onClick={() => navigate(VIEW_CREATE_NEW_POSITION)} />
         </div>
       ) : null}
       {isAdmin ? (

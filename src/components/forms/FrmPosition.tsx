@@ -13,7 +13,11 @@ type OptionValues = {
   name: string;
 };
 
-export default function FrmPosition() {
+type FrmPositionProps = {
+  _id?: string;
+};
+
+export default function FrmPosition({ _id }: FrmPositionProps) {
   const dispatch = useDispatch();
 
   const users = useSelector((state: State) => state.user.users);
@@ -26,6 +30,8 @@ export default function FrmPosition() {
   const data: OptionValues[] = users.reduce((prev: any, user: any) => {
     return [...prev, { id: user._id, name: user.name }];
   }, []);
+
+  const positionInfo = useSelector((state: State) => state.positions.info);
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -51,16 +57,18 @@ export default function FrmPosition() {
       (recruiter) => recruiter.name,
     );
 
-    dispatch(
-      createPosition({
-        title,
-        client_name: clientName,
-        rie_link: rieLink,
-        recruiter_filter: recruiterGuide,
-        priority: selectedPriority,
-        designated: recruitersName,
-      }),
-    );
+    if (!_id) {
+      dispatch(
+        createPosition({
+          title,
+          client_name: clientName,
+          rie_link: rieLink,
+          recruiter_filter: recruiterGuide,
+          priority: selectedPriority,
+          designated: recruitersName,
+        }),
+      );
+    }
   };
 
   useEffect(() => {
@@ -74,6 +82,16 @@ export default function FrmPosition() {
       multiselectRef.current?.resetSelectedValues();
     }
   }, [success.message]);
+
+  useEffect(() => {
+    if (_id) {
+      setTitle(positionInfo?.title);
+      setClientName(positionInfo?.client_name);
+      setRieLink(positionInfo?.rie_link);
+      setRecruiterGuide(positionInfo?.recruiter_filter);
+      setSelectedPriority(positionInfo?.priority);
+    }
+  }, [positionInfo, _id]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
@@ -228,6 +246,8 @@ export default function FrmPosition() {
                 stroke="white"
                 fill="white"
               />
+            ) : _id ? (
+              'Save'
             ) : (
               'Create'
             )}

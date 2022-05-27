@@ -1,16 +1,28 @@
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiLinkExternal } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
+import { VIEW_EDIT_POSITION } from '../../config/routes/paths';
 
 type SubMenuProps = {
+  _id: string;
   rie_link: string;
   recruiter_filter: string;
 };
 
-export default function SubMenu({ rie_link, recruiter_filter }: SubMenuProps) {
+export default function SubMenu({
+  _id,
+  rie_link,
+  recruiter_filter,
+}: SubMenuProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="ml-12 py-4 bg-[#FAFAFA] border-b-2">
       <div className="flex justify-end pr-12">
-        <button className="bg-[#00ADEF] text-white w-fit px-2 rounded-md">
+        <button
+          onClick={() => navigate(`${VIEW_EDIT_POSITION}/${_id}`)}
+          className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
+        >
           Edit
         </button>
       </div>

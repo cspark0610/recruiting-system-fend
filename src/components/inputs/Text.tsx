@@ -10,6 +10,7 @@ interface Props {
   showAlert?: any;
   type: string;
   value: any;
+  defaultValue?: string;
   width: string;
 }
 
@@ -23,6 +24,7 @@ const Text: React.FC<Props> = ({
   showAlert,
   type,
   value,
+  defaultValue,
   width,
 }) => {
   /*  */
@@ -52,6 +54,7 @@ const Text: React.FC<Props> = ({
           type={type}
           id={id}
           name={name}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
