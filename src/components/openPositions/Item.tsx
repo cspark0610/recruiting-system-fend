@@ -9,6 +9,7 @@ import LoaderSpinner from '../../assets/loaderSpinner';
 
 type ItemProps = {
   positionName: string;
+  client: string;
   designated: string[];
   rie_link: string;
   recruiter_filter: string;
@@ -20,6 +21,7 @@ type ItemProps = {
 
 export default function Item({
   positionName,
+  client,
   designated,
   inactive,
   rie_link,
@@ -51,14 +53,12 @@ export default function Item({
             <LoaderSpinner width="w-7" height="h-7" classes="mt-3" />
           ) : null}
           <div
-            className={
-              designated && designated.length > 0
-                ? 'flex flex-col w-40'
-                : 'flex flex-col w-40 mt-2'
-            }
+            className={designated && designated.length > 0 ? 'w-fit' : 'w-fit'}
           >
-            <p className="ml-2 font-raleway">{positionName}</p>
-            <div className="flex flex-nowrap w-screen divide-x divide-black mt-4">
+            <p className="ml-2 font-raleway desktop:w-[20rem] laptop:w-[17rem]">
+              {positionName} for <span className="font-semibold">{client}</span>
+            </p>
+            <div className="flex flex-nowrap w-full divide-x divide-black mt-4">
               {designated && designated.length > 0
                 ? designated.map((user: any) => (
                     <div key={user._id}>
@@ -69,7 +69,7 @@ export default function Item({
             </div>
           </div>
           {isAdmin ? (
-            <div className="relative desktop:pr-[30rem]">
+            <div>
               <div className="mt-2">
                 <p
                   className={`p-1 px-4 text-sm rounded-lg font-raleway ${priorityClass}`}

@@ -95,6 +95,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             <div key={item._id} className="flex">
               <Item
                 positionName={item.title}
+                client={item.client_name}
                 designated={item.designated}
                 inactive={inactive}
                 rie_link={item.rie_link}

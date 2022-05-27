@@ -24,9 +24,6 @@ const Conclusion = () => {
 
   const { _id, name, conclusions, main_status } = currentCandidate;
 
-  const mainStatusUppercase =
-    main_status[0].toUpperCase() + main_status.slice(1);
-
   const currentUser = window.localStorage.getItem('user')
     ? JSON.parse(window.localStorage.getItem('user') as string)
     : null;
@@ -42,7 +39,7 @@ const Conclusion = () => {
             goodComment !== ''
               ? {
                   comment: goodComment,
-                  context: mainStatusUppercase,
+                  context: main_status,
                   user: currentUser,
                 }
               : undefined,
@@ -50,7 +47,7 @@ const Conclusion = () => {
             badComment !== ''
               ? {
                   comment: badComment,
-                  context: mainStatusUppercase,
+                  context: main_status,
                   user: currentUser,
                 }
               : undefined,
@@ -94,7 +91,7 @@ const Conclusion = () => {
                           className="flex h-[0.7rem] items-center justify-between"
                         >
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
-                          <div className="text-sm text-gray-400 font-raleway">
+                          <div className="text-sm text-gray-400 font-raleway capitalize">
                             {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
@@ -164,7 +161,7 @@ const Conclusion = () => {
                           className="flex h-[0.7rem] items-center justify-between"
                         >
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
-                          <div className="text-sm text-gray-400 font-raleway">
+                          <div className="text-sm text-gray-400 font-raleway capitalize">
                             {value.context}
                           </div>
                           <div className="w-36 h-[0.1rem] bg-gray-300"></div>
