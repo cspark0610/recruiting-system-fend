@@ -7,7 +7,7 @@ interface Props {
 
 const FormView: React.FC<Props> = ({toggleStatus, setToggleStatus}) => {
   return (
-    <div className="flex flex-col  border-2 rounded-3xl">
+    <div className="flex flex-col mx-20 border-2 rounded-3xl">
       <div className="mx-8 mb-8">
             <h2 className="text-xl text-[#475564] font-bold mt-32 mb-4">Candidate Records</h2>
 
