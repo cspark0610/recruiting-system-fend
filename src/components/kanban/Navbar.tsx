@@ -1,29 +1,36 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import {
   VIEW_EXPERT,
   VIEW_KANBAN,
   VIEW_OPEN_POSITIONS,
+  VIEW_PROFILE,
 } from '../../config/routes/paths';
 import { LogOut } from '../../redux/users/actions/UserAction';
+import { getStorageItem } from '../../utils/localStorage';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 import NavItem from './NavItem';
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
-  const currentUser = window.localStorage.getItem('user')
-    ? JSON.parse(window.localStorage.getItem('user') as string)
-    : null;
+  const currentUser = getStorageItem('user');
 
   const profileMenuRef = useRef<HTMLDivElement>(null);
   detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
 
   const handleLogout = () => {
     dispatch(LogOut());
+  };
+
+  const handleProfileNavigate = () => {
+    navigate(VIEW_PROFILE);
+    setShowProfileMenu(false);
   };
 
   return (
@@ -52,7 +59,10 @@ export default function Navbar() {
                 : 'duration-200 opacity-0 invisible absolute w-52 mt-2'
             }
           >
-            <button className="text-black px-3 py-2 font-raleway">
+            <button
+              className="text-black px-3 py-2 font-raleway"
+              onClick={handleProfileNavigate}
+            >
               My Profile
             </button>
           </div>

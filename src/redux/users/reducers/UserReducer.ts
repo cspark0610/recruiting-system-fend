@@ -16,6 +16,7 @@ const initialState: InitialState = {
     },
   },
   loading: false,
+  updating: false,
   authenticated: false,
   error: {
     status: 400,
@@ -29,6 +30,20 @@ const initialState: InitialState = {
 
 function UserReducer(state = initialState, action: Action) {
   switch (action.type) {
+    case ActionTypes.SET_IS_USER_UPDATING: {
+      return {
+        ...state,
+        updating: true,
+      };
+    }
+
+    case ActionTypes.SET_IS_USER_NOT_UPDATING: {
+      return {
+        ...state,
+        updating: false,
+      };
+    }
+
     case ActionTypes.GET_USERS: {
       return {
         ...state,
