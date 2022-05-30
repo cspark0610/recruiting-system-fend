@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import FormView from "../../../../components/forms/FormView";
 import {RiDownloadFill as DonwloadIcon, RiArrowLeftRightFill as SwitchIcon} from 'react-icons/ri'
+import TableExpert from "../../../../components/tables/TableExpert";
+import { CircularProgress as DownloadingProgressIcon } from "@material-ui/core";
+// import {GrDocumentText as CVIcon, GrPlay as PlayIcon} from 'react-icons/gr'
+
+
 
 
 const ExpertView = () => {
@@ -25,11 +30,23 @@ const ExpertView = () => {
                 </div>
             </div>
 
+           
+            
+            
+
             {/* Recandidate Holder */}
-            <div className="absolute bottom-0 left-0 bg-gradient-to-t from-[#D3D5D8] w-screen flex items-center justify-center h-28">
+            {/* <div className="absolute bottom-0 left-0 bg-gradient-to-t from-[#D3D5D8] w-screen flex items-center justify-center h-28">
                 <button className="bg-[#00ADEF] text-[#fff] font-bold px-12 py-4 rounded-md ">
                     RECANDIDATE
                 </button>
+            </div> */}
+
+            <div className="absolute bottom-0 left-0 bg-[#F9F9F9] w-screen flex items-center justify-center h-28">
+                <span className="text-[#00ADEF] font-bold mx-4">
+                    DOWNLOADING
+                </span>
+                <DownloadingProgressIcon style={{color:"#00ADEF"}}/>
+
             </div>
         </div>
 
