@@ -7,4 +7,5 @@ export type InitialState = {
   error: IError;
   success: ISuccess;
   authenticated: boolean;
+  updating: boolean;
 };

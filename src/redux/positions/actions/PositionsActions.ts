@@ -37,6 +37,7 @@ import {
 import { IPosition } from '../types/data';
 
 import { PrivateAxios } from '../../../config/api/axios';
+import { IUser } from '../../users/types/data';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
@@ -232,7 +233,7 @@ export function UpdateInfo(_id: string, newInfo: IPosition) {
 
       const users = store.getState().user.users;
 
-      let newRecruiters = users.filter((user) =>
+      let newRecruiters = users.filter((user: IUser) =>
         newInfo.designated?.includes(user.name),
       );
 

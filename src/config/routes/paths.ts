@@ -24,3 +24,6 @@ export const VIEW_EXPERT = '/admin/dashboard/expert-view';
 
 /* PATH TO LOGIN */
 export const VIEW_LOGIN = '/login';
+
+/* PATH TO USER PROFILE */
+export const VIEW_PROFILE = '/admin/dashboard/profile';

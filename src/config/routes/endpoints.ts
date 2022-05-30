@@ -26,3 +26,4 @@ export const GET_ALL_USERS = '/users';
 export const LOGIN_USER = '/users/signIn';
 export const LOGOUT_USER = '/users/signOut';
 export const REFRESH_TOKENS = '/users/token/refresh';
+export const UPDATE_USER = '/users/info/update';
