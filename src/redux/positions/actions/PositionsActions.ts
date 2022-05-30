@@ -15,7 +15,6 @@ import {
   GetActivePositionsAction,
   GetInactivePositionsAction,
   SetIsPositionUpdatingAction,
-  GetPositionInfoReducerAction,
 } from '../types/dispatchActions';
 
 import {
@@ -24,6 +23,7 @@ import {
   CreatePositionResponse,
   SetIsActiveResponse,
   DeletePositionResponse,
+  UpdatePositionResponse,
 } from '../types/axiosResponses';
 
 import {
@@ -31,6 +31,7 @@ import {
   CREATE_POSITION,
   SET_IS_ACTIVE,
   DELETE_POSITION,
+  UPDATE_POSITION,
 } from '../../../config/routes/endpoints';
 
 import { IPosition } from '../types/data';
@@ -133,10 +134,18 @@ export function GetInactivePositions(limit: number, page?: number) {
 
 export function getPositionInfo(_id: string) {
   return async function (dispatch: Dispatch) {
+    dispatch<SetLoadingAction>({
+      type: ActionTypes.SET_IS_LOADING,
+    });
+
     try {
       const { data } = await PrivateAxios.get<GetPositionResponse>(
         `${GET_ALL_POSITIONS}/${_id}`,
       );
+
+      dispatch<SetLoadingAction>({
+        type: ActionTypes.SET_IS_NOT_LOADING,
+      });
 
       return dispatch<GetPositionInfoAction>({
         type: ActionTypes.GET_POSITION_INFO,
@@ -150,15 +159,6 @@ export function getPositionInfo(_id: string) {
         });
       }
     }
-  };
-}
-
-export function GetPositionInfoReducer(_id: string) {
-  return async function (dispatch: Dispatch) {
-    return dispatch<GetPositionInfoReducerAction>({
-      type: ActionTypes.GET_POSITION_INFO_REDUCER,
-      payload: _id,
-    });
   };
 }
 
@@ -196,6 +196,68 @@ export function createPosition(positionInfo: IPosition) {
         });
       } else {
         dispatch<SetLoadingAction>({ type: ActionTypes.SET_IS_NOT_LOADING });
+
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error,
+        });
+      }
+    }
+  };
+}
+
+export function UpdateInfo(_id: string, newInfo: IPosition) {
+  return async function (dispatch: Dispatch) {
+    try {
+      dispatch<SetIsPositionUpdatingAction>({
+        type: ActionTypes.SET_IS_UPDATING,
+      });
+
+      await PrivateAxios.put<UpdatePositionResponse>(
+        `${UPDATE_POSITION}/${_id}`,
+        newInfo,
+      );
+
+      dispatch<SetIsPositionUpdatingAction>({
+        type: ActionTypes.SET_IS_NOT_UPDATING,
+      });
+
+      dispatch<SetSuccessAction>({
+        type: ActionTypes.SET_SUCCESS,
+        payload: {
+          status: 200,
+          message: 'Position updated successfully',
+        },
+      });
+
+      const users = store.getState().user.users;
+
+      let newRecruiters = users.filter((user) =>
+        newInfo.designated?.includes(user.name),
+      );
+
+      newRecruiters = newRecruiters.reduce((prev: any, user: any) => {
+        return [...prev, { _id: user._id, name: user.name }];
+      }, []);
+
+      return dispatch({
+        type: ActionTypes.UPDATE_INFO,
+        payload: { ...newInfo, designated: newRecruiters },
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
+
+        return dispatch<SetPositionErrorAction>({
+          type: ActionTypes.SET_POSITION_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch<SetIsPositionUpdatingAction>({
+          type: ActionTypes.SET_IS_NOT_UPDATING,
+        });
 
         return dispatch<SetPositionErrorAction>({
           type: ActionTypes.SET_POSITION_ERROR,
@@ -261,6 +323,12 @@ export function ClearErrors(dispatch: Dispatch) {
 export function ClearSuccess(dispatch: Dispatch) {
   return dispatch<ClearSuccessAction>({
     type: ActionTypes.CLEAR_SUCCESS,
+  });
+}
+
+export function ClearInfo(dispatch: Dispatch) {
+  return dispatch({
+    type: ActionTypes.CLEAR_INFO,
   });
 }
 

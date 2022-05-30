@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   ClearErrors,
+  ClearInfo,
   ClearSuccess,
-  GetPositionInfoReducer,
+  getPositionInfo,
 } from '../../../../redux/positions/actions/PositionsActions';
 import { State } from '../../../../redux/store/store';
 import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
@@ -36,10 +37,14 @@ export default function NewPosition() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isAdd) {
-      dispatch(GetPositionInfoReducer(_id!));
+    if (_id) {
+      dispatch(getPositionInfo(_id!));
     }
-  }, [dispatch, _id, isAdd]);
+
+    return () => {
+      dispatch(ClearInfo(dispatch));
+    };
+  }, [dispatch, _id]);
 
   return (
     <div className="flex flex-col">
