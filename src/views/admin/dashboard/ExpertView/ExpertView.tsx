@@ -31,7 +31,7 @@ const ExpertView = () => {
             </div>
 
            
-            
+            <TableExpert/>
             
 
             {/* Recandidate Holder */}
