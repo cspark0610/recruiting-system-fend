@@ -15,7 +15,7 @@ export default function FrmProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const updating = useSelector((state: State) => state.user.loading);
+  const updating = useSelector((state: State) => state.user.updating);
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
