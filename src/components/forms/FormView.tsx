@@ -43,7 +43,7 @@ const FormView: React.FC<Props> = ({toggleStatus, setToggleStatus}) => {
 
                        <div className="w-2/6 mt-8 flex  items-center  select-none relative">
                            {toggleStatus &&
-                            <ul className=" absolute bg-[#FFFFFF] drop-shadow-xl  w-60 h-15 mt-60 pt-2 pl-4 pb-2 rounded">
+                            <ul className=" absolute z-10  bg-[#FFFFFF] drop-shadow-xl  w-60 h-15 mt-60 pt-2 pl-4 pb-2 rounded">
                                 <li className=" flex flex-end items-center justify-center text-xs right-0 text-[#00ADEF]">
 
                                    <span className="w-4/6 text-[#475564] font-semibold"></span>
