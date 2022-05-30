@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPosition } from '../../redux/positions/actions/PositionsActions';
+import { useNavigate } from 'react-router-dom';
+import {
+  createPosition,
+  UpdateInfo,
+} from '../../redux/positions/actions/PositionsActions';
 import { State } from '../../redux/store/store';
+import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import MultiSelect from 'multiselect-react-dropdown';
 import Text from '../inputs/Text';
 import LoaderSpinner from '../../assets/loaderSpinner';
@@ -13,11 +18,17 @@ type OptionValues = {
   name: string;
 };
 
-export default function FrmPosition() {
+type FrmPositionProps = {
+  _id?: string;
+};
+
+export default function FrmPosition({ _id }: FrmPositionProps) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const users = useSelector((state: State) => state.user.users);
   const loading = useSelector((state: State) => state.positions.loading);
+  const updating = useSelector((state: State) => state.positions.updating);
   const success = useSelector((state: State) => state.positions.success);
   const error = useSelector((state: State) => state.positions.error);
 
@@ -26,6 +37,19 @@ export default function FrmPosition() {
   const data: OptionValues[] = users.reduce((prev: any, user: any) => {
     return [...prev, { id: user._id, name: user.name }];
   }, []);
+
+  const positionInfo = useSelector((state: State) => state.positions.info);
+
+  const currentRecruiters = positionInfo?.designated?.reduce(
+    (prev: any, user: any) => {
+      return [...prev, { id: user._id, name: user.name }];
+    },
+    [],
+  );
+
+  const prioritiesWithoutCurrent = _id
+    ? priorities.filter((priority) => priority.name !== positionInfo.priority)
+    : priorities;
 
   const [title, setTitle] = useState('');
   const [clientName, setClientName] = useState('');
@@ -51,20 +75,33 @@ export default function FrmPosition() {
       (recruiter) => recruiter.name,
     );
 
-    dispatch(
-      createPosition({
-        title,
-        client_name: clientName,
-        rie_link: rieLink,
-        recruiter_filter: recruiterGuide,
-        priority: selectedPriority,
-        designated: recruitersName,
-      }),
-    );
+    if (!_id) {
+      dispatch(
+        createPosition({
+          title,
+          client_name: clientName,
+          rie_link: rieLink,
+          recruiter_filter: recruiterGuide,
+          priority: selectedPriority,
+          designated: recruitersName,
+        }),
+      );
+    } else {
+      dispatch(
+        UpdateInfo(_id, {
+          title,
+          client_name: clientName,
+          rie_link: rieLink,
+          recruiter_filter: recruiterGuide,
+          priority: selectedPriority,
+          designated: recruitersName,
+        }),
+      );
+    }
   };
 
   useEffect(() => {
-    if (success.message !== '') {
+    if (success.message !== '' && !_id) {
       setTitle('');
       setClientName('');
       setRieLink('');
@@ -73,7 +110,19 @@ export default function FrmPosition() {
       setSelectedPriority('');
       multiselectRef.current?.resetSelectedValues();
     }
-  }, [success.message]);
+  }, [success.message, _id]);
+
+  useEffect(() => {
+    if (_id) {
+      setTitle(positionInfo?.title!);
+      setClientName(positionInfo?.client_name!);
+      setRieLink(positionInfo?.rie_link!);
+      setRecruiterGuide(positionInfo?.recruiter_filter!);
+      setDesignated_recruiters(currentRecruiters!);
+      setSelectedPriority(positionInfo?.priority!);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [positionInfo, _id]);
 
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
@@ -83,7 +132,7 @@ export default function FrmPosition() {
             <span className="font-raleway font-medium">Select Priority:</span>
           </div>
           <div className="flex space-x-3">
-            {priorities.map((priority) => (
+            {prioritiesWithoutCurrent.map((priority) => (
               <div key={priority.id}>
                 <input
                   type="checkbox"
@@ -214,20 +263,30 @@ export default function FrmPosition() {
           </div>
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex justify-center space-x-6">
+          {_id ? (
+            <button
+              className="flex items-center justify-center cursor-pointer border-2 border-cyan-color hover:bg-slate-100 rounded-2xl bg-white text-cyan-color font-bold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
+              onClick={() => navigate(VIEW_OPEN_POSITIONS)}
+            >
+              Cancel
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={loading}
+            disabled={loading || updating}
             className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
           >
-            {loading ? (
+            {loading || updating ? (
               <LoaderSpinner
                 width="w-7"
                 height="h-7"
                 stroke="white"
                 fill="white"
               />
+            ) : _id ? (
+              'Save'
             ) : (
               'Create'
             )}

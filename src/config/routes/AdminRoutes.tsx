@@ -3,7 +3,8 @@ import {
   VIEW_EXPERT,
   VIEW_KANBAN,
   VIEW_OPEN_POSITIONS,
-  VIIEW_CREATE_NEW_POSITION,
+  VIEW_CREATE_NEW_POSITION,
+  VIEW_EDIT_POSITION,
 } from './paths';
 import CandidateStatus from '../../views/admin/dashboard/CandidateStatus/CandidateStatus';
 import Navbar from '../../components/kanban/Navbar';
@@ -34,7 +35,15 @@ export default function AdminRoutes() {
           }
         />
         <Route
-          path={VIIEW_CREATE_NEW_POSITION}
+          path={VIEW_CREATE_NEW_POSITION}
+          element={
+            <PrivateRoute>
+              <NewPosition />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={`${VIEW_EDIT_POSITION}/:_id`}
           element={
             <PrivateRoute>
               <NewPosition />
@@ -45,7 +54,7 @@ export default function AdminRoutes() {
           path={VIEW_EXPERT}
           element={
             <PrivateRoute>
-              <ExpertView/>
+              <ExpertView />
             </PrivateRoute>
           }
         />

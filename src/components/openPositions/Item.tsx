@@ -88,7 +88,11 @@ export default function Item({
         </div>
       </div>
       {isOpen ? (
-        <SubMenu rie_link={rie_link} recruiter_filter={recruiter_filter} />
+        <SubMenu
+          _id={_id}
+          rie_link={rie_link}
+          recruiter_filter={recruiter_filter}
+        />
       ) : null}
     </div>
   );
