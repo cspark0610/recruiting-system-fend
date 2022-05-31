@@ -3,9 +3,7 @@ import { MdRestartAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";
 import CameraOn from "./CameraOn";
-import Start from "./control/Start";
-import Pause from "./control/Pause";
-import Resume from "./control/Resume";
+import Stop from "./control/Stop";
 import { UseCounter } from "../../hooks/useCounter";
 import { UseCamera } from "../../hooks/useCamera";
 import ProgressVideoBar from "../extras/ProgressVideoBar";
@@ -18,17 +16,8 @@ const Stream = () => {
   const webcamRef = useRef<any>(null);
   const mediaRecorderRef = useRef<any>(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
-
-  const blob = new Blob(recordedChunks, {
-    type: "video/webm;codecs=vp9,opus",
-  });
-
   const [capture, setCapture] = useState(false);
-  const [pause, setPause] = useState(false);
-
-  const { time, startTimer, pauseTimer, resumeTimer, resetTimer, progress } =
-    UseCounter();
-
+  const { time, startTimer, pauseTimer, resetTimer, progress } = UseCounter();
   const { isCameraOn, init } = UseCamera();
 
   useEffect(() => {
@@ -40,7 +29,6 @@ const Stream = () => {
   /* START RECORDING */
   const handleStartCaptureClick = useCallback(() => {
     setCapture(true);
-    setPause(false);
     startTimer();
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm;codecs=vp9,opus",
@@ -52,22 +40,6 @@ const Stream = () => {
     mediaRecorderRef.current.start();
   }, [mediaRecorderRef, webcamRef, setCapture]);
 
-  /* PAUSE RECORDING */
-  const handlePauseCaptureClick = useCallback(() => {
-    setPause(true);
-    setCapture(false);
-    pauseTimer();
-    mediaRecorderRef.current.pause();
-  }, [mediaRecorderRef, webcamRef, setCapture]);
-
-  /* RESUME RECORDING */
-  const handleResumeCaptureClick = useCallback(() => {
-    setCapture(true);
-    setPause(false);
-    resumeTimer();
-    mediaRecorderRef.current.resume();
-  }, [mediaRecorderRef, webcamRef, setCapture]);
-
   /* STOP RECORDING */
   const handleStopCaptureClick = useCallback(() => {
     setCapture(false);
@@ -77,6 +49,9 @@ const Stream = () => {
 
   /* REMAKE RECORDING */
   const handleRemakeCaptureClick = useCallback(() => {
+    const blob = new Blob(recordedChunks, {
+      type: "video/webm;codecs=vp9,opus",
+    });
     if (recordedChunks.length) {
       const url = URL.createObjectURL(blob);
       window.URL.revokeObjectURL(url);
@@ -127,9 +102,6 @@ const Stream = () => {
       {/* ANIMATION OF RECORDING */}
       <div className={`${capture ? "block" : "hidden"}`}>
         <Recording />
-      </div>
-
-      <div className={`${capture ? "block" : "hidden"}`}>
         <ProgressVideoBar value={progress} />
       </div>
 
@@ -137,19 +109,7 @@ const Stream = () => {
       <CameraOn webcamRef={webcamRef} isCameraOn={isCameraOn} init={init} />
 
       {/* VALIDATION IF RECORDING */}
-      {capture ? (
-        <Pause onClick={handlePauseCaptureClick} />
-      ) : pause ? (
-        <Resume onClick={handleResumeCaptureClick} />
-      ) : recordedChunks.length === 0 ? (
-        <Start isCameraOn={isCameraOn} onClick={handleStartCaptureClick} />
-      ) : (
-        <Start
-          isCameraOn={isCameraOn}
-          classes="!hidden"
-          onClick={handleStartCaptureClick}
-        />
-      )}
+      {capture && <Stop onClick={handleStopCaptureClick} />}
 
       {/* VALIDATION WHEN RECORDING STOP */}
       {recordedChunks.length > 0 && (

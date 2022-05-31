@@ -1,0 +1,58 @@
+@import "./variables.scss";
+
+.container-notification {
+  position: absolute;
+  bottom: 5px;
+  z-index: 1;
+  animation-name: popup;
+  animation-duration: 4s;
+  animation-timing-function: ease-out;
+
+  @media (min-width: 1024px) {
+    bottom: 5px;
+  }
+
+  @media (min-width: 1680px) {
+    bottom: 250px;
+  }
+}
+
+@keyframes popup {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+  font-family: $fontRaleway;
+
+  @media (min-width: 320px) {
+    font-size: 10px;
+    width: 130px;
+    padding: 0;
+  }
+
+  @media (min-width: 1280px) {
+    font-size: 10px;
+    font-weight: 600;
+    width: 18rem;
+    height: 2.5rem;
+    padding: 0.1rem;
+  }
+
+  @media (min-width: 1680px) {
+    font-size: 18px;
+    font-weight: 600;
+    width: 25rem;
+    height: 3rem;
+    padding: 0.1rem;
+  }
+}
