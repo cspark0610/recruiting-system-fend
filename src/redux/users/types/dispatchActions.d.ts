@@ -30,4 +30,5 @@ export type Action =
   | SetUserInfoAction
   | SetUserLoadingAction
   | SetUserErrorAction
-  | SetUserSuccessAction;
+  | SetUserSuccessAction
+  | SetUserUpdatingAction;

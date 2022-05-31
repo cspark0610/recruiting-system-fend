@@ -1,15 +1,16 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
-import store from "../../redux/store/store";
-import { setStorage } from "../../utils/localStorage";
-import { REFRESH_TOKENS } from "../routes/endpoints";
-import { LogOut } from "../../redux/users/actions/UserAction";
-import { RefreshTokenResponse } from "../../redux/users/types/axiosResponses";
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import store from '../../redux/store/store';
+import { setStorage } from '../../utils/localStorage';
+import { REFRESH_TOKENS } from '../routes/endpoints';
+import { LogOut } from '../../redux/users/actions/UserAction';
+import { RefreshTokenResponse } from '../../redux/users/types/axiosResponses';
+import { getStorageItem } from '../../utils/localStorage';
 
 const { NODE_ENV } = process.env;
 
 const { dispatch } = store;
 
-const accessToken = window.localStorage.getItem("access");
+const accessToken = getStorageItem('access', true);
 
 const refresh = async () => {
   try {
