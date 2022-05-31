@@ -1,19 +1,24 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { VIEW_KANBAN } from '../../config/routes/paths';
 import { State } from '../../redux/store/store';
 import { getStorageItem } from '../../utils/localStorage';
+import { UpdateInfo } from '../../redux/users/actions/UserAction';
 import Text from '../inputs/Text';
 import Date from '../inputs/Date';
 import SingleSelect from '../inputs/SingleSelect';
 import Countries from '../../assets/json/Countries.json';
 import LoaderSpinner from '../../assets/loaderSpinner';
-import { UpdateInfo } from '../../redux/users/actions/UserAction';
 
-export default function FrmProfile() {
+type FrmProfileProps = {
+  isEditable: boolean;
+  setIsEditable: (isEditable: boolean) => void;
+};
+
+export default function FrmProfile({
+  isEditable,
+  setIsEditable,
+}: FrmProfileProps) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const updating = useSelector((state: State) => state.user.updating);
 
@@ -91,7 +96,7 @@ export default function FrmProfile() {
             type="text"
             name="name"
             RegExp={RegExp.characters}
-            setValue={setName}
+            setValue={isEditable ? setName : false}
             width="w-[26.5rem]"
             value={name}
             placeholder="Name"
@@ -99,14 +104,19 @@ export default function FrmProfile() {
         </div>
         <div className="flex flex-col">
           <label htmlFor="email" className="ml-4 font-raleway font-medium">
-            Email:
+            Email:{' '}
+            {isEditable && currentUser.google_sign_in ? (
+              <span className="text-red-500">*This field cannot be edited</span>
+            ) : null}
           </label>
           <Text
             id="email"
             type="email"
             name="email"
             RegExp={RegExp.characters}
-            setValue={currentUser.google_sign_in ? false : setEmail}
+            setValue={
+              currentUser.google_sign_in ? false : isEditable ? setEmail : false
+            }
             width="w-[26.5rem]"
             value={email}
             placeholder="Email"
@@ -123,7 +133,7 @@ export default function FrmProfile() {
             type="text"
             name="phone"
             RegExp={RegExp.numbers}
-            setValue={setPhone}
+            setValue={isEditable ? setPhone : false}
             width="w-[26.5rem]"
             value={phone}
             placeholder="Phone"
@@ -140,7 +150,7 @@ export default function FrmProfile() {
             for="country"
             label="Country"
             placeholder="Country"
-            setValue={setCountry}
+            setValue={isEditable ? setCountry : false}
             showAlert={false}
             value={country}
             width="w-[26.5rem]"
@@ -157,7 +167,7 @@ export default function FrmProfile() {
             type="text"
             name="position"
             RegExp={RegExp.characters}
-            setValue={setPosition}
+            setValue={isEditable ? setPosition : false}
             width="w-[26.5rem]"
             value={position}
             placeholder="Position"
@@ -175,7 +185,7 @@ export default function FrmProfile() {
             label="Working Since"
             name="workingSince"
             placeholder="Working Since"
-            setValue={setWorkingSince}
+            setValue={isEditable ? setWorkingSince : false}
             width="w-[26.5rem]"
             value={workingSince}
           />
@@ -211,31 +221,33 @@ export default function FrmProfile() {
           </div>
         </div>
       ) : null}
-      <div className="flex space-x-4 pt-8">
-        <button
-          className="flex items-center justify-center cursor-pointer border-2 border-cyan-color hover:bg-slate-100 rounded-2xl bg-white text-cyan-color font-bold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
-          onClick={() => navigate(VIEW_KANBAN)}
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          disabled={updating}
-          onClick={handleSubmit}
-          className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
-        >
-          {updating ? (
-            <LoaderSpinner
-              width="w-7"
-              height="h-7"
-              stroke="white"
-              fill="white"
-            />
-          ) : (
-            'Save'
-          )}
-        </button>
-      </div>
+      {isEditable ? (
+        <div className="flex space-x-4 pt-8">
+          <button
+            className="flex items-center justify-center cursor-pointer border-2 border-cyan-color hover:bg-slate-100 rounded-2xl bg-white text-cyan-color font-bold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none active:bg-slate-300"
+            onClick={() => setIsEditable(!isEditable)}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            disabled={updating}
+            onClick={handleSubmit}
+            className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
+          >
+            {updating ? (
+              <LoaderSpinner
+                width="w-7"
+                height="h-7"
+                stroke="white"
+                fill="white"
+              />
+            ) : (
+              'Save'
+            )}
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

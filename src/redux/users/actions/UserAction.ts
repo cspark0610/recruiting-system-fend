@@ -6,6 +6,8 @@ import {
   UpdateUserInfoResponse,
 } from '../types/axiosResponses';
 import {
+  ClearUserErrorAction,
+  ClearUserSuccessAction,
   GetUsersActions,
   SetUserErrorAction,
   SetUserInfoAction,
@@ -163,4 +165,14 @@ export function LogOut() {
 
     window.location.assign(VIEW_LOGIN);
   };
+}
+
+export function ClearUserError(dispatch: Dispatch) {
+  return dispatch<ClearUserErrorAction>({ type: ActionTypes.CLEAR_USER_ERROR });
+}
+
+export function ClearUserSuccess(dispatch: Dispatch) {
+  return dispatch<ClearUserSuccessAction>({
+    type: ActionTypes.CLEAR_USER_SUCCESS,
+  });
 }

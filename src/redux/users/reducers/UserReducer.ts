@@ -83,6 +83,27 @@ function UserReducer(state = initialState, action: Action) {
         authenticated: true,
       };
     }
+
+    case ActionTypes.CLEAR_USER_ERROR: {
+      return {
+        ...state,
+        error: {
+          status: 400,
+          message: '',
+        },
+      };
+    }
+
+    case ActionTypes.CLEAR_USER_SUCCESS: {
+      return {
+        ...state,
+        success: {
+          status: 200,
+          message: '',
+        },
+      };
+    }
+
     default:
       return state;
   }
