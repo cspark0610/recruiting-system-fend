@@ -5,6 +5,7 @@ import { IoMicCircleOutline as AudioIcon} from 'react-icons/io5';
 import {IoMail as EmailIcon} from 'react-icons/io5'
 import {BsFillTelephoneFill as PhoneIcon} from 'react-icons/bs'
 import {GiSoundWaves as RecordIcon} from 'react-icons/gi'
+import { useState } from 'react';
 
 // interface Props {
 //     toggleStatus: boolean,
@@ -12,6 +13,8 @@ import {GiSoundWaves as RecordIcon} from 'react-icons/gi'
 // }
 
 const TableExpert = () => {
+    const [togglePosition, setTogglePosition] = useState(false)
+
     return(
         <div className="h-[50vh] w-screen text-[#313A4E] absolute left-0">
         {/*Table Head*/}
@@ -24,10 +27,53 @@ const TableExpert = () => {
             <div className="w-1/3 flex " >English</div>
             <div className="w-1/3 flex ">Int. Skills</div>
             <div className="w-1/3 flex ">Skills</div>
-            <div className="w-1/3 flex flex items-center cursor-pointer">
+            <div className="w-1/3 flex flex items-center cursor-pointer" onClick={()=>setTogglePosition(!togglePosition)}>
                 <span>Position</span>
-                <ArrowDown className='ml-[0.5em]'/>
+                {togglePosition ? <ArrowUp className='ml-[0.5em]'/>: <ArrowDown className='ml-[0.5em]'/>}
             </div>
+
+            {togglePosition 
+                &&
+                <ul className="absolute right-[0.9em] top-[3.5em] z-10  bg-[#FFFFFF] drop-shadow-xl  w-60 h-15 pt-2 pl-4 pb-2 rounded">
+                    <li className=" flex flex-end items-center justify-center text-xs right-0 text-[#00ADEF]">
+                        <span className="w-4/6 text-[#475564] font-semibold"></span>
+                        <span className=" w2/6 cursor-pointer">Select all</span>
+                        
+                    </li>
+        
+                    <li className="flex flex-end items-center border-b-2 pb-2 pt-2">
+                        <span className="w-5/6 text-[#475564] text-base font-normal">
+                            Full Stack Sr
+                        </span>
+                        <input className="cursor-pointer" type="checkbox"/>
+                    </li>
+                    
+                    <li className="flex flex-end items-center border-b-2 pb-2 pt-2">
+                        <span className="w-5/6 text-[#475564] text-base font-normal">
+                            Diseño UX/UI
+                        </span>
+                        <input className="cursor-pointer" type="checkbox"/>
+                    </li>
+                    <li className="flex flex-end items-center border-b-2 pb-2 pt-2">
+                        <span className="w-5/6 text-[#475564] text-base font-normal">
+                            SalesForce Dev Jr
+                        </span>
+                        <input className="cursor-pointer" type="checkbox"/>
+                    </li>
+                    <li className="flex flex-end items-center border-b-2 pb-2 pt-2">
+                        <span className="w-5/6 text-[#475564] text-base font-normal">
+                            Mobile Developer
+                        </span>
+                        <input className="cursor-pointer" type="checkbox"/>
+                    </li>
+                    <li onClick={()=> setTogglePosition(!togglePosition)} className="font-semibold text-[#475564] text-base pt-4 pb-2 cursor-pointer hover:text-[#00ADEF]">
+                        Apply
+                    </li>
+                </ul>
+                
+            }
+            
+            
         </div>
 
         {/*TableBody*/}
