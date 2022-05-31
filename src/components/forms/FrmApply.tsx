@@ -1,27 +1,31 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* Components */
-import Text from "../inputs/Text";
-import SingleSelect from "../inputs/SingleSelect";
-import File from "../inputs/File";
-import Checkbox from "../buttons/Checkbox";
-import Submit from "../buttons/Submit";
-import Loading from "../extras/Loading";
-import Date from "../inputs/Date";
+import Text from '../inputs/Text';
+import SingleSelect from '../inputs/SingleSelect';
+import File from '../inputs/File';
+import Checkbox from '../buttons/Checkbox';
+import Submit from '../buttons/Submit';
+import Loading from '../extras/Loading';
+import Date from '../inputs/Date';
+import ErrorMessages from '../forms/ErrorMessages';
 
 /* Paths */
-import { VIEW_APPLY_THANKS } from "../../config/routes/paths";
+import { VIEW_APPLY_THANKS } from '../../config/routes/paths';
 
 /* Json files */
-import Countries from "../../assets/json/Countries.json";
-import English from "../../assets/json/Language.json";
+import Countries from '../../assets/json/Countries.json';
+import English from '../../assets/json/Language.json';
 
 /* Redux */
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../redux/store/store";
-import { CreateCandidate } from "../../redux/candidates/actions/CandidateAction";
-import { getPositionInfo } from "../../redux/positions/actions/PositionsActions";
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../redux/store/store';
+import {
+  CleanCandidateErrors,
+  CreateCandidate,
+} from '../../redux/candidates/actions/CandidateAction';
+import { getPositionInfo } from '../../redux/positions/actions/PositionsActions';
 
 interface Props {
   _id: string | null;
@@ -32,7 +36,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const maxFileSize = 10000000;
+
   const positionInfo = useSelector((state: State) => state.positions.info);
+  const candidateError = useSelector((state: State) => state.info.error);
 
   /* Regular Expressions */
   const RegExp = {
@@ -56,14 +62,14 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   }, [_id, dispatch]);
 
   /* States from the component */
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birth, setBirth] = useState("");
-  const [phone, setPhone] = useState("");
-  const [idiom, setIdiom] = useState({ id: 0, name: "" });
-  const [nation, setNation] = useState({ id: 0, name: "" });
-  const [linkedin, setLinkedin] = useState("");
-  const [portfolio, setPortfolio] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [birth, setBirth] = useState('');
+  const [phone, setPhone] = useState('');
+  const [idiom, setIdiom] = useState({ id: 0, name: '' });
+  const [nation, setNation] = useState({ id: 0, name: '' });
+  const [linkedin, setLinkedin] = useState('');
+  const [portfolio, setPortfolio] = useState('');
   const [file, setFile] = useState<string | Blob | any>();
   const [terms, setTerms] = useState(false);
   const [upload, setUpload] = useState(false);
@@ -76,15 +82,15 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   const [isNationValid, setIsNationValid] = useState(false);
   const [isTermsValid, setIsTermsValid] = useState(false);
   const [isFileHigh, setIsFileHigh] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   /* Function to store validation */
   const isFormValid = () => {
-    name === "" ? setIsNameValid(true) : setIsNameValid(false);
-    email === "" ? setIsEmailValid(true) : setIsEmailValid(false);
-    phone === "" ? setIsPhoneValid(true) : setIsPhoneValid(false);
-    idiom.name === "" ? setIsIdiomValid(true) : setIsIdiomValid(false);
-    nation.name === "" ? setIsNationValid(true) : setIsNationValid(false);
+    name === '' ? setIsNameValid(true) : setIsNameValid(false);
+    email === '' ? setIsEmailValid(true) : setIsEmailValid(false);
+    phone === '' ? setIsPhoneValid(true) : setIsPhoneValid(false);
+    idiom.name === '' ? setIsIdiomValid(true) : setIsIdiomValid(false);
+    nation.name === '' ? setIsNationValid(true) : setIsNationValid(false);
     terms === false
       ? setIsTermsValid(!isTermsValid)
       : setIsTermsValid(isTermsValid);
@@ -103,13 +109,14 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
       setUpload(true);
       if (file.size > maxFileSize) {
         setIsFileHigh(true);
-        setMessage("File is too large. Maximum file size is 10MB");
+        setMessage('File is too large. Maximum file size is 10MB');
+      } else if (file.type === 'application/pdf') {
+        dispatch(CleanCandidateErrors(dispatch));
       } else {
         setIsFileHigh(false);
-        console.log("File uploaded");
       }
     }
-  }, [file]);
+  }, [file, dispatch]);
 
   /*  */
   const loading = useSelector((state: State) => state.info.loading);
@@ -118,16 +125,16 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   /* OnSubmit */
   const onSubmit = (evt: any) => {
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("birth_date", birth);
-    formData.append("phone", phone);
-    formData.append("english_level", idiom.name);
-    formData.append("country", nation.name);
-    formData.append("linkedin", linkedin);
-    formData.append("portfolio", portfolio);
-    formData.append("position", positionInfo._id!);
-    formData.append("cv", file);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('birth_date', birth);
+    formData.append('phone', phone);
+    formData.append('english_level', idiom.name);
+    formData.append('country', nation.name);
+    formData.append('linkedin', linkedin);
+    formData.append('portfolio', portfolio);
+    formData.append('position', positionInfo._id!);
+    formData.append('cv', file);
 
     evt.preventDefault();
 
@@ -148,26 +155,25 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
 
   return (
     <section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
-      {/* {isTermsValid && (
-        <Notification
-          key={Math.random()}
-          message="You must to accep terms and conditions"
-          color="bg-black"
-        />
-      )} */}
       <span className="font-raleway font-normal text-sm text-gray-color tablet:mt-8 laptop:mt-0">
-        {t("applying")}
+        {t('applying')}
       </span>
       <h2 className="font-raleway font-semibold text-cyan-color mobile:text-lg laptop:text-2xl tablet:mb-8 laptop:mb-0">
-        {t("job_title", { job_title })}
+        {t('job_title', { job_title })}
       </h2>
       <section className="mobile:w-full laptop:w-9/12 tablet:w-11/12 bg-white p-2">
+        <div className="flex items-center justify-center py-3">
+          <ErrorMessages
+            errorState={candidateError}
+            errorTerms={['registered']}
+          />
+        </div>
         <div className="flex flex-wrap -mx-3">
           <Text
             id="name"
-            label={t("data.name.label")}
+            label={t('data.name.label')}
             name="name"
-            placeholder={t("data.name.placeholder")}
+            placeholder={t('data.name.placeholder')}
             RegExp={RegExp.characters}
             setValue={setName}
             showAlert={isNameValid}
@@ -177,9 +183,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           />
           <Text
             id="email"
-            label={t("data.email.label")}
+            label={t('data.email.label')}
             name="email"
-            placeholder={t("data.email.placeholder")}
+            placeholder={t('data.email.placeholder')}
             RegExp={RegExp.general}
             setValue={setEmail}
             showAlert={isEmailValid}
@@ -189,7 +195,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           />
           <Date
             id="birth"
-            label={t("data.birth.label")}
+            label={t('data.birth.label')}
             name="birth"
             placeholder=" "
             setValue={setBirth}
@@ -198,9 +204,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           />
           <Text
             id="phone"
-            label={t("data.phone.label")}
+            label={t('data.phone.label')}
             name="phone"
-            placeholder={t("data.phone.placeholder")}
+            placeholder={t('data.phone.placeholder')}
             RegExp={RegExp.numbers}
             setValue={setPhone}
             showAlert={isPhoneValid}
@@ -213,8 +219,8 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             display="flex"
             id="idiom"
             for="idiom"
-            label={t("data.idiom.label")}
-            placeholder={t("data.idiom.placeholder")}
+            label={t('data.idiom.label')}
+            placeholder={t('data.idiom.placeholder')}
             setValue={setIdiom}
             showAlert={isIdiomValid}
             value={idiom}
@@ -225,8 +231,8 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             display="flex"
             id="country"
             for="country"
-            label={t("data.nation.label")}
-            placeholder={t("data.nation.placeholder")}
+            label={t('data.nation.label')}
+            placeholder={t('data.nation.placeholder')}
             setValue={setNation}
             showAlert={isNationValid}
             value={nation}
@@ -234,10 +240,10 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           />
           <Text
             id="linkedin"
-            label={t("data.linkedin.label")}
+            label={t('data.linkedin.label')}
             name="linkedin"
-            placeholder={t("data.linkedin.placeholder")}
-            RegExp={""}
+            placeholder={t('data.linkedin.placeholder')}
+            RegExp={''}
             setValue={setLinkedin}
             type="text"
             value={linkedin}
@@ -245,10 +251,10 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           />
           <Text
             id="portfolio"
-            label={t("data.portfolio.label")}
+            label={t('data.portfolio.label')}
             name="portfolio"
-            placeholder={t("data.portfolio.placeholder")}
-            RegExp={""}
+            placeholder={t('data.portfolio.placeholder')}
+            RegExp={''}
             setValue={setPortfolio}
             type="text"
             value={portfolio}
@@ -264,19 +270,22 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             color="bg-red-color/100"
             size={isFileHigh}
           />
+          <div className="mx-auto py-5">
+            <ErrorMessages errorState={candidateError} errorTerms={['pdf']} />
+          </div>
           <Checkbox
             id="terms"
             classes="place-items-center"
             htmlFor="agreetment"
-            message={t("term_description.line_1")}
-            subMessage={t("term_description.line_2")}
+            message={t('term_description.line_1')}
+            subMessage={t('term_description.line_2')}
             value={terms}
             setValue={setTerms}
             width="w-auto"
           />
         </div>
         <Submit
-          name={t("submit_button.name")}
+          name={t('submit_button.name')}
           width="w-full mobile:w-28 tablet:w-28"
           onSubmit={onSubmit}
         />

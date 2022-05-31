@@ -26,7 +26,7 @@ export default function FrmProfile({
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState(undefined);
   const [password, setPassword] = useState<string>('');
-  const [position, setPosition] = useState<string>('');
+  const [position_name, setPosition_name] = useState<string>('');
   const [workingSince, setWorkingSince] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [country, setCountry] = useState({ id: 0, name: '' });
@@ -62,7 +62,7 @@ export default function FrmProfile({
         name,
         email,
         phone,
-        position,
+        position_name,
         working_since: workingSince,
         country: country.name,
       }),
@@ -74,12 +74,16 @@ export default function FrmProfile({
     setEmail(currentUser.email ? currentUser.email : '');
     setPhone(currentUser.phone ? currentUser.phone : undefined);
     setWorkingSince(currentUser.working_since ? currentUser.working_since : '');
+    setPosition_name(
+      currentUser.position_name ? currentUser.position_name : '',
+    );
     setCountry(userCountry);
   }, [
     currentUser.name,
     currentUser.email,
     currentUser.phone,
     currentUser.working_since,
+    currentUser.position_name,
     userCountry,
   ]);
 
@@ -167,9 +171,9 @@ export default function FrmProfile({
             type="text"
             name="position"
             RegExp={RegExp.characters}
-            setValue={isEditable ? setPosition : false}
+            setValue={isEditable ? setPosition_name : false}
             width="w-[26.5rem]"
-            value={position}
+            value={position_name}
             placeholder="Position"
           />
         </div>
