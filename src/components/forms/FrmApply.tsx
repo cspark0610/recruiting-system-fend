@@ -116,7 +116,11 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
         setIsFileHigh(false);
       }
     }
-  }, [file, dispatch]);
+
+    if (terms) {
+      dispatch(CleanCandidateErrors(dispatch));
+    }
+  }, [file, dispatch, terms]);
 
   /*  */
   const loading = useSelector((state: State) => state.info.loading);
@@ -134,13 +138,14 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
     formData.append('linkedin', linkedin);
     formData.append('portfolio', portfolio);
     formData.append('position', positionInfo._id!);
+    formData.append('terms', terms ? 'true' : 'false');
     formData.append('cv', file);
 
     evt.preventDefault();
 
     isFormValid();
 
-    if (!name || !email || !phone || !idiom || !nation || !terms) {
+    if (!name || !email || !phone || !idiom || !nation) {
       return;
     } else {
       dispatch(CreateCandidate(formData));
@@ -166,6 +171,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
           <ErrorMessages
             errorState={candidateError}
             errorTerms={['registered']}
+            textClass="text-red-500"
           />
         </div>
         <div className="flex flex-wrap -mx-3">
@@ -283,6 +289,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             setValue={setTerms}
             width="w-auto"
           />
+          <div className="mx-auto py-5">
+            <ErrorMessages errorState={candidateError} errorTerms={['terms']} />
+          </div>
         </div>
         <Submit
           name={t('submit_button.name')}
