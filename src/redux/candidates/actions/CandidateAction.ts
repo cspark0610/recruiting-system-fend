@@ -54,6 +54,7 @@ import {
   UPDATE_CONCLUSION,
   UPDATE_STATUS,
   VALIDATE_TOKEN,
+  SEND_VIDEO,
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 import { Filters, IConclusionInv } from '../types/data';
@@ -419,6 +420,32 @@ export function ValidateToken(token: string) {
         return dispatch<SetCandidateErrorAction>({
           type: ActionTypes.SET_CANDIDATE_ERROR,
           payload: error.response.data,
+        });
+      }
+    }
+  };
+}
+
+export function SendVideo(_id: string, formData: any) {
+  return async function (dispatch: Dispatch) {
+    try {
+      await PrivateAxios.post(`${SEND_VIDEO}/${_id}`, formData);
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
         });
       }
     }
