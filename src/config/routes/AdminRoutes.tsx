@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import {
+  VIEW_COMPARING,
   VIEW_EXPERT,
   VIEW_KANBAN,
   VIEW_OPEN_POSITIONS,
@@ -13,6 +14,7 @@ import NewPosition from '../../views/admin/dashboard/OpenPositions/NewPosition';
 import PositionsList from '../../views/admin/dashboard/OpenPositions/PositionsList';
 import PrivateRoute from '../../components/Routes/PrivateRoute';
 import ExpertView from '../../views/admin/dashboard/ExpertView/ExpertView';
+import ComparingView from '../../views/admin/dashboard/ExpertView/ComparingView';
 import Profile from '../../views/admin/dashboard/Profile/Profile';
 
 export default function AdminRoutes() {
@@ -65,6 +67,14 @@ export default function AdminRoutes() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={VIEW_COMPARING}
+          element={
+            <PrivateRoute>
+              <ComparingView/>
             </PrivateRoute>
           }
         />

@@ -38,5 +38,7 @@ module.exports = {
       // => @media (min-width: 1600px) { ... }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 };
