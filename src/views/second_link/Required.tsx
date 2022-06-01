@@ -32,7 +32,7 @@ const Required = () => {
         width="laptop:w-[97.5px] mobile:w-[113px] tablet:w-[154px]"
         height="laptop:h-[65px] mobile:h-[75px] tablet:h-[102px]"
       />
-      <FrmData />
+      <FrmData token={token!} />
     </>
   );
 };

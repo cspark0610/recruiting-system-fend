@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { VIIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
+import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
 import { State } from '../../../../redux/store/store';
 import {
   GetActivePositions,
@@ -36,10 +36,16 @@ export default function PositionsList() {
   }, [dispatch]);
 
   return (
-    <div className={isAdmin ? 'mt-32 md:w-screen' : 'mt-48 md:w-screen'}>
+    <div
+      className={
+        isAdmin
+          ? 'mt-32 md:w-screen overflow-x-hidden'
+          : 'mt-48 md:w-screen overflow-x-hidden'
+      }
+    >
       {isAdmin ? (
         <div className="flex justify-end laptop:mr-[18rem] desktop:mr-[22rem] pb-6">
-          <CreateNew onClick={() => navigate(VIIEW_CREATE_NEW_POSITION)} />
+          <CreateNew onClick={() => navigate(VIEW_CREATE_NEW_POSITION)} />
         </div>
       ) : null}
       {isAdmin ? (
@@ -81,7 +87,7 @@ export default function PositionsList() {
         }
       >
         {error.message !== '' && (
-          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
             There was an error while connecting to the server. Please check your
             internet connection and try again.
           </span>
@@ -95,7 +101,7 @@ export default function PositionsList() {
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-seibold">
+          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-raleway font-seibold">
             {success.message}
           </span>
         )}

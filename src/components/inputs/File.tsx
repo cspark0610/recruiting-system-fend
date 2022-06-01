@@ -1,21 +1,26 @@
-import { useTranslation } from 'react-i18next';
-import { FiUpload } from 'react-icons/fi';
-import { AiOutlineFileDone } from 'react-icons/ai';
+import { useTranslation } from "react-i18next";
+import { FiUpload } from "react-icons/fi";
+import { AiOutlineFileDone } from "react-icons/ai";
+import Notification from "../extras/Notification";
 
 interface Props {
   value: any;
-  setValue: any;
   upload: any;
   setUpload: any;
+  setValue: any;
   onChange: any;
+  message: string;
+  color: string;
+  size: boolean;
 }
 
 const File: React.FC<Props> = ({
   value,
-  setValue,
   upload,
-  setUpload,
   onChange,
+  message,
+  color,
+  size,
 }) => {
   /*  */
   const { t } = useTranslation();
@@ -28,7 +33,7 @@ const File: React.FC<Props> = ({
       >
         {!upload ? (
           <div className="flex flex-row items-center justify-center mobile:text-xs laptop:text-[15px]">
-            <FiUpload className="h-5 w-5" /> &nbsp; {t('file_title')}
+            <FiUpload className="h-5 w-5" /> &nbsp; {t("file_title")}
           </div>
         ) : (
           <div className="flex flex-row items-center justify-center text-green-color mobile:text-xs laptop:text-[15px]">
@@ -45,6 +50,9 @@ const File: React.FC<Props> = ({
         hidden
         onChange={onChange}
       />
+      {upload && size && (
+        <Notification message={message} color={color} sizeFile={size} />
+      )}
     </div>
   );
 };

@@ -83,7 +83,7 @@ const FrmLogin = () => {
           <div className="relative">
             <div className="block mb-[12px]">
               {expiredSessionError ? (
-                <span className="flex items-center justify-center text-red-500">
+                <span className="flex items-center justify-center text-red-500 font-raleway">
                   {expiredSessionError}
                 </span>
               ) : null}

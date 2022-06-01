@@ -56,7 +56,7 @@ import {
   VALIDATE_TOKEN,
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
-import { Filters } from '../types/data';
+import { Filters, IConclusionInv } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -260,15 +260,7 @@ export function CreateCandidate(candidateInfo: any) {
 export function GenerateUrl(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
-
-      dispatch<SetCandidateSuccessAction>({
-        type: ActionTypes.SET_CANDIDATE_SUCCESS,
-        payload: {
-          status: 201,
-          message: data.message,
-        },
-      });
+      await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
     } catch (error: any) {
       if (error.response) {
         dispatch<SetCandidateLoadingAction>({
@@ -368,7 +360,7 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  candidate: { good?: string; bad?: string },
+  candidate: { good?: IConclusionInv; bad?: IConclusionInv },
 ) {
   return async function (dispatch: Dispatch) {
     try {
