@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { ValidateToken } from '../../redux/candidates/actions/CandidateAction';
@@ -11,6 +11,12 @@ import Stream from '../../components/recorder/Stream';
 
 const VideoStart = () => {
   const dispatch = useDispatch();
+
+  const currentCandidateQuestions = useSelector(
+    (state: State) => state.info.detail.videos_question_list,
+  );
+
+  const [videoCounter, setVideoCounter] = useState(0);
 
   const error = useSelector((state: State) => state.info.error);
 
@@ -35,7 +41,10 @@ const VideoStart = () => {
       <div className="grid justify-items-center">
         <section className="grid justify-items-center content-center mobile:gap-10 laptop:gap-10 mobile:grid-rows-1 laptop:grid-cols-2 md:px-5 mt-10">
           <div>
-            <Stream />
+            <Stream
+              videoCounter={videoCounter}
+              setVideoCounter={setVideoCounter}
+            />
           </div>
           <div>
             <QskInterview classes="text-[15px]" />

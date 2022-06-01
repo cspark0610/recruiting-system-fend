@@ -52,7 +52,7 @@ const VideoCompleted = () => {
   };
 
   const redirectVideoMaker = () => {
-    navigate(VIEW_BEFORE_STARTING);
+    navigate(`${VIEW_BEFORE_STARTING}?token=${token}`);
   };
 
   return (
