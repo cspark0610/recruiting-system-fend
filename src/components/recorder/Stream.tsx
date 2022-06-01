@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdRestartAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { State } from '../../redux/store/store';
@@ -10,22 +10,31 @@ import { useCounter } from '../../hooks/useCounter';
 import { UseCamera } from '../../hooks/useCamera';
 import ProgressVideoBar from '../extras/ProgressVideoBar';
 import Recording from '../extras/Recording';
+import { SendVideo } from '../../redux/candidates/actions/CandidateAction';
+import LoaderSpinner from '../../assets/loaderSpinner';
 
 type StreamProps = {
   videoCounter: number;
   setVideoCounter: (value: number) => void;
+  token: string;
 };
 
-const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
+const Stream: React.FC<StreamProps> = ({
+  videoCounter,
+  setVideoCounter,
+  token,
+}) => {
   /*  */
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [capture, setCapture] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const currentCandidateQuestions = useSelector(
-    (state: State) => state.info.detail.videos_question_list,
-  );
+  const currentCandidate = useSelector((state: State) => state.info.detail);
+
+  const { videos_question_list, _id } = currentCandidate;
 
   const { time, startTimer, stopTimer, resetTimer, progress } = useCounter();
   const { isCameraOn, init } = UseCamera();
@@ -39,7 +48,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
     setCapture(true);
     startTimer();
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-      mimeType: 'video/webm;codecs=vp9,opus',
+      mimeType: 'video/webm',
     });
 
     mediaRecorderRef.current.start();
@@ -75,19 +84,62 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
     if (videoChunks.current) {
       setTimeout(() => {
         const blob = new Blob(videoChunks.current, {
-          type: 'video/webm;codecs=vp9,opus',
+          type: 'video/mp4',
         });
+
+        setIsLoading(true);
+        const currentCandidateQuestionsLength = videos_question_list.length;
 
         const video_url = URL.createObjectURL(blob);
         const formData = new FormData();
 
         formData.append('video_recording_url', video_url);
 
-        window.URL.revokeObjectURL(video_url);
-        videoChunks.current = [];
+        if (videoCounter === currentCandidateQuestionsLength) {
+          formData.append('video', blob);
+          formData.append(
+            'question_id',
+            videos_question_list[videoCounter - 1].question_id,
+          );
+
+          dispatch(SendVideo(_id, formData));
+
+          window.URL.revokeObjectURL(video_url);
+          videoChunks.current = [];
+          setIsStopped(false);
+          setIsLoading(false);
+          navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`);
+        } else {
+          formData.append('video', blob);
+          formData.append(
+            'question_id',
+            videos_question_list[videoCounter - 1].question_id,
+          );
+
+          videoChunks.current = [];
+          setVideoCounter(videoCounter + 1);
+          dispatch(SendVideo(_id, formData));
+          setIsStopped(false);
+          setIsLoading(false);
+          setTimeout(() => {
+            resetTimer();
+            handleStartCaptureClick();
+            setIsLoading(!isLoading);
+          }, 500);
+        }
       }, 500);
     }
-  }, []);
+  }, [
+    _id,
+    dispatch,
+    navigate,
+    setVideoCounter,
+    videoCounter,
+    videos_question_list,
+    handleStartCaptureClick,
+    resetTimer,
+    token,
+  ]);
 
   useEffect(() => {
     if (time.minute === 2) {
@@ -143,7 +195,11 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
             className="cursor-pointer rounded-2xl bg-white text-cyan-color font-bold text-sm py-3 px-7 w-[172px] h-[54px] shadow-lg border border-cyan-color mt-5 ml-5"
             onClick={handleSubmitCapture}
           >
-            Save & Continue
+            {isLoading ? (
+              <LoaderSpinner height="h-7" width="w-7" classes="mx-auto" />
+            ) : (
+              'Save & Continue'
+            )}
           </button>
         </div>
       )}
