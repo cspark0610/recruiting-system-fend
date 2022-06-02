@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdRestartAlt } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { State } from '../../redux/store/store';
@@ -10,22 +10,29 @@ import { useCounter } from '../../hooks/useCounter';
 import { UseCamera } from '../../hooks/useCamera';
 import ProgressVideoBar from '../extras/ProgressVideoBar';
 import Recording from '../extras/Recording';
+import { SendVideo } from '../../redux/candidates/actions/CandidateAction';
 
 type StreamProps = {
   videoCounter: number;
   setVideoCounter: (value: number) => void;
+  token: string;
 };
 
-const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
+const Stream: React.FC<StreamProps> = ({
+  videoCounter,
+  setVideoCounter,
+  token,
+}) => {
   /*  */
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [capture, setCapture] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
 
-  const currentCandidateQuestions = useSelector(
-    (state: State) => state.info.detail.videos_question_list,
-  );
+  const currentCandidate = useSelector((state: State) => state.info.detail);
+
+  const { videos_question_list, _id } = currentCandidate;
 
   const { time, startTimer, stopTimer, resetTimer, progress } = useCounter();
   const { isCameraOn, init } = UseCamera();
@@ -39,7 +46,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
     setCapture(true);
     startTimer();
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-      mimeType: 'video/webm;codecs=vp9,opus',
+      mimeType: 'video/webm',
     });
 
     mediaRecorderRef.current.start();
@@ -75,19 +82,57 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
     if (videoChunks.current) {
       setTimeout(() => {
         const blob = new Blob(videoChunks.current, {
-          type: 'video/webm;codecs=vp9,opus',
+          type: 'video/mp4',
         });
+
+        const currentCandidateQuestionsLength = videos_question_list.length;
 
         const video_url = URL.createObjectURL(blob);
         const formData = new FormData();
 
         formData.append('video_recording_url', video_url);
 
-        window.URL.revokeObjectURL(video_url);
-        videoChunks.current = [];
+        if (videoCounter === currentCandidateQuestionsLength) {
+          formData.append('video', blob);
+          formData.append(
+            'question_id',
+            videos_question_list[videoCounter - 1].question_id,
+          );
+
+          dispatch(SendVideo(_id, formData));
+
+          window.URL.revokeObjectURL(video_url);
+          videoChunks.current = [];
+          navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`);
+        } else {
+          formData.append('video', blob);
+          formData.append(
+            'question_id',
+            videos_question_list[videoCounter - 1].question_id,
+          );
+
+          videoChunks.current = [];
+          setVideoCounter(videoCounter + 1);
+          dispatch(SendVideo(_id, formData));
+          setIsStopped(false);
+          setTimeout(() => {
+            resetTimer();
+            handleStartCaptureClick();
+          }, 500);
+        }
       }, 500);
     }
-  }, []);
+  }, [
+    _id,
+    dispatch,
+    navigate,
+    setVideoCounter,
+    videoCounter,
+    videos_question_list,
+    handleStartCaptureClick,
+    resetTimer,
+    token,
+  ]);
 
   useEffect(() => {
     if (time.minute === 2) {
@@ -105,15 +150,6 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter }) => {
 
   return (
     <div className="relative">
-      {/* COUNTERDOWN FOR REFERENCES OF TIME */}
-      <div className="hidden">
-        <div className="absolute top-5 left-5 z-10 text-white font-raleway">
-          <span>{time.minute >= 10 ? time.minute : '0' + time.minute}</span>
-          &nbsp;:&nbsp;
-          <span>{time.second >= 10 ? time.second : '0' + time.second}</span>
-        </div>
-      </div>
-
       {/* ANIMATION OF RECORDING */}
       <div className={`${capture ? 'block' : 'hidden'}`}>
         <Recording />

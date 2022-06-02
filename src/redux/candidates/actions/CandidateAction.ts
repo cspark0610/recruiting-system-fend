@@ -30,6 +30,8 @@ import {
   ValidateTokenAction,
   UpdateCandidateConclusionAction,
   UpdateCandidateStatusAction,
+  UpdateCandidateInfoAction,
+  SetToEditInfoAction,
 } from '../types/dispatchActions';
 
 import {
@@ -55,6 +57,7 @@ import {
   UPDATE_STATUS,
   VALIDATE_TOKEN,
   SEND_VIDEO,
+  UPDATE_INFO,
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
 import { Filters, IConclusionInv } from '../types/data';
@@ -285,6 +288,54 @@ export function GenerateUrl(_id: string) {
   };
 }
 
+export function UpdateCandidateInfo(_id: string, newInfo: any) {
+  return async function (dispatch: Dispatch) {
+    try {
+      dispatch<SetCandidateLoadingAction>({
+        type: ActionTypes.SET_IS_CANDIDATE_LOADING,
+      });
+
+      await ClientAxios.put(`${UPDATE_INFO}/${_id}`, newInfo);
+
+      dispatch<SetCandidateLoadingAction>({
+        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+      });
+
+      dispatch<SetCandidateSuccessAction>({
+        type: ActionTypes.SET_CANDIDATE_SUCCESS,
+        payload: {
+          status: 200,
+          message: 'Updated successfully',
+        },
+      });
+
+      return dispatch<UpdateCandidateInfoAction>({
+        type: ActionTypes.UPDATE_CANDIDATE_INFO,
+        payload: newInfo,
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
+      }
+    }
+  };
+}
+
 export function AddCandidate(user: any) {
   return async (dispatch: any) => {
     dispatch(AddCandidateLoad(true));
@@ -429,7 +480,9 @@ export function ValidateToken(token: string) {
 export function SendVideo(_id: string, formData: any) {
   return async function (dispatch: Dispatch) {
     try {
-      await PrivateAxios.post(`${SEND_VIDEO}/${_id}`, formData);
+      await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
+
+      console.log('video updated successfully');
     } catch (error) {
       if (error.response) {
         dispatch<SetUpdatingCandidateAction>({
@@ -468,6 +521,10 @@ export function ClearCandidateSuccess(dispatch: Dispatch) {
   return dispatch<CleanCandidateSuccessAction>({
     type: ActionTypes.CLEAR_CANDIDATE_SUCCESS,
   });
+}
+
+export function SetToEditInfo(dispatch: Dispatch) {
+  return dispatch<SetToEditInfoAction>({ type: ActionTypes.SET_TO_EDIT_INFO });
 }
 
 const AddCandidateLoad = (status: boolean) => ({

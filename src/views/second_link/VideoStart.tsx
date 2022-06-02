@@ -12,11 +12,7 @@ import Stream from '../../components/recorder/Stream';
 const VideoStart = () => {
   const dispatch = useDispatch();
 
-  const currentCandidateQuestions = useSelector(
-    (state: State) => state.info.detail.videos_question_list,
-  );
-
-  const [videoCounter, setVideoCounter] = useState(0);
+  const [videoCounter, setVideoCounter] = useState(1);
 
   const error = useSelector((state: State) => state.info.error);
 
@@ -29,6 +25,12 @@ const VideoStart = () => {
 
   useEffect(() => {
     dispatch(ValidateToken(token!));
+
+    return () => {
+      window.mediaStreamObject
+        .getTracks()
+        .forEach((track: any) => track.stop());
+    };
   }, [dispatch, token]);
 
   return (
@@ -44,10 +46,15 @@ const VideoStart = () => {
             <Stream
               videoCounter={videoCounter}
               setVideoCounter={setVideoCounter}
+              token={token!}
             />
           </div>
           <div>
-            <QskInterview classes="text-[15px]" />
+            <QskInterview
+              classes="text-[15px]"
+              videoCounter={videoCounter}
+              isRecording={true}
+            />
           </div>
         </section>
       </div>
