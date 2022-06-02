@@ -25,6 +25,12 @@ const VideoStart = () => {
 
   useEffect(() => {
     dispatch(ValidateToken(token!));
+
+    return () => {
+      window.mediaStreamObject
+        .getTracks()
+        .forEach((track: any) => track.stop());
+    };
   }, [dispatch, token]);
 
   return (

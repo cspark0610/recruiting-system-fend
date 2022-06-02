@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 /* Components */
@@ -22,7 +22,7 @@ import Coins from '../../assets/json/Coin.json';
 import { State } from '../../redux/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  SetToEditInfo,
+  ClearCandidateSuccess,
   UpdateCandidateInfo,
 } from '../../redux/candidates/actions/CandidateAction';
 import MultipleSelect from '../inputs/MultipleSelect';
@@ -53,7 +53,6 @@ const FrmData: React.FC<Props> = ({ token }) => {
   const { skills, training, time, coins } = optionValues;
 
   const candidateDetail = useSelector((state: State) => state.info.detail);
-  const toEdit = useSelector((state: any) => state.info.isToEdit);
 
   const { _id } = candidateDetail;
 
@@ -71,6 +70,10 @@ const FrmData: React.FC<Props> = ({ token }) => {
   const [isCurrencyValid, setIsCurrencyValid] = useState(false);
   const [isSalaryValid, setIsSalaryValid] = useState(false);
   const [isSkillValid, setIsSkillValid] = useState(false);
+
+  /* GET EDIT DATA TOGGLE */
+  const [searchParams] = useSearchParams();
+  const toEdit = searchParams.get('edit');
 
   /*  */
   const AddNewCandidate = (user: any) =>
@@ -108,10 +111,6 @@ const FrmData: React.FC<Props> = ({ token }) => {
     }
   };
 
-  if (!loading && success.message !== '') {
-    navigate(`${VIEW_DETAILS}?token=${token}`);
-  }
-
   const handleEditClick = (evt: any) => {
     evt.preventDefault();
 
@@ -120,6 +119,8 @@ const FrmData: React.FC<Props> = ({ token }) => {
     if (!salary || !skill) {
       return;
     } else {
+      let skills = skill.map((skill) => skill.name);
+
       AddNewCandidate({
         academic_training: college.name,
         available_from: available.name,
@@ -127,7 +128,6 @@ const FrmData: React.FC<Props> = ({ token }) => {
         salary_expectations: `${currency.name} ${salary}`,
         working_reason: description,
       });
-      dispatch(SetToEditInfo(dispatch));
     }
   };
 
@@ -138,7 +138,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
   const name = candidateDetail.name;
 
   useEffect(() => {
-    if (toEdit) {
+    if (toEdit === 'true') {
       const collegeToEdit = training.find(
         (t) => t.name === candidateDetail.academic_training,
       );
@@ -151,8 +151,11 @@ const FrmData: React.FC<Props> = ({ token }) => {
         (t) => t.name === candidateDetail.available_from,
       );
 
-      const skillsToEdit = skill.filter((s) =>
-        candidateDetail.skills.includes(s.name),
+      const skillsToEdit = candidateDetail.skills.reduce(
+        (prev: any, skill: any) => {
+          return [...prev, { id: 0, name: skill }];
+        },
+        [],
       );
 
       setDescription(candidateDetail.working_reason);
@@ -162,18 +165,21 @@ const FrmData: React.FC<Props> = ({ token }) => {
       setAvailable(availableToEdit!);
       setSkill(skillsToEdit!);
     }
-  }, [
-    toEdit,
-    candidateDetail.available_from,
-    candidateDetail.salary_expectations,
-    candidateDetail.skills,
-    candidateDetail.academic_training,
-    candidateDetail.working_reason,
-    coins,
-    skill,
-    time,
-    training,
-  ]);
+  }, [toEdit, candidateDetail, coins, training, time]);
+
+  useEffect(() => {
+    if (!loading && success.message !== '' && toEdit === 'true') {
+      navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`);
+    } else if (!loading && success.message !== '' && !toEdit) {
+      navigate(`${VIEW_DETAILS}?token=${token}`);
+    }
+  }, [loading, success, toEdit, token, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(ClearCandidateSuccess(dispatch));
+    };
+  }, [dispatch]);
 
   return (
     <section className="grid place-items-center h-full mt-10 bg-white mobile:p-5">

@@ -11,7 +11,6 @@ import { UseCamera } from '../../hooks/useCamera';
 import ProgressVideoBar from '../extras/ProgressVideoBar';
 import Recording from '../extras/Recording';
 import { SendVideo } from '../../redux/candidates/actions/CandidateAction';
-import LoaderSpinner from '../../assets/loaderSpinner';
 
 type StreamProps = {
   videoCounter: number;
@@ -30,7 +29,6 @@ const Stream: React.FC<StreamProps> = ({
 
   const [capture, setCapture] = useState(false);
   const [isStopped, setIsStopped] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const currentCandidate = useSelector((state: State) => state.info.detail);
 
@@ -87,7 +85,6 @@ const Stream: React.FC<StreamProps> = ({
           type: 'video/mp4',
         });
 
-        setIsLoading(true);
         const currentCandidateQuestionsLength = videos_question_list.length;
 
         const video_url = URL.createObjectURL(blob);
@@ -106,8 +103,6 @@ const Stream: React.FC<StreamProps> = ({
 
           window.URL.revokeObjectURL(video_url);
           videoChunks.current = [];
-          setIsStopped(false);
-          setIsLoading(false);
           navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`);
         } else {
           formData.append('video', blob);
@@ -120,11 +115,9 @@ const Stream: React.FC<StreamProps> = ({
           setVideoCounter(videoCounter + 1);
           dispatch(SendVideo(_id, formData));
           setIsStopped(false);
-          setIsLoading(false);
           setTimeout(() => {
             resetTimer();
             handleStartCaptureClick();
-            setIsLoading(!isLoading);
           }, 500);
         }
       }, 500);
@@ -195,11 +188,7 @@ const Stream: React.FC<StreamProps> = ({
             className="cursor-pointer rounded-2xl bg-white text-cyan-color font-bold text-sm py-3 px-7 w-[172px] h-[54px] shadow-lg border border-cyan-color mt-5 ml-5"
             onClick={handleSubmitCapture}
           >
-            {isLoading ? (
-              <LoaderSpinner height="h-7" width="w-7" classes="mx-auto" />
-            ) : (
-              'Save & Continue'
-            )}
+            Save & Continue
           </button>
         </div>
       )}

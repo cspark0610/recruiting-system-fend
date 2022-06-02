@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { IQuestion } from '../../redux/positions/types/data';
 import { State } from '../../redux/store/store';
@@ -15,21 +14,14 @@ const QskInterview: React.FC<QskInterviewProps> = ({
   videoCounter,
   isRecording,
 }) => {
-  /*  */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [style] = useState('');
-
   const currentCandidate = useSelector((state: State) => state.info.detail);
 
   const { videos_question_list } = currentCandidate;
 
   return (
-    <div className={`${classes} progress-bar mobile:mx-5 laptop:mx-0`}>
+    <div className={`${classes} progress-bar mobile:mx-5 laptop:mx-0 w-full`}>
       {videos_question_list.map((question: IQuestion) => (
-        <div
-          key={question.question_id}
-          className={`${style} step flex flex-row items-center item-${question.question_id}`}
-        >
+        <div key={question.question_id} className={`step flex items-center`}>
           <div
             className={
               question.question_id === videoCounter

@@ -8,13 +8,11 @@ import Header from '../../components/header/Header';
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  SetToEditInfo,
-  ValidateToken,
-} from '../../redux/candidates/actions/CandidateAction';
+import { ValidateToken } from '../../redux/candidates/actions/CandidateAction';
 import {
   VIEW_BEFORE_STARTING,
   VIEW_REQUIRED_STEPS,
+  VIEW_WELCOME_THANKS,
 } from '../../config/routes/paths';
 import { State } from '../../redux/store/store';
 
@@ -45,13 +43,20 @@ const VideoCompleted = () => {
   }, [dispatch, token]);
 
   const redirectEdition = () => {
-    dispatch(SetToEditInfo(dispatch));
-    navigate(`${VIEW_REQUIRED_STEPS}?token=${token}`);
+    return navigate(`${VIEW_REQUIRED_STEPS}?token=${token}&edit=true`);
   };
 
   const redirectVideoMaker = () => {
     navigate(`${VIEW_BEFORE_STARTING}?token=${token}`);
   };
+
+  const handleThanksRedirect = () => {
+    navigate(VIEW_WELCOME_THANKS);
+  };
+
+  useEffect(() => {
+    window.mediaStreamObject.getTracks().forEach((track: any) => track.stop());
+  }, []);
 
   return (
     <div>
@@ -83,7 +88,11 @@ const VideoCompleted = () => {
                 <span className="text-cyan-color font-bold">
                   {academic_training}
                 </span>
-                <button type="submit" onClick={redirectEdition}>
+                <button
+                  type="submit"
+                  onClick={redirectEdition}
+                  className="rounded-full p-2 hover:bg-gray-300 active:bg-gray-500"
+                >
                   <RiEdit2Fill className="cursor-pointer" />
                 </button>
               </p>
@@ -95,7 +104,7 @@ const VideoCompleted = () => {
                 <p className="text-gray-color font-raleway font-light text-sm p-2 text-justify">
                   {working_reason}
                   <button
-                    className="absolute bottom-[15px] right-[10px]"
+                    className="absolute bottom-[15px] right-[10px] rounded-full p-2 hover:bg-gray-300 active:bg-gray-500"
                     type="submit"
                     onClick={redirectEdition}
                   >
@@ -121,14 +130,22 @@ const VideoCompleted = () => {
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
                 {t('video-completed.salary-title')} {salary_expectations}
-                <button type="submit" onClick={redirectEdition}>
+                <button
+                  type="submit"
+                  onClick={redirectEdition}
+                  className="rounded-full p-2 hover:bg-gray-300 active:bg-gray-500"
+                >
                   <RiEdit2Fill className="cursor-pointer" />
                 </button>
               </p>
               <hr className="w-ful my-5" />
               <p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
                 {t('video-completed.available-title')} {available_from}
-                <button type="submit" onClick={redirectEdition}>
+                <button
+                  type="submit"
+                  onClick={redirectEdition}
+                  className="rounded-full p-2 hover:bg-gray-300 active:bg-gray-500"
+                >
                   <RiEdit2Fill className="cursor-pointer" />
                 </button>
               </p>
@@ -144,6 +161,7 @@ const VideoCompleted = () => {
               <div className="grid justify-items-center mobile:w-auto tablet:w-[400px] laptop:w-[400px] mobile:mt-[-5px] tablet:mt-[39px] laptop:mt-[39px]">
                 <Submit
                   name={t('video-completed.send')}
+                  onSubmit={handleThanksRedirect}
                   width="laptop:w-[163px] laptop:h-[59px] mobile:w-[163px] mobile:h-[59px]"
                 />
               </div>
