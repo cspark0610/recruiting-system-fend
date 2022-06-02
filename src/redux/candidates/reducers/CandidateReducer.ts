@@ -44,6 +44,7 @@ const initialState: InitialState = {
       video_questions_list: [],
     },
     working_reason: '',
+    videos_question_list: [],
     main_status: '',
     secondary_status: '',
     designated_recruiters: [],
@@ -71,8 +72,7 @@ const initialState: InitialState = {
     description: '',
     video: '',
   },
-  userId: null,
-  isUserEdit: false,
+  toEdit: false,
   loading: false,
   updating: false,
   error: {
@@ -162,6 +162,20 @@ function CandidateReducer(state = initialState, action: Action) {
           main_status: action.payload.main_status,
           secondary_status: action.payload.secondary_status,
         },
+      };
+    }
+
+    case ActionTypes.UPDATE_CANDIDATE_INFO: {
+      return {
+        ...state,
+        detail: action.payload,
+      };
+    }
+
+    case ActionTypes.SET_TO_EDIT_INFO: {
+      return {
+        ...state,
+        toEdit: !state.toEdit,
       };
     }
 

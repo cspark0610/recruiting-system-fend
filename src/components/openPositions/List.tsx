@@ -66,8 +66,8 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             onClick={isAdmin ? () => setIsOpen(!isOpen) : () => {}}
             className={
               (inactive && !isAdmin) || (inactive && isAdmin)
-                ? 'flex text-[#475564] gap-5 text-2xl font-semibold'
-                : 'flex text-[#00ADEF] gap-5 text-2xl font-semibold'
+                ? 'flex text-[#475564] gap-5 text-2xl font-raleway font-semibold'
+                : 'flex text-[#00ADEF] gap-5 text-2xl font-raleway font-semibold'
             }
           >
             {isAdmin ? (
@@ -80,7 +80,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             {title}
           </button>
           {items.totalDocs === 0 ? (
-            <span className="mt-1 ml-6 text-center text-red-500 font-bold">
+            <span className="mt-1 ml-6 text-center text-red-500 font-raleway font-bold">
               No positions available
             </span>
           ) : null}
@@ -95,6 +95,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
             <div key={item._id} className="flex">
               <Item
                 positionName={item.title}
+                client={item.client_name}
                 designated={item.designated}
                 inactive={inactive}
                 rie_link={item.rie_link}

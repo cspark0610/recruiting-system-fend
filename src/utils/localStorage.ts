@@ -1,3 +1,11 @@
+export function getStorageItem(key: string, isPrimitive?: boolean) {
+  return isPrimitive
+    ? window.localStorage.getItem(key)
+    : window.localStorage.getItem(key)
+    ? JSON.parse(window.localStorage.getItem(key) as string)
+    : null;
+}
+
 export function setStorage(items: Record<string, string>) {
   for (let key in items) {
     window.localStorage.setItem(key, items[key]);

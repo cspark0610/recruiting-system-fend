@@ -1,7 +1,13 @@
 import { Dispatch } from 'redux';
 import { ActionTypes } from '../types/index';
-import { GetUsersResponse, LoginUserResponse } from '../types/axiosResponses';
 import {
+  GetUsersResponse,
+  LoginUserResponse,
+  UpdateUserInfoResponse,
+} from '../types/axiosResponses';
+import {
+  ClearUserErrorAction,
+  ClearUserSuccessAction,
   GetUsersActions,
   SetUserErrorAction,
   SetUserInfoAction,
@@ -13,6 +19,7 @@ import {
   GET_ALL_USERS,
   LOGIN_USER,
   LOGOUT_USER,
+  UPDATE_USER,
 } from '../../../config/routes/endpoints';
 import { VIEW_LOGIN } from '../../../config/routes/paths';
 import { setStorage, cleanStorage } from '../../../utils/localStorage';
@@ -45,6 +52,46 @@ export function GetAllUsers() {
         dispatch<SetUserLoadingAction>({
           type: ActionTypes.SET_IS_USER_NOT_LOADING,
         });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error,
+        });
+      }
+    }
+  };
+}
+
+export function UpdateInfo(_id: string, newInfo: any) {
+  return async function (dispatch: Dispatch) {
+    dispatch({ type: ActionTypes.SET_IS_USER_UPDATING });
+
+    try {
+      const { data } = await PrivateAxios.put<UpdateUserInfoResponse>(
+        `${UPDATE_USER}/${_id}`,
+        newInfo,
+      );
+      console.log(data);
+
+      dispatch({ type: ActionTypes.SET_IS_USER_NOT_UPDATING });
+
+      setStorage({ user: JSON.stringify(data.user) });
+
+      return dispatch<SetUserSuccessAction>({
+        type: ActionTypes.SET_USER_SUCCESS,
+        payload: {
+          status: 200,
+          message: data.message,
+        },
+      });
+    } catch (error) {
+      if (error.response) {
+        dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
+        return dispatch<SetUserErrorAction>({
+          type: ActionTypes.SET_USER_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch({ type: ActionTypes.SET_IS_USER_NOT_LOADING });
         return dispatch<SetUserErrorAction>({
           type: ActionTypes.SET_USER_ERROR,
           payload: error,
@@ -118,4 +165,14 @@ export function LogOut() {
 
     window.location.assign(VIEW_LOGIN);
   };
+}
+
+export function ClearUserError(dispatch: Dispatch) {
+  return dispatch<ClearUserErrorAction>({ type: ActionTypes.CLEAR_USER_ERROR });
+}
+
+export function ClearUserSuccess(dispatch: Dispatch) {
+  return dispatch<ClearUserSuccessAction>({
+    type: ActionTypes.CLEAR_USER_SUCCESS,
+  });
 }

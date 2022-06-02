@@ -57,6 +57,11 @@ export type GetPositionInfoAction = {
   payload: IPosition;
 };
 
+export type UpdateInfoAction = {
+  type: ActionTypes.UPDATE_INFO;
+  payload: IPosition;
+};
+
 export type CreatePositionAction = {
   type: ActionTypes.CREATE_POSITION;
   payload: IPosition;
@@ -82,6 +87,10 @@ export type ClearSuccessAction = {
   type: ActionTypes.CLEAR_SUCCESS;
 };
 
+export type ClearInfoAction = {
+  type: ActionTypes.CLEAR_INFO;
+};
+
 export type SetLoadingAction = {
   type: ActionTypes.SET_IS_LOADING | ActionTypes.SET_IS_NOT_LOADING;
 };
@@ -97,8 +106,10 @@ export type CleanPositionErrorAction = {
 
 export type Action =
   | GetAllPositionsAction
+  | ClearInfoAction
   | GetActivePositionsAction
   | GetInactivePositionsAction
+  | UpdateInfoAction
   | GetPositionInfoAction
   | CreatePositionAction
   | SetPositionErrorAction

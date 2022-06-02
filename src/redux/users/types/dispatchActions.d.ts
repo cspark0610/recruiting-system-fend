@@ -25,9 +25,20 @@ export type SetUserSuccessAction = {
   payload: ISuccess;
 };
 
+export type ClearUserErrorAction = {
+  type: ActionTypes.CLEAR_USER_ERROR;
+};
+
+export type ClearUserSuccessAction = {
+  type: ActionTypes.CLEAR_USER_SUCCESS;
+};
+
 export type Action =
   | GetUsersActions
   | SetUserInfoAction
   | SetUserLoadingAction
   | SetUserErrorAction
-  | SetUserSuccessAction;
+  | ClearUserErrorAction
+  | ClearUserSuccessAction
+  | SetUserSuccessAction
+  | SetUserUpdatingAction;

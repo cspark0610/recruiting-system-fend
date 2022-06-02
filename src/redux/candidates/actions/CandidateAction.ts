@@ -30,6 +30,8 @@ import {
   ValidateTokenAction,
   UpdateCandidateConclusionAction,
   UpdateCandidateStatusAction,
+  UpdateCandidateInfoAction,
+  SetToEditInfoAction,
 } from '../types/dispatchActions';
 
 import {
@@ -54,9 +56,11 @@ import {
   UPDATE_CONCLUSION,
   UPDATE_STATUS,
   VALIDATE_TOKEN,
+  SEND_VIDEO,
+  UPDATE_INFO,
 } from '../../../config/routes/endpoints';
 import ClientAxios, { PrivateAxios } from '../../../config/api/axios';
-import { Filters } from '../types/data';
+import { Filters, IConclusionInv } from '../types/data';
 
 export function GetAllCandidates() {
   return async function (dispatch: Dispatch) {
@@ -260,16 +264,56 @@ export function CreateCandidate(candidateInfo: any) {
 export function GenerateUrl(_id: string) {
   return async function (dispatch: Dispatch) {
     try {
-      const { data } = await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
+      await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
+    } catch (error: any) {
+      if (error.response) {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch<SetCandidateLoadingAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
+      }
+    }
+  };
+}
+
+export function UpdateCandidateInfo(_id: string, newInfo: any) {
+  return async function (dispatch: Dispatch) {
+    try {
+      dispatch<SetCandidateLoadingAction>({
+        type: ActionTypes.SET_IS_CANDIDATE_LOADING,
+      });
+
+      await ClientAxios.put(`${UPDATE_INFO}/${_id}`, newInfo);
+
+      dispatch<SetCandidateLoadingAction>({
+        type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+      });
 
       dispatch<SetCandidateSuccessAction>({
         type: ActionTypes.SET_CANDIDATE_SUCCESS,
         payload: {
-          status: 201,
-          message: data.message,
+          status: 200,
+          message: 'Updated successfully',
         },
       });
-    } catch (error: any) {
+
+      return dispatch<UpdateCandidateInfoAction>({
+        type: ActionTypes.UPDATE_CANDIDATE_INFO,
+        payload: newInfo,
+      });
+    } catch (error) {
       if (error.response) {
         dispatch<SetCandidateLoadingAction>({
           type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -368,7 +412,7 @@ export function UpdateCandidateStatus(
 
 export function UpdateCandidateConclusion(
   _id: string,
-  candidate: { good?: string; bad?: string },
+  candidate: { good?: IConclusionInv; bad?: IConclusionInv },
 ) {
   return async function (dispatch: Dispatch) {
     try {
@@ -433,6 +477,34 @@ export function ValidateToken(token: string) {
   };
 }
 
+export function SendVideo(_id: string, formData: any) {
+  return async function (dispatch: Dispatch) {
+    try {
+      await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
+
+      console.log('video updated successfully');
+    } catch (error) {
+      if (error.response) {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error.response.data,
+        });
+      } else {
+        dispatch<SetUpdatingCandidateAction>({
+          type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+        });
+        return dispatch<SetCandidateErrorAction>({
+          type: ActionTypes.SET_CANDIDATE_ERROR,
+          payload: error,
+        });
+      }
+    }
+  };
+}
+
 export function CleanCandidateErrors(dispatch: Dispatch) {
   return dispatch<ClearCandidateErrorAction>({
     type: ActionTypes.CLEAN_CANDIDATE_ERROR,
@@ -449,6 +521,10 @@ export function ClearCandidateSuccess(dispatch: Dispatch) {
   return dispatch<CleanCandidateSuccessAction>({
     type: ActionTypes.CLEAR_CANDIDATE_SUCCESS,
   });
+}
+
+export function SetToEditInfo(dispatch: Dispatch) {
+  return dispatch<SetToEditInfoAction>({ type: ActionTypes.SET_TO_EDIT_INFO });
 }
 
 const AddCandidateLoad = (status: boolean) => ({

@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ValidateToken } from '../../redux/candidates/actions/CandidateAction';
-import Next from '../../components/buttons/Next';
-import Lang from '../../components/extras/Lang';
-import Header from '../../components/header/Header';
-import CameraOn from '../../components/recorder/CameraOn';
 import { VIEW_404, VIEW_BEFORE_STARTING } from '../../config/routes/paths';
 import { State } from '../../redux/store/store';
 import { UseCamera } from '../../hooks/useCamera';
+import Lang from '../../components/extras/Lang';
+import Header from '../../components/header/Header';
+import CameraOn from '../../components/recorder/CameraOn';
 
 const Details = () => {
   /*  */
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { isCameraOn, init } = UseCamera();
 
   const error = useSelector((state: State) => state.info.error);
@@ -57,11 +57,19 @@ const Details = () => {
               <li className="my-2">{t('details.rules.line_4')}</li>
             </ul>
             <div className="grid place-content-start w-full">
-              <Next
-                name={t('instructions.get_started')}
-                link={VIEW_BEFORE_STARTING}
-                width="laptop:w-[155px] laptop:h-[59px] mobile:w-[155px] mobile:h-[59px]"
-              />
+              <div className="flex justify-center my-8">
+                <input
+                  className={`${
+                    !isCameraOn ? 'cursor-not-allowed' : 'cursor-pointer'
+                  } laptop:w-[155px] laptop:h-[59px] mobile:w-[155px] mobile:h-[59px] rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold focus:outline-none`}
+                  type="submit"
+                  value="Get Started"
+                  disabled={!isCameraOn ? true : false}
+                  onClick={() =>
+                    navigate(`${VIEW_BEFORE_STARTING}?token=${token}`)
+                  }
+                />
+              </div>
             </div>
           </div>
         </section>

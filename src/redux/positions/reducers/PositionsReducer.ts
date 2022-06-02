@@ -49,7 +49,7 @@ const initialState: InitialState = {
     recruiter_filter: '',
     priority: '',
     skills_required: [''],
-    designated: [''],
+    designated: [],
     video_questions_list: [],
   },
   error: {
@@ -100,6 +100,13 @@ const PositionsReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         docs: state.data.docs.concat(action.payload),
+      };
+    }
+
+    case ActionTypes.UPDATE_INFO: {
+      return {
+        ...state,
+        info: action.payload,
       };
     }
 
@@ -161,6 +168,22 @@ const PositionsReducer = (state = initialState, action: Action) => {
         error: {
           status: 400,
           message: '',
+        },
+      };
+    }
+
+    case ActionTypes.CLEAR_INFO: {
+      return {
+        ...state,
+        info: {
+          title: '',
+          client_name: '',
+          rie_link: '',
+          recruiter_filter: '',
+          priority: '',
+          skills_required: [''],
+          designated: [''],
+          video_questions_list: [],
         },
       };
     }

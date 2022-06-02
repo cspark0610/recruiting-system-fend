@@ -34,13 +34,17 @@ export default function Pagination({ title, items }: PaginationProps) {
 
   return (
     <div className="flex mt-2 space-x-12">
-      <span>
+      <span className="font-raleway">
         {items.pagingCounter}-
         {itemsLimit < items.totalDocs ? itemsLimit : items.totalDocs} of{' '}
         {items.totalDocs}
       </span>
       <div className="flex mt-1 gap-x-4 text-xl">
-        <button disabled={!items.hasPrevPage} onClick={handlePrevPage}>
+        <button
+          disabled={!items.hasPrevPage}
+          onClick={handlePrevPage}
+          className="font-raleway"
+        >
           <AiOutlineLeft
             className={
               items.hasPrevPage
@@ -49,7 +53,11 @@ export default function Pagination({ title, items }: PaginationProps) {
             }
           />
         </button>
-        <button disabled={!items.hasNextPage} onClick={handleNextPage}>
+        <button
+          disabled={!items.hasNextPage}
+          onClick={handleNextPage}
+          className="font-raleway"
+        >
           <AiOutlineRight
             className={
               items.hasNextPage

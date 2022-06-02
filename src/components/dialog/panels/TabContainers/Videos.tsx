@@ -1,18 +1,23 @@
 import { useSelector } from 'react-redux';
 import { BsPlay } from 'react-icons/bs';
 import { State } from '../../../../redux/store/store';
+import { IQuestion } from '../../../../redux/positions/types/data';
 import QskInterview from '../../../extras/QskInterview';
 
 const Videos = () => {
-  const candidateName = useSelector((state: State) => state.info.detail.name);
-  /*  */
+  const detail = useSelector((state: State) => state.info.detail);
+
+  const hasUploaded = detail?.videos_question_list.filter(
+    (video: IQuestion) => video.video_key,
+  );
+
   let video = '';
 
   return (
     <div className="grid justify-items-center">
       <div className="mt-[48px] grid justify-items-start w-[85%]">
         <p className="font-raleway font-semibold text-gray-color text-[20px]">
-          {candidateName}
+          {detail.name}
         </p>
       </div>
       <section className="grid justify-items-center grid-cols-2 gap-[36px] w-[85%]">
@@ -28,9 +33,11 @@ const Videos = () => {
                 </video>
               )}
             </div>
-            <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
-              *This candidate haven't completed any task yet
-            </p>
+            {hasUploaded.length === 0 ? (
+              <p className="relative font-raleway text-gray-color text-sm mt-[17px]">
+                *This candidate has not uploaded any video yet.
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="w-full">

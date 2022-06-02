@@ -1,5 +1,5 @@
 type PaginationData = {
-  docs: IPosition[];
+  docs: any[];
   totalDocs: number;
   limit: number;
   hasNextPage: boolean;

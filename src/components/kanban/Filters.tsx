@@ -6,6 +6,7 @@ import { State } from '../../redux/store/store';
 import GetAllPositions from '../../redux/positions/actions/PositionsActions';
 import detectOutsideClick from '../../utils/detectOutsideClick';
 import secondaryStatus from '../../config/kanban/constants';
+import Apply from '../buttons/Apply';
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -106,7 +107,7 @@ export default function Filters() {
     <div ref={wraperRef} className="flex space-x-4 mt-2">
       <div className="relative">
         <div className="flex gap-4">
-          <span>Positions</span>
+          <span className="font-raleway">Positions</span>
           <button
             onClick={() => setShowPositionFilter(!showPositionFilter)}
             className="pr-4"
@@ -131,7 +132,7 @@ export default function Filters() {
           <div className="flex flex-col px-4 pt-4 space-y-4">
             <button
               onClick={handleAllPositionsCheck}
-              className="flex justify-end text-sm text-cyan-500"
+              className="flex justify-end text-sm text-cyan-500 font-raleway"
             >
               {allPositionsSelected && position.length !== 0
                 ? 'Unselect all'
@@ -142,7 +143,9 @@ export default function Filters() {
                 key={pos._id}
                 className="flex justify-between border-b pb-2 w-48"
               >
-                <label htmlFor={pos._id}>{pos.title}</label>
+                <label htmlFor={pos._id} className="font-raleway">
+                  {pos.title}
+                </label>
                 <input
                   type="checkbox"
                   className="mt-2 ml-2 hover:cursor-pointer"
@@ -155,18 +158,13 @@ export default function Filters() {
               </div>
             ))}
           </div>
-          <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
-            onClick={handleActionDispatch}
-          >
-            Apply
-          </button>
+          <Apply onClick={handleActionDispatch} />
         </div>
       </div>
 
       <div className="relative">
         <div className="flex gap-4">
-          <span>Status</span>
+          <span className="font-raleway">Status</span>
           <button
             onClick={() => setShowStatusFilter(!showStatusFilter)}
             className="pr-3"
@@ -189,7 +187,7 @@ export default function Filters() {
         >
           <div className="flex flex-col px-4 pt-4 space-y-4">
             <button
-              className="flex justify-end text-sm text-cyan-500"
+              className="flex justify-end text-sm text-cyan-500 font-raleway"
               onClick={handleAllStatusCheck}
             >
               {allStatusSelected && secondary_status.length !== 0
@@ -205,7 +203,10 @@ export default function Filters() {
                   <div
                     className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
                   ></div>
-                  <label htmlFor={status.id.toString()} className="ml-3">
+                  <label
+                    htmlFor={status.id.toString()}
+                    className="ml-3 font-raleway"
+                  >
                     {status.displayName}
                   </label>
                 </div>
@@ -223,12 +224,7 @@ export default function Filters() {
               </div>
             ))}
           </div>
-          <button
-            className="ml-2 mb-4 mt-2 p-2 rounded-md font-semibold transition ease duration-300 hover:bg-[#475564] hover:text-white"
-            onClick={handleActionDispatch}
-          >
-            Apply
-          </button>
+          <Apply onClick={handleActionDispatch} />
         </div>
       </div>
     </div>

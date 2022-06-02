@@ -9,6 +9,7 @@ import Checkbox from '../buttons/Checkbox';
 import Submit from '../buttons/Submit';
 import Loading from '../extras/Loading';
 import Date from '../inputs/Date';
+import ErrorMessages from '../forms/ErrorMessages';
 
 /* Paths */
 import { VIEW_APPLY_THANKS } from '../../config/routes/paths';
@@ -20,7 +21,10 @@ import English from '../../assets/json/Language.json';
 /* Redux */
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
-import { CreateCandidate } from '../../redux/candidates/actions/CandidateAction';
+import {
+  CleanCandidateErrors,
+  CreateCandidate,
+} from '../../redux/candidates/actions/CandidateAction';
 import { getPositionInfo } from '../../redux/positions/actions/PositionsActions';
 
 interface Props {
@@ -31,8 +35,10 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   /*  */
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const maxFileSize = 10000000;
 
   const positionInfo = useSelector((state: State) => state.positions.info);
+  const candidateError = useSelector((state: State) => state.info.error);
 
   /* Regular Expressions */
   const RegExp = {
@@ -75,6 +81,8 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
   const [isIdiomValid, setIsIdiomValid] = useState(false);
   const [isNationValid, setIsNationValid] = useState(false);
   const [isTermsValid, setIsTermsValid] = useState(false);
+  const [isFileHigh, setIsFileHigh] = useState(false);
+  const [message, setMessage] = useState('');
 
   /* Function to store validation */
   const isFormValid = () => {
@@ -99,8 +107,20 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
       return;
     } else {
       setUpload(true);
+      if (file.size > maxFileSize) {
+        setIsFileHigh(true);
+        setMessage('File is too large. Maximum file size is 10MB');
+      } else if (file.type === 'application/pdf') {
+        dispatch(CleanCandidateErrors(dispatch));
+      } else {
+        setIsFileHigh(false);
+      }
     }
-  }, [name, email, birth, phone, idiom, nation, linkedin, portfolio, file]);
+
+    if (terms) {
+      dispatch(CleanCandidateErrors(dispatch));
+    }
+  }, [file, dispatch, terms]);
 
   /*  */
   const loading = useSelector((state: State) => state.info.loading);
@@ -118,13 +138,14 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
     formData.append('linkedin', linkedin);
     formData.append('portfolio', portfolio);
     formData.append('position', positionInfo._id!);
+    formData.append('terms', terms ? 'true' : 'false');
     formData.append('cv', file);
 
     evt.preventDefault();
 
     isFormValid();
 
-    if (!name || !email || !phone || !idiom || !nation || !terms) {
+    if (!name || !email || !phone || !idiom || !nation) {
       return;
     } else {
       dispatch(CreateCandidate(formData));
@@ -146,6 +167,13 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
         {t('job_title', { job_title })}
       </h2>
       <section className="mobile:w-full laptop:w-9/12 tablet:w-11/12 bg-white p-2">
+        <div className="flex items-center justify-center py-3">
+          <ErrorMessages
+            errorState={candidateError}
+            errorTerms={['registered']}
+            textClass="text-red-500"
+          />
+        </div>
         <div className="flex flex-wrap -mx-3">
           <Text
             id="name"
@@ -244,7 +272,13 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             upload={upload}
             setUpload={setUpload}
             onChange={onChange}
+            message={message}
+            color="bg-red-color/100"
+            size={isFileHigh}
           />
+          <div className="mx-auto py-5">
+            <ErrorMessages errorState={candidateError} errorTerms={['pdf']} />
+          </div>
           <Checkbox
             id="terms"
             classes="place-items-center"
@@ -255,6 +289,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
             setValue={setTerms}
             width="w-auto"
           />
+          <div className="mx-auto py-5">
+            <ErrorMessages errorState={candidateError} errorTerms={['terms']} />
+          </div>
         </div>
         <Submit
           name={t('submit_button.name')}

@@ -13,7 +13,11 @@ export type LoginUserResponse = {
 };
 
 export type RefreshTokenResponse = {
-  accessToken: {
-    token: string;
-  }
-}
+  accessToken: string;
+};
+
+export type UpdateUserInfoResponse = {
+  status: number;
+  message: string;
+  user: IUser;
+};
