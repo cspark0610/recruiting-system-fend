@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import { BiLinkExternal } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +25,11 @@ export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProp
 		}
 		return Promise.reject("The Clipboard API is not available.");
 	};
+	useEffect(() => {
+		const timer = setTimeout(() => setCopied(false), 2000);
+		return () => clearTimeout(timer);
+	}, [copied]);
+
 	const navigate = useNavigate();
 
 	return (
