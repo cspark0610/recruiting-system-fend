@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import { BiLinkExternal } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +6,8 @@ import {
 	VIEW_APPLY_BY_POSITION_ID,
 	PRODUCTION_PATH,
 } from "../../config/routes/paths";
+import CopyLinkButton from "../buttons/CopyLinkButton";
+import EditButton from "../buttons/EditButton";
 
 type SubMenuProps = {
 	_id: string;
@@ -15,38 +16,21 @@ type SubMenuProps = {
 };
 
 export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProps) {
-	const [copied, setCopied] = useState<boolean>(false);
-
-	const handleCopyTextToClipboard = async (text: string) => {
-		if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-			const fullPath = `${PRODUCTION_PATH}${text}`;
-			setCopied(true);
-			return navigator.clipboard.writeText(fullPath);
-		}
-		return Promise.reject("The Clipboard API is not available.");
-	};
-	useEffect(() => {
-		const timer = setTimeout(() => setCopied(false), 2000);
-		return () => clearTimeout(timer);
-	}, [copied]);
-
 	const navigate = useNavigate();
 
 	return (
 		<div className="ml-12 py-4 bg-[#FAFAFA] border-b-2">
 			<div className="flex justify-end pr-12">
-				<button
-					onClick={() => navigate(`${VIEW_EDIT_POSITION}/${_id}`)}
+				<EditButton
 					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
+					onClick={() => navigate(`${VIEW_EDIT_POSITION}/${_id}`)}
 				>
 					Edit
-				</button>
-				<button
-					onClick={() => handleCopyTextToClipboard(`${VIEW_APPLY_BY_POSITION_ID}${_id}`)}
-					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
-				>
-					{copied ? "Copied!" : "Copy Link"}
-				</button>
+				</EditButton>
+				<CopyLinkButton
+					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
+					text={`${PRODUCTION_PATH}${VIEW_APPLY_BY_POSITION_ID}${_id}`}
+				/>
 			</div>
 			<div className="flex flex-col ml-5 gap-y-4">
 				<div className="flex space-x-1">
