@@ -28,7 +28,7 @@ export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProp
 					Edit
 				</EditButton>
 				<CopyLinkButton
-					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
+					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
 					text={`${PRODUCTION_PATH}${VIEW_APPLY_BY_POSITION_ID}${_id}`}
 				/>
 			</div>
