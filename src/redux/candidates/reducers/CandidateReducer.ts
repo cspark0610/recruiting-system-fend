@@ -49,31 +49,31 @@ const candidateDetailEmpty = {
 	isRejected: false,
 };
 
-// const postulationDetailEmpty = {
-// 	_id: "",
-// 	position: {},
-// 	salary_expectations: "",
-// 	skills: [""],
-// 	linkedin: "",
-// 	portfolio: "",
-// 	working_reason: "",
-// 	main_status: "",
-// 	secondary_status: "",
-// 	video_recording_url: {
-// 		_id: "",
-// 		short_url: "",
-// 		expiresAt: "",
-// 	},
-// 	videos_question_list: [""],
-// 	url_link_2: "",
-// 	createdAt: "",
-// 	updatedAt: "",
-// };
+const postulationDetailEmpty = {
+	_id: "",
+	position: {},
+	salary_expectations: "",
+	skills: [""],
+	linkedin: "",
+	portfolio: "",
+	working_reason: "",
+	main_status: "",
+	secondary_status: "",
+	video_recording_url: {
+		_id: "",
+		short_url: "",
+		expiresAt: "",
+	},
+	videos_question_list: [""],
+	url_link_2: "",
+	createdAt: "",
+	updatedAt: "",
+};
 
 const initialState: InitialState = {
 	candidates: [],
 	detail: candidateDetailEmpty,
-	//postulation: postulationDetailEmpty,
+	postulation: postulationDetailEmpty,
 	detailFinishedLoading: false,
 	url_id: "",
 	user: {
@@ -122,6 +122,7 @@ function CandidateReducer(state = initialState, action: Action) {
 			return {
 				...state,
 				detail: action.payload.decoded.candidate,
+				postulation: action.payload.decoded.postulation,
 				url_id: action.payload.decoded.url_id,
 			};
 		}

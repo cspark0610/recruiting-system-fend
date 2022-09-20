@@ -3,6 +3,7 @@ import { ICandidate, IError } from "./data";
 export type InitialState = {
 	candidates: ICandidate[];
 	detail: ICandidate;
+	postulation: any;
 	url_id: string;
 	user: {
 		college: string;
