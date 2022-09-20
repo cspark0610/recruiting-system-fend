@@ -5,16 +5,30 @@ import { HiMail } from "react-icons/hi";
 import { State } from "../../../../redux/store/store";
 import { isValidURL } from "../../../../utils/general";
 import CopyLinkButton from "../../../buttons/CopyLinkButton";
+import { IPostulation } from "../../../../redux/candidates/types/data";
 
-const General = () => {
+interface Props {
+	postulationId: string;
+}
+
+const General: React.FC<Props> = ({ postulationId }) => {
 	const details = useSelector((state: State) => state.info.detail);
-	const url_link_2 = details.url_link_2;
-	const portfolioLink = details.portfolio;
+	const postulationFound = {} as IPostulation;
+	const found: IPostulation =
+		details.postulations.length &&
+		details.postulations.find((p: IPostulation) => {
+			return p._id === postulationId;
+		});
+	if (found) Object.assign(postulationFound, found);
+
+	const url_link_2 = postulationFound && postulationFound.url_link_2!;
+	const portfolioLink = postulationFound && postulationFound.portfolio;
+	const linkedinLink = postulationFound && postulationFound.linkedin;
+
 	const birthYear = details.birth_date?.split("-")[0];
 	const age = new Date().getFullYear() - birthYear;
 
-	const renderPortfolioLink = () =>
-		portfolioLink && isValidURL(portfolioLink) ? portfolioLink : "N/A";
+	const renderLink = (link: string) => (link && isValidURL(link) ? link : "N/A");
 
 	return (
 		<div className="grid justify-items-center">
@@ -78,20 +92,16 @@ const General = () => {
 						<p className="font-normal my-[10px]">
 							Linkedin: &nbsp;
 							<span className="text-cyan-color">
-								<a
-									target="_blank"
-									rel="noopener noreferrer"
-									href={details.linkedin ? details.linkedin : "#"}
-								>
-									{details.linkedin ? details.linkedin : "N/A"}
+								<a target="_blank" rel="noopener noreferrer" href={renderLink(linkedinLink!)}>
+									{renderLink(linkedinLink!)}
 								</a>
 							</span>
 						</p>
 						<p className="font-normal my-2">
 							Other Links: &nbsp;
 							<span className="text-cyan-color">
-								<a target="_blank" rel="noopener noreferrer" href={renderPortfolioLink()}>
-									{renderPortfolioLink()}
+								<a target="_blank" rel="noopener noreferrer" href={renderLink(portfolioLink!)}>
+									{renderLink(portfolioLink!)}
 								</a>
 							</span>
 						</p>
