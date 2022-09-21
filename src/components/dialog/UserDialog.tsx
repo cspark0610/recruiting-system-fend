@@ -111,7 +111,6 @@ const UserDialog: React.FC<Props> = ({
 		setReject(!reject);
 	};
 
-	// aca detail._id, es el id del candidate ahora vamos a pasar el postulationId
 	const isStatusConfirm = (secondary_status: string, postulationId: string) => {
 		let main_status = "";
 		detail.postulations.forEach((p: IPostulation) => {
@@ -119,20 +118,18 @@ const UserDialog: React.FC<Props> = ({
 				main_status += p.main_status;
 			}
 		});
-		// if (detail.main_status === "interested" && secondary_status === "approved") {
-		// 	dispatch(GenerateUrl(detail._id));
-		// }
+		if (secondary_status !== "approved") {
+			dispatch(UpdateCandidateStatus(postulationId, main_status, secondary_status));
+		}
 
-		// el main_status ahora no va a estar en detail sino en detail.postulations
-		// dispatch(UpdateCandidateStatus(detail._id, detail.main_status, secondary_status));
-		if (main_status === "interested" && secondary_status === "approved") {
+		if (main_status === "interested" && secondary_status) {
 			dispatch(GenerateUrl(postulationId));
 			dispatch(UpdateCandidateStatus(postulationId, "applying", secondary_status));
 		}
-		if (main_status === "applying" && secondary_status === "approved") {
+		if (main_status === "applying" && secondary_status) {
 			dispatch(UpdateCandidateStatus(postulationId, "meeting", secondary_status));
 		}
-		if (main_status === "meeting" && secondary_status === "approved") {
+		if (main_status === "meeting" && secondary_status) {
 			dispatch(UpdateCandidateStatus(postulationId, "chosen", secondary_status));
 		}
 	};
