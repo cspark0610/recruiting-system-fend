@@ -61,6 +61,7 @@ import {
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
 import { Filters, IConclusionInv } from "../types/data";
+import { IError } from "../../users/types/data";
 
 export function GetAllCandidates() {
 	return async function (dispatch: Dispatch) {
@@ -492,7 +493,7 @@ export function SendVideo(_id: string, formData: any) {
 				});
 				return dispatch<SetCandidateErrorAction>({
 					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
+					payload: error as IError,
 				});
 			}
 		}
