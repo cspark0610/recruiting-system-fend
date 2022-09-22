@@ -33,7 +33,7 @@ export type IPostulation = {
 	main_status: string;
 	secondary_status: string;
 	video_recording_url?: IVideoRecordingUrl;
-	videos_question_list?: Array<IQuestion>;
+	video_questions_list?: Array<IQuestion>;
 	url_link_2?: string;
 	createdAt?: Date;
 	updatedAt?: Date;

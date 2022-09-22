@@ -472,12 +472,11 @@ export function ValidateToken(token: string) {
 	};
 }
 
-export function SendVideo(_id: string, formData: any) {
+export function SendVideo(_id: string, formData: FormData) {
+	console.log(_id, "que id llega a candidate action");
 	return async function (dispatch: Dispatch) {
 		try {
-			const uploaded = await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
-
-			if (uploaded) alert("video updated successfully");
+			await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
 		} catch (error) {
 			if (error.response) {
 				dispatch<SetUpdatingCandidateAction>({

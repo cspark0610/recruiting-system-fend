@@ -26,7 +26,6 @@ import {
 	UpdateCandidateInfo,
 } from "../../redux/candidates/actions/CandidateAction";
 import MultipleSelect from "../inputs/MultipleSelect";
-import { ICandidate } from "../../redux/candidates/types/data";
 
 type Props = {
 	token: string;
@@ -54,7 +53,10 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	const { skills, training, time, coins } = optionValues;
 
 	const candidateDetail = useSelector((state: State) => state.info.detail);
-	const _id = candidateDetail && candidateDetail._id;
+	const postulationDetail = useSelector((state: State) => state.info.postulation);
+
+	//const candidateId = candidateDetail && candidateDetail._id;
+	const postulationId = postulationDetail && postulationDetail._id;
 
 	/* States from the component */
 	let [college, setCollege] = useState({ id: 0, name: "" });
@@ -76,7 +78,8 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	const toEdit = searchParams.get("edit");
 
 	/*  */
-	const AddNewCandidate = (user: any) => dispatch(UpdateCandidateInfo(_id, user));
+	const UpdatePostulationInfo = (user: any) => dispatch(UpdateCandidateInfo(postulationId, user));
+	//const UpdateCandidate = (user: any) => dispatch(UpdateCandidateInfo(candidateId, user));
 
 	const loading = useSelector((state: State) => state.info.loading);
 	const success = useSelector((state: State) => state.info.success);
@@ -100,7 +103,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		} else {
 			let skills = skill.map((skill) => skill.name);
 
-			AddNewCandidate({
+			UpdatePostulationInfo({
 				academic_training: college.name,
 				available_from: available.name,
 				skills,
@@ -120,7 +123,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		} else {
 			let skills = skill.map((skill) => skill.name);
 
-			AddNewCandidate({
+			UpdatePostulationInfo({
 				academic_training: college.name,
 				available_from: available.name,
 				skills,
@@ -138,26 +141,37 @@ const FrmData: React.FC<Props> = ({ token }) => {
 
 	useEffect(() => {
 		if (toEdit === "true") {
-			const collegeToEdit = training.find((t) => t.name === candidateDetail.academic_training);
+			const collegeToEdit = training.find((t) => t.name === candidateDetail.academic_training) || {
+				id: 0,
+				name: college.name,
+			};
 
 			const currencyToEdit = coins.find(
-				(c) => c.name === candidateDetail.salary_expectations.split(" ")[0]
+				(c) => c.name === postulationDetail.salary_expectations.split(" ")[0]
 			);
 
-			const availableToEdit = time.find((t) => t.name === candidateDetail.available_from);
+			const availableToEdit = time.find((t) => t.name === postulationDetail.available_from);
 
-			const skillsToEdit = candidateDetail.skills.reduce((prev: any, skill: any) => {
+			const skillsToEdit = postulationDetail.skills.reduce((prev: any, skill: any) => {
 				return [...prev, { id: 0, name: skill }];
 			}, []);
 
-			setDescription(candidateDetail.working_reason);
+			setDescription(postulationDetail.working_reason);
 			setCollege(collegeToEdit!);
-			setSalary(candidateDetail.salary_expectations.split(" ")[1]);
+			setSalary(postulationDetail.salary_expectations.split(" ")[1]);
 			setCurrency(currencyToEdit!);
 			setAvailable(availableToEdit!);
 			setSkill(skillsToEdit!);
 		}
-	}, [toEdit, candidateDetail, coins, training, time]);
+	}, [
+		toEdit,
+		postulationDetail,
+		coins,
+		training,
+		time,
+		candidateDetail.academic_training,
+		college.name,
+	]);
 
 	useEffect(() => {
 		if (!loading && success.message !== "" && toEdit === "true") {
