@@ -28,7 +28,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 	const birthYear = details.birth_date?.split("-")[0];
 	const age = new Date().getFullYear() - birthYear;
 
-	const renderLink = (link: string) => (link && isValidURL(link) ? link : "N/A");
+	const renderLink = (link: string) => (link && isValidURL(link) ? link : null);
 
 	return (
 		<div className="grid justify-items-center">
@@ -92,25 +92,39 @@ const General: React.FC<Props> = ({ postulationId }) => {
 						<p className="font-normal my-[10px]">
 							Linkedin: &nbsp;
 							<span className="text-cyan-color">
-								<a target="_blank" rel="noopener noreferrer" href={renderLink(linkedinLink!)}>
-									{renderLink(linkedinLink!)}
-								</a>
+								{linkedinLink ? (
+									<a target="_blank" rel="noopener noreferrer" href={renderLink(linkedinLink!)!}>
+										{renderLink(linkedinLink!)}
+									</a>
+								) : (
+									"N/A"
+								)}
 							</span>
 						</p>
 						<p className="font-normal my-2">
 							Other Links: &nbsp;
 							<span className="text-cyan-color">
-								<a target="_blank" rel="noopener noreferrer" href={renderLink(portfolioLink!)}>
-									{renderLink(portfolioLink!)}
-								</a>
+								{portfolioLink ? (
+									<a target="_blank" rel="noopener noreferrer" href={renderLink(portfolioLink!)!}>
+										{renderLink(portfolioLink!)}
+									</a>
+								) : (
+									"N/A"
+								)}
 							</span>
 						</p>
 						<p className="font-normal">
 							Link 2 URL: &nbsp;
-							<CopyLinkButton
-								text={url_link_2}
-								className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
-							/>
+							<span className="text-cyan-color">
+								{url_link_2 ? (
+									<CopyLinkButton
+										text={url_link_2}
+										className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
+									/>
+								) : (
+									"N/A"
+								)}
+							</span>
 						</p>
 					</div>
 				</div>
@@ -154,7 +168,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 					</div>
 					<hr className="text-light-color w-[349.44px]" />
 					<div className="my-5 flex h-20">
-						<span>Tech Skills: </span>
+						<span className="py-1">Tech Skills: </span>
 						<div className="flex w-[19rem] pt-1 overflow-y-auto flex-wrap gap-y-3">
 							{details.skills ? (
 								details.skills.map((skill: string, index: number) => (
@@ -165,7 +179,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 									</div>
 								))
 							) : (
-								<span>N/A</span>
+								<span className="font-medium rounded-full ml-2">N/A</span>
 							)}
 						</div>
 					</div>

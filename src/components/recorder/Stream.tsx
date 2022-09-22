@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MdRestartAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,8 @@ import { UseCamera } from "../../hooks/useCamera";
 import ProgressVideoBar from "../extras/ProgressVideoBar";
 import Recording from "../extras/Recording";
 import { SendVideo } from "../../redux/candidates/actions/CandidateAction";
-import { IPostulation } from "../../redux/candidates/types/data";
+import { ICandidate, IPostulation } from "../../redux/candidates/types/data";
+import { IQuestion } from "../../redux/positions/types/data";
 
 type StreamProps = {
 	videoCounter: number;
@@ -28,12 +29,8 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 	const [capture, setCapture] = useState(false);
 	const [isStopped, setIsStopped] = useState(false);
 
-	const currentCandidate = useSelector((state: State) => state.info.detail);
+	const currentCandidate = useSelector((state: State) => state.info.detail) as ICandidate;
 	const postulationId = postulation._id;
-
-	const {
-		position: { videos_question_list },
-	} = currentCandidate;
 
 	const { time, startTimer, stopTimer, resetTimer, progress } = useCounter();
 	const { isCameraOn, init } = UseCamera();
@@ -80,14 +77,20 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 	}, [handleStartCaptureClick, resetTimer]);
 
 	const handleSubmitCapture = useCallback(() => {
+		const postulationFound = currentCandidate.postulations!.find((p) => p._id === postulationId);
+		const video_questions_list: IPostulation["video_questions_list"] = [];
+
+		postulationFound!.video_questions_list!.forEach((videoQuestionObj: IQuestion) => {
+			video_questions_list.push(videoQuestionObj);
+		});
+
 		if (videoChunks.current) {
 			setTimeout(() => {
 				const blob = new Blob(videoChunks.current, {
 					type: "video/mp4",
 				});
 
-				// aca
-				const currentCandidateQuestionsLength = videos_question_list.length;
+				const currentCandidateQuestionsLength = video_questions_list.length;
 
 				const video_url = URL.createObjectURL(blob);
 				const formData = new FormData();
@@ -96,9 +99,10 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 
 				if (videoCounter === currentCandidateQuestionsLength) {
 					formData.append("video", blob);
-					formData.append("question_id", videos_question_list[videoCounter - 1].question_id);
-
-					// aca ver debo mandar el postulationId
+					formData.append(
+						"question_id",
+						String(video_questions_list[videoCounter - 1].question_id)
+					);
 					dispatch(SendVideo(postulationId!, formData));
 
 					window.URL.revokeObjectURL(video_url);
@@ -106,7 +110,10 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 					navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`);
 				} else {
 					formData.append("video", blob);
-					formData.append("question_id", videos_question_list[videoCounter - 1].question_id);
+					formData.append(
+						"question_id",
+						String(video_questions_list[videoCounter - 1].question_id)
+					);
 
 					videoChunks.current = [];
 					setVideoCounter(videoCounter + 1);
@@ -125,25 +132,25 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 		navigate,
 		setVideoCounter,
 		videoCounter,
-		videos_question_list,
+		currentCandidate.postulations,
 		handleStartCaptureClick,
 		resetTimer,
 		token,
 	]);
 
-	useEffect(() => {
-		if (time.minute === 2) {
-			setTimeout(() => {
-				handleStopCaptureClick();
-			}, 500);
-		}
-	}, [time.minute, time.second, handleStopCaptureClick]);
+	// useEffect(() => {
+	// 	if (time.minute === 2) {
+	// 		setTimeout(() => {
+	// 			handleStopCaptureClick();
+	// 		}, 500);
+	// 	}
+	// }, [time.minute, time.second, handleStopCaptureClick]);
 
-	useEffect(() => {
-		setTimeout(() => {
-			handleStartCaptureClick();
-		}, 500);
-	}, [handleStartCaptureClick]);
+	// useEffect(() => {
+	// 	setTimeout(() => {
+	// 		handleStartCaptureClick();
+	// 	}, 500);
+	// }, [handleStartCaptureClick]);
 
 	return (
 		<div className="relative">
@@ -157,7 +164,11 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 			<CameraOn webcamRef={webcamRef} isCameraOn={isCameraOn} init={init} />
 
 			{/* VALIDATION IF RECORDING */}
-			{capture && <Stop onClick={handleStopCaptureClick} />}
+			{
+				// al hacer Stop seteamos la var isStopped en true y renderizamos los dos botones de abajo
+				//capture &&
+				<Stop onClick={handleStopCaptureClick} />
+			}
 
 			{/* VALIDATION WHEN RECORDING STOP */}
 			{isStopped && (
