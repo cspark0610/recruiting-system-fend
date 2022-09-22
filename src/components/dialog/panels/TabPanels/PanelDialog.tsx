@@ -14,10 +14,10 @@ const PanelDialog: React.FC<Props> = ({ postulationId }) => {
 				<General postulationId={postulationId} />
 			</Tab.Panel>
 			<Tab.Panel>
-				<Videos />
+				<Videos postulationId={postulationId} />
 			</Tab.Panel>
 			<Tab.Panel>
-				<Conclusion />
+				<Conclusion postulationId={postulationId} />
 			</Tab.Panel>
 		</Tab.Panels>
 	);

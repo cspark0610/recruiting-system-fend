@@ -58,6 +58,7 @@ import {
 	VALIDATE_TOKEN,
 	SEND_VIDEO,
 	UPDATE_INFO,
+	REJECT_CANDIDATE,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
 import { Filters, IConclusionInv } from "../types/data";
@@ -287,6 +288,33 @@ export function GenerateUrl(_id: string) {
 	};
 }
 
+export function RejectCandidate(_id: string) {
+	return async function (dispatch: Dispatch) {
+		try {
+			await PrivateAxios.put(`${REJECT_CANDIDATE}/${_id}`);
+		} catch (e: any) {
+			if (e.response) {
+				dispatch<SetCandidateLoadingAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+				});
+
+				return dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: e.response.data,
+				});
+			} else {
+				dispatch<SetCandidateLoadingAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+				});
+				return dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: e,
+				});
+			}
+		}
+	};
+}
+
 export function UpdateCandidateInfo(_id: string, newInfo: any) {
 	return async function (dispatch: Dispatch) {
 		try {
@@ -473,7 +501,6 @@ export function ValidateToken(token: string) {
 }
 
 export function SendVideo(_id: string, formData: FormData) {
-	console.log(_id, "que id llega a candidate action");
 	return async function (dispatch: Dispatch) {
 		try {
 			await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	ClearCandidateDetail,
 	GenerateUrl,
+	RejectCandidate,
 	UpdateCandidateStatus,
 } from "../../redux/candidates/actions/CandidateAction";
 import { State } from "../../redux/store/store";
@@ -10,7 +11,7 @@ import Panels from "./panels/Panels";
 import HeaderDialog from "../header/HeaderDialog";
 import Modal from "../extras/Modal";
 import LoaderSpinner from "../../assets/loaderSpinner";
-import { IPostulation } from "../../redux/candidates/types/data";
+import { ICandidate, IPostulation } from "../../redux/candidates/types/data";
 
 interface Props {
 	isDialogClose: any;
@@ -27,7 +28,10 @@ const UserDialog: React.FC<Props> = ({
 }) => {
 	const dispatch = useDispatch();
 	const isDetailFinishedLoading = useSelector((state: State) => state.info.detailFinishedLoading);
-	const detail = useSelector((state: State) => state.info.detail);
+	const detail: ICandidate = useSelector((state: State) => state.info.detail);
+
+	console.log(detail, "detail");
+	console.log(postulationId, "postulationId");
 
 	const success = useSelector((state: State) => state.info.success);
 
@@ -113,11 +117,16 @@ const UserDialog: React.FC<Props> = ({
 
 	const isStatusConfirm = (secondary_status: string, postulationId: string) => {
 		let main_status = "";
-		detail.postulations.forEach((p: IPostulation) => {
+		detail.postulations!.forEach((p: IPostulation) => {
 			if (p._id === postulationId) {
 				main_status += p.main_status;
 			}
 		});
+		//caso de 'rejected'
+		if (secondary_status === "rejected") {
+			dispatch(RejectCandidate(detail._id!));
+		}
+
 		if (secondary_status !== "approved") {
 			dispatch(UpdateCandidateStatus(postulationId, main_status, secondary_status));
 		}
@@ -205,7 +214,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="reject"
 									classes={false}
 									image="reject"
-									isVerify={isStatusConfirm}
+									isVerify={() => isStatusConfirm("rejected", postulationId)}
 									message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
 									onClick={isReject}
 									setValue={setReject}

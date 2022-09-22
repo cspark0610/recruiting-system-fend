@@ -80,8 +80,6 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 		filteredByChosen.length && chosen.push({ ...candidate, postulations: filteredByChosen });
 	});
 
-	//console.log(interested, "interested");
-
 	return {
 		interested,
 		applying,

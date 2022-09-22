@@ -24,6 +24,9 @@ const General: React.FC<Props> = ({ postulationId }) => {
 	const url_link_2 = postulationFound && postulationFound.url_link_2!;
 	const portfolioLink = postulationFound && postulationFound.portfolio;
 	const linkedinLink = postulationFound && postulationFound.linkedin;
+	const working_reason = postulationFound && postulationFound.working_reason;
+	const salary_expectations = postulationFound && postulationFound.salary_expectations;
+	const english_level = details && details.english_level;
 
 	const birthYear = details.birth_date?.split("-")[0];
 	const age = new Date().getFullYear() - birthYear;
@@ -139,7 +142,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 						<textarea
 							name="description"
 							id="description"
-							value={details.working_reason ? details.working_reason : "N/A"}
+							value={working_reason ?? "N/A"}
 							className="resize-none bg-light-color/100 border-light-color border focus:bg-white focus:outline-none focus:border-cyan-color rounded-[10px] max-w-full w-[350px] h-[121px] py-3 px-4 leading-tight font-raleway my-3"
 							maxLength={280}
 							readOnly
@@ -147,10 +150,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 					</div>
 					<div className="my-5 flex flex-row">
 						<p>
-							Salary Expectations:{" "}
-							<span className="font-bold">
-								{details.salary_expectations ? details.salary_expectations : "N/A"}
-							</span>{" "}
+							Salary Expectations: <span className="font-bold">{salary_expectations ?? "N/A"}</span>{" "}
 						</p>
 						<p className="ml-[45px]">
 							Available from:{" "}
@@ -163,15 +163,17 @@ const General: React.FC<Props> = ({ postulationId }) => {
 					<div className="my-5">
 						<p>
 							English Evaluation:{" "}
-							<span className="bg-light-color w-[43px] h-[28px] rounded-[5px] px-3 py-1">N/A</span>
+							<span className="bg-light-color w-[43px] h-[28px] rounded-[5px] px-3 py-1">
+								{english_level ?? "N/A"}
+							</span>
 						</p>
 					</div>
 					<hr className="text-light-color w-[349.44px]" />
 					<div className="my-5 flex h-20">
 						<span className="py-1">Tech Skills: </span>
 						<div className="flex w-[19rem] pt-1 overflow-y-auto flex-wrap gap-y-3">
-							{details.skills ? (
-								details.skills.map((skill: string, index: number) => (
+							{postulationFound.skills ? (
+								postulationFound.skills.map((skill: string, index: number) => (
 									<div key={index} className="ml-2">
 										<span className="text-white font-medium bg-cyan-color rounded-full p-1 px-2">
 											{skill}

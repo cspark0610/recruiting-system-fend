@@ -22,6 +22,7 @@ export const DELETE_POSITION = "/position/delete";
 
 export const UPDATE_CONCLUSION = "/candidate/conclusions/set";
 export const VALIDATE_TOKEN = "/candidate/url/validate";
+export const REJECT_CANDIDATE = "/candidate/reject";
 
 /* ENDPOINTS FROM LOGIN */
 export const GET_ALL_USERS = "/users";
