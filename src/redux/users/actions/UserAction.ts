@@ -70,7 +70,6 @@ export function UpdateInfo(_id: string, newInfo: any) {
 				`${UPDATE_USER}/${_id}`,
 				newInfo
 			);
-			console.log(data);
 
 			dispatch({ type: ActionTypes.SET_IS_USER_NOT_UPDATING });
 

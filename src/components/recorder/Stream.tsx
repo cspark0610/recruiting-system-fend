@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MdRestartAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -83,6 +83,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 		postulationFound!.video_questions_list!.forEach((videoQuestionObj: IQuestion) => {
 			video_questions_list.push(videoQuestionObj);
 		});
+		console.log(videoChunks, "videoChunks");
 
 		if (videoChunks.current) {
 			setTimeout(() => {
@@ -138,13 +139,13 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 		token,
 	]);
 
-	// useEffect(() => {
-	// 	if (time.minute === 2) {
-	// 		setTimeout(() => {
-	// 			handleStopCaptureClick();
-	// 		}, 500);
-	// 	}
-	// }, [time.minute, time.second, handleStopCaptureClick]);
+	useEffect(() => {
+		if (time.minute === 2) {
+			setTimeout(() => {
+				handleStopCaptureClick();
+			}, 500);
+		}
+	}, [time.minute, time.second, handleStopCaptureClick]);
 
 	// useEffect(() => {
 	// 	setTimeout(() => {

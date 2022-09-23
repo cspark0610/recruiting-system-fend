@@ -3,14 +3,24 @@ import { BsPlay } from "react-icons/bs";
 import { State } from "../../../../redux/store/store";
 import { IQuestion } from "../../../../redux/positions/types/data";
 import QskInterview from "../../../extras/QskInterview";
+import { IPostulation } from "../../../../redux/candidates/types/data";
 
 interface Props {
 	postulationId: string;
 }
 const Videos: React.FC<Props> = ({ postulationId }) => {
 	const detail = useSelector((state: State) => state.info.detail);
+	const postulationFound = {} as IPostulation;
+	const found: IPostulation =
+		detail.postulations.length &&
+		detail.postulations.find((p: IPostulation) => {
+			return p._id === postulationId;
+		});
+	if (found) Object.assign(postulationFound, found);
 
-	const hasUploaded = detail?.videos_question_list.filter((video: IQuestion) => video.video_key);
+	const hasUploaded: IQuestion[] = postulationFound?.video_questions_list!.filter(
+		(video: IQuestion) => video.video_key !== ""
+	);
 
 	let video = "";
 
@@ -32,11 +42,11 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 								</video>
 							)}
 						</div>
-						{hasUploaded.length === 0 ? (
+						{!hasUploaded && (
 							<p className="relative font-raleway text-gray-color text-sm mt-[17px]">
 								*This candidate has not uploaded any video yet.
 							</p>
-						) : null}
+						)}
 					</div>
 				</div>
 				<div className="w-full">
