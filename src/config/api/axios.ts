@@ -42,7 +42,7 @@ const ClientAxios = axios.create({
 		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
 		"Access-Control-Allow-Headers": "*",
 		"Access-Control-origins": "*",
-		origin: "x-requested-with",
+		origin: "https://workat-five.vercel.app",
 	},
 });
 
@@ -56,7 +56,7 @@ const PrivateAxios = axios.create({
 		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
 		"Access-Control-Allow-Headers": "*",
 		"Access-Control-origins": "*",
-		origin: "x-requested-with",
+		origin: "https://workat-five.vercel.app",
 	},
 });
 
