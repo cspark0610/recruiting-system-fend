@@ -122,7 +122,7 @@ const UserDialog: React.FC<Props> = ({
 
 		//caso de 'rejected'
 		if (secondary_status === "rejected") {
-			console.log("entro a 1  rejected");
+			//console.log("entro a 1 rejected");
 
 			//setReject(false);
 			dispatch(RejectCandidate(detail._id!));
