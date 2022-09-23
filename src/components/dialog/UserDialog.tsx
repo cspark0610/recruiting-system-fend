@@ -30,9 +30,6 @@ const UserDialog: React.FC<Props> = ({
 	const isDetailFinishedLoading = useSelector((state: State) => state.info.detailFinishedLoading);
 	const detail: ICandidate = useSelector((state: State) => state.info.detail);
 
-	console.log(detail, "detail");
-	console.log(postulationId, "postulationId");
-
 	const success = useSelector((state: State) => state.info.success);
 
 	/* STATES OF CONTROL FROM BUTTONS */
