@@ -39,9 +39,10 @@ const ClientAxios = axios.create({
 			: "https://fulltimeforce-video-interview.herokuapp.com",
 	withCredentials: true,
 	headers: {
-		"Access-Control-Allow-Origin": "https://fulltimeforce-video-interview.herokuapp.com",
-		"Access-Control-Allow-Headers": "https://fulltimeforce-video-interview.herokuapp.com",
-		"Access-Control-origins": "https://fulltimeforce-video-interview.herokuapp.com",
+		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
+		"Access-Control-Allow-Headers": "*",
+		"Access-Control-origins": "*",
+		origin: "x-requested-with",
 	},
 });
 
@@ -52,9 +53,10 @@ const PrivateAxios = axios.create({
 			? "http://localhost:3001"
 			: "https://fulltimeforce-video-interview.herokuapp.com",
 	headers: {
-		"Access-Control-Allow-Origin": "https://fulltimeforce-video-interview.herokuapp.com",
-		"Access-Control-Allow-Headers": "https://fulltimeforce-video-interview.herokuapp.com",
-		"Access-Control-origins": "https://fulltimeforce-video-interview.herokuapp.com",
+		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
+		"Access-Control-Allow-Headers": "*",
+		"Access-Control-origins": "*",
+		origin: "x-requested-with",
 	},
 });
 
