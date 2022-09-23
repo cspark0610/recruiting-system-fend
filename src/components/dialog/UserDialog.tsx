@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	ClearCandidateDetail,
@@ -119,23 +119,35 @@ const UserDialog: React.FC<Props> = ({
 				main_status += p.main_status;
 			}
 		});
+
 		//caso de 'rejected'
 		if (secondary_status === "rejected") {
+			console.log("entro a 1  rejected");
+
+			//setReject(false);
 			dispatch(RejectCandidate(detail._id!));
 		}
 
 		if (secondary_status !== "approved") {
+			//console.log("entroi a 2");
+
+			setApproved(false);
 			dispatch(UpdateCandidateStatus(postulationId, main_status, secondary_status));
 		}
 
 		if (main_status === "interested" && secondary_status) {
+			setApproved(false);
 			dispatch(GenerateUrl(postulationId));
 			dispatch(UpdateCandidateStatus(postulationId, "applying", secondary_status));
 		}
+
 		if (main_status === "applying" && secondary_status) {
+			setApproved(false);
+			setDoubting(false);
 			dispatch(UpdateCandidateStatus(postulationId, "meeting", secondary_status));
 		}
 		if (main_status === "meeting" && secondary_status) {
+			setApproved(false);
 			dispatch(UpdateCandidateStatus(postulationId, "chosen", secondary_status));
 		}
 	};
@@ -171,7 +183,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="approve"
 									classes={true}
 									image="approve"
-									isVerify={() => isStatusConfirm("approved", postulationId)}
+									isVerify={isStatusConfirm("approved", postulationId)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
 									onClick={isApproved}
 									setValue={setApproved}
@@ -184,7 +196,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="doubting"
 									classes={true}
 									image="doubting"
-									isVerify={() => isStatusConfirm("doubting", postulationId)}
+									isVerify={isStatusConfirm("doubting", postulationId)}
 									onClick={isDoubting}
 									setValue={setDoubting}
 									status='"in doubt".'
@@ -197,7 +209,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="dismiss"
 									classes={true}
 									image="dismiss"
-									isVerify={() => isStatusConfirm("dismissed", postulationId)}
+									isVerify={isStatusConfirm("dismissed", postulationId)}
 									message="Remember to fill your motives for this decition in conclusions"
 									onClick={isDismiss}
 									setValue={setDismiss}
@@ -211,7 +223,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="reject"
 									classes={false}
 									image="reject"
-									isVerify={() => isStatusConfirm("rejected", postulationId)}
+									isVerify={isStatusConfirm("rejected", postulationId)}
 									message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
 									onClick={isReject}
 									setValue={setReject}

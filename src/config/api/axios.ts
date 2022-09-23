@@ -38,12 +38,6 @@ const ClientAxios = axios.create({
 			? "http://localhost:3001"
 			: "https://fulltimeforce-video-interview.herokuapp.com",
 	withCredentials: true,
-	headers: {
-		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
-		"Access-Control-Allow-Headers": "*",
-		"Access-Control-origins": "*",
-		origin: "https://workat-five.vercel.app",
-	},
 });
 
 // Axios instance for authenticated usersz
@@ -52,12 +46,6 @@ const PrivateAxios = axios.create({
 		NODE_ENV === "development"
 			? "http://localhost:3001"
 			: "https://fulltimeforce-video-interview.herokuapp.com",
-	headers: {
-		"Access-Control-Allow-Origin": "https://workat-five.vercel.app",
-		"Access-Control-Allow-Headers": "*",
-		"Access-Control-origins": "*",
-		origin: "https://workat-five.vercel.app",
-	},
 });
 
 PrivateAxios.interceptors.request.use(

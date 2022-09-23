@@ -390,6 +390,7 @@ export function UpdateCandidateStatus(_id: string, main_status: string, secondar
 		});
 
 		try {
+			//  "/postulation/status/update"
 			const { data } = await PrivateAxios.put<UpdateCandidateStatusResponse>(
 				`${UPDATE_STATUS}/${_id}`,
 				{
