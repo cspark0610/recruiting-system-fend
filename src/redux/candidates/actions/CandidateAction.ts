@@ -380,10 +380,6 @@ export function AddCandidate(user: any) {
 }
 
 export function UpdateCandidateStatus(_id: string, main_status: string, secondary_status: string) {
-	console.log(main_status, secondary_status);
-
-	console.log("postulatioin_id", _id);
-
 	return async function (dispatch: Dispatch) {
 		dispatch<SetUpdatingCandidateAction>({
 			type: ActionTypes.SET_IS_CANDIDATE_UPDATING,

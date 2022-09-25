@@ -67,6 +67,9 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 	const meeting: ICandidate[] = [];
 	const chosen: ICandidate[] = [];
 
+	// filter first by those candidate that has not been "rejected"
+	candidates = candidates.filter((candidate) => candidate.isRejected === false);
+
 	candidates.forEach((candidate) => {
 		const filteredByInterested = executeFilterAndSort("interested", candidate.postulations!);
 		const filteredByApplying = executeFilterAndSort("applying", candidate.postulations!);
@@ -87,3 +90,5 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 		chosen,
 	};
 };
+
+export const MAIN_STATUS_ALLOWED = ["interested", "applying", "meeting", "chosen"];

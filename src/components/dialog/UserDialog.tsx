@@ -13,6 +13,7 @@ import HeaderDialog from "../header/HeaderDialog";
 import Modal from "../extras/Modal";
 import LoaderSpinner from "../../assets/loaderSpinner";
 import { ICandidate, IPostulation } from "../../redux/candidates/types/data";
+import { MAIN_STATUS_ALLOWED } from "../../utils/candidates";
 
 interface Props {
 	isDialogClose: any;
@@ -53,12 +54,6 @@ const UserDialog: React.FC<Props> = ({
 	/* STATES OF CONTROL FROM MODAL */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isConfirm] = useState(false);
-
-	// console.log(approve, "approve");
-	// console.log(doubting, "doubting");
-	// console.log(dismiss, "dismiss");
-	// console.log(reject, "reject");
-	// console.log(isConfirm, "isConfirm");
 
 	useEffect(() => {
 		if (approve && isConfirm) {
@@ -131,7 +126,6 @@ const UserDialog: React.FC<Props> = ({
 	const isStatusConfirm = (secondary_status: string, postulationId: string) => {
 		//caso de 'rejected'
 		if (secondary_status === "rejected") {
-			console.log("entro a 2 rejected");
 			setReject(false);
 			dispatch(RejectCandidate(detail._id!));
 		}
@@ -154,28 +148,14 @@ const UserDialog: React.FC<Props> = ({
 			dispatch(UpdateCandidateStatus(postulationId, "chosen", "approved"));
 		}
 
-		if (
-			(main_status === "interested" ||
-				main_status === "applying" ||
-				main_status === "meeting" ||
-				main_status === "chosen") &&
-			secondary_status === "doubting"
-		) {
-			console.log("entro a doubting");
+		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "doubting") {
 			setDoubting(false);
 			dispatch(UpdateCandidateStatus(postulationId, main_status, "doubting"));
 		}
 
-		if (
-			(main_status === "interested" ||
-				main_status === "applying" ||
-				main_status === "meeting" ||
-				main_status === "chosen") &&
-			secondary_status === "dismiss"
-		) {
-			console.log("entro a dismiss");
+		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "dismissed") {
 			setDismiss(false);
-			dispatch(UpdateCandidateStatus(postulationId, main_status, "dismiss"));
+			dispatch(UpdateCandidateStatus(postulationId, main_status, "dismissed"));
 		}
 	};
 
