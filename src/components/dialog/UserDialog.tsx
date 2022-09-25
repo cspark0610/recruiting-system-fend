@@ -1,5 +1,6 @@
-import { useEffect, useState, MouseEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector, batch } from "react-redux";
+import { createBrowserHistory } from "history";
 import {
 	ClearCandidateDetail,
 	GenerateUrl,
@@ -26,11 +27,19 @@ const UserDialog: React.FC<Props> = ({
 	setIsModalLoading,
 	postulationId,
 }) => {
+	const history = createBrowserHistory();
 	const dispatch = useDispatch();
 	const isDetailFinishedLoading = useSelector((state: State) => state.info.detailFinishedLoading);
 	const detail: ICandidate = useSelector((state: State) => state.info.detail);
 
 	const success = useSelector((state: State) => state.info.success);
+
+	let main_status = "";
+	detail.postulations!.forEach((p: IPostulation) => {
+		if (p._id === postulationId) {
+			main_status += p.main_status;
+		}
+	});
 
 	/* STATES OF CONTROL FROM BUTTONS */
 	const [approve, setApproved] = useState(false);
@@ -44,6 +53,12 @@ const UserDialog: React.FC<Props> = ({
 	/* STATES OF CONTROL FROM MODAL */
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isConfirm] = useState(false);
+
+	// console.log(approve, "approve");
+	// console.log(doubting, "doubting");
+	// console.log(dismiss, "dismiss");
+	// console.log(reject, "reject");
+	// console.log(isConfirm, "isConfirm");
 
 	useEffect(() => {
 		if (approve && isConfirm) {
@@ -93,6 +108,7 @@ const UserDialog: React.FC<Props> = ({
 	useEffect(() => {
 		return () => {
 			dispatch(ClearCandidateDetail(dispatch));
+			history.go(0);
 		};
 	}, [dispatch]);
 
@@ -113,42 +129,53 @@ const UserDialog: React.FC<Props> = ({
 	};
 
 	const isStatusConfirm = (secondary_status: string, postulationId: string) => {
-		let main_status = "";
-		detail.postulations!.forEach((p: IPostulation) => {
-			if (p._id === postulationId) {
-				main_status += p.main_status;
-			}
-		});
-
 		//caso de 'rejected'
 		if (secondary_status === "rejected") {
-			//console.log("entro a 1 rejected");
-
-			//setReject(false);
+			console.log("entro a 2 rejected");
+			setReject(false);
 			dispatch(RejectCandidate(detail._id!));
 		}
 
-		if (secondary_status !== "approved") {
-			//console.log("entroi a 2");
-
+		if (main_status === "interested" && secondary_status === "approved") {
 			setApproved(false);
-			dispatch(UpdateCandidateStatus(postulationId, main_status, secondary_status));
+			batch(() => {
+				dispatch(GenerateUrl(postulationId));
+				dispatch(UpdateCandidateStatus(postulationId, "applying", "approved"));
+			});
 		}
 
-		if (main_status === "interested" && secondary_status) {
+		if (main_status === "applying" && secondary_status === "approved") {
 			setApproved(false);
-			dispatch(GenerateUrl(postulationId));
-			dispatch(UpdateCandidateStatus(postulationId, "applying", secondary_status));
+			dispatch(UpdateCandidateStatus(postulationId, "meeting", "approved"));
 		}
 
-		if (main_status === "applying" && secondary_status) {
+		if (main_status === "meeting" && secondary_status === "approved") {
 			setApproved(false);
+			dispatch(UpdateCandidateStatus(postulationId, "chosen", "approved"));
+		}
+
+		if (
+			(main_status === "interested" ||
+				main_status === "applying" ||
+				main_status === "meeting" ||
+				main_status === "chosen") &&
+			secondary_status === "doubting"
+		) {
+			console.log("entro a doubting");
 			setDoubting(false);
-			dispatch(UpdateCandidateStatus(postulationId, "meeting", secondary_status));
+			dispatch(UpdateCandidateStatus(postulationId, main_status, "doubting"));
 		}
-		if (main_status === "meeting" && secondary_status) {
-			setApproved(false);
-			dispatch(UpdateCandidateStatus(postulationId, "chosen", secondary_status));
+
+		if (
+			(main_status === "interested" ||
+				main_status === "applying" ||
+				main_status === "meeting" ||
+				main_status === "chosen") &&
+			secondary_status === "dismiss"
+		) {
+			console.log("entro a dismiss");
+			setDismiss(false);
+			dispatch(UpdateCandidateStatus(postulationId, main_status, "dismiss"));
 		}
 	};
 
@@ -185,7 +212,7 @@ const UserDialog: React.FC<Props> = ({
 									image="approve"
 									isVerify={isStatusConfirm("approved", postulationId)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
-									onClick={isApproved}
+									onClick={() => isApproved()}
 									setValue={setApproved}
 									status="You`ve approved this Candidate!"
 									value={approve}

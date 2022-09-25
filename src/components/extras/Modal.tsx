@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
-import { createBrowserHistory } from "history";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { IoCloseCircleOutline } from "react-icons/io5";
@@ -32,7 +31,6 @@ const Modal: React.FC<Props> = ({
 	title,
 	value,
 }) => {
-	const history = createBrowserHistory();
 	/*  */
 	const { t } = useTranslation();
 
@@ -107,10 +105,7 @@ const Modal: React.FC<Props> = ({
 								<button
 									type="button"
 									className="flex items-center justify-center w-[132px] h-[54px] rounded-[10px] border border-cyan-color px-4 py-2 bg-cyan-color text-[15px] font-bold text-white focus:outline-none"
-									onClick={() => {
-										isVerify();
-										history.go(0);
-									}}
+									onClick={isVerify}
 								>
 									{updatingCandidate || updatingPosition ? (
 										<LoaderSpinner height="h-7" width="w-7" stroke="white" fill="white" />
