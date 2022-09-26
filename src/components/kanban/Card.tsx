@@ -9,7 +9,7 @@ import "../../assets/scss/Card.scss";
 type CardProps = {
 	_id: string;
 	name: string;
-	position: string;
+	position?: string;
 	secondary_status?: string;
 	postulationId: string;
 };

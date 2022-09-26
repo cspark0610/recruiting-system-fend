@@ -63,7 +63,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
 													postulationId={postulation._id!}
 													_id={item._id!}
 													name={item.name}
-													position={postulation.position.title!}
+													position={postulation?.position?.title!}
 													secondary_status={postulation.secondary_status}
 												/>
 											);

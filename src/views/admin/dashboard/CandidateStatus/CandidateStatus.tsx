@@ -22,9 +22,9 @@ export default function CandidateStatus() {
 	const success = useSelector((state: State) => state.info.success);
 	const error = useSelector((state: State) => state.info.error);
 	const isAuthenticated = useSelector((state: State) => state.user.authenticated);
-	let candidates = useSelector((state: State) => state.info.candidates);
+	const candidates = useSelector((state: State) => state.info.candidates);
 
-	candidates = sortByColumn(candidates);
+	let candidatesSorted = sortByColumn(candidates);
 
 	if (success.message !== "") {
 		setTimeout(() => {
@@ -45,10 +45,14 @@ export default function CandidateStatus() {
 			<KanbanOptions />
 			<div className="flex justify-center pt-8">
 				<main className="flex flex-row gap-3">
-					<Column title="Interested" column_info={InterestedInfo} items={candidates.interested} />
-					<Column title="Applying" column_info={ApplyingInfo} items={candidates.applying} />
-					<Column title="Meeting" column_info={MeetingInfo} items={candidates.meeting} />
-					<Column title="Chosen" column_info={ChosenInfo} items={candidates.chosen} />
+					<Column
+						title="Interested"
+						column_info={InterestedInfo}
+						items={candidatesSorted.interested}
+					/>
+					<Column title="Applying" column_info={ApplyingInfo} items={candidatesSorted.applying} />
+					<Column title="Meeting" column_info={MeetingInfo} items={candidatesSorted.meeting} />
+					<Column title="Chosen" column_info={ChosenInfo} items={candidatesSorted.chosen} />
 				</main>
 			</div>
 			<div className="flex items-start justify-center mt-[25rem]">
