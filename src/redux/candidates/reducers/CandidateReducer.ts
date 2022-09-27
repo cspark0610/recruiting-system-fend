@@ -68,6 +68,7 @@ const postulationDetailEmpty = {
 	url_link_2: "",
 	createdAt: "",
 	updatedAt: "",
+	videos_recorded: [],
 };
 
 const initialState: InitialState = {
@@ -115,6 +116,16 @@ function CandidateReducer(state = initialState, action: Action) {
 			return {
 				...state,
 				detail: action.payload,
+			};
+		}
+
+		case ActionTypes.GET_VIDEO: {
+			return {
+				...state,
+				postulation: {
+					...state.postulation,
+					videos_recorded: [...state.postulation.videos_recorded, action.payload],
+				},
 			};
 		}
 

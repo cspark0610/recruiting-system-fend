@@ -39,6 +39,11 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 	const mediaRecorderRef = useRef<any>(null);
 	const videoChunks = useRef<any>([]);
 
+	useEffect(() => {
+		setCapture(true);
+		startTimer();
+	}, []);
+
 	/* START RECORDING */
 	const handleStartCaptureClick = useCallback(() => {
 		setCapture(true);
@@ -54,7 +59,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 				videoChunks.current.push(e.data);
 			}
 		};
-	}, [mediaRecorderRef, webcamRef, setCapture, startTimer]);
+	}, [mediaRecorderRef, webcamRef, startTimer, setCapture]);
 
 	/* STOP RECORDING */
 	const handleStopCaptureClick = useCallback(() => {
@@ -83,7 +88,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 		postulationFound!.video_questions_list!.forEach((videoQuestionObj: IQuestion) => {
 			video_questions_list.push(videoQuestionObj);
 		});
-		console.log(videoChunks, "videoChunks");
+		//console.log(videoChunks, "videoChunks");
 
 		if (videoChunks.current) {
 			setTimeout(() => {

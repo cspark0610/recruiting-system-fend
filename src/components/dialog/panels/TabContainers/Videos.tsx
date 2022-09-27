@@ -1,14 +1,17 @@
-import { useSelector } from "react-redux";
-import { BsPlay } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+//import { BsPlay } from "react-icons/bs";
 import { State } from "../../../../redux/store/store";
 import { IQuestion } from "../../../../redux/positions/types/data";
 import QskInterview from "../../../extras/QskInterview";
 import { IPostulation } from "../../../../redux/candidates/types/data";
+import { GetVideo } from "../../../../redux/candidates/actions/CandidateAction";
+import { useEffect } from "react";
 
 interface Props {
 	postulationId: string;
 }
 const Videos: React.FC<Props> = ({ postulationId }) => {
+	const dispatch = useDispatch();
 	const detail = useSelector((state: State) => state.info.detail);
 	const postulationFound = {} as IPostulation;
 	const found: IPostulation =
@@ -22,7 +25,16 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 		(video: IQuestion) => video.video_key !== ""
 	);
 
-	let video = "";
+	const video_keys: string[] = hasUploaded.map((h) => h.video_key);
+
+	useEffect(() => {
+		if (video_keys.length === 2) {
+			dispatch(GetVideo(video_keys[0]));
+			dispatch(GetVideo(video_keys[1]));
+		}
+	}, []);
+
+	const videos_recorded = useSelector((state: State) => state.info.postulation.videos_recorded);
 
 	return (
 		<div className="grid justify-items-center">
@@ -33,16 +45,26 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 				<div className="w-full">
 					<div className="my-[32px]">
 						<div className="relative bg-light-color border-light-color rounded-[10px] w-[414px] h-[322px]">
-							<span className="absolute top-[35%] left-[165px]">
+							{/*
+							 <span className="absolute top-[35%] left-[165px]">
 								<BsPlay className="text-cyan-color w-[81px] h-[85px]" />
 							</span>
-							{video && (
-								<video id="video-interview" controls>
-									<source src={video} type="video/webm;codecs=vp9,opus" />
-								</video>
+							 */}
+
+							{/* only 2 videos */}
+							{videos_recorded.length && (
+								<>
+									<video id="video-interview" controls src={`${videos_recorded[0]}`}>
+										<source type="video/mp4" />
+									</video>
+
+									<video id="video-interview" controls src={`${videos_recorded[1]}`}>
+										<source type="video/mp4" />
+									</video>
+								</>
 							)}
 						</div>
-						{!hasUploaded && (
+						{!hasUploaded.length && (
 							<p className="relative font-raleway text-gray-color text-sm mt-[17px]">
 								*This candidate has not uploaded any video yet.
 							</p>
