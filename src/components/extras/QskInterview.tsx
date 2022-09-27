@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { ICandidate } from "../../redux/candidates/types/data";
-import { IPosition, IQuestion } from "../../redux/positions/types/data";
+import { IQuestion } from "../../redux/positions/types/data";
 import { State } from "../../redux/store/store";
 import "./../../assets/scss/CircleBar.scss";
 
@@ -12,12 +12,14 @@ type QskInterviewProps = {
 
 const QskInterview: React.FC<QskInterviewProps> = ({ classes, videoCounter, isRecording }) => {
 	const candidateDetail: ICandidate = useSelector((state: State) => state.info.detail);
-	const position: IPosition = candidateDetail.position;
+
+	const video_questions_list: IQuestion[] | undefined =
+		candidateDetail.postulations![0].video_questions_list;
 
 	const renderVideoQuestionList = () => {
 		return (
 			<div className={`${classes} progress-bar mobile:mx-5 laptop:mx-0 w-full`}>
-				{position.video_questions_list!.map((question: IQuestion) => (
+				{video_questions_list!.map((question: IQuestion) => (
 					<div key={question.question_id} className={`step flex items-center`}>
 						<div
 							className={

@@ -32,6 +32,7 @@ import {
 	UpdateCandidateStatusAction,
 	UpdateCandidateInfoAction,
 	SetToEditInfoAction,
+	GetVideoAction,
 } from "../types/dispatchActions";
 
 import {
@@ -59,6 +60,7 @@ import {
 	SEND_VIDEO,
 	UPDATE_INFO,
 	REJECT_CANDIDATE,
+	GET_VIDEO,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
 import { Filters, IConclusionInv } from "../types/data";
@@ -505,6 +507,41 @@ export function SendVideo(_id: string, formData: FormData) {
 	return async function (dispatch: Dispatch) {
 		try {
 			await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
+		} catch (error) {
+			if (error.response) {
+				dispatch<SetUpdatingCandidateAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+				});
+				return dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: error.response.data,
+				});
+			} else {
+				dispatch<SetUpdatingCandidateAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+				});
+				return dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: error as IError,
+				});
+			}
+		}
+	};
+}
+
+export function GetVideo(video_key: string) {
+	return async function (dispatch: Dispatch) {
+		try {
+			const { data } = await PrivateAxios.get(`${GET_VIDEO}/${video_key}`);
+
+			dispatch<SetDetailFinishedLoadingAction>({
+				type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
+			});
+
+			return dispatch<GetVideoAction>({
+				type: ActionTypes.GET_VIDEO,
+				payload: data,
+			});
 		} catch (error) {
 			if (error.response) {
 				dispatch<SetUpdatingCandidateAction>({
