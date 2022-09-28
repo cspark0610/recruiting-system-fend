@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
-  createPosition,
   UpdateInfo,
+  createPosition,
 } from '../../redux/positions/actions/PositionsActions';
-import { State } from '../../redux/store/store';
-import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
-import MultiSelect from 'multiselect-react-dropdown';
-import Text from '../inputs/Text';
-import LoaderSpinner from '../../assets/loaderSpinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+
 import ErrorMessages from './ErrorMessages';
+import LoaderSpinner from '../../assets/loaderSpinner';
+import MultiSelect from 'multiselect-react-dropdown';
+import { State } from '../../redux/store/store';
+import Text from '../inputs/Text';
+import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths';
 import priorities from '../../config/positions/constants';
+import { useNavigate } from 'react-router-dom';
 
 type OptionValues = {
   id: string;
@@ -127,24 +128,24 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
   return (
     <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
       <section className="flex flex-col mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
-        <div className="ml-52 pb-4">
+        <div className="w-[53rem] mx-auto  pb-4 pl-3">
           <div className=" pb-2">
-            <span className="font-raleway font-medium">Select Priority:</span>
+            <span className="font-raleway font-medium text-[#475564]">Select Priority:</span>
           </div>
           <div className="flex space-x-3">
             {prioritiesWithoutCurrent.map((priority) => (
-              <div key={priority.id}>
+              <div key={priority.id} className="flex items-center">
                 <input
                   type="checkbox"
                   name={priority.name}
-                  className="hover:cursor-pointer font-raleway"
+                  className="hover:cursor-pointer font-raleway w-5 h-5"
                   id={priority.id.toString()}
                   value={priority.name}
                   onChange={(e) => setSelectedPriority(e.target.value)}
                   checked={selectedPriority === priority.name ? true : false}
                 />
                 <label
-                  className="ml-3 hover:cursor-pointer font-raleway"
+                  className="ml-3 hover:cursor-pointer font-raleway text-[#475564] text-lg" 
                   htmlFor={priority.id.toString()}
                 >
                   {priority.displayName}

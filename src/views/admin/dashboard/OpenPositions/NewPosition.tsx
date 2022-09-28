@@ -1,15 +1,18 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import {
   ClearErrors,
   ClearInfo,
   ClearSuccess,
   getPositionInfo,
 } from '../../../../redux/positions/actions/PositionsActions';
-import { State } from '../../../../redux/store/store';
-import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
+import { PRODUCTION_PATH, VIEW_OPEN_POSITIONS } from '../../../../config/routes/paths';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Back from '../../../../components/buttons/Back';
 import FrmPosition from '../../../../components/forms/FrmPosition';
+import { GetAllUsers } from '../../../../redux/users/actions/UserAction';
+import { State } from '../../../../redux/store/store';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function NewPosition() {
   const dispatch = useDispatch();
@@ -47,8 +50,10 @@ export default function NewPosition() {
   }, [dispatch, _id]);
 
   return (
-    <div className="flex flex-col">
-      <span className="flex justify-center text-[#475564] text-2xl font-raleway font-semibold mt-32">
+
+    <div className="flex flex-col mt-32">
+      <Back link={`${VIEW_OPEN_POSITIONS}`}/>
+      <span className="flex justify-center text-[#475564] text-2xl font-raleway font-semibold ">
         {isAdd ? 'Create New Position' : 'Edit Position'}
       </span>
       <FrmPosition _id={!isAdd ? _id : undefined} />
