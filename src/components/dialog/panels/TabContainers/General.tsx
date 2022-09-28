@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
-import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaMapMarkerAlt, FaRegFilePdf } from "react-icons/fa";
+
+import { BsFillTelephoneFill } from "react-icons/bs";
+import CopyLinkButton from "../../../buttons/CopyLinkButton";
 import { HiMail } from "react-icons/hi";
+import { IPostulation } from "../../../../redux/candidates/types/data";
 import { State } from "../../../../redux/store/store";
 import { isValidURL } from "../../../../utils/general";
-import CopyLinkButton from "../../../buttons/CopyLinkButton";
-import { IPostulation } from "../../../../redux/candidates/types/data";
+import { useSelector } from "react-redux";
 
 interface Props {
 	postulationId: string;
@@ -121,7 +122,7 @@ const General: React.FC<Props> = ({ postulationId }) => {
 							<span className="text-cyan-color">
 								{url_link_2 ? (
 									<CopyLinkButton
-										text={url_link_2}
+										linkTo={url_link_2}
 										className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
 									/>
 								) : (

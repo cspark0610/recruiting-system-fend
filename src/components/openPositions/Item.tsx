@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { PRODUCTION_PATH, VIEW_APPLY_BY_POSITION_ID } from "../../config/routes/paths";
+
 import { AiOutlineDown } from "react-icons/ai";
-import { State } from "../../redux/store/store";
-import getPriorityColor from "../../utils/positions";
-import Toggle from "./Toggle";
-import SubMenu from "./SubMenu";
+import CopyLinkButton from "../buttons/CopyLinkButton";
 import LoaderSpinner from "../../assets/loaderSpinner";
-import { VIEW_APPLY_BY_POSITION_ID, PRODUCTION_PATH } from "../../config/routes/paths";
+import { State } from "../../redux/store/store";
+import SubMenu from "./SubMenu";
+import Toggle from "./Toggle";
+import getPriorityColor from "../../utils/positions";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 type ItemProps = {
 	positionName: string;
@@ -40,7 +42,7 @@ export default function Item({
 	return (
 		<div className="flex laptop:flex-col">
 			<div className="flex justify-between pl-4 py-4 border-b-2 bg-[#FAFAFA] laptop:w-[47rem] desktop:w-[68rem] ml-12">
-				<div className="flex space-x-8">
+				<div className="flex space-x-3">
 					{" "}
 					{isAdmin ? (
 						<Toggle
@@ -72,20 +74,25 @@ export default function Item({
 								: null}
 						</div>
 					</div>
-					{isAdmin ? (
-						<div>
-							<div className="mt-2">
-								<p className={`p-1 px-4 text-sm rounded-lg font-raleway ${priorityClass}`}>
+					<div className=" flex justify-center items-center">
+							<CopyLinkButton
+								className=""
+								linkTo={`${PRODUCTION_PATH}${VIEW_APPLY_BY_POSITION_ID}${_id}`}
+								icon={true}
+							/>
+				</div>
+				</div>
+				<div className="flex space-x-6 laptop:mr-16 desktop:mr-16 items-center w-200">
+				{isAdmin ? (
+						<div className=" flex justify-center items-center min-w-fit">
+								<p className={`p-1 px-4  text-sm rounded-lg font-raleway h-fit w-full ${priorityClass}`}>
 									{priority}
 								</p>
-							</div>
 						</div>
 					) : null}
-				</div>
-				<div className="flex space-x-6 laptop:mr-16 desktop:mr-16 items-center">
-					<span className="mt-2 font-raleway">March 15</span>
+					<span className="font-raleway">March 15</span>
 					<button onClick={() => setIsOpen(!isOpen)} className="font-raleway">
-						<AiOutlineDown className={isOpen ? "mt-2 rotate-180" : "mt-2"} />
+						<AiOutlineDown className={isOpen ? " rotate-180" : ""} />
 					</button>
 				</div>
 			</div>

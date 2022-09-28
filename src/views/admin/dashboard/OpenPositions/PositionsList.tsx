@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { batch, useDispatch, useSelector } from 'react-redux';
-import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
-import { State } from '../../../../redux/store/store';
 import {
   GetActivePositions,
   GetInactivePositions,
 } from '../../../../redux/positions/actions/PositionsActions';
+import { batch, useDispatch, useSelector } from 'react-redux';
+
 import CreateNew from '../../../../components/buttons/CreateNew';
 import List from '../../../../components/openPositions/List';
 import LoaderSpinner from '../../../../assets/loaderSpinner';
+import { State } from '../../../../redux/store/store';
+import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function PositionsList() {
   const dispatch = useDispatch();
@@ -39,8 +40,8 @@ export default function PositionsList() {
     <div
       className={
         isAdmin
-          ? 'mt-32 md:w-screen overflow-x-hidden'
-          : 'mt-48 md:w-screen overflow-x-hidden'
+          ? 'mt-20 pt-12 md:w-screen overflow-x-hidden'
+          : 'mt-20 pt-12 md:w-screen overflow-x-hidden'
       }
     >
       {isAdmin ? (
