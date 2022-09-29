@@ -23,7 +23,7 @@ export default function AdminRoutes() {
     <>
       <Navbar />
       <div className="absolute w-full  left-0 h-full -z-10">
-        <img className="mx-auto w-full max-w-7xl" src={process.env.PUBLIC_URL + `/images/Background Cloud.svg`} alt="background"  />
+        <img className="mx-auto mt-5 w-full max-w-[1440px]" src={process.env.PUBLIC_URL + `/images/Background Cloud.svg`} alt="background"  />
       </div>
       <Routes>
         <Route

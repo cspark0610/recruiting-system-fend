@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { AiOutlineRight } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
 import { ClearSuccess, DeletePosition } from "../../redux/positions/actions/PositionsActions";
-import { State } from "../../redux/store/store";
-import Modal from "../extras/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+import { AiOutlineRight } from "react-icons/ai";
 import Item from "../openPositions/Item";
+import { MdDelete } from "react-icons/md";
+import Modal from "../extras/Modal";
 import Pagination from "./Pagination";
 import PaginationData from "../../config/types/paginationData";
+import { State } from "../../redux/store/store";
 
 type ListProps = {
 	title: string;
@@ -55,8 +56,8 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 	}, [success.message]);
 
 	return (
-		<div>
-			<div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44">
+		<>
+			<div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44 bg-white">
 				<div className="flex">
 					<button
 						disabled={items.totalDocs === 0}
@@ -121,6 +122,6 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 					)}
 				</div>
 			) : null}
-		</div>
+		</>
 	);
 }
