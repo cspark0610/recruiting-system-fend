@@ -1,13 +1,14 @@
-import { IoMdArrowDropright } from "react-icons/io";
-import { BiLinkExternal } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import {
-	VIEW_EDIT_POSITION,
-	VIEW_APPLY_BY_POSITION_ID,
 	PRODUCTION_PATH,
+	VIEW_APPLY_BY_POSITION_ID,
+	VIEW_EDIT_POSITION,
 } from "../../config/routes/paths";
+
+import { BiLinkExternal } from "react-icons/bi";
 import CopyLinkButton from "../buttons/CopyLinkButton";
 import EditButton from "../buttons/EditButton";
+import { IoMdArrowDropright } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 type SubMenuProps = {
 	_id: string;
@@ -27,10 +28,6 @@ export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProp
 				>
 					Edit
 				</EditButton>
-				<CopyLinkButton
-					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md ml-2"
-					text={`${PRODUCTION_PATH}${VIEW_APPLY_BY_POSITION_ID}${_id}`}
-				/>
 			</div>
 			<div className="flex flex-col ml-5 gap-y-4">
 				<div className="flex space-x-1">
@@ -56,9 +53,6 @@ export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProp
 						<IoMdArrowDropright className="mt-1" />
 					</span>
 					<span className="font-raleway">Video Questions</span>
-					<span>
-						<BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
-					</span>
 				</div>
 			</div>
 		</div>
