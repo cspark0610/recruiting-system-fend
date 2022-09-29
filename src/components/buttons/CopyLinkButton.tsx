@@ -1,3 +1,5 @@
+import './../../assets/scss/CopyLink.scss';
+
 import { useEffect, useState } from "react";
 
 type CopyLinkButtonProps = {
@@ -21,11 +23,11 @@ const CopyLinkButton = ({  linkTo, className, icon }: CopyLinkButtonProps) => {
 		return () => clearTimeout(timer);
 	}, [copied]);
 	
-	const renderCopyIcon =()=><img  src={process.env.PUBLIC_URL + `/images/linkIcon.svg`} alt="Copy Icon"/>
+	const renderCopyIcon =()=><img  src={process.env.PUBLIC_URL + `/images/linkIcon.svg`}  alt="Copy Icon"/>
 	const renderCopyText = () => (copied ? "Copied!" : "Copy Link");
-
+	const classesName =`relative ${className}  ${copied? "copied copied__active":" copied" }`
 	return (
-		<button onClick={() => handleCopyTextToClipboard(linkTo)} className={className}>
+		<button onClick={() => handleCopyTextToClipboard(linkTo)} className={classesName}>
 			{icon ? renderCopyIcon() : renderCopyText() }
 		</button>
 	);
