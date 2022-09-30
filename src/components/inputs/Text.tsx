@@ -31,7 +31,7 @@ const Text: React.FC<Props> = ({
   };
 
   return (
-    <div className={`${width} p-3 mt-auto`}>
+    <div className={`${width} p-3 `}>
       <div className="relative">
         {showAlert && <Alert />}
         <div className="mobile:block laptop:hidden tablet:hidden">

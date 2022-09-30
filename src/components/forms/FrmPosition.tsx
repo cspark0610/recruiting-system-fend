@@ -99,19 +99,15 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
         }),
       );
     }
+    
+    
   };
 
   useEffect(() => {
-    if (success.message !== '' && !_id) {
-      setTitle('');
-      setClientName('');
-      setRieLink('');
-      setRecruiterGuide('');
-      setDesignated_recruiters([]);
-      setSelectedPriority('');
-      multiselectRef.current?.resetSelectedValues();
+    if (success.message !== '') {
+      navigate(VIEW_OPEN_POSITIONS) 
     }
-  }, [success.message, _id]);
+  }, [success.message, navigate]);
 
   useEffect(() => {
     if (_id) {

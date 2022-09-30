@@ -1,17 +1,18 @@
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { FiLogOut } from "react-icons/fi";
 import {
 	VIEW_EXPERT,
 	VIEW_KANBAN,
 	VIEW_OPEN_POSITIONS,
 	VIEW_PROFILE,
 } from "../../config/routes/paths";
+import { useRef, useState } from "react";
+
+import { FiLogOut } from "react-icons/fi";
 import { LogOut } from "../../redux/users/actions/UserAction";
-import { getStorageItem } from "../../utils/localStorage";
-import detectOutsideClick from "../../utils/detectOutsideClick";
 import NavItem from "./NavItem";
+import detectOutsideClick from "../../utils/detectOutsideClick";
+import { getStorageItem } from "../../utils/localStorage";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 	const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<header className="absolute top-0 left-0 w-screen">
+		<header className="absolute top-0 left-0 w-full">
 			<nav className="flex flex-row text-white items-center justify-evenly p-4 bg-[#475564]">
 				<div className="relative" ref={profileMenuRef}>
 					<div className="flex space-x-3">
