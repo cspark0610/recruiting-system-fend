@@ -78,4 +78,13 @@ export type Filters = {
 	position: Array<string>;
 	status: Array<string>;
 	query: string;
+	candidate_name?: string;
+	skills?: string[];
+	employment_status?: Array<string>;
+};
+
+export type FiltersExpert = {
+	candidate_name: string;
+	skills: string[];
+	employment_status: Array<string>;
 };
