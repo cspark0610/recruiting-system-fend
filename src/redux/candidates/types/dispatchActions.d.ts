@@ -11,6 +11,11 @@ export type GetCandidatesFilteredAction = {
 	payload: CandidateState;
 };
 
+export type GetCandidatesFilteredExpertAction = {
+	type: ActionTypes.GET_CANDIDATES_FILTERED_EXPERT;
+	payload: CandidateState;
+};
+
 export type GetCandidateInfoAction = {
 	type: ActionTypes.GET_CANDIDATE_DETAIL;
 	payload: ICandidate;
@@ -18,7 +23,7 @@ export type GetCandidateInfoAction = {
 
 export type GetVideoAction = {
 	type: ActionTypes.GET_VIDEO;
-	payload: any;
+	payload: string;
 };
 
 export type ClearCandidateDetailAction = {
@@ -106,8 +111,21 @@ export type SetCurrentFiltersAction = {
 	};
 };
 
+export type SetCurrentFiltersExpertAction = {
+	type: ActionTypes.SET_CURRENT_FILTERS_EXPERT;
+	payload: {
+		candidate_name: string;
+		skills: string[];
+		employment_status: string[];
+	};
+};
+
 export type CleanFiltersAction = {
 	type: ActionTypes.CLEAN_FILTERS;
+};
+
+export type CleanFiltersExpertAction = {
+	type: ActionTypes.CLEAN_FILTERS_EXPERT;
 };
 
 export type ValidateTokenAction = {

@@ -14,6 +14,7 @@ interface Props {
 
 const General: React.FC<Props> = ({ postulationId }) => {
 	const details = useSelector((state: State) => state.info.detail);
+	const cv = useSelector((state: State) => state.info.detail.cv);
 	const postulationFound = {} as IPostulation;
 	const found: IPostulation =
 		details.postulations.length &&
@@ -91,7 +92,11 @@ const General: React.FC<Props> = ({ postulationId }) => {
 					<div>
 						<p className="font-normal flex items-center my-5">
 							<FaRegFilePdf className="text-cyan-color w-[20px] h-[26px]" /> &nbsp;
-							<span className="text-cyan-color text-lg ml-3 font-medium">CV</span>
+							<span className="text-cyan-color text-lg ml-3 font-medium">
+								<a target="_blank" rel="noopener noreferrer" href={cv}>
+									CV
+								</a>
+							</span>
 						</p>
 						<p className="font-normal my-[10px]">
 							Linkedin: &nbsp;

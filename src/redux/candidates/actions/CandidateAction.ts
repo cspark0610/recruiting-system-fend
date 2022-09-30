@@ -21,6 +21,7 @@ import {
 	GetCandidateInfoAction,
 	SetCurrentFiltersAction,
 	CleanFiltersAction,
+	CleanFiltersExpertAction,
 	ClearCandidateDetailAction,
 	SetDetailFinishedLoadingAction,
 	CleanCandidateSuccessAction,
@@ -33,6 +34,8 @@ import {
 	UpdateCandidateInfoAction,
 	SetToEditInfoAction,
 	GetVideoAction,
+	SetCurrentFiltersExpertAction,
+	GetCandidatesFilteredExpertAction,
 } from "../types/dispatchActions";
 
 import {
@@ -61,9 +64,10 @@ import {
 	UPDATE_INFO,
 	REJECT_CANDIDATE,
 	GET_VIDEO,
+	GET_ALL_CANDIDATES_FILTERED_EXPERT,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
-import { Filters, IConclusionInv } from "../types/data";
+import { Filters, FiltersExpert, IConclusionInv } from "../types/data";
 import { IError } from "../../users/types/data";
 
 export function GetAllCandidates() {
@@ -73,7 +77,7 @@ export function GetAllCandidates() {
 		});
 
 		try {
-			const { data } = await PrivateAxios.get<GetCandidatesResponse>(GET_ALL_CANDIDATES);
+			const { data } = await PrivateAxios.get(GET_ALL_CANDIDATES);
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -197,6 +201,64 @@ export function GetCandidatesFiltered(filters: Filters) {
 						position: filters.position,
 						status: filters.status,
 						query: filters.query,
+					},
+				});
+			} else {
+				dispatch<SetCandidateLoadingAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+				});
+				return dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: error,
+				});
+			}
+		}
+	};
+}
+
+export function GetCandidatesFilteredExpert(filters: FiltersExpert) {
+	return async function (dispatch: Dispatch) {
+		dispatch<SetCandidateLoadingAction>({
+			type: ActionTypes.SET_IS_CANDIDATE_LOADING,
+		});
+
+		try {
+			const { data } = await PrivateAxios.post(GET_ALL_CANDIDATES_FILTERED_EXPERT, filters);
+
+			dispatch<SetCandidateLoadingAction>({
+				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+			});
+
+			dispatch<SetCurrentFiltersExpertAction>({
+				type: ActionTypes.SET_CURRENT_FILTERS_EXPERT,
+				payload: {
+					candidate_name: filters.candidate_name,
+					skills: filters.skills,
+					employment_status: filters.employment_status,
+				},
+			});
+
+			return dispatch<GetCandidatesFilteredExpertAction>({
+				type: ActionTypes.GET_CANDIDATES_FILTERED_EXPERT,
+				payload: data.candidatesFiltered,
+			});
+		} catch (error: any) {
+			if (error.response) {
+				dispatch<SetCandidateLoadingAction>({
+					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+				});
+
+				dispatch<SetCandidateErrorAction>({
+					type: ActionTypes.SET_CANDIDATE_ERROR,
+					payload: error.response.data,
+				});
+
+				return dispatch<SetCurrentFiltersExpertAction>({
+					type: ActionTypes.SET_CURRENT_FILTERS_EXPERT,
+					payload: {
+						candidate_name: filters.candidate_name,
+						skills: filters.skills,
+						employment_status: filters.employment_status,
 					},
 				});
 			} else {
@@ -573,6 +635,12 @@ export function CleanCandidateErrors(dispatch: Dispatch) {
 export function CleanFilters(dispatch: Dispatch) {
 	return dispatch<CleanFiltersAction>({
 		type: ActionTypes.CLEAN_FILTERS,
+	});
+}
+
+export function CleanFiltersExpert(dispatch: Dispatch) {
+	return dispatch<CleanFiltersExpertAction>({
+		type: ActionTypes.CLEAN_FILTERS_EXPERT,
 	});
 }
 

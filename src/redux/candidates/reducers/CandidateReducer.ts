@@ -101,6 +101,11 @@ const initialState: InitialState = {
 		status: [],
 		query: "",
 	},
+	// currentFiltersExpert: {
+	// 	skills: [],
+	// 	employment_status: [],
+	// 	caniddate_name: "",
+	// },
 };
 
 function CandidateReducer(state = initialState, action: Action) {
@@ -139,6 +144,13 @@ function CandidateReducer(state = initialState, action: Action) {
 		}
 
 		case ActionTypes.GET_CANDIDATES_FILTERED: {
+			return {
+				...state,
+				candidates: action.payload,
+			};
+		}
+
+		case ActionTypes.GET_CANDIDATES_FILTERED_EXPERT: {
 			return {
 				...state,
 				candidates: action.payload,
@@ -279,6 +291,17 @@ function CandidateReducer(state = initialState, action: Action) {
 					position: [],
 					status: [],
 					query: "",
+				},
+			};
+		}
+
+		case ActionTypes.CLEAN_FILTERS_EXPERT: {
+			return {
+				...state,
+				currentFilters: {
+					skills: [],
+					employment_status: [],
+					candidate_name: "",
 				},
 			};
 		}
