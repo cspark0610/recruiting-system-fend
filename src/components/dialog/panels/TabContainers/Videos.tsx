@@ -32,6 +32,7 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 			dispatch(GetVideo(video_keys[0]));
 			dispatch(GetVideo(video_keys[1]));
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const videos_recorded = useSelector((state: State) => state.info.postulation.videos_recorded);
@@ -52,7 +53,7 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 							 */}
 
 							{/* only 2 videos */}
-							{videos_recorded.length && (
+							{videos_recorded.length > 0 && (
 								<>
 									<video id="video-interview" controls src={`${videos_recorded[0]}`}>
 										<source type="video/mp4" />
@@ -64,7 +65,7 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 								</>
 							)}
 						</div>
-						{!hasUploaded.length && (
+						{!hasUploaded && (
 							<p className="relative font-raleway text-gray-color text-sm mt-[17px]">
 								*This candidate has not uploaded any video yet.
 							</p>

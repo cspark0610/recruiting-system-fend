@@ -92,3 +92,11 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 };
 
 export const MAIN_STATUS_ALLOWED = ["interested", "applying", "meeting", "chosen"];
+export const EMPLOYMENT_STATUS_ALLOWED = ["Active", "Former", "In Process"];
+export const EMPLOYMENT_STATUS = ["active", "former", "in_process"];
+
+export const calculateCandidateAge = (birth_date: string) => {
+	const birthYear = birth_date.split("-")[0];
+	const age = new Date().getFullYear() - Number(birthYear);
+	return age;
+};

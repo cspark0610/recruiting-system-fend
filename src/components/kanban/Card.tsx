@@ -18,13 +18,11 @@ export default function Card({ name, _id, position, secondary_status, postulatio
 	const dispatch = useDispatch();
 
 	const card = getTopBorderColor(secondary_status!);
-
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 
 	const isOpen = () => {
 		dispatch(GetCandidateInfo(_id));
-
 		setOpenDialog(true);
 		setIsModalLoading(true);
 	};
