@@ -5,6 +5,7 @@ import {
 	ClearCandidateDetail,
 	GenerateUrl,
 	RejectCandidate,
+	UpdateCandidateEmploymentStatus,
 	UpdateCandidateStatus,
 } from "../../redux/candidates/actions/CandidateAction";
 import { State } from "../../redux/store/store";
@@ -47,6 +48,7 @@ const UserDialog: React.FC<Props> = ({
 	const [doubting, setDoubting] = useState(false);
 	const [dismiss, setDismiss] = useState(false);
 	const [reject, setReject] = useState(false);
+	const [hired, setHired] = useState(false);
 
 	/* STATES OF CONTROL FROM HEADER DIALOG */
 	const [color, setColor] = useState("bg-gray-color");
@@ -88,16 +90,20 @@ const UserDialog: React.FC<Props> = ({
 	useEffect(() => {
 		if (success.message !== "" && approve) {
 			setApproved(false);
-		} else if (success.message !== "" && doubting) {
-			setDoubting(false);
-		} else if (success.message !== "" && dismiss) {
-			setDismiss(false);
-		} else {
-			if (success.message !== "" && reject) {
-				setReject(false);
-			}
 		}
-	}, [success, approve, doubting, dismiss, reject]);
+		if (success.message !== "" && doubting) {
+			setDoubting(false);
+		}
+		if (success.message !== "" && dismiss) {
+			setDismiss(false);
+		}
+		if (success.message !== "" && reject) {
+			setReject(false);
+		}
+		if (success.message !== "" && hired) {
+			setHired(false);
+		}
+	}, [success, approve, doubting, dismiss, reject, hired]);
 
 	// clears the candidate detail when the modal is closed
 	useEffect(() => {
@@ -108,54 +114,44 @@ const UserDialog: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 
-	const isApproved = () => {
-		setApproved(!approve);
-	};
-
-	const isDoubting = () => {
-		setDoubting(!doubting);
-	};
-
-	const isDismiss = () => {
-		setDismiss(!dismiss);
-	};
-
-	const isReject = () => {
-		setReject(!reject);
-	};
+	const isApproved = () => setApproved(!approve);
+	const isDoubting = () => setDoubting(!doubting);
+	const isDismiss = () => setDismiss(!dismiss);
+	const isReject = () => setReject(!reject);
+	const isHired = () => setHired(!hired);
 
 	const isStatusConfirm = (secondary_status: string, postulationId: string) => {
-		//caso de 'rejected'
 		if (secondary_status === "rejected") {
-			setReject(false);
 			dispatch(RejectCandidate(detail._id!));
 		}
 
-		if (main_status === "interested" && secondary_status === "approved") {
-			setApproved(false);
+		if (main_status === "interested" && secondary_status === "new entry") {
 			batch(() => {
 				dispatch(GenerateUrl(postulationId));
-				dispatch(UpdateCandidateStatus(postulationId, "applying", "approved"));
+				dispatch(UpdateCandidateStatus(postulationId, "applying", "new entry"));
 			});
 		}
 
-		if (main_status === "applying" && secondary_status === "approved") {
-			setApproved(false);
-			dispatch(UpdateCandidateStatus(postulationId, "meeting", "approved"));
+		if (main_status === "applying" && secondary_status === "new entry") {
+			dispatch(UpdateCandidateStatus(postulationId, "meeting", "new entry"));
 		}
 
-		if (main_status === "meeting" && secondary_status === "approved") {
-			setApproved(false);
-			dispatch(UpdateCandidateStatus(postulationId, "chosen", "approved"));
+		if (main_status === "meeting" && secondary_status === "new entry") {
+			dispatch(UpdateCandidateStatus(postulationId, "chosen", "new entry"));
+		}
+
+		if (main_status === "chosen" && secondary_status === "new entry") {
+			batch(() => {
+				dispatch(UpdateCandidateStatus(postulationId, "hired", "approved"));
+				dispatch(UpdateCandidateEmploymentStatus(detail._id!, "active"));
+			});
 		}
 
 		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "doubting") {
-			setDoubting(false);
 			dispatch(UpdateCandidateStatus(postulationId, main_status, "doubting"));
 		}
 
 		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "dismissed") {
-			setDismiss(false);
 			dispatch(UpdateCandidateStatus(postulationId, main_status, "dismissed"));
 		}
 	};
@@ -174,13 +170,14 @@ const UserDialog: React.FC<Props> = ({
 									</div>
 								</div>
 							) : null}
-							<HeaderDialog isClose={isDialogClose} color={color} />
+							<HeaderDialog isClose={isDialogClose} color={color} postulationId={postulationId} />
 							<div className="flex">
 								<Panels
 									isApproved={isApproved}
 									isDoubting={isDoubting}
 									isDismiss={isDismiss}
 									isReject={isReject}
+									isHired={isHired}
 									isConfirmed={isConfirm}
 									postulationId={postulationId}
 								/>
@@ -191,9 +188,9 @@ const UserDialog: React.FC<Props> = ({
 									alt="approve"
 									classes={true}
 									image="approve"
-									isVerify={isStatusConfirm("approved", postulationId)}
+									isVerify={isStatusConfirm("new entry", postulationId)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
-									onClick={() => isApproved()}
+									onClick={isApproved}
 									setValue={setApproved}
 									status="You`ve approved this Candidate!"
 									value={approve}
@@ -218,12 +215,26 @@ const UserDialog: React.FC<Props> = ({
 									classes={true}
 									image="dismiss"
 									isVerify={isStatusConfirm("dismissed", postulationId)}
-									message="Remember to fill your motives for this decition in conclusions"
+									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isDismiss}
 									setValue={setDismiss}
 									status="dismissed."
 									title="This candidate has been "
 									value={dismiss}
+								/>
+							)}
+							{hired && (
+								<Modal
+									alt="hired"
+									classes={true}
+									image="hired"
+									isVerify={isStatusConfirm("new entry", postulationId)}
+									message="Remember to fill your motives for this desition in conclusions"
+									onClick={isHired}
+									setValue={setHired}
+									status="hired."
+									title="This candidate has been "
+									value={hired}
 								/>
 							)}
 							{reject && (

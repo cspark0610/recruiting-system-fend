@@ -3,10 +3,11 @@ import PanelDialog from "./TabPanels/PanelDialog";
 import ListDialog from "./TabLists/ListDialog";
 
 interface Props {
-	isApproved: any;
-	isDoubting: any;
-	isDismiss: any;
-	isReject: any;
+	isApproved: () => void;
+	isDoubting: () => void;
+	isDismiss: () => void;
+	isReject: () => void;
+	isHired: () => void;
 	isConfirmed: boolean;
 	postulationId: string;
 }
@@ -16,6 +17,7 @@ const Panels: React.FC<Props> = ({
 	isDoubting,
 	isDismiss,
 	isReject,
+	isHired,
 	isConfirmed,
 	postulationId,
 }) => {
@@ -26,7 +28,9 @@ const Panels: React.FC<Props> = ({
 				isDoubting={isDoubting}
 				isDismiss={isDismiss}
 				isReject={isReject}
+				isHired={isHired}
 				isConfirmed={isConfirmed}
+				postulationId={postulationId}
 			/>
 			<PanelDialog postulationId={postulationId} />
 		</Tab.Group>

@@ -39,9 +39,22 @@ export type UpdateCandidateStatusAction = {
 	};
 };
 
+export type UpdateCandidateEmploymentStatusAction = {
+	type: ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS;
+	payload: {
+		_id: string;
+		employment_status: string;
+	};
+};
+
+export type UpdatePostulationInfoAction = {
+	type: ActionTypes.UPDATE_POSTULATION_INFO;
+	payload: Partial<ICandidate> | Partial<IPostulation>;
+};
+
 export type UpdateCandidateInfoAction = {
 	type: ActionTypes.UPDATE_CANDIDATE_INFO;
-	payload: ICandidate;
+	payload: Partial<ICandidate>;
 };
 
 export type SetToEditInfoAction = {

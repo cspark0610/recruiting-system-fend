@@ -47,12 +47,12 @@ const ExpertView = () => {
 				<TableExpert candidates={[...candidates]} positions={positions} />
 
 				{/* Recandidate Holder */}
+
 				{/* <div className="absolute bottom-0 left-0 bg-gradient-to-t from-[#D3D5D8] w-screen flex items-center justify-center h-28">
 					<button className="bg-[#00ADEF] text-[#fff] font-bold px-12 py-4 rounded-md ">
 						RECANDIDATE
 					</button>
-				</div> 
-                */}
+				</div> */}
 
 				{/* Downloading Holder */}
 				{/* 
@@ -62,7 +62,7 @@ const ExpertView = () => {
                     </span>
                     <DownloadingProgressIcon style={{color:"#00ADEF"}}/>
                 </div> 
-                */}
+        */}
 			</div>
 		</div>
 	);
