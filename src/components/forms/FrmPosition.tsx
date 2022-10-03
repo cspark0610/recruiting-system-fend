@@ -1,3 +1,5 @@
+import '../../assets/scss/inputs.scss'
+
 import {
   UpdateInfo,
   createPosition,
@@ -131,6 +133,10 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
           <div className="flex space-x-3">
             {prioritiesWithoutCurrent.map((priority) => (
               <div key={priority.id} className="flex items-center">
+                <label
+                  className="hover:cursor-pointer font-raleway text-[#475564] text-lg flex items-center " 
+                  htmlFor={priority.id.toString()}
+                >
                 <input
                   type="checkbox"
                   name={priority.name}
@@ -140,10 +146,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                   onChange={(e) => setSelectedPriority(e.target.value)}
                   checked={selectedPriority === priority.name ? true : false}
                 />
-                <label
-                  className="ml-3 hover:cursor-pointer font-raleway text-[#475564] text-lg" 
-                  htmlFor={priority.id.toString()}
-                >
+                <span className='check-visual checked-'></span>
                   {priority.displayName}
                 </label>
               </div>
