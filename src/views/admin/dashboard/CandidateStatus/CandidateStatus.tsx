@@ -25,7 +25,8 @@ export default function CandidateStatus() {
 	const candidates = useSelector((state: State) => state.info.candidates);
 
 	let candidatesSorted = sortByColumn(candidates);
-	let candidatesChosenAndHired = [...candidatesSorted.chosen, ...candidatesSorted.hired];
+	/** only for role "admin" can view chosen and hired in "chosen column" */
+	//let candidatesChosenAndHired = [...candidatesSorted.chosen, ...candidatesSorted.hired];
 
 	if (success.message !== "") {
 		setTimeout(() => {
@@ -53,7 +54,7 @@ export default function CandidateStatus() {
 					/>
 					<Column title="Applying" column_info={ApplyingInfo} items={candidatesSorted.applying} />
 					<Column title="Meeting" column_info={MeetingInfo} items={candidatesSorted.meeting} />
-					<Column title="Chosen" column_info={ChosenInfo} items={candidatesChosenAndHired} />
+					<Column title="Chosen" column_info={ChosenInfo} items={candidatesSorted.chosen} />
 				</main>
 			</div>
 			<div className="flex items-start justify-center mt-[25rem]">
