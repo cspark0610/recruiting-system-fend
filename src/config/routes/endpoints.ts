@@ -10,11 +10,13 @@ export const POST_FEED = "/candidate/conclusions/update";
 export const GET_ALL_CANDIDATES = "/candidate";
 export const GET_ALL_CANDIDATES_FILTERED = "/candidate/filter";
 export const GET_ALL_CANDIDATES_FILTERED_EXPERT = "/candidate/expert/filter";
+export const UPDATE_CANDIDATE_EMPLOYMENT_STATUS = "/candidate/employment_status/update";
 export const UPDATE_STATUS = "/postulation/status/update";
 export const GENERATE_URL = "/postulation/url/create";
 export const GET_VIDEO = "/postulation/video";
 export const SEND_VIDEO = "/postulation/video/upload";
-export const UPDATE_INFO = "/postulation/info/update";
+export const UPDATE_POSTULATION_INFO = "/postulation/info/update";
+export const UPDATE_CANDIDATE_INFO = "/postulation/info/update";
 
 export const GET_ALL_POSITIONS = "/position";
 export const CREATE_POSITION = "/position/create";

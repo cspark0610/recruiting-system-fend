@@ -23,9 +23,10 @@ import { State } from "../../redux/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	ClearCandidateSuccess,
-	UpdateCandidateInfo,
+	UpdatePostulationInfo,
 } from "../../redux/candidates/actions/CandidateAction";
 import MultipleSelect from "../inputs/MultipleSelect";
+import { UpdatePostulationInfoAction } from "../../redux/candidates/types/dispatchActions";
 
 type Props = {
 	token: string;
@@ -78,8 +79,8 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	const toEdit = searchParams.get("edit");
 
 	/*  */
-	const UpdatePostulationInfo = (user: any) => dispatch(UpdateCandidateInfo(postulationId, user));
-	//const UpdateCandidate = (user: any) => dispatch(UpdateCandidateInfo(candidateId, user));
+	const _UpdatePostulationInfo = (newInfo: UpdatePostulationInfoAction["payload"]) =>
+		dispatch(UpdatePostulationInfo(postulationId, newInfo));
 
 	const loading = useSelector((state: State) => state.info.loading);
 	const success = useSelector((state: State) => state.info.success);
@@ -103,7 +104,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		} else {
 			let skills = skill.map((skill) => skill.name);
 
-			UpdatePostulationInfo({
+			_UpdatePostulationInfo({
 				academic_training: college.name,
 				available_from: available.name,
 				skills,
@@ -123,7 +124,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		} else {
 			let skills = skill.map((skill) => skill.name);
 
-			UpdatePostulationInfo({
+			_UpdatePostulationInfo({
 				academic_training: college.name,
 				available_from: available.name,
 				skills,

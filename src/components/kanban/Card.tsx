@@ -2,22 +2,30 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FiClock } from "react-icons/fi";
 import { GetCandidateInfo } from "../../redux/candidates/actions/CandidateAction";
-import { getTopBorderColor } from "../../utils/candidates";
 import UserDialog from "../dialog/UserDialog";
 import "../../assets/scss/Card.scss";
+import { getTopBorderColor } from "../../utils/candidates";
 
 type CardProps = {
 	_id: string;
 	name: string;
 	position?: string;
-	secondary_status?: string;
+	secondary_status: string;
+	main_status: string;
 	postulationId: string;
 };
 
-export default function Card({ name, _id, position, secondary_status, postulationId }: CardProps) {
+export default function Card({
+	name,
+	_id,
+	position,
+	secondary_status,
+	main_status,
+	postulationId,
+}: CardProps) {
 	const dispatch = useDispatch();
 
-	const card = getTopBorderColor(secondary_status!);
+	const card = getTopBorderColor(main_status, secondary_status);
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 

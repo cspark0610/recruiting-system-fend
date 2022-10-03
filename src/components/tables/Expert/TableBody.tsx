@@ -118,7 +118,7 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 	const renderCandidatePositionByPostulation = (postulation: IPostulation) => {
 		return (
 			<div className="w-1/3 text-[#00ADEF] font-semibold" key={uuid()}>
-				{postulation.position.title ?? "no position title"}
+				{postulation.position?.title ?? "N/A"}
 			</div>
 		);
 	};

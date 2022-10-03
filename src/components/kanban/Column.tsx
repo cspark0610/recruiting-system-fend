@@ -65,6 +65,7 @@ export default function Column({ title, column_info, items }: ColumnProps) {
 													name={item.name}
 													position={postulation?.position?.title!}
 													secondary_status={postulation.secondary_status}
+													main_status={postulation.main_status}
 												/>
 											);
 										})

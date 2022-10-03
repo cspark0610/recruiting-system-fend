@@ -201,6 +201,24 @@ function CandidateReducer(state = initialState, action: Action) {
 			};
 		}
 
+		case ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS: {
+			return {
+				...state,
+				candidates: state.candidates.map((candidate) =>
+					candidate._id === action.payload._id
+						? {
+								...candidate,
+								employment_status: action.payload.employment_status,
+						  }
+						: candidate
+				),
+				detail: {
+					...state.detail,
+					employment_status: action.payload.employment_status,
+				},
+			};
+		}
+
 		case ActionTypes.UPDATE_CANDIDATE_INFO: {
 			return {
 				...state,

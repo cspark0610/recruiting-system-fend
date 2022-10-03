@@ -6,8 +6,9 @@ import {
 	CreateCandidateResponse,
 	GetCandidateInfoResponse,
 	GetCandidatesFilteredResponse,
-	GetCandidatesResponse,
+	// GetCandidatesResponse,
 	UpdateCandidateConclusionResponse,
+	UpdateCandidateEmploymentStatusResponse,
 	UpdateCandidateStatusResponse,
 	ValidateTokenResponse,
 } from "../types/axiosResponses";
@@ -31,11 +32,14 @@ import {
 	ValidateTokenAction,
 	UpdateCandidateConclusionAction,
 	UpdateCandidateStatusAction,
-	UpdateCandidateInfoAction,
+	//UpdateCandidateInfoAction,
 	SetToEditInfoAction,
 	GetVideoAction,
 	SetCurrentFiltersExpertAction,
 	GetCandidatesFilteredExpertAction,
+	UpdatePostulationInfoAction,
+	UpdateCandidateInfoAction,
+	UpdateCandidateEmploymentStatusAction,
 } from "../types/dispatchActions";
 
 import {
@@ -61,14 +65,21 @@ import {
 	UPDATE_STATUS,
 	VALIDATE_TOKEN,
 	SEND_VIDEO,
-	UPDATE_INFO,
 	REJECT_CANDIDATE,
 	GET_VIDEO,
 	GET_ALL_CANDIDATES_FILTERED_EXPERT,
+	UPDATE_POSTULATION_INFO,
+	UPDATE_CANDIDATE_INFO,
+	UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
 import { Filters, FiltersExpert, IConclusionInv } from "../types/data";
-import { IError } from "../../users/types/data";
+// import { IError } from "../../users/types/data";
+import {
+	handleErrorsInCatch,
+	handleErrorsInCatchCandidateUpdating,
+	handleErrorsInCatchNoLoading,
+} from "../errors/candidate.actions.handleError";
 
 export function GetAllCandidates() {
 	return async function (dispatch: Dispatch) {
@@ -88,22 +99,7 @@ export function GetAllCandidates() {
 				payload: data.allCandidates,
 			});
 		} catch (error: any) {
-			if (error.response) {
-				dispatch({ type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING });
-
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
@@ -124,23 +120,7 @@ export function GetCandidateInfo(_id: string) {
 				payload: data.candidate,
 			});
 		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
@@ -303,24 +283,7 @@ export function CreateCandidate(candidateInfo: any) {
 				payload: data.candidate,
 			});
 		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-
-				dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
@@ -329,25 +292,8 @@ export function GenerateUrl(_id: string) {
 	return async function (dispatch: Dispatch) {
 		try {
 			await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+		} catch (error) {
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
@@ -356,37 +302,23 @@ export function RejectCandidate(_id: string) {
 	return async function (dispatch: Dispatch) {
 		try {
 			await PrivateAxios.put(`${REJECT_CANDIDATE}/${_id}`);
-		} catch (e: any) {
-			if (e.response) {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: e.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: e,
-				});
-			}
+		} catch (error) {
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
 
-export function UpdateCandidateInfo(_id: string, newInfo: any) {
+export function UpdatePostulationInfo(
+	_id: string,
+	newInfo: UpdatePostulationInfoAction["payload"]
+) {
 	return async function (dispatch: Dispatch) {
 		try {
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_CANDIDATE_LOADING,
 			});
 
-			await ClientAxios.put(`${UPDATE_INFO}/${_id}`, newInfo);
+			await ClientAxios.put(`${UPDATE_POSTULATION_INFO}/${_id}`, newInfo);
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -400,29 +332,43 @@ export function UpdateCandidateInfo(_id: string, newInfo: any) {
 				},
 			});
 
-			return dispatch<UpdateCandidateInfoAction>({
-				type: ActionTypes.UPDATE_CANDIDATE_INFO,
+			return dispatch<UpdatePostulationInfoAction>({
+				type: ActionTypes.UPDATE_POSTULATION_INFO,
 				payload: newInfo,
 			});
 		} catch (error) {
-			if (error.response) {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
+			handleErrorsInCatch(error, dispatch);
+		}
+	};
+}
 
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+export function UpdateCandidateInfo(_id: string, newInfo: UpdateCandidateInfoAction["payload"]) {
+	return async function (dispatch: Dispatch) {
+		try {
+			dispatch<SetCandidateLoadingAction>({
+				type: ActionTypes.SET_IS_CANDIDATE_LOADING,
+			});
+
+			await ClientAxios.put(`${UPDATE_CANDIDATE_INFO}/${_id}`, newInfo);
+
+			dispatch<SetCandidateLoadingAction>({
+				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
+			});
+
+			dispatch<SetCandidateSuccessAction>({
+				type: ActionTypes.SET_CANDIDATE_SUCCESS,
+				payload: {
+					status: 200,
+					message: "Candidate Updated successfully",
+				},
+			});
+
+			return dispatch<UpdatePostulationInfoAction>({
+				type: ActionTypes.UPDATE_POSTULATION_INFO,
+				payload: newInfo,
+			});
+		} catch (error) {
+			handleErrorsInCatch(error, dispatch);
 		}
 	};
 }
@@ -479,21 +425,47 @@ export function UpdateCandidateStatus(_id: string, main_status: string, secondar
 					secondary_status: data.secondary_status,
 				},
 			});
-		} catch (error: any) {
-			if (error.response) {
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetCandidateLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+		} catch (error) {
+			handleErrorsInCatchNoLoading(error, dispatch);
+		}
+	};
+}
+
+export function UpdateCandidateEmploymentStatus(_id: string, employment_status: string) {
+	return async function (dispatch: Dispatch) {
+		dispatch<SetUpdatingCandidateAction>({
+			type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
+		});
+		try {
+			const { data } = await PrivateAxios.put<UpdateCandidateEmploymentStatusResponse>(
+				`${UPDATE_CANDIDATE_EMPLOYMENT_STATUS}/${_id}`,
+				{
+					employment_status,
+				}
+			);
+
+			dispatch<SetUpdatingCandidateAction>({
+				type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
+			});
+
+			dispatch<SetCandidateSuccessAction>({
+				type: ActionTypes.SET_CANDIDATE_SUCCESS,
+				payload: {
+					status: data.status,
+					message: data.employment_status,
+				},
+			});
+
+			// va al reducer
+			return dispatch<UpdateCandidateEmploymentStatusAction>({
+				type: ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
+				payload: {
+					_id,
+					employment_status: data.employment_status,
+				},
+			});
+		} catch (error) {
+			handleErrorsInCatchNoLoading(error, dispatch);
 		}
 	};
 }
@@ -522,23 +494,7 @@ export function UpdateCandidateConclusion(
 				payload: candidate,
 			});
 		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error,
-				});
-			}
+			handleErrorsInCatchCandidateUpdating(error, dispatch);
 		}
 	};
 }
@@ -570,23 +526,7 @@ export function SendVideo(_id: string, formData: FormData) {
 		try {
 			await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData);
 		} catch (error) {
-			if (error.response) {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error as IError,
-				});
-			}
+			handleErrorsInCatchCandidateUpdating(error, dispatch);
 		}
 	};
 }
@@ -605,23 +545,7 @@ export function GetVideo(video_key: string) {
 				payload: data,
 			});
 		} catch (error) {
-			if (error.response) {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error.response.data,
-				});
-			} else {
-				dispatch<SetUpdatingCandidateAction>({
-					type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
-				});
-				return dispatch<SetCandidateErrorAction>({
-					type: ActionTypes.SET_CANDIDATE_ERROR,
-					payload: error as IError,
-				});
-			}
+			handleErrorsInCatchCandidateUpdating(error, dispatch);
 		}
 	};
 }
@@ -715,20 +639,6 @@ const GetDataEdit = (user: any) => ({
 	payload: user,
 });
 
-/* FUNCTION TO SAVE EDIT */
-export function DataSaveEdit(user: any, id: number) {
-	return async (dispatch: any) => {
-		dispatch(DataEditLoad(true));
-
-		try {
-			ClientAxios.put(`${POST_CANDIDATE}/${id}`, user);
-			dispatch(DataEditSuccess(user));
-		} catch (error) {
-			dispatch(DataEditError(true));
-		}
-	};
-}
-
 const DataEditLoad = (status: boolean) => ({
 	type: DATA_EDIT,
 	payload: status,
@@ -743,3 +653,16 @@ const DataEditError = (status: boolean) => ({
 	type: DATA_EDIT_ERROR,
 	payload: status,
 });
+
+/* FUNCTION TO SAVE EDIT */
+export function DataSaveEdit(user: any, id: number) {
+	return async (dispatch: any) => {
+		dispatch(DataEditLoad(true));
+		try {
+			ClientAxios.put(`${POST_CANDIDATE}/${id}`, user);
+			dispatch(DataEditSuccess(user));
+		} catch (error) {
+			dispatch(DataEditError(true));
+		}
+	};
+}
