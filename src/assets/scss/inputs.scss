@@ -1,0 +1,39 @@
+@import "./variables.scss";
+input[type="checkbox"]{
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+input[type="checkbox"]  + .check-visual {
+  height: 19px;
+  width: 19px;
+  background: #FFFFFF;
+  border: 0.5px solid #BABCBE;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+}
+
+.check-visual:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+input[type="checkbox"]:checked ~ .check-visual:after {
+  display: block;
+}
+
+.check-visual:after {
+  left: 5px;
+  top: 0px;
+  width: 8px;
+  height: 16px;
+  border: solid #00adef;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
