@@ -37,6 +37,9 @@ const ListDialog: React.FC<Props> = ({
 		});
 	if (found) Object.assign(postulation, found);
 
+	//console.log("listDialog", postulation);
+	const { main_status, secondary_status } = postulation;
+
 	return (
 		<Tab.List className="relative flex flex-col bg-light-gray-color w-[206px] h-screen">
 			<div className="w-full my-5 text-center grid justify-center">
@@ -96,10 +99,10 @@ const ListDialog: React.FC<Props> = ({
 			{/* Buttons to control the postulation'status of a user */}
 			<div className={`${isConfirmed ? "hidden" : "block"} absolute top-[370px] left-[40px]`}>
 				<div className="grid grid-cols-1">
-					{postulation.main_status === "chosen" ? (
+					{main_status === "chosen" && secondary_status === "new entry" ? (
 						<>
 							<DialogControl
-								classes="bg-cyan-color cursor-pointer"
+								classes="bg-[#35C549]"
 								onClick={isHired}
 								title="Hire"
 								needIcon={false}
@@ -113,7 +116,7 @@ const ListDialog: React.FC<Props> = ({
 						</>
 					) : (
 						<>
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-green-color"
 									onClick={isApproved}
@@ -121,7 +124,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-yellow-color"
 									onClick={isDoubting}
@@ -129,7 +132,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-red-dark"
 									onClick={isDismiss}
