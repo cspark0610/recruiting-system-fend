@@ -17,12 +17,22 @@ type ListProps = {
 	isAdmin?: boolean;
 };
 
+const priorityLevel:{ [key: string]: number }={
+	Low:0,
+	Normal:1,
+	High:2,
+	Urgent:3
+}
+
 export default function List({ title, items, inactive, isAdmin }: ListProps) {
 	const dispatch = useDispatch();
-
+	
+	console.log(items);
+	
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [showWarning, setShowWarning] = useState<boolean>(false);
 	const [selectedItem, setSelectedItem] = useState<string>("");
+	const [itemsSorted, setItemSorted] = useState<any[]>([]);
 
 	const success = useSelector((state: State) => state.positions.success);
 
@@ -55,6 +65,18 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 		setShowWarning(false);
 	}, [success.message]);
 
+	useEffect(() => {
+		const sorted =items.docs.sort((a, b) => {
+			if (priorityLevel[a.priority] < priorityLevel[b.priority]) {
+				return 1
+			} else {
+				return -1
+			}
+		}
+		)
+		setItemSorted(sorted)
+	}, [items.docs])
+
 	return (
 		<>
 			<div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44 bg-white">
@@ -85,7 +107,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 			</div>
 			{isOpen ? (
 				<div className="mt-8 ml-44">
-					{items.docs.map((item) => (
+					{itemsSorted.map((item) => (
 						<div key={item._id} className="flex">
 							<Item
 								positionName={item.title}
