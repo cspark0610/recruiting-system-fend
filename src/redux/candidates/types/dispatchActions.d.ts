@@ -57,6 +57,12 @@ export type UpdateCandidateInfoAction = {
 	payload: Partial<ICandidate>;
 };
 
+export type AddNewPostulationToCandidateAction = {
+	type: ActionTypes.ADD_POSTULATION_TO_CANDIDATE;
+	// redefinir luego el tipado ??
+	payload: IPostulation;
+};
+
 export type SetToEditInfoAction = {
 	type: ActionTypes.SET_TO_EDIT_INFO;
 };

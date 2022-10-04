@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Tab } from "@headlessui/react";
 import DialogControl from "../../../buttons/DialogControl";
 import { State } from "../../../../redux/store/store";
-import { IPostulation } from "../../../../redux/candidates/types/data";
+import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
 
 interface Props {
 	isApproved: () => void;
@@ -29,13 +29,8 @@ const ListDialog: React.FC<Props> = ({
 }) => {
 	/*  */
 	const detail = useSelector((state: State) => state.info.detail);
-	const postulation = {} as IPostulation;
-	const found: IPostulation =
-		detail.postulations.length &&
-		detail.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulation, found);
+	const { postulation } = UseGetPostulationById(detail, postulationId);
+	const { main_status, secondary_status } = postulation;
 
 	//console.log("listDialog", postulation);
 	const { main_status, secondary_status } = postulation;
@@ -99,7 +94,7 @@ const ListDialog: React.FC<Props> = ({
 			{/* Buttons to control the postulation'status of a user */}
 			<div className={`${isConfirmed ? "hidden" : "block"} absolute top-[370px] left-[40px]`}>
 				<div className="grid grid-cols-1">
-					{main_status === "chosen" && secondary_status === "new entry" ? (
+					{main_status === "chosen" ? (
 						<>
 							<DialogControl
 								classes="bg-[#35C549]"

@@ -181,6 +181,16 @@ function CandidateReducer(state = initialState, action: Action) {
 			};
 		}
 
+		case ActionTypes.ADD_POSTULATION_TO_CANDIDATE: {
+			return {
+				...state,
+				detail: {
+					...state.detail,
+					postulations: [...state.detail.postulations!, action.payload],
+				},
+			};
+		}
+
 		case ActionTypes.UPDATE_STATUS: {
 			return {
 				...state,

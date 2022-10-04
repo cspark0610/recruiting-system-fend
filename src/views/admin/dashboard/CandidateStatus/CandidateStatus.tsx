@@ -25,8 +25,9 @@ export default function CandidateStatus() {
 	const candidates = useSelector((state: State) => state.info.candidates);
 
 	let candidatesSorted = sortByColumn(candidates);
-	/** only for role "admin" can view chosen and hired in "chosen column" */
-	//let candidatesChosenAndHired = [...candidatesSorted.chosen, ...candidatesSorted.hired];
+
+	/* only for admin role */
+	// let candidatesChosenAndHired = [...candidatesSorted.chosen, ...candidatesSorted.hired];
 
 	if (success.message !== "") {
 		setTimeout(() => {

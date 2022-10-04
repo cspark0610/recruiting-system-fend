@@ -17,18 +17,18 @@ type ListProps = {
 	isAdmin?: boolean;
 };
 
-const priorityLevel:{ [key: string]: number }={
-	Low:0,
-	Normal:1,
-	High:2,
-	Urgent:3
-}
+const priorityLevel: { [key: string]: number } = {
+	Low: 0,
+	Normal: 1,
+	High: 2,
+	Urgent: 3,
+};
 
 export default function List({ title, items, inactive, isAdmin }: ListProps) {
 	const dispatch = useDispatch();
-	
-	console.log(items);
-	
+
+	//console.log(items);
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [showWarning, setShowWarning] = useState<boolean>(false);
 	const [selectedItem, setSelectedItem] = useState<string>("");
@@ -66,16 +66,15 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 	}, [success.message]);
 
 	useEffect(() => {
-		const sorted =items.docs.sort((a, b) => {
+		const sorted = items.docs.sort((a, b) => {
 			if (priorityLevel[a.priority] < priorityLevel[b.priority]) {
-				return 1
+				return 1;
 			} else {
-				return -1
+				return -1;
 			}
-		}
-		)
-		setItemSorted(sorted)
-	}, [items.docs])
+		});
+		setItemSorted(sorted);
+	}, [items.docs]);
 
 	return (
 		<>
