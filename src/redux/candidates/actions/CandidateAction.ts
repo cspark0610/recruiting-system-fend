@@ -40,6 +40,7 @@ import {
 	UpdatePostulationInfoAction,
 	UpdateCandidateInfoAction,
 	UpdateCandidateEmploymentStatusAction,
+	AddNewPostulationToCandidateAction,
 } from "../types/dispatchActions";
 
 import {
@@ -71,9 +72,10 @@ import {
 	UPDATE_POSTULATION_INFO,
 	UPDATE_CANDIDATE_INFO,
 	UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
+	ADD_POSTULATION_TO_CANDIDATE,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
-import { Filters, FiltersExpert, IConclusionInv } from "../types/data";
+import { Filters, FiltersExpert, IConclusionInv, IPostulation } from "../types/data";
 // import { IError } from "../../users/types/data";
 import {
 	handleErrorsInCatch,
@@ -292,6 +294,28 @@ export function GenerateUrl(_id: string) {
 	return async function (dispatch: Dispatch) {
 		try {
 			await PrivateAxios.post(`${GENERATE_URL}/${_id}`);
+		} catch (error) {
+			handleErrorsInCatch(error, dispatch);
+		}
+	};
+}
+
+export function AddNewPostulationToCandidate(
+	_id: string,
+	newPostulationBody: Partial<IPostulation>
+) {
+	return async function (dispatch: Dispatch) {
+		try {
+			const {
+				data: { data },
+			} = await PrivateAxios.put(`${ADD_POSTULATION_TO_CANDIDATE}/${_id}`, {
+				...newPostulationBody,
+			});
+
+			return dispatch<AddNewPostulationToCandidateAction>({
+				type: ActionTypes.ADD_POSTULATION_TO_CANDIDATE,
+				payload: data,
+			});
 		} catch (error) {
 			handleErrorsInCatch(error, dispatch);
 		}

@@ -3,7 +3,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { State } from "../../redux/store/store";
 import Dropdown from "../inputs/Dropdown";
 import { getDetailHeaderText, getHeaderTopBorderColor } from "../../utils/candidates";
-import { IPostulation } from "../../redux/candidates/types/data";
+import { UseGetPostulationById } from "../../hooks/useGetPostulationById";
 
 interface Props {
 	isClose: any;
@@ -13,13 +13,7 @@ interface Props {
 
 const HeaderDialog: React.FC<Props> = ({ isClose, color, postulationId }) => {
 	const detail = useSelector((state: State) => state.info.detail);
-	const postulation = {} as IPostulation;
-	const found: IPostulation =
-		detail.postulations.length &&
-		detail.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulation, found);
+	const { postulation } = UseGetPostulationById(detail, postulationId);
 
 	const headerTopBorderColor = getHeaderTopBorderColor(
 		postulation.main_status,
@@ -33,7 +27,7 @@ const HeaderDialog: React.FC<Props> = ({ isClose, color, postulationId }) => {
 				<span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
 					{headerMainText} {postulation ? postulation.position?.title : "N/A"}
 				</span>
-				<Dropdown />
+				<Dropdown postulationId={postulationId} />
 				<button className="absolute top-[7px] right-[15px]" onClick={isClose}>
 					<IoCloseCircleOutline className="text-white w-[24px] h-[24px]" />
 				</button>

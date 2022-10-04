@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../../redux/store/store";
 import { IQuestion } from "../../../../redux/positions/types/data";
 import QskInterview from "../../../extras/QskInterview";
-import { IPostulation } from "../../../../redux/candidates/types/data";
 import { GetVideo } from "../../../../redux/candidates/actions/CandidateAction";
 import { useEffect } from "react";
+import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
 
 interface Props {
 	postulationId: string;
@@ -13,15 +13,9 @@ interface Props {
 const Videos: React.FC<Props> = ({ postulationId }) => {
 	const dispatch = useDispatch();
 	const detail = useSelector((state: State) => state.info.detail);
-	const postulationFound = {} as IPostulation;
-	const found: IPostulation =
-		detail.postulations.length &&
-		detail.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulationFound, found);
+	const { postulation } = UseGetPostulationById(detail, postulationId);
 
-	const hasUploaded: IQuestion[] = postulationFound?.video_questions_list!.filter(
+	const hasUploaded: IQuestion[] = postulation?.video_questions_list!.filter(
 		(video: IQuestion) => video.video_key !== ""
 	);
 

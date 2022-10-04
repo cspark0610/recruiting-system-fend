@@ -7,8 +7,9 @@ import LoaderSpinner from "../../../../assets/loaderSpinner";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateCandidateConclusion } from "../../../../redux/candidates/actions/CandidateAction";
 import { State } from "../../../../redux/store/store";
-import { IConclusionInv, IPostulation } from "../../../../redux/candidates/types/data";
+import { IConclusionInv } from "../../../../redux/candidates/types/data";
 import { getStorageItem } from "../../../../utils/localStorage";
+import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
 
 interface Props {
 	postulationId: string;
@@ -21,13 +22,7 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 	const [badComment, setBadComment] = useState<string>("");
 
 	const currentCandidate = useSelector((state: State) => state.info.detail);
-	const postulationFound = {} as IPostulation;
-	const found: IPostulation =
-		currentCandidate.postulations.length &&
-		currentCandidate.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulationFound, found);
+	const { postulation } = UseGetPostulationById(currentCandidate, postulationId);
 
 	const updating = useSelector((state: State) => state.info.updating);
 
@@ -49,7 +44,7 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 						goodComment !== ""
 							? {
 									comment: goodComment,
-									context: postulationFound.main_status,
+									context: postulation.main_status,
 									user: currentUser,
 							  }
 							: undefined,
@@ -57,7 +52,7 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 						badComment !== ""
 							? {
 									comment: badComment,
-									context: postulationFound.main_status,
+									context: postulation.main_status,
 									user: currentUser,
 							  }
 							: undefined,

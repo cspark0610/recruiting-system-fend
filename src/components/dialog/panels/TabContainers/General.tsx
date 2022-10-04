@@ -3,10 +3,10 @@ import { FaMapMarkerAlt, FaRegFilePdf } from "react-icons/fa";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import CopyLinkButton from "../../../buttons/CopyLinkButton";
 import { HiMail } from "react-icons/hi";
-import { IPostulation } from "../../../../redux/candidates/types/data";
 import { State } from "../../../../redux/store/store";
 import { isValidURL } from "../../../../utils/general";
 import { useSelector } from "react-redux";
+import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
 
 interface Props {
 	postulationId: string;
@@ -15,19 +15,13 @@ interface Props {
 const General: React.FC<Props> = ({ postulationId }) => {
 	const details = useSelector((state: State) => state.info.detail);
 	const cv = useSelector((state: State) => state.info.detail.cv);
-	const postulationFound = {} as IPostulation;
-	const found: IPostulation =
-		details.postulations.length &&
-		details.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulationFound, found);
+	const { postulation } = UseGetPostulationById(details, postulationId);
 
-	const url_link_2 = postulationFound && postulationFound.url_link_2!;
-	const portfolioLink = postulationFound && postulationFound.portfolio;
-	const linkedinLink = postulationFound && postulationFound.linkedin;
-	const working_reason = postulationFound && postulationFound.working_reason;
-	const salary_expectations = postulationFound && postulationFound.salary_expectations;
+	const url_link_2 = postulation && postulation.url_link_2!;
+	const portfolioLink = postulation && postulation.portfolio;
+	const linkedinLink = postulation && postulation.linkedin;
+	const working_reason = postulation && postulation.working_reason;
+	const salary_expectations = postulation && postulation.salary_expectations;
 	const english_level = details && details.english_level;
 
 	const birthYear = details.birth_date?.split("-")[0];
@@ -178,8 +172,8 @@ const General: React.FC<Props> = ({ postulationId }) => {
 					<div className="my-5 flex h-20">
 						<span className="py-1">Tech Skills: </span>
 						<div className="flex w-[19rem] pt-1 overflow-y-auto flex-wrap gap-y-3">
-							{postulationFound.skills ? (
-								postulationFound.skills.map((skill: string, index: number) => (
+							{postulation.skills ? (
+								postulation.skills.map((skill: string, index: number) => (
 									<div key={index} className="ml-2">
 										<span className="text-white font-medium bg-cyan-color rounded-full p-1 px-2">
 											{skill}

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Tab } from "@headlessui/react";
 import DialogControl from "../../../buttons/DialogControl";
 import { State } from "../../../../redux/store/store";
-import { IPostulation } from "../../../../redux/candidates/types/data";
+import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
 
 interface Props {
 	isApproved: () => void;
@@ -29,13 +29,8 @@ const ListDialog: React.FC<Props> = ({
 }) => {
 	/*  */
 	const detail = useSelector((state: State) => state.info.detail);
-	const postulation = {} as IPostulation;
-	const found: IPostulation =
-		detail.postulations.length &&
-		detail.postulations.find((p: IPostulation) => {
-			return p._id === postulationId;
-		});
-	if (found) Object.assign(postulation, found);
+	const { postulation } = UseGetPostulationById(detail, postulationId);
+	const { main_status, secondary_status } = postulation;
 
 	return (
 		<Tab.List className="relative flex flex-col bg-light-gray-color w-[206px] h-screen">
@@ -96,7 +91,7 @@ const ListDialog: React.FC<Props> = ({
 			{/* Buttons to control the postulation'status of a user */}
 			<div className={`${isConfirmed ? "hidden" : "block"} absolute top-[370px] left-[40px]`}>
 				<div className="grid grid-cols-1">
-					{postulation.main_status === "chosen" ? (
+					{main_status === "chosen" ? (
 						<>
 							<DialogControl
 								classes="bg-cyan-color cursor-pointer"
@@ -113,7 +108,7 @@ const ListDialog: React.FC<Props> = ({
 						</>
 					) : (
 						<>
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-green-color"
 									onClick={isApproved}
@@ -121,7 +116,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-yellow-color"
 									onClick={isDoubting}
@@ -129,7 +124,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{postulation.secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && (
 								<DialogControl
 									classes="bg-red-dark"
 									onClick={isDismiss}
