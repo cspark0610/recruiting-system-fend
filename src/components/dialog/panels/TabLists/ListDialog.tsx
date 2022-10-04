@@ -32,6 +32,9 @@ const ListDialog: React.FC<Props> = ({
 	const { postulation } = UseGetPostulationById(detail, postulationId);
 	const { main_status, secondary_status } = postulation;
 
+	//console.log("listDialog", postulation);
+	const { main_status, secondary_status } = postulation;
+
 	return (
 		<Tab.List className="relative flex flex-col bg-light-gray-color w-[206px] h-screen">
 			<div className="w-full my-5 text-center grid justify-center">
@@ -94,7 +97,7 @@ const ListDialog: React.FC<Props> = ({
 					{main_status === "chosen" ? (
 						<>
 							<DialogControl
-								classes="bg-cyan-color cursor-pointer"
+								classes="bg-[#35C549]"
 								onClick={isHired}
 								title="Hire"
 								needIcon={false}

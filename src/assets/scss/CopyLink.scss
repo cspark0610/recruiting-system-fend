@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .copied{
   &:after{
     content: "Link Copied!";
