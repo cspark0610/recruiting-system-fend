@@ -140,13 +140,13 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 <input
                   type="checkbox"
                   name={priority.name}
-                  className="hover:cursor-pointer font-raleway w-5 h-5"
+                  className="custom__checkbox"
                   id={priority.id.toString()}
                   value={priority.name}
                   onChange={(e) => setSelectedPriority(e.target.value)}
                   checked={selectedPriority === priority.name ? true : false}
                 />
-                <span className='check-visual checked-'></span>
+                <span className='check-visual'></span>
                   {priority.displayName}
                 </label>
               </div>
