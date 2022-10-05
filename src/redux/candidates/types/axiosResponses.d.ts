@@ -10,6 +10,11 @@ export type GetCandidateInfoResponse = {
 	candidate: ICandidate;
 };
 
+export type GetPostulationInfoResponse = {
+	status: number;
+	postulation: IPostulation;
+};
+
 export type GetCandidatesFilteredResponse = {
 	status: number;
 	candidatesFiltered: ICandidate[];

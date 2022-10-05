@@ -1,12 +1,12 @@
 @import "./variables.scss";
-input[type="checkbox"]{
+.custom__checkbox{
   position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
 }
-input[type="checkbox"]  + .check-visual {
+.custom__checkbox  + .check-visual {
   height: 19px;
   width: 19px;
   background: #FFFFFF;

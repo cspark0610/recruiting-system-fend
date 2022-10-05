@@ -39,7 +39,7 @@ const cardColor = [
 	},
 ];
 
-export function getDetailHeaderText(main_status: string) {
+export function getDetailHeaderText(main_status: string, employment_status?: string) {
 	return headers.find((header) => header.key === main_status)?.text;
 }
 

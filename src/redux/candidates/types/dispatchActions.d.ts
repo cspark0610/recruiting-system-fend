@@ -21,6 +21,11 @@ export type GetCandidateInfoAction = {
 	payload: ICandidate;
 };
 
+export type GetPostulationAction = {
+	type: ActionTypes.GET_POSTULATION;
+	payload: IPostulation;
+};
+
 export type GetVideoAction = {
 	type: ActionTypes.GET_VIDEO;
 	payload: string;
