@@ -10,8 +10,11 @@ interface Props {
 	isDismiss: () => void;
 	isReject: () => void;
 	isHired: () => void;
+	isRecandidate: () => void;
 	isConfirmed: boolean;
 	postulationId: string;
+	shouldReload?: boolean;
+	hideButtons?: boolean;
 }
 
 function classNames(...classes: string[]) {
@@ -24,13 +27,17 @@ const ListDialog: React.FC<Props> = ({
 	isDismiss,
 	isReject,
 	isHired,
+	isRecandidate,
 	isConfirmed,
 	postulationId,
+	shouldReload,
+	hideButtons,
 }) => {
-	/*  */
+	/* shouldReload === false, hideButtons === true */
 	const detail = useSelector((state: State) => state.info.detail);
 	const { postulation } = UseGetPostulationById(detail, postulationId);
 	const { main_status, secondary_status } = postulation;
+	const employment_status = detail.employment_status;
 
 	return (
 		<Tab.List className="relative flex flex-col bg-light-gray-color w-[206px] h-screen">
@@ -91,7 +98,27 @@ const ListDialog: React.FC<Props> = ({
 			{/* Buttons to control the postulation'status of a user */}
 			<div className={`${isConfirmed ? "hidden" : "block"} absolute top-[370px] left-[40px]`}>
 				<div className="grid grid-cols-1">
-					{main_status === "chosen" ? (
+					{/*  */}
+					{shouldReload === false &&
+						hideButtons &&
+						(employment_status === "former" || employment_status === "in_process") && (
+							<DialogControl
+								classes="bg-cyan-color"
+								onClick={isRecandidate}
+								title="Recandidate"
+								needIcon={false}
+							/>
+						)}
+					{shouldReload === false && hideButtons && employment_status === "active" && (
+						<DialogControl
+							classes="bg-red-dark"
+							onClick={isDismiss}
+							title="Dismiss"
+							needIcon={false}
+						/>
+					)}
+
+					{main_status === "chosen" && !hideButtons ? (
 						<>
 							<DialogControl
 								classes="bg-[#35C549]"
@@ -108,7 +135,7 @@ const ListDialog: React.FC<Props> = ({
 						</>
 					) : (
 						<>
-							{secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && !hideButtons && (
 								<DialogControl
 									classes="bg-green-color"
 									onClick={isApproved}
@@ -116,7 +143,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && !hideButtons && (
 								<DialogControl
 									classes="bg-yellow-color"
 									onClick={isDoubting}
@@ -124,7 +151,7 @@ const ListDialog: React.FC<Props> = ({
 									needIcon={false}
 								/>
 							)}
-							{secondary_status !== "dismissed" && (
+							{secondary_status !== "dismissed" && !hideButtons && (
 								<DialogControl
 									classes="bg-red-dark"
 									onClick={isDismiss}

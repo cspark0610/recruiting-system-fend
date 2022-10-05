@@ -8,8 +8,11 @@ interface Props {
 	isDismiss: () => void;
 	isReject: () => void;
 	isHired: () => void;
+	isRecandidate: () => void;
 	isConfirmed: boolean;
 	postulationId: string;
+	shouldReload?: boolean;
+	hideButtons?: boolean;
 }
 
 const Panels: React.FC<Props> = ({
@@ -18,8 +21,11 @@ const Panels: React.FC<Props> = ({
 	isDismiss,
 	isReject,
 	isHired,
+	isRecandidate,
 	isConfirmed,
 	postulationId,
+	shouldReload,
+	hideButtons,
 }) => {
 	return (
 		<Tab.Group>
@@ -29,8 +35,11 @@ const Panels: React.FC<Props> = ({
 				isDismiss={isDismiss}
 				isReject={isReject}
 				isHired={isHired}
+				isRecandidate={isRecandidate}
 				isConfirmed={isConfirmed}
 				postulationId={postulationId}
+				shouldReload={shouldReload}
+				hideButtons={hideButtons}
 			/>
 			<PanelDialog postulationId={postulationId} />
 		</Tab.Group>

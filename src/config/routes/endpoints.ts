@@ -8,6 +8,7 @@ export const POST_CANDIDATE = "/postulation/info/update";
 export const POST_FEED = "/candidate/conclusions/update";
 
 export const GET_ALL_CANDIDATES = "/candidate";
+export const GET_ALL_POSTULATIONS = "/postulation";
 export const GET_ALL_CANDIDATES_FILTERED = "/candidate/filter";
 export const GET_ALL_CANDIDATES_FILTERED_EXPERT = "/candidate/expert/filter";
 export const UPDATE_CANDIDATE_EMPLOYMENT_STATUS = "/candidate/employment_status/update";

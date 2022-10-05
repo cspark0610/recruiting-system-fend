@@ -60,6 +60,9 @@ export default function Card({
 							isModalLoading={isModalLoading}
 							setIsModalLoading={setIsModalLoading}
 							postulationId={postulationId}
+							shouldReload={true}
+							hideButtons={false}
+							shouldRenderDropdown={true}
 						/>
 					)}
 				</section>

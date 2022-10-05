@@ -6,6 +6,7 @@ import {
 	CreateCandidateResponse,
 	GetCandidateInfoResponse,
 	GetCandidatesFilteredResponse,
+	GetPostulationInfoResponse,
 	// GetCandidatesResponse,
 	UpdateCandidateConclusionResponse,
 	UpdateCandidateEmploymentStatusResponse,
@@ -41,6 +42,7 @@ import {
 	UpdateCandidateInfoAction,
 	UpdateCandidateEmploymentStatusAction,
 	AddNewPostulationToCandidateAction,
+	GetPostulationAction,
 } from "../types/dispatchActions";
 
 import {
@@ -73,6 +75,7 @@ import {
 	UPDATE_CANDIDATE_INFO,
 	UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
 	ADD_POSTULATION_TO_CANDIDATE,
+	GET_ALL_POSTULATIONS,
 } from "../../../config/routes/endpoints";
 import ClientAxios, { PrivateAxios } from "../../../config/api/axios";
 import { Filters, FiltersExpert, IConclusionInv, IPostulation } from "../types/data";
@@ -120,6 +123,22 @@ export function GetCandidateInfo(_id: string) {
 			return dispatch<GetCandidateInfoAction>({
 				type: ActionTypes.GET_CANDIDATE_DETAIL,
 				payload: data.candidate,
+			});
+		} catch (error: any) {
+			handleErrorsInCatch(error, dispatch);
+		}
+	};
+}
+export function GetPostulationById(_id: string) {
+	return async function (dispatch: Dispatch) {
+		try {
+			const { data } = await PrivateAxios.get<GetPostulationInfoResponse>(
+				`${GET_ALL_POSTULATIONS}/${_id}`
+			);
+
+			return dispatch<GetPostulationAction>({
+				type: ActionTypes.GET_POSTULATION,
+				payload: data.postulation,
 			});
 		} catch (error: any) {
 			handleErrorsInCatch(error, dispatch);

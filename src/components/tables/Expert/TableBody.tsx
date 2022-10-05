@@ -7,15 +7,49 @@ import { BsPlay as PlayIcon } from "react-icons/bs";
 // import { IoMicCircleOutline as AudioIcon } from "react-icons/io5";
 // import { GiSoundWaves as RecordIcon } from "react-icons/gi";
 import uuid from "uuidv4";
+import { useState } from "react";
+import { batch, useDispatch } from "react-redux";
+import {
+	GetCandidateInfo,
+	GetPostulationById,
+} from "../../../redux/candidates/actions/CandidateAction";
+import UserDialog from "../../dialog/UserDialog";
 
 interface TableBodyProps {
 	candidates: ICandidate[];
 }
 
 const TableBody = ({ candidates }: TableBodyProps) => {
-	const renderCandidateInfo = (candidate: ICandidate) => {
+	const dispatch = useDispatch();
+	const [openDialog, setOpenDialog] = useState<boolean>(false);
+	const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
+	const [shouldReload, setShouldReload] = useState<boolean>(true);
+	const [hideButtons, setHideButtons] = useState<boolean>(false);
+	const [shouldRenderDropdown, setShouldRenderDropdown] = useState<boolean>(true);
+
+	const isOpen = (candidateId: string, postulationId: string) => {
+		batch(() => {
+			dispatch(GetCandidateInfo(candidateId));
+			dispatch(GetPostulationById(postulationId));
+		});
+		setOpenDialog(true);
+		setIsModalLoading(true);
+		setShouldReload(false);
+		setHideButtons(true);
+		setShouldRenderDropdown(false);
+	};
+
+	const isClose = () => {
+		setOpenDialog(false);
+	};
+
+	const renderCandidateInfo = (candidate: ICandidate, postulation: IPostulation) => {
 		return (
-			<div className="w-2/3 flex flex-col" key={uuid()}>
+			<div
+				className="w-2/3 flex flex-col cursor-pointer"
+				key={uuid()}
+				onClick={() => isOpen(candidate._id!, postulation._id!)}
+			>
 				<span>
 					{candidate.name},{" "}
 					<span className="font-semibold">
@@ -135,9 +169,20 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 								className="flex items-center border-b-2 border-[#DEE1E6]  py-5 select-none"
 								key={uuid()}
 							>
+								{openDialog && (
+									<UserDialog
+										isDialogClose={isClose}
+										isModalLoading={isModalLoading}
+										setIsModalLoading={setIsModalLoading}
+										postulationId={postulation._id!}
+										shouldReload={shouldReload}
+										hideButtons={hideButtons}
+										shouldRenderDropdown={shouldRenderDropdown}
+									/>
+								)}
 								<input type="checkbox" className="w-2/12 cursor-pointer" />
 								{/* Candidate INFO */}
-								{renderCandidateInfo(candidate)}
+								{renderCandidateInfo(candidate, postulation)}
 								{/* Candidate Salary */}
 								{renderCandidateSalaryByPostulation(postulation)}
 								{/* Candidate Availability */}

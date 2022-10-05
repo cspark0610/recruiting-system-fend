@@ -26,7 +26,7 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 
 	const positionsFiltered = positions.filter((position) => {
 		return detail.postulations?.every(
-			(postulation) => position.title !== postulation.position.title
+			(postulation) => position?.title !== postulation.position?.title
 		);
 	});
 
