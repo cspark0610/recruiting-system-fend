@@ -124,6 +124,13 @@ function CandidateReducer(state = initialState, action: Action) {
 			};
 		}
 
+		case ActionTypes.GET_POSTULATION: {
+			return {
+				...state,
+				postulation: action.payload,
+			};
+		}
+
 		case ActionTypes.GET_VIDEO: {
 			return {
 				...state,
