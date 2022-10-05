@@ -97,14 +97,15 @@ export default function PositionsList() {
       <div
         className={
           success.message !== ''
-            ? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
+            ? 'absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-75 ' 
             : 'duration-200 opacity-0 invisible'
         }
       >
         {success.message !== '' && (
-          <span className="p-2 px-3 bg-[#35C549] rounded-full text-white text-center font-raleway font-seibold">
-            {success.message}
-          </span>
+          <div className="relative inline-block align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl  w-[613px] h-[330px] flex justify-center items-center flex-col" >
+            <img src={process.env.PUBLIC_URL + `/images/approve.svg`} alt="Approved img"  />
+            <p className='mt-10'>{success.message}df</p>
+          </div>
         )}
       </div>
     </div>

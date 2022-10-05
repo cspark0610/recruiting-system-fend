@@ -1,43 +1,38 @@
-import { Dispatch } from 'redux';
-import store from '../../store/store';
-
-import { ActionTypes } from '../types/actionNames';
-
 import {
-  GetAllPositionsAction,
-  GetPositionInfoAction,
+  CREATE_POSITION,
+  DELETE_POSITION,
+  GET_ALL_POSITIONS,
+  SET_IS_ACTIVE,
+  UPDATE_POSITION,
+} from '../../../config/routes/endpoints';
+import {
+  CleanPositionErrorAction,
+  ClearSuccessAction,
   CreatePositionAction,
+  GetActivePositionsAction,
+  GetAllPositionsAction,
+  GetInactivePositionsAction,
+  GetPositionInfoAction,
+  SetIsPositionUpdatingAction,
+  SetLoadingAction,
   SetPositionErrorAction,
   SetSuccessAction,
-  ClearSuccessAction,
-  CleanPositionErrorAction,
-  SetLoadingAction,
-  GetActivePositionsAction,
-  GetInactivePositionsAction,
-  SetIsPositionUpdatingAction,
 } from '../types/dispatchActions';
-
 import {
+  CreatePositionResponse,
+  DeletePositionResponse,
   GetAllPositionsResponse,
   GetPositionResponse,
-  CreatePositionResponse,
   SetIsActiveResponse,
-  DeletePositionResponse,
   UpdatePositionResponse,
 } from '../types/axiosResponses';
 
-import {
-  GET_ALL_POSITIONS,
-  CREATE_POSITION,
-  SET_IS_ACTIVE,
-  DELETE_POSITION,
-  UPDATE_POSITION,
-} from '../../../config/routes/endpoints';
-
+import { ActionTypes } from '../types/actionNames';
+import { Dispatch } from 'redux';
 import { IPosition } from '../types/data';
-
-import { PrivateAxios } from '../../../config/api/axios';
 import { IUser } from '../../users/types/data';
+import { PrivateAxios } from '../../../config/api/axios';
+import store from '../../store/store';
 
 export default function getAllPositions(list: string) {
   return async function (dispatch: Dispatch) {
@@ -179,7 +174,7 @@ export function createPosition(positionInfo: IPosition) {
         type: ActionTypes.SET_SUCCESS,
         payload: {
           status: 201,
-          message: 'Position created successfully',
+          message: 'New Position Created',
         },
       });
 
@@ -227,7 +222,7 @@ export function UpdateInfo(_id: string, newInfo: IPosition) {
         type: ActionTypes.SET_SUCCESS,
         payload: {
           status: 200,
-          message: 'Position updated successfully',
+          message: 'Edition Saved',
         },
       });
 
