@@ -1,5 +1,6 @@
 import secondaryStatus from "../config/kanban/constants";
 import { ICandidate, IPostulation } from "../redux/candidates/types/data";
+import employmentStatus from "./employment-status.util";
 
 const headers = [
 	{
@@ -39,7 +40,7 @@ const cardColor = [
 	},
 ];
 
-export function getDetailHeaderText(main_status: string, employment_status?: string) {
+export function getDetailHeaderText(main_status: string) {
 	return headers.find((header) => header.key === main_status)?.text;
 }
 
@@ -77,6 +78,18 @@ export function getHeaderTopBorderColor(main_status: string, secondary_status: s
 		(status) => status.value === secondary_status
 	)?.color;
 	return headerTopBorderColor;
+}
+
+export function getHeaderTopBorderColorExpert(employment_status: string) {
+	if (employment_status === "former") {
+		return employmentStatus[0].color;
+	}
+	if (employment_status === "in_process") {
+		return employmentStatus[1].color;
+	}
+	if (employment_status === "active") {
+		return employmentStatus[2].color;
+	}
 }
 
 const executeFilterAndSort = (filterCriteria: string, arr: IPostulation[]) => {
