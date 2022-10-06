@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 //import { BsPlay } from "react-icons/bs";
-import { State } from "../../../../redux/store/store";
+import { AppDispatch, State } from "../../../../redux/store/store";
 import { IQuestion } from "../../../../redux/positions/types/data";
 import QskInterview from "../../../extras/QskInterview";
 import { GetVideo } from "../../../../redux/candidates/actions/CandidateAction";
@@ -11,12 +11,12 @@ interface Props {
 	postulationId: string;
 }
 const Videos: React.FC<Props> = ({ postulationId }) => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const detail = useSelector((state: State) => state.info.detail);
 	const { postulation } = UseGetPostulationById(detail, postulationId);
 
 	const hasUploaded: IQuestion[] = postulation?.video_questions_list!.filter(
-		(video: IQuestion) => video.video_key !== ""
+		(video: IQuestion) => video.video_key !== "",
 	);
 
 	const video_keys: string[] = hasUploaded.map((h) => h.video_key);
@@ -29,12 +29,16 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const videos_recorded = useSelector((state: State) => state.info.postulation.videos_recorded);
+	const videos_recorded = useSelector(
+		(state: State) => state.info.postulation.videos_recorded,
+	);
 
 	return (
 		<div className="grid justify-items-center">
 			<div className="mt-[48px] grid justify-items-start w-[85%]">
-				<p className="font-raleway font-semibold text-gray-color text-[20px]">{detail.name}</p>
+				<p className="font-raleway font-semibold text-gray-color text-[20px]">
+					{detail.name}
+				</p>
 			</div>
 			<section className="grid justify-items-center grid-cols-2 gap-[36px] w-[85%]">
 				<div className="w-full">
@@ -49,11 +53,19 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 							{/* only 2 videos */}
 							{videos_recorded.length > 0 && (
 								<>
-									<video id="video-interview" controls src={`${videos_recorded[0]}`}>
+									<video
+										id="video-interview"
+										controls
+										src={`${videos_recorded[0]}`}
+									>
 										<source type="video/mp4" />
 									</video>
 
-									<video id="video-interview" controls src={`${videos_recorded[1]}`}>
+									<video
+										id="video-interview"
+										controls
+										src={`${videos_recorded[1]}`}
+									>
 										<source type="video/mp4" />
 									</video>
 								</>

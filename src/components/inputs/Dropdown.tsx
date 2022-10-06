@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import Apply from "../buttons/Apply";
 import { UseGetPostulationById } from "../../hooks/useGetPostulationById";
 import { ICandidate } from "../../redux/candidates/types/data";
@@ -17,16 +17,18 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 	/*  */
 	const [position, setPosition] = useState<Array<string>>([]);
 	const [showDropdown, setShowDropdown] = useState<boolean>(false);
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	// const history = createBrowserHistory();
 
-	const positions: IPosition[] = useSelector((state: State) => state.positions.data.docs);
+	const positions: IPosition[] = useSelector(
+		(state: State) => state.positions.data.docs,
+	);
 	const detail = useSelector((state: State) => state.info.detail) as ICandidate;
 	const { postulation } = UseGetPostulationById(detail, postulationId);
 
 	const positionsFiltered = positions.filter((position) => {
 		return detail.postulations?.every(
-			(postulation) => position?.title !== postulation.position?.title
+			(postulation) => position?.title !== postulation.position?.title,
 		);
 	});
 
@@ -38,12 +40,14 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 				_id: position.pop(),
 				linkedin: postulation.linkedin ?? "",
 				portfolio: postulation.portfolio ?? "",
-			})
+			}),
 		);
 		setPosition([""]);
 	};
 
-	const handlePositionCaptureCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handlePositionCaptureCheck = (
+		e: React.ChangeEvent<HTMLInputElement>,
+	) => {
 		if (e.target.checked) {
 			setPosition([...position, e.target.value]);
 		} else {

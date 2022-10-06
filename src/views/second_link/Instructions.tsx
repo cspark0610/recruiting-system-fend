@@ -8,11 +8,11 @@ import Next from "../../components/buttons/Next";
 import Lang from "../../components/extras/Lang";
 import Header from "../../components/header/Header";
 import { VIEW_404, VIEW_REQUIRED_STEPS } from "../../config/routes/paths";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 
 const Instructions = () => {
 	/*  */
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const { t } = useTranslation();
 
 	const error = useSelector((state: State) => state.info.error);

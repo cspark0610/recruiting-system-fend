@@ -14,7 +14,7 @@ import {
 	VIEW_REQUIRED_STEPS,
 	VIEW_WELCOME_THANKS,
 } from "../../config/routes/paths";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 
 import { useTranslation } from "react-i18next";
 import VideoPlayer from "../../components/recorder/player/VideoPlayer";
@@ -23,11 +23,13 @@ import { IPostulation } from "../../redux/candidates/types/data";
 const VideoCompleted = () => {
 	/*  */
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const { t } = useTranslation();
 
 	const candidateDetail = useSelector((state: State) => state.info.detail);
-	const postulationDetail: IPostulation = useSelector((state: State) => state.info.postulation);
+	const postulationDetail: IPostulation = useSelector(
+		(state: State) => state.info.postulation,
+	);
 
 	const { academic_training, available_from } = candidateDetail;
 
@@ -68,7 +70,9 @@ const VideoCompleted = () => {
 				{candidateDetail && (
 					<section className="grid justify-items-center content-center mobile:gap-10 laptop:gap-10 mobile:grid-rows-1 tablet:grid-cols-2 laptop:grid-cols-2 md:px-5 w-full">
 						<div className="font-raleway text-gray-color bg-white w-4/5">
-							<h2 className="mobile:text-lg laptop:text-2xl">{t("video-completed.title")}</h2>
+							<h2 className="mobile:text-lg laptop:text-2xl">
+								{t("video-completed.title")}
+							</h2>
 							<span className="mobile:text-sm laptop:text-base">
 								{t("video-completed.sub-title")}
 							</span>
@@ -78,7 +82,9 @@ const VideoCompleted = () => {
 							<hr className="w-ful my-5" />
 							<p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
 								{t("video-completed.studies")}{" "}
-								<span className="text-cyan-color font-bold">{academic_training}</span>
+								<span className="text-cyan-color font-bold">
+									{academic_training}
+								</span>
 								<button
 									type="submit"
 									onClick={redirectEdition}
@@ -104,7 +110,9 @@ const VideoCompleted = () => {
 								</p>
 							</div>
 							<hr className="w-ful my-5" />
-							<p className="mobile:text-xs laptop:text-sm">{t("video-completed.skill-title")} </p>
+							<p className="mobile:text-xs laptop:text-sm">
+								{t("video-completed.skill-title")}{" "}
+							</p>
 							<div className="grid grid-cols-2 gap-2 mt-2">
 								{skills &&
 									skills.map((ability: string, index: number) => (

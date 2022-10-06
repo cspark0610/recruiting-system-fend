@@ -2,17 +2,19 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCandidatesFiltered } from "../../redux/candidates/actions/CandidateAction";
 import { AiOutlineDown } from "react-icons/ai";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import GetAllPositions from "../../redux/positions/actions/PositionsActions";
 import detectOutsideClick from "../../utils/detectOutsideClick";
 import secondaryStatus from "../../config/kanban/constants";
 import Apply from "../buttons/Apply";
 
 export default function Filters() {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const positions = useSelector((state: State) => state.positions.data.docs);
-	const currentFilters = useSelector((state: State) => state.info.currentFilters);
+	const currentFilters = useSelector(
+		(state: State) => state.info.currentFilters,
+	);
 
 	// adds a checked property to each job object
 	let positionsWithCheck = positions.map((pos) => {
@@ -25,7 +27,8 @@ export default function Filters() {
 	const [showPositionFilter, setShowPositionFilter] = useState<boolean>(false);
 	const [showStatusFilter, setShowStatusFilter] = useState<boolean>(false);
 
-	const [allPositionsSelected, setAllPositionsSelected] = useState<boolean>(false);
+	const [allPositionsSelected, setAllPositionsSelected] =
+		useState<boolean>(false);
 	const [allStatusSelected, setAllStatusSelected] = useState<boolean>(false);
 
 	const wraperRef = useRef<HTMLDivElement>(null);
@@ -43,7 +46,9 @@ export default function Filters() {
 		if (e.target.checked) {
 			setSecondaryStatus([...secondary_status, e.target.value]);
 		} else {
-			setSecondaryStatus([...secondary_status.filter((status) => status !== e.target.value)]);
+			setSecondaryStatus([
+				...secondary_status.filter((status) => status !== e.target.value),
+			]);
 		}
 	};
 
@@ -83,7 +88,7 @@ export default function Filters() {
 				position,
 				status: secondary_status,
 				query: "",
-			})
+			}),
 		);
 		setShowPositionFilter(false);
 		setShowStatusFilter(false);
@@ -103,7 +108,10 @@ export default function Filters() {
 			<div className="relative">
 				<div className="flex gap-4">
 					<span className="font-raleway">Positions</span>
-					<button onClick={() => setShowPositionFilter(!showPositionFilter)} className="pr-4">
+					<button
+						onClick={() => setShowPositionFilter(!showPositionFilter)}
+						className="pr-4"
+					>
 						<AiOutlineDown
 							className={
 								showPositionFilter
@@ -126,10 +134,15 @@ export default function Filters() {
 							onClick={handleAllPositionsCheck}
 							className="flex justify-end text-sm text-cyan-500 font-raleway"
 						>
-							{allPositionsSelected && position.length !== 0 ? "Unselect all" : "Select all"}
+							{allPositionsSelected && position.length !== 0
+								? "Unselect all"
+								: "Select all"}
 						</button>
 						{positions.map((pos) => (
-							<div key={pos._id} className="flex justify-between border-b pb-2 w-48">
+							<div
+								key={pos._id}
+								className="flex justify-between border-b pb-2 w-48"
+							>
 								<label htmlFor={pos._id} className="font-raleway">
 									{pos.title}
 								</label>
@@ -153,10 +166,15 @@ export default function Filters() {
 				{/* aca */}
 				<div className="flex gap-4">
 					<span className="font-raleway">Status</span>
-					<button onClick={() => setShowStatusFilter(!showStatusFilter)} className="pr-3">
+					<button
+						onClick={() => setShowStatusFilter(!showStatusFilter)}
+						className="pr-3"
+					>
 						<AiOutlineDown
 							className={
-								showStatusFilter ? "rotate-180 transition ease-in-out duration-200" : "duration-200"
+								showStatusFilter
+									? "rotate-180 transition ease-in-out duration-200"
+									: "duration-200"
 							}
 						/>
 					</button>
@@ -173,13 +191,23 @@ export default function Filters() {
 							className="flex justify-end text-sm text-cyan-500 font-raleway"
 							onClick={handleAllStatusCheck}
 						>
-							{allStatusSelected && secondary_status.length !== 0 ? "Unselect all" : "Select all"}
+							{allStatusSelected && secondary_status.length !== 0
+								? "Unselect all"
+								: "Select all"}
 						</button>
 						{secondaryStatus.map((status) => (
-							<div key={status.id} className="flex justify-between border-b pb-2 w-48">
+							<div
+								key={status.id}
+								className="flex justify-between border-b pb-2 w-48"
+							>
 								<div className="flex">
-									<div className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}></div>
-									<label htmlFor={status.id.toString()} className="ml-3 font-raleway">
+									<div
+										className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
+									></div>
+									<label
+										htmlFor={status.id.toString()}
+										className="ml-3 font-raleway"
+									>
 										{status.displayName}
 									</label>
 								</div>
@@ -188,7 +216,9 @@ export default function Filters() {
 									className="mt-2 ml-2 hover:cursor-pointer"
 									name={status.displayName}
 									id={status.id.toString()}
-									checked={secondary_status.indexOf(status.value) !== -1 ? true : false}
+									checked={
+										secondary_status.indexOf(status.value) !== -1 ? true : false
+									}
 									value={status.value}
 									onChange={handleStatusCheck}
 								/>

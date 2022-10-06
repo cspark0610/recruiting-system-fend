@@ -20,7 +20,7 @@ import English from "../../assets/json/Language.json";
 
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import {
 	CleanCandidateErrors,
 	CreateCandidate,
@@ -33,7 +33,7 @@ interface Props {
 
 const FrmApply: React.FC<Props> = ({ _id }) => {
 	/*  */
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const { t } = useTranslation();
 	const maxFileSize = 10000000;
 
@@ -91,7 +91,9 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
 		phone === "" ? setIsPhoneValid(true) : setIsPhoneValid(false);
 		idiom.name === "" ? setIsIdiomValid(true) : setIsIdiomValid(false);
 		nation.name === "" ? setIsNationValid(true) : setIsNationValid(false);
-		terms === false ? setIsTermsValid(!isTermsValid) : setIsTermsValid(isTermsValid);
+		terms === false
+			? setIsTermsValid(!isTermsValid)
+			: setIsTermsValid(isTermsValid);
 	};
 
 	const onChange = (evt: any) => {

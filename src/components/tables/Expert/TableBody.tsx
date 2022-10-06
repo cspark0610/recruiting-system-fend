@@ -14,18 +14,20 @@ import {
 	GetPostulationById,
 } from "../../../redux/candidates/actions/CandidateAction";
 import UserDialog from "../../dialog/UserDialog";
+import { AppDispatch } from "../../../redux/store/store";
 
 interface TableBodyProps {
 	candidates: ICandidate[];
 }
 
 const TableBody = ({ candidates }: TableBodyProps) => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 	const [shouldReload, setShouldReload] = useState<boolean>(true);
 	const [hideButtons, setHideButtons] = useState<boolean>(false);
-	const [shouldRenderDropdown, setShouldRenderDropdown] = useState<boolean>(true);
+	const [shouldRenderDropdown, setShouldRenderDropdown] =
+		useState<boolean>(true);
 
 	const isOpen = (candidateId: string, postulationId: string) => {
 		batch(() => {
@@ -43,7 +45,10 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 		setOpenDialog(false);
 	};
 
-	const renderCandidateInfo = (candidate: ICandidate, postulation: IPostulation) => {
+	const renderCandidateInfo = (
+		candidate: ICandidate,
+		postulation: IPostulation,
+	) => {
 		return (
 			<div
 				className="w-2/3 flex flex-col cursor-pointer"
@@ -86,7 +91,10 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 
 	const renderCandidateMedia = (candidate: ICandidate) => {
 		return (
-			<div className="w-1/3 flex flex-wrap h-full items-center justify-center" key={uuid()}>
+			<div
+				className="w-1/3 flex flex-wrap h-full items-center justify-center"
+				key={uuid()}
+			>
 				<a href={candidate.cv ?? "#"}>
 					<CVIcon className="cursor-pointer text-green text-[2em] text-[#00ADEF] hover:opacity-25" />
 				</a>

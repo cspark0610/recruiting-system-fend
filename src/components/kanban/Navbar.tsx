@@ -13,9 +13,10 @@ import detectOutsideClick from "../../utils/detectOutsideClick";
 import { getStorageItem } from "../../utils/localStorage";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../redux/store/store";
 
 export default function Navbar() {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 
 	const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
@@ -60,7 +61,10 @@ export default function Navbar() {
 								: "duration-200 opacity-0 invisible absolute w-52 mt-2"
 						}
 					>
-						<button className="text-black px-3 py-2 font-raleway" onClick={handleProfileNavigate}>
+						<button
+							className="text-black px-3 py-2 font-raleway"
+							onClick={handleProfileNavigate}
+						>
 							My Profile
 						</button>
 					</div>

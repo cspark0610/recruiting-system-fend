@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { ValidateToken } from "../../redux/candidates/actions/CandidateAction";
 import { VIEW_404 } from "../../config/routes/paths";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import Lang from "../../components/extras/Lang";
 import QskInterview from "../../components/extras/QskInterview";
 import Header from "../../components/header/Header";
 import Stream from "../../components/recorder/Stream";
 
 const VideoStart = () => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const [videoCounter, setVideoCounter] = useState(1);
 
@@ -27,7 +27,9 @@ const VideoStart = () => {
 		dispatch(ValidateToken(token!));
 
 		return () => {
-			window.mediaStreamObject.getTracks().forEach((track: any) => track.stop());
+			window.mediaStreamObject
+				.getTracks()
+				.forEach((track: any) => track.stop());
 		};
 	}, [dispatch, token]);
 	const postulation = useSelector((state: State) => state.info.postulation);
@@ -50,7 +52,11 @@ const VideoStart = () => {
 						/>
 					</div>
 					<div>
-						<QskInterview classes="text-[15px]" videoCounter={videoCounter} isRecording={true} />
+						<QskInterview
+							classes="text-[15px]"
+							videoCounter={videoCounter}
+							isRecording={true}
+						/>
 					</div>
 				</section>
 			</div>

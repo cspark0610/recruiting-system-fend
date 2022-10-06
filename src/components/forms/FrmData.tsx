@@ -19,7 +19,7 @@ import Skills from "../../assets/json/Skills.json";
 import Coins from "../../assets/json/Coin.json";
 
 /* Redux */
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	ClearCandidateSuccess,
@@ -35,7 +35,7 @@ type Props = {
 const FrmData: React.FC<Props> = ({ token }) => {
 	/*  */
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const { t } = useTranslation();
 
 	/* Regular Expressions */
@@ -54,7 +54,9 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	const { skills, training, time, coins } = optionValues;
 
 	const candidateDetail = useSelector((state: State) => state.info.detail);
-	const postulationDetail = useSelector((state: State) => state.info.postulation);
+	const postulationDetail = useSelector(
+		(state: State) => state.info.postulation,
+	);
 
 	//const candidateId = candidateDetail && candidateDetail._id;
 	const postulationId = postulationDetail && postulationDetail._id;
@@ -79,8 +81,9 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	const toEdit = searchParams.get("edit");
 
 	/*  */
-	const _UpdatePostulationInfo = (newInfo: UpdatePostulationInfoAction["payload"]) =>
-		dispatch(UpdatePostulationInfo(postulationId, newInfo));
+	const _UpdatePostulationInfo = (
+		newInfo: UpdatePostulationInfoAction["payload"],
+	) => dispatch(UpdatePostulationInfo(postulationId, newInfo));
 
 	const loading = useSelector((state: State) => state.info.loading);
 	const success = useSelector((state: State) => state.info.success);
@@ -142,20 +145,27 @@ const FrmData: React.FC<Props> = ({ token }) => {
 
 	useEffect(() => {
 		if (toEdit === "true") {
-			const collegeToEdit = training.find((t) => t.name === candidateDetail.academic_training) || {
+			const collegeToEdit = training.find(
+				(t) => t.name === candidateDetail.academic_training,
+			) || {
 				id: 0,
 				name: college.name,
 			};
 
 			const currencyToEdit = coins.find(
-				(c) => c.name === postulationDetail.salary_expectations.split(" ")[0]
+				(c) => c.name === postulationDetail.salary_expectations.split(" ")[0],
 			);
 
-			const availableToEdit = time.find((t) => t.name === postulationDetail.available_from);
+			const availableToEdit = time.find(
+				(t) => t.name === postulationDetail.available_from,
+			);
 
-			const skillsToEdit = postulationDetail.skills.reduce((prev: any, skill: any) => {
-				return [...prev, { id: 0, name: skill }];
-			}, []);
+			const skillsToEdit = postulationDetail.skills.reduce(
+				(prev: any, skill: any) => {
+					return [...prev, { id: 0, name: skill }];
+				},
+				[],
+			);
 
 			setDescription(postulationDetail.working_reason);
 			setCollege(collegeToEdit!);
@@ -239,10 +249,18 @@ const FrmData: React.FC<Props> = ({ token }) => {
 						setValue={setSkill}
 						width="laptop:w-full mobile:w-full tablet:w-full"
 					/>
-					<TextArea id="description" setValue={setDescription} value={description} />
+					<TextArea
+						id="description"
+						setValue={setDescription}
+						value={description}
+					/>
 				</div>
 				{!toEdit ? (
-					<Submit name={t("submit_button.name")} width="w-full tablet:w-28" onSubmit={onSubmit} />
+					<Submit
+						name={t("submit_button.name")}
+						width="w-full tablet:w-28"
+						onSubmit={onSubmit}
+					/>
 				) : (
 					<div className="flex justify-center">
 						<Submit
@@ -250,7 +268,11 @@ const FrmData: React.FC<Props> = ({ token }) => {
 							width="w-full tablet:w-28 mx-2 bg-transparent text-cyan-color border-cyan-color border hover:bg-transparent shadow-none"
 							onSubmit={handleCancelClick}
 						/>
-						<Submit name="Save" width="w-full tablet:w-28 mx-2" onSubmit={handleEditClick} />
+						<Submit
+							name="Save"
+							width="w-full tablet:w-28 mx-2"
+							onSubmit={handleEditClick}
+						/>
 					</div>
 				)}
 			</section>

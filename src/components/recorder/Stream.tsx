@@ -2,7 +2,7 @@ import { useCallback, useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MdRestartAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import { VIEW_VIDEO_COMPLETED } from "../../config/routes/paths";
 import CameraOn from "./CameraOn";
 import Stop from "./control/Stop";
@@ -21,15 +21,22 @@ type StreamProps = {
 	postulation: IPostulation;
 };
 
-const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, postulation }) => {
+const Stream: React.FC<StreamProps> = ({
+	videoCounter,
+	setVideoCounter,
+	token,
+	postulation,
+}) => {
 	/*  */
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 
 	const [capture, setCapture] = useState(false);
 	const [isStopped, setIsStopped] = useState(false);
 
-	const currentCandidate = useSelector((state: State) => state.info.detail) as ICandidate;
+	const currentCandidate = useSelector(
+		(state: State) => state.info.detail,
+	) as ICandidate;
 	const postulationId = postulation._id;
 
 	const { time, startTimer, stopTimer, resetTimer, progress } = useCounter();
@@ -82,12 +89,16 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 	}, [handleStartCaptureClick, resetTimer]);
 
 	const handleSubmitCapture = useCallback(() => {
-		const postulationFound = currentCandidate.postulations!.find((p) => p._id === postulationId);
+		const postulationFound = currentCandidate.postulations!.find(
+			(p) => p._id === postulationId,
+		);
 		const video_questions_list: IPostulation["video_questions_list"] = [];
 
-		postulationFound!.video_questions_list!.forEach((videoQuestionObj: IQuestion) => {
-			video_questions_list.push(videoQuestionObj);
-		});
+		postulationFound!.video_questions_list!.forEach(
+			(videoQuestionObj: IQuestion) => {
+				video_questions_list.push(videoQuestionObj);
+			},
+		);
 		//console.log(videoChunks, "videoChunks");
 
 		if (videoChunks.current) {
@@ -107,7 +118,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 					formData.append("video", blob);
 					formData.append(
 						"question_id",
-						String(video_questions_list[videoCounter - 1].question_id)
+						String(video_questions_list[videoCounter - 1].question_id),
 					);
 					dispatch(SendVideo(postulationId!, formData));
 
@@ -118,7 +129,7 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 					formData.append("video", blob);
 					formData.append(
 						"question_id",
-						String(video_questions_list[videoCounter - 1].question_id)
+						String(video_questions_list[videoCounter - 1].question_id),
 					);
 
 					videoChunks.current = [];
@@ -184,7 +195,8 @@ const Stream: React.FC<StreamProps> = ({ videoCounter, setVideoCounter, token, p
 						onClick={handleRemakeCaptureClick}
 					>
 						<div className="flex items-center justify-between">
-							Remake &nbsp; <MdRestartAlt className="text-gray-color w-[20px] h-[20px]" />
+							Remake &nbsp;{" "}
+							<MdRestartAlt className="text-gray-color w-[20px] h-[20px]" />
 						</div>
 					</button>
 

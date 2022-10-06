@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import { Login } from "../../redux/users/actions/UserAction";
 import { VIEW_KANBAN } from "../../config/routes/paths";
 import LoaderSpinner from "../../assets/loaderSpinner";
@@ -10,7 +10,7 @@ import GoogleButton from "../buttons/GoogleButton";
 
 const FrmLogin = () => {
 	/*  */
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const loading = useSelector((state: State) => state.user.loading);
 	const success = useSelector((state: State) => state.user.success);
@@ -65,7 +65,8 @@ const FrmLogin = () => {
 		window.location.assign(VIEW_KANBAN);
 	}
 
-	const CLIENT_ID = "223169859946-i39ji5rf3isf8gbvsvt0cvi4smeoh1kk.apps.googleusercontent.com";
+	const CLIENT_ID =
+		"223169859946-i39ji5rf3isf8gbvsvt0cvi4smeoh1kk.apps.googleusercontent.com";
 
 	const handleSuccess = (result: any) => {
 		dispatch(Login({ tokenId: result.credential }, true));
@@ -181,7 +182,11 @@ const FrmLogin = () => {
 								onClick={handleLogin}
 								className="w-[132px] h-[54px] cursor-pointer rounded-[10px] bg-cyan-color hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway focus:outline-none"
 							>
-								{loading ? <LoaderSpinner height="h-8" width="w-[8.2rem]" /> : "Log In"}
+								{loading ? (
+									<LoaderSpinner height="h-8" width="w-[8.2rem]" />
+								) : (
+									"Log In"
+								)}
 							</button>
 						)}
 					</div>
@@ -201,7 +206,11 @@ const FrmLogin = () => {
 
 				{/* Button to login with google */}
 				<a href="/auth/google">
-					<GoogleButton handleSuccess={handleSuccess} text="signin_with" CLIENT_ID={CLIENT_ID} />
+					<GoogleButton
+						handleSuccess={handleSuccess}
+						text="signin_with"
+						CLIENT_ID={CLIENT_ID}
+					/>
 				</a>
 			</section>
 		</section>

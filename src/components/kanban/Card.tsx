@@ -5,6 +5,7 @@ import { GetCandidateInfo } from "../../redux/candidates/actions/CandidateAction
 import UserDialog from "../dialog/UserDialog";
 import "../../assets/scss/Card.scss";
 import { getTopBorderColor } from "../../utils/candidates";
+import { AppDispatch } from "../../redux/store/store";
 
 type CardProps = {
 	_id: string;
@@ -23,7 +24,7 @@ export default function Card({
 	main_status,
 	postulationId,
 }: CardProps) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const card = getTopBorderColor(main_status, secondary_status);
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -43,7 +44,9 @@ export default function Card({
 		<article className={card}>
 			<div className="ml-4">
 				<p className="text-lg font-raleway font-semibold">{name}</p>
-				<p className="font-light font-raleway">{position ? position : "No position applied to"}</p>
+				<p className="font-light font-raleway">
+					{position ? position : "No position applied to"}
+				</p>
 				<section className="flex flex-row gap-20 pt-4 pb-4">
 					<span className="flex font-raleway pt-4">
 						<FiClock className="mt-[0.25rem] mr-[0.5rem] text-lg" /> 1 week

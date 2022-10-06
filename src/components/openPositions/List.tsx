@@ -1,4 +1,7 @@
-import { ClearSuccess, DeletePosition } from "../../redux/positions/actions/PositionsActions";
+import {
+	ClearSuccess,
+	DeletePosition,
+} from "../../redux/positions/actions/PositionsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -8,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 import Modal from "../extras/Modal";
 import Pagination from "./Pagination";
 import PaginationData from "../../config/types/paginationData";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 
 type ListProps = {
 	title: string;
@@ -25,7 +28,7 @@ const priorityLevel: { [key: string]: number } = {
 };
 
 export default function List({ title, items, inactive, isAdmin }: ListProps) {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	//console.log(items);
 
@@ -91,7 +94,9 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 					>
 						{isAdmin ? (
 							<AiOutlineRight
-								className={isOpen && items.totalDocs > 0 ? "mt-1 rotate-90 " : "mt-1 "}
+								className={
+									isOpen && items.totalDocs > 0 ? "mt-1 rotate-90 " : "mt-1 "
+								}
 							/>
 						) : null}
 						{title}
@@ -102,7 +107,9 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 						</span>
 					) : null}
 				</div>
-				{isAdmin && items.totalDocs > 0 ? <Pagination title={title} items={items} /> : null}
+				{isAdmin && items.totalDocs > 0 ? (
+					<Pagination title={title} items={items} />
+				) : null}
 			</div>
 			{isOpen ? (
 				<div className="mt-8 ml-10">
@@ -121,7 +128,10 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 							/>
 							<div className="mt-2">
 								{isAdmin ? (
-									<button onClick={() => handleClick(item._id!)} className="mt-4 ml-6 h-8">
+									<button
+										onClick={() => handleClick(item._id!)}
+										className="mt-4 ml-6 h-8"
+									>
 										{" "}
 										<MdDelete />{" "}
 									</button>

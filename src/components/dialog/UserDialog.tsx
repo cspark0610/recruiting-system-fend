@@ -8,7 +8,7 @@ import {
 	UpdateCandidateEmploymentStatus,
 	UpdateCandidateStatus,
 } from "../../redux/candidates/actions/CandidateAction";
-import { State } from "../../redux/store/store";
+import { AppDispatch, State } from "../../redux/store/store";
 import Panels from "./panels/Panels";
 import HeaderDialog from "../header/HeaderDialog";
 import Modal from "../extras/Modal";
@@ -36,8 +36,10 @@ const UserDialog: React.FC<Props> = ({
 	shouldRenderDropdown,
 }) => {
 	const history = createBrowserHistory();
-	const dispatch = useDispatch();
-	const isDetailFinishedLoading = useSelector((state: State) => state.info.detailFinishedLoading);
+	const dispatch = useDispatch<AppDispatch>();
+	const isDetailFinishedLoading = useSelector(
+		(state: State) => state.info.detailFinishedLoading,
+	);
 	const detail: ICandidate = useSelector((state: State) => state.info.detail);
 
 	const success = useSelector((state: State) => state.info.success);
@@ -136,7 +138,7 @@ const UserDialog: React.FC<Props> = ({
 	const isStatusConfirm = (
 		secondary_status: string,
 		postulationId: string,
-		shouldRecandidate: boolean
+		shouldRecandidate: boolean,
 	) => {
 		// recandidate case
 		if (shouldRecandidate === true && secondary_status === "new entry") {
@@ -169,11 +171,17 @@ const UserDialog: React.FC<Props> = ({
 			});
 		}
 
-		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "doubting") {
+		if (
+			MAIN_STATUS_ALLOWED.includes(main_status) &&
+			secondary_status === "doubting"
+		) {
 			dispatch(UpdateCandidateStatus(postulationId, main_status, "doubting"));
 		}
 
-		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === "dismissed") {
+		if (
+			MAIN_STATUS_ALLOWED.includes(main_status) &&
+			secondary_status === "dismissed"
+		) {
 			dispatch(UpdateCandidateStatus(postulationId, main_status, "dismissed"));
 		}
 	};
