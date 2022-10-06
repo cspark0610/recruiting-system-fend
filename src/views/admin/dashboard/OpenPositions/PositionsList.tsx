@@ -38,14 +38,10 @@ export default function PositionsList() {
 
   return (
     <div
-      className={
-        isAdmin
-          ? 'mt-20 pt-12 md:w-screen overflow-x-hidden'
-          : 'mt-20 pt-12 md:w-screen overflow-x-hidden'
-      }
+      className='mt-20 pt-12  overflow-x-hidden max-w-[920px] mx-auto w-[95%]'
     >
       {isAdmin ? (
-        <div className="flex justify-end laptop:mr-[18rem] desktop:mr-[22rem] pb-6">
+        <div className="flex justify-end  pb-6">
           <CreateNew onClick={() => navigate(VIEW_CREATE_NEW_POSITION)} />
         </div>
       ) : null}

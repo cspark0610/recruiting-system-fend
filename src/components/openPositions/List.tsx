@@ -78,7 +78,7 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 
 	return (
 		<>
-			<div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44 bg-white">
+			<div className="flex justify-between  bg-white">
 				<div className="flex">
 					<button
 						disabled={items.totalDocs === 0}
@@ -105,9 +105,9 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 				{isAdmin && items.totalDocs > 0 ? <Pagination title={title} items={items} /> : null}
 			</div>
 			{isOpen ? (
-				<div className="mt-8 ml-44">
+				<div className="mt-8 ml-10">
 					{itemsSorted.map((item) => (
-						<div key={item._id} className="flex">
+						<div key={item._id} className="flex w-full">
 							<Item
 								positionName={item.title}
 								client={item.client_name}

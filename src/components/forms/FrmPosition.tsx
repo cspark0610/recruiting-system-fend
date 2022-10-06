@@ -124,9 +124,9 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
   }, [positionInfo, _id]);
 
   return (
-    <div className="flex justify-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">
-      <section className="flex flex-col mobile:w-full laptop:w-9/12 tablet:w-11/12 p-2">
-        <div className="w-[53rem] mx-auto  pb-4 pl-3">
+    <div className="flex justify-center max-w-[913px] w-[90%] mx-auto">
+      <section className="flex flex-col w-full p-2 ">
+        <div className="pb-4">
           <div className=" pb-2">
             <span className="font-raleway font-medium text-[#475564]">Select Priority:</span>
           </div>
@@ -161,7 +161,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
             className="flex justify-center pb-2"
           />
           <div className="flex justify-center">
-            <div className="flex flex-col">
+            <div className="w-[50%]">
               <Text
                 id="name"
                 label="Name"
@@ -172,7 +172,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 showAlert={false}
                 type="text"
                 value={title}
-                width="w-[26.5rem]"
+                width="w-full pl-0"
               />
               <ErrorMessages
                 errorTerms={['Position']}
@@ -180,7 +180,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 className="flex flex-col ml-4"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="w-[50%]">
               <Text
                 id="clientName"
                 label="Client"
@@ -191,7 +191,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 showAlert={false}
                 type="text"
                 value={clientName}
-                width="w-[26.5rem]"
+                width="w-full pr-0"
               />
               <ErrorMessages
                 errorTerms={['Client']}
@@ -201,7 +201,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
             </div>
           </div>
           <div className="flex justify-center">
-            <div>
+            <div className='w-[50%]'>
               <Text
                 id="rieLink"
                 label="RIE Link"
@@ -212,7 +212,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 showAlert={false}
                 type="url"
                 value={rieLink}
-                width="w-[26.5rem]"
+                width="w-full pl-0"
               />
               <ErrorMessages
                 errorTerms={['RIE', 'rie_link']}
@@ -220,7 +220,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 className="flex flex-col ml-4"
               />
             </div>
-            <div>
+            <div className='w-[50%]'>
               <Text
                 id="recruiterGuide"
                 label="Recruiter Guide"
@@ -231,7 +231,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
                 showAlert={false}
                 type="url"
                 value={recruiterGuide}
-                width="w-[26.5rem]"
+                width="w-full pr-0"
               />
               <ErrorMessages
                 errorTerms={['Recruiter', 'recruiter_filter']}
@@ -240,8 +240,8 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
               />
             </div>
           </div>{' '}
-          <div className="mt-2 mx-auto">
-            <div className="flex flex-col w-[51.5rem]">
+          <div className="mt-2 mx-auto w-full">
+            <div className="flex flex-col ">
               <MultiSelect
                 options={data}
                 className="z-20 hover:cursor-pointer pb-2 font-raleway"
