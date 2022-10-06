@@ -20,7 +20,7 @@ export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProp
 	const navigate = useNavigate();
 
 	return (
-		<div className="ml-12 py-4 bg-[#FAFAFA] border-b-2">
+		<div className=" py-4 bg-[#FAFAFA] border-b-2">
 			<div className="flex justify-end pr-12">
 				<EditButton
 					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
