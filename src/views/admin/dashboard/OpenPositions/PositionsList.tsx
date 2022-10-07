@@ -115,12 +115,9 @@ export default function PositionsList() {
 				}
 			>
 				{success.message !== '' && (
-					<div className="relative inline-block align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl  w-[613px] h-[330px] flex justify-center items-center flex-col">
+					<div className="relative align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl  w-[613px] h-[330px] flex justify-center items-center flex-col">
 						<img
-							src={
-								process.env.PUBLIC_URL +
-								'/images/approve.svg'
-							}
+							src={'/images/approve.svg'}
 							alt="Approved img"
 						/>
 						<p className="mt-10">{success.message}</p>

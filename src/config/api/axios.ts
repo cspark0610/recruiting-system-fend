@@ -9,7 +9,7 @@ import { LogOut } from '../../redux/users/actions/UserAction'
 import { RefreshTokenResponse } from '../../redux/users/types/axiosResponses'
 import { getStorageItem } from '../../utils/localStorage'
 
-const { NODE_ENV } = process.env
+const { MODE: NODE_ENV } = import.meta.env
 
 const { dispatch } = store
 

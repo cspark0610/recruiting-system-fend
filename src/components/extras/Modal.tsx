@@ -85,10 +85,7 @@ const Modal = ({
 											className="mb-[15px]"
 										>
 											<img
-												src={
-													process.env.PUBLIC_URL +
-													`/images/${image}.svg`
-												}
+												src={`/images/${image}.svg`}
 												alt={alt}
 												className="w-[104px] h-[104px]"
 											/>

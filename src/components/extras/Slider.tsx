@@ -21,10 +21,7 @@ const Slider = () => {
 							}
 						>
 							<img
-								src={
-									process.env.PUBLIC_URL +
-									`/images/Rule ${index + 1}.svg`
-								}
+								src={`/images/Rule ${index + 1}.svg`}
 								alt={obj.description}
 								className="mobile:w-[288px] mobile:h-[237px] laptop:w-[288px] laptop:h-[237px]"
 							/>

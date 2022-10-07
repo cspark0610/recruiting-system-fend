@@ -105,7 +105,9 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 	) => {
 		return (
 			<div className="w-1/3" key={uuid()}>
-				{candidate.available_from ?? 'No availability'}
+				{/* TODO: verify if candidate is available */}
+				{candidate.available_from?.toLocaleDateString() ??
+					'No availability'}
 			</div>
 		)
 	}
