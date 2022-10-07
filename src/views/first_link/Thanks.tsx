@@ -1,12 +1,16 @@
-import Header from "../../components/header/Header";
+import Header from '../../components/header/Header'
 
 interface Props {
-	title: string;
-	FirstLine: string;
-	SecondLine: string;
+	title: string
+	FirstLine: string
+	SecondLine: string
 }
 
-const Thanks: React.FC<Props> = ({ title, FirstLine, SecondLine }) => {
+const Thanks = ({
+	title,
+	FirstLine,
+	SecondLine,
+}: Props) => {
 	return (
 		<div className="grid justify-center items-center h-screen">
 			<Header
@@ -27,7 +31,7 @@ const Thanks: React.FC<Props> = ({ title, FirstLine, SecondLine }) => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Thanks;
+export default Thanks

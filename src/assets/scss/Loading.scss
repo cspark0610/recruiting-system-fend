@@ -1,16 +1,16 @@
 .spinner {
-  height: 100vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
+	height: 100vh;
+	display: grid;
+	align-content: center;
+	justify-content: center;
 }
 
 .spinning {
-  animation: spinner 1s linear infinite;
+	animation: spinner 1s linear infinite;
 }
 
 @keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
+	to {
+		transform: rotate(360deg);
+	}
 }

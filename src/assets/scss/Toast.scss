@@ -1,18 +1,18 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 .container-toast {
-  position: absolute;
-  top: 10px;
-  animation-name: popup;
-  animation-duration: 4s;
-  animation-timing-function: ease-out;
+	position: absolute;
+	top: 10px;
+	animation-name: popup;
+	animation-duration: 4s;
+	animation-timing-function: ease-out;
 }
 
 @keyframes popup {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }

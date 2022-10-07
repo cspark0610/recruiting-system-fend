@@ -1,50 +1,50 @@
 [
-    {
-        "id": 1,
-        "name": "Ilustrador Advance"
-    },
-    {
-        "id": 2,
-        "name": "Ilustrador Basic"
-    },
-    {
-        "id": 3,
-        "name": "Ilustrador Intermediate"
-    },
-    {
-        "id": 4,
-        "name": "Photoshop Advance"
-    },
-    {
-        "id": 5,
-        "name": "Photoshop Basic"
-    },
-    {
-        "id": 6,
-        "name": "Photoshop Intermediate"
-    },
-    {
-        "id": 7,
-        "name": "Python Basic"
-    },
-    {
-        "id": 8,
-        "name": "Python Intermediate"
-    },
-    {
-        "id": 9,
-        "name": "Python Advance"
-    },
-    {
-        "id": 10,
-        "name": "Typescript Basic"
-    },
-    {
-        "id": 11,
-        "name": "Typescript Intermediate"
-    },
-    {
-        "id": 12,
-        "name": "Typescript Advance"
-    }
+	{
+		"id": 1,
+		"name": "Ilustrador Advance"
+	},
+	{
+		"id": 2,
+		"name": "Ilustrador Basic"
+	},
+	{
+		"id": 3,
+		"name": "Ilustrador Intermediate"
+	},
+	{
+		"id": 4,
+		"name": "Photoshop Advance"
+	},
+	{
+		"id": 5,
+		"name": "Photoshop Basic"
+	},
+	{
+		"id": 6,
+		"name": "Photoshop Intermediate"
+	},
+	{
+		"id": 7,
+		"name": "Python Basic"
+	},
+	{
+		"id": 8,
+		"name": "Python Intermediate"
+	},
+	{
+		"id": 9,
+		"name": "Python Advance"
+	},
+	{
+		"id": 10,
+		"name": "Typescript Basic"
+	},
+	{
+		"id": 11,
+		"name": "Typescript Intermediate"
+	},
+	{
+		"id": 12,
+		"name": "Typescript Advance"
+	}
 ]

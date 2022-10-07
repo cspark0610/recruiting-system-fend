@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export function UseTimer() {
-  /*  */
-  const timer = 2;
-  const [isActive, setIsActive] = useState(false);
-  const [isPause, setIsPause] = useState(false);
+	/*  */
+	const timer = 2
+	const [isActive] = useState(false)
+	const [isPause] = useState(false)
+
+	// TODO: Implement this function and remove the next line
+	!timer === isActive && !isPause
 }
