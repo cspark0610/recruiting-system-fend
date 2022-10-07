@@ -3,18 +3,16 @@ import PanelDialog from './TabPanels/PanelDialog'
 import ListDialog from './TabLists/ListDialog'
 
 interface Props {
-
-	isApproved: () => void;
-	isDoubting: () => void;
-	isDismiss: () => void;
-	isReject: () => void;
-	isHired: () => void;
-	isRecandidate: () => void;
-	isUnlink: () => void;
-	isConfirmed: boolean;
-	postulationId: string;
-	shouldReload?: boolean;
-	hideButtons?: boolean;
+	isApproved: () => void
+	isDoubting: () => void
+	isDismiss: () => void
+	isReject: () => void
+	isHired: () => void
+	isRecandidate: () => void
+	isConfirmed: boolean
+	postulationId: string
+	shouldReload?: boolean
+	hideButtons?: boolean
 }
 
 const Panels = ({
@@ -24,7 +22,6 @@ const Panels = ({
 	isReject,
 	isHired,
 	isRecandidate,
-	isUnlink,
 	isConfirmed,
 	postulationId,
 	shouldReload,
@@ -39,7 +36,6 @@ const Panels = ({
 				isReject={isReject}
 				isHired={isHired}
 				isRecandidate={isRecandidate}
-				isUnlink={isUnlink}
 				isConfirmed={isConfirmed}
 				postulationId={postulationId}
 				shouldReload={shouldReload}

@@ -6,9 +6,7 @@ import {
 	getDetailHeaderText,
 	getHeaderTopBorderColor,
 	getHeaderTopBorderColorExpert,
-} from "../../utils/candidates";
-import { UseGetPostulationById } from "../../hooks/useGetPostulationById";
-import { IPostulation } from "../../redux/candidates/types/data";
+} from '../../utils/candidates'
 
 interface Props {
 	isClose: any
@@ -17,36 +15,43 @@ interface Props {
 	shouldRenderDropdown?: boolean
 }
 
-const HeaderDialog: React.FC<Props> = ({ isClose, color, postulationId, shouldRenderDropdown }) => {
-	let _postulation = {} as IPostulation;
-	const detail = useSelector((state: State) => state.info.detail);
-	let { postulation } = UseGetPostulationById(detail, postulationId);
-	const postulationSelectorResult = useSelector((state: State) => state.info.postulation);
-	if (shouldRenderDropdown) {
-		Object.assign(_postulation, postulation);
-	} else {
-		Object.assign(_postulation, postulationSelectorResult);
-	}
+const HeaderDialog = ({
+	isClose,
+	color,
+	postulationId,
+	shouldRenderDropdown,
+}: Props) => {
+	const postulation = useSelector(
+		(state: State) => state.info.postulation,
+	)
+	const detail = useSelector(
+		(state: State) => state.info.detail,
+	)
 
-	let headerTopBorderColor = "";
+	const headerTopBorderColor = shouldRenderDropdown
+		? getHeaderTopBorderColor(
+				postulation.main_status,
+				postulation.secondary_status,
+		  )
+		: getHeaderTopBorderColorExpert(
+				detail.employment_status,
+		  )
 
-	if (!shouldRenderDropdown) {
-		headerTopBorderColor = getHeaderTopBorderColorExpert(detail.employment_status)!;
-	} else {
-		headerTopBorderColor = getHeaderTopBorderColor(
-			_postulation.main_status,
-			_postulation.secondary_status
-		)!;
-	}
-	const headerMainText = getDetailHeaderText(_postulation.main_status);
+	const headerMainText = getDetailHeaderText(
+		postulation.main_status,
+	)
 
 	return (
 		<h4 className={headerTopBorderColor ?? color}>
 			<div className="flex justify-center relative">
 				<span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
-					{headerMainText} {_postulation.position?.title ?? "N/A"}
+					{shouldRenderDropdown
+						? headerMainText
+						: detail.name}{' '}
+					{postulation
+						? postulation.position?.title
+						: 'N/A'}
 				</span>
-        
 				{shouldRenderDropdown && (
 					<>
 						<Dropdown postulationId={postulationId} />
