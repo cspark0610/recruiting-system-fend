@@ -30,5 +30,8 @@ export const VIEW_COMPARING = "/admin/dashboard/comparing-view";
 /* PATH TO LOGIN */
 export const VIEW_LOGIN = "/login";
 
+/* PATH TO REGISTER */
+export const VIEW_REGISTER = "/register";
+
 /* PATH TO USER PROFILE */
 export const VIEW_PROFILE = "/admin/dashboard/profile";
