@@ -1,72 +1,89 @@
-import { useDispatch } from 'react-redux';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import PaginationData from '../../config/types/paginationData';
+import { useDispatch } from 'react-redux'
 import {
-  GetActivePositions,
-  GetInactivePositions,
-} from '../../redux/positions/actions/PositionsActions';
+	AiOutlineLeft,
+	AiOutlineRight,
+} from 'react-icons/ai'
+import PaginationData from '../../config/types/paginationData'
+import {
+	GetActivePositions,
+	GetInactivePositions,
+} from '../../redux/positions/actions/PositionsActions'
+import { AppDispatch } from '../../redux/store/store'
 
 type PaginationProps = {
-  title: string;
-  items: PaginationData;
-};
+	title: string
+	items: PaginationData
+}
 
-export default function Pagination({ title, items }: PaginationProps) {
-  const dispatch = useDispatch();
+export default function Pagination({
+	title,
+	items,
+}: PaginationProps) {
+	const dispatch = useDispatch<AppDispatch>()
 
-  const itemsLimit = items.pagingCounter - 1 + items.limit;
+	const itemsLimit = items.pagingCounter - 1 + items.limit
 
-  const handleNextPage = () => {
-    if (title.includes('Active')) {
-      dispatch(GetActivePositions(items.limit, items.nextPage));
-    } else {
-      dispatch(GetInactivePositions(items.limit, items.nextPage));
-    }
-  };
+	const handleNextPage = () => {
+		if (title.includes('Active')) {
+			dispatch(
+				GetActivePositions(items.limit, items.nextPage),
+			)
+		} else {
+			dispatch(
+				GetInactivePositions(items.limit, items.nextPage),
+			)
+		}
+	}
 
-  const handlePrevPage = () => {
-    if (title.includes('Active')) {
-      dispatch(GetActivePositions(items.limit, items.prevPage));
-    } else {
-      dispatch(GetInactivePositions(items.limit, items.prevPage));
-    }
-  };
+	const handlePrevPage = () => {
+		if (title.includes('Active')) {
+			dispatch(
+				GetActivePositions(items.limit, items.prevPage),
+			)
+		} else {
+			dispatch(
+				GetInactivePositions(items.limit, items.prevPage),
+			)
+		}
+	}
 
-  return (
-    <div className="flex mt-2 space-x-12">
-      <span className="font-raleway">
-        {items.pagingCounter}-
-        {itemsLimit < items.totalDocs ? itemsLimit : items.totalDocs} of{' '}
-        {items.totalDocs}
-      </span>
-      <div className="flex mt-1 gap-x-4 text-xl">
-        <button
-          disabled={!items.hasPrevPage}
-          onClick={handlePrevPage}
-          className="font-raleway"
-        >
-          <AiOutlineLeft
-            className={
-              items.hasPrevPage
-                ? 'hover:cursor-pointer'
-                : 'text-slate-300 hover:cursor-not-allowed'
-            }
-          />
-        </button>
-        <button
-          disabled={!items.hasNextPage}
-          onClick={handleNextPage}
-          className="font-raleway"
-        >
-          <AiOutlineRight
-            className={
-              items.hasNextPage
-                ? 'hover:cursor-pointer'
-                : 'text-slate-300 hover:cursor-not-allowed'
-            }
-          />
-        </button>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex mt-2 space-x-12">
+			<span className="font-raleway">
+				{items.pagingCounter}-
+				{itemsLimit < items.totalDocs
+					? itemsLimit
+					: items.totalDocs}{' '}
+				of {items.totalDocs}
+			</span>
+			<div className="flex mt-1 gap-x-4 text-xl">
+				<button
+					disabled={!items.hasPrevPage}
+					onClick={handlePrevPage}
+					className="font-raleway"
+				>
+					<AiOutlineLeft
+						className={
+							items.hasPrevPage
+								? 'hover:cursor-pointer'
+								: 'text-slate-300 hover:cursor-not-allowed'
+						}
+					/>
+				</button>
+				<button
+					disabled={!items.hasNextPage}
+					onClick={handleNextPage}
+					className="font-raleway"
+				>
+					<AiOutlineRight
+						className={
+							items.hasNextPage
+								? 'hover:cursor-pointer'
+								: 'text-slate-300 hover:cursor-not-allowed'
+						}
+					/>
+				</button>
+			</div>
+		</div>
+	)
 }

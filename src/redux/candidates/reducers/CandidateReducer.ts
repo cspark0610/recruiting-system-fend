@@ -10,33 +10,33 @@ import {
 	DATA_EDIT,
 	DATA_EDIT_SUCCESS,
 	DATA_EDIT_ERROR,
-} from "./../types";
+} from './../types'
 
-import { ActionTypes } from "../types/index";
-import { InitialState } from "../types/states";
-import { Action } from "../types/dispatchActions";
+import { ActionTypes } from '../types/index'
+import { InitialState } from '../types/states'
+import { Action } from '../types/dispatchActions'
 
 const candidateDetailEmpty = {
-	_id: "",
-	name: "",
-	email: "",
+	_id: '',
+	name: '',
+	email: '',
 	conclusions: {
 		good: [],
 		bad: [],
 	},
-	country: "",
-	english_level: "",
-	academic_training: "",
+	country: '',
+	english_level: '',
+	academic_training: '',
 	phone: 0,
 	position: {
-		_id: "",
-		title: "",
-		client_name: "",
-		rie_link: "",
+		_id: '',
+		title: '',
+		client_name: '',
+		rie_link: '',
 		designated: [],
-		priority: "",
-		recruiter_filter: "",
-		url: "",
+		priority: '',
+		recruiter_filter: '',
+		url: '',
 		isActive: true,
 		skills_required: [],
 		video_questions_list: [],
@@ -45,90 +45,93 @@ const candidateDetailEmpty = {
 	postulations: [],
 	createdAt: undefined,
 	updatedAt: undefined,
-	cv: "",
+	cv: '',
 	isRejected: false,
-};
+}
 
 const postulationDetailEmpty = {
-	_id: "",
+	_id: '',
 	position: {},
-	salary_expectations: "",
-	skills: [""],
-	linkedin: "",
-	portfolio: "",
-	working_reason: "",
-	main_status: "",
-	secondary_status: "",
+	salary_expectations: '',
+	skills: [''],
+	linkedin: '',
+	portfolio: '',
+	working_reason: '',
+	main_status: '',
+	secondary_status: '',
 	video_recording_url: {
-		_id: "",
-		short_url: "",
-		expiresAt: "",
+		_id: '',
+		short_url: '',
+		expiresAt: '',
 	},
-	videos_question_list: [""],
-	url_link_2: "",
-	createdAt: "",
-	updatedAt: "",
+	videos_question_list: [''],
+	url_link_2: '',
+	createdAt: '',
+	updatedAt: '',
 	videos_recorded: [],
-};
+}
 
 const initialState: InitialState = {
 	candidates: [],
 	detail: candidateDetailEmpty,
 	postulation: postulationDetailEmpty,
 	detailFinishedLoading: false,
-	url_id: "",
+	url_id: '',
 	user: {
-		college: "",
-		salary: "",
-		available: "",
-		skills: [""],
-		description: "",
-		video: "",
+		college: '',
+		salary: '',
+		available: '',
+		skills: [''],
+		description: '',
+		video: '',
 	},
 	toEdit: false,
 	loading: false,
 	updating: false,
 	error: {
 		status: 400,
-		message: "",
+		message: '',
 	},
 	success: {
 		status: 200,
-		message: "",
+		message: '',
 	},
 	currentFilters: {
 		position: [],
 		status: [],
-		query: "",
+		query: '',
 	},
 	// currentFiltersExpert: {
 	// 	skills: [],
 	// 	employment_status: [],
 	// 	caniddate_name: "",
 	// },
-};
+}
 
-function CandidateReducer(state = initialState, action: Action) {
+function CandidateReducer(
+	state = initialState,
+	action: Action,
+) {
 	switch (action.type) {
 		case ActionTypes.GET_CANDIDATES: {
 			return {
 				...state,
 				candidates: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.GET_CANDIDATE_DETAIL: {
 			return {
 				...state,
 				detail: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.GET_POSTULATION: {
 			return {
 				...state,
 				postulation: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.GET_VIDEO: {
@@ -136,9 +139,12 @@ function CandidateReducer(state = initialState, action: Action) {
 				...state,
 				postulation: {
 					...state.postulation,
-					videos_recorded: [...state.postulation.videos_recorded, action.payload],
+					videos_recorded: [
+						...state.postulation.videos_recorded,
+						action.payload,
+					],
 				},
-			};
+			}
 		}
 
 		case ActionTypes.VALIDATE_TOKEN: {
@@ -147,28 +153,28 @@ function CandidateReducer(state = initialState, action: Action) {
 				detail: action.payload.decoded.candidate,
 				postulation: action.payload.decoded.postulation,
 				url_id: action.payload.decoded.url_id,
-			};
+			}
 		}
 
 		case ActionTypes.GET_CANDIDATES_FILTERED: {
 			return {
 				...state,
 				candidates: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.GET_CANDIDATES_FILTERED_EXPERT: {
 			return {
 				...state,
 				candidates: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.CREATE_CANDIDATE: {
 			return {
 				...state,
 				candidates: state.candidates.concat(action.payload),
-			};
+			}
 		}
 
 		case ActionTypes.UPDATE_CONCLUSION: {
@@ -178,14 +184,18 @@ function CandidateReducer(state = initialState, action: Action) {
 					...state.detail,
 					conclusions: {
 						good: action.payload.good
-							? state.detail.conclusions?.good.concat(action.payload.good)
+							? state.detail.conclusions?.good.concat(
+									action.payload.good,
+							  )
 							: state.detail.conclusions?.good,
 						bad: action.payload.bad
-							? state.detail.conclusions?.bad.concat(action.payload.bad)
+							? state.detail.conclusions?.bad.concat(
+									action.payload.bad,
+							  )
 							: state.detail.conclusions?.bad,
 					},
 				},
-			};
+			}
 		}
 
 		case ActionTypes.ADD_POSTULATION_TO_CANDIDATE: {
@@ -193,103 +203,109 @@ function CandidateReducer(state = initialState, action: Action) {
 				...state,
 				detail: {
 					...state.detail,
-					postulations: [...state.detail.postulations!, action.payload],
+					postulations: [
+						...state.detail.postulations!,
+						action.payload,
+					],
 				},
-			};
+			}
 		}
 
 		case ActionTypes.UPDATE_STATUS: {
 			return {
 				...state,
-				candidates: state.candidates.map((candidate) =>
+				candidates: state.candidates.map(candidate =>
 					candidate._id === action.payload._id
 						? {
 								...candidate,
 								main_status: action.payload.main_status,
-								secondary_status: action.payload.secondary_status,
+								secondary_status:
+									action.payload.secondary_status,
 						  }
-						: candidate
+						: candidate,
 				),
 				detail: {
 					...state.detail,
 					main_status: action.payload.main_status,
 					secondary_status: action.payload.secondary_status,
 				},
-			};
+			}
 		}
 
 		case ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS: {
 			return {
 				...state,
-				candidates: state.candidates.map((candidate) =>
+				candidates: state.candidates.map(candidate =>
 					candidate._id === action.payload._id
 						? {
 								...candidate,
-								employment_status: action.payload.employment_status,
+								employment_status:
+									action.payload.employment_status,
 						  }
-						: candidate
+						: candidate,
 				),
 				detail: {
 					...state.detail,
-					employment_status: action.payload.employment_status,
+					employment_status:
+						action.payload.employment_status,
 				},
-			};
+			}
 		}
 
 		case ActionTypes.UPDATE_CANDIDATE_INFO: {
 			return {
 				...state,
 				detail: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.SET_TO_EDIT_INFO: {
 			return {
 				...state,
 				toEdit: !state.toEdit,
-			};
+			}
 		}
 
 		case ActionTypes.SET_IS_CANDIDATE_LOADING: {
 			return {
 				...state,
 				loading: true,
-			};
+			}
 		}
 
 		case ActionTypes.SET_IS_NOT_CANDIDATE_LOADING: {
 			return {
 				...state,
 				loading: false,
-			};
+			}
 		}
 
 		case ActionTypes.SET_IS_CANDIDATE_UPDATING: {
 			return {
 				...state,
 				updating: true,
-			};
+			}
 		}
 
 		case ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING: {
 			return {
 				...state,
 				updating: false,
-			};
+			}
 		}
 
 		case ActionTypes.SET_CANDIDATE_ERROR: {
 			return {
 				...state,
 				error: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.SET_CANDIDATE_SUCCESS: {
 			return {
 				...state,
 				success: action.payload,
-			};
+			}
 		}
 
 		case ActionTypes.CLEAR_CANDIDATE_SUCCESS: {
@@ -297,16 +313,16 @@ function CandidateReducer(state = initialState, action: Action) {
 				...state,
 				success: {
 					status: 200,
-					message: "",
+					message: '',
 				},
-			};
+			}
 		}
 
 		case ActionTypes.SET_DETAIL_FINISHED_LOADING: {
 			return {
 				...state,
 				detailFinishedLoading: !state.detailFinishedLoading,
-			};
+			}
 		}
 
 		case ActionTypes.CLEAN_CANDIDATE_ERROR: {
@@ -314,9 +330,9 @@ function CandidateReducer(state = initialState, action: Action) {
 				...state,
 				error: {
 					status: 400,
-					message: "",
+					message: '',
 				},
-			};
+			}
 		}
 
 		case ActionTypes.CLEAN_FILTERS: {
@@ -325,9 +341,9 @@ function CandidateReducer(state = initialState, action: Action) {
 				currentFilters: {
 					position: [],
 					status: [],
-					query: "",
+					query: '',
 				},
-			};
+			}
 		}
 
 		case ActionTypes.CLEAN_FILTERS_EXPERT: {
@@ -336,23 +352,23 @@ function CandidateReducer(state = initialState, action: Action) {
 				currentFilters: {
 					skills: [],
 					employment_status: [],
-					candidate_name: "",
+					candidate_name: '',
 				},
-			};
+			}
 		}
 
 		case ActionTypes.CLEAR_CANDIDATE_DETAIL: {
 			return {
 				...state,
 				detail: candidateDetailEmpty,
-			};
+			}
 		}
 
 		case ActionTypes.SET_CURRENT_FILTERS: {
 			return {
 				...state,
 				currentFilters: action.payload,
-			};
+			}
 		}
 
 		case ADD_CANDIDATE:
@@ -361,13 +377,13 @@ function CandidateReducer(state = initialState, action: Action) {
 			return {
 				...state,
 				loading: action.payload,
-			};
+			}
 		case ADD_CANDIDATE_SUCCESS:
 			return {
 				...state,
 				loading: false,
 				user: action.payload,
-			};
+			}
 		case ADD_CANDIDATE_ERROR:
 		case GET_DATA_ERROR:
 		case DATA_EDIT_ERROR:
@@ -375,36 +391,36 @@ function CandidateReducer(state = initialState, action: Action) {
 				...state,
 				loading: false,
 				error: action.payload,
-			};
+			}
 		case GET_ID:
 			return {
 				...state,
 				userId: action.payload,
-			};
+			}
 		case GET_DATA_SUCCESS:
 			return {
 				...state,
 				loading: false,
 				user: action.payload,
-			};
+			}
 		case GET_DATA_EDIT:
 			return {
 				...state,
 				loading: false,
 				isToEdit: true,
 				user: action.payload,
-			};
+			}
 		case DATA_EDIT_SUCCESS:
 			return {
 				...state,
 				loading: false,
 				isToEdit: false,
 				user: action.payload,
-			};
+			}
 		default: {
-			return state;
+			return state
 		}
 	}
 }
 
-export default CandidateReducer;
+export default CandidateReducer

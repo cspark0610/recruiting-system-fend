@@ -1,0 +1,46 @@
+$dropdownWidth: 60px;
+.bg-light-blue {
+	background-color: rgb(
+		232 240 254 / var(--tw-bg-opacity)
+	) !important;
+}
+.react-tel-input .flag-dropdown {
+	border: 1px solid
+		rgb(0 173 239 / var(--tw-border-opacity)) !important;
+	border-right: 0 !important;
+	background-color: transparent;
+	border-radius: 10px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	background-color: transparent;
+	min-width: $dropdownWidth;
+	.selected-flag {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: $dropdownWidth;
+		padding: 0 0.5rem 0 0;
+		&:hover {
+			background-color: transparent;
+		}
+	}
+}
+.react-tel-input .country-list {
+	top: 100%;
+	left: 0;
+	margin: 0;
+	border-radius: 0 0px 10px 10px;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.react-tel-input .form-control {
+	border-radius: 10px;
+	padding-left: $dropdownWidth;
+	border: 1px solid
+		rgb(0 173 239 / var(--tw-border-opacity));
+}
+.react-tel-input .form-control.bg-light-color {
+	background-color: rgb(
+		245 245 245 / var(--tw-border-opacity)
+	);
+}

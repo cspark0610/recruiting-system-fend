@@ -1,8 +1,9 @@
-import { Tab } from "@headlessui/react";
-import PanelDialog from "./TabPanels/PanelDialog";
-import ListDialog from "./TabLists/ListDialog";
+import { Tab } from '@headlessui/react'
+import PanelDialog from './TabPanels/PanelDialog'
+import ListDialog from './TabLists/ListDialog'
 
 interface Props {
+
 	isApproved: () => void;
 	isDoubting: () => void;
 	isDismiss: () => void;
@@ -16,7 +17,7 @@ interface Props {
 	hideButtons?: boolean;
 }
 
-const Panels: React.FC<Props> = ({
+const Panels = ({
 	isApproved,
 	isDoubting,
 	isDismiss,
@@ -28,7 +29,7 @@ const Panels: React.FC<Props> = ({
 	postulationId,
 	shouldReload,
 	hideButtons,
-}) => {
+}: Props) => {
 	return (
 		<Tab.Group>
 			<ListDialog
@@ -46,7 +47,7 @@ const Panels: React.FC<Props> = ({
 			/>
 			<PanelDialog postulationId={postulationId} />
 		</Tab.Group>
-	);
-};
+	)
+}
 
-export default Panels;
+export default Panels

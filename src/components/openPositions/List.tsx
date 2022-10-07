@@ -1,97 +1,117 @@
-import { ClearSuccess, DeletePosition } from "../../redux/positions/actions/PositionsActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import {
+	ClearSuccess,
+	DeletePosition,
+} from '../../redux/positions/actions/PositionsActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
-import { AiOutlineRight } from "react-icons/ai";
-import Item from "../openPositions/Item";
-import { MdDelete } from "react-icons/md";
-import Modal from "../extras/Modal";
-import Pagination from "./Pagination";
-import PaginationData from "../../config/types/paginationData";
-import { State } from "../../redux/store/store";
+import { AiOutlineRight } from 'react-icons/ai'
+import Item from '../openPositions/Item'
+import { MdDelete } from 'react-icons/md'
+import Modal from '../extras/Modal'
+import Pagination from './Pagination'
+import PaginationData from '../../config/types/paginationData'
+import { AppDispatch, State } from '../../redux/store/store'
 
 type ListProps = {
-	title: string;
-	items: PaginationData;
-	inactive: boolean;
-	isAdmin?: boolean;
-};
+	title: string
+	items: PaginationData
+	inactive: boolean
+	isAdmin?: boolean
+}
 
 const priorityLevel: { [key: string]: number } = {
 	Low: 0,
 	Normal: 1,
 	High: 2,
 	Urgent: 3,
-};
+}
 
-export default function List({ title, items, inactive, isAdmin }: ListProps) {
-	const dispatch = useDispatch();
+export default function List({
+	title,
+	items,
+	inactive,
+	isAdmin,
+}: ListProps) {
+	const dispatch = useDispatch<AppDispatch>()
 
 	//console.log(items);
 
-	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [showWarning, setShowWarning] = useState<boolean>(false);
-	const [selectedItem, setSelectedItem] = useState<string>("");
-	const [itemsSorted, setItemSorted] = useState<any[]>([]);
+	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [showWarning, setShowWarning] =
+		useState<boolean>(false)
+	const [selectedItem, setSelectedItem] =
+		useState<string>('')
+	const [itemsSorted, setItemSorted] = useState<any[]>([])
 
-	const success = useSelector((state: State) => state.positions.success);
+	const success = useSelector(
+		(state: State) => state.positions.success,
+	)
 
 	const handleClick = (_id: string) => {
-		setSelectedItem(_id);
-		setShowWarning(!showWarning);
-	};
+		setSelectedItem(_id)
+		setShowWarning(!showWarning)
+	}
 
 	const handleClose = () => {
-		setShowWarning(!showWarning);
-		setSelectedItem("");
-	};
+		setShowWarning(!showWarning)
+		setSelectedItem('')
+	}
 
 	const handleDelete = () => {
-		dispatch(DeletePosition(selectedItem));
+		dispatch(DeletePosition(selectedItem))
 
 		setTimeout(() => {
-			dispatch(ClearSuccess(dispatch));
-		}, 3000);
-	};
+			dispatch(ClearSuccess(dispatch))
+		}, 3000)
+	}
 
 	useEffect(() => {
 		if (!isAdmin) {
-			setIsOpen(true);
+			setIsOpen(true)
 		}
-	}, [isAdmin]);
+	}, [isAdmin])
 
 	useEffect(() => {
-		setSelectedItem("");
-		setShowWarning(false);
-	}, [success.message]);
+		setSelectedItem('')
+		setShowWarning(false)
+	}, [success.message])
 
 	useEffect(() => {
 		const sorted = items.docs.sort((a, b) => {
-			if (priorityLevel[a.priority] < priorityLevel[b.priority]) {
-				return 1;
+			if (
+				priorityLevel[a.priority] <
+				priorityLevel[b.priority]
+			) {
+				return 1
 			} else {
-				return -1;
+				return -1
 			}
-		});
-		setItemSorted(sorted);
-	}, [items.docs]);
+		})
+		setItemSorted(sorted)
+	}, [items.docs])
 
 	return (
 		<>
-			<div className="flex justify-between laptop:w-[52.5rem] desktop:w-[73.5rem] ml-44 bg-white">
+			<div className="flex justify-between  bg-white">
 				<div className="flex">
 					<button
 						disabled={items.totalDocs === 0}
-						onClick={isAdmin ? () => setIsOpen(!isOpen) : () => {}}
+						onClick={() => isAdmin && setIsOpen(!isOpen)}
 						className={
-							(inactive && !isAdmin) || (inactive && isAdmin)
-								? "flex text-[#475564] gap-5 text-2xl font-raleway font-semibold"
-								: "flex text-[#00ADEF] gap-5 text-2xl font-raleway font-semibold"
+							(inactive && !isAdmin) ||
+							(inactive && isAdmin)
+								? 'flex text-[#475564] gap-5 text-2xl font-raleway font-semibold'
+								: 'flex text-[#00ADEF] gap-5 text-2xl font-raleway font-semibold'
 						}
 					>
 						{isAdmin ? (
 							<AiOutlineRight
-								className={isOpen && items.totalDocs > 0 ? "mt-1 rotate-90 " : "mt-1 "}
+								className={
+									isOpen && items.totalDocs > 0
+										? 'mt-1 rotate-90 '
+										: 'mt-1 '
+								}
 							/>
 						) : null}
 						{title}
@@ -102,12 +122,14 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 						</span>
 					) : null}
 				</div>
-				{isAdmin && items.totalDocs > 0 ? <Pagination title={title} items={items} /> : null}
+				{isAdmin && items.totalDocs > 0 ? (
+					<Pagination title={title} items={items} />
+				) : null}
 			</div>
 			{isOpen ? (
-				<div className="mt-8 ml-44">
-					{itemsSorted.map((item) => (
-						<div key={item._id} className="flex">
+				<div className="mt-8 ml-10">
+					{itemsSorted.map(item => (
+						<div key={item._id} className="flex w-full">
 							<Item
 								positionName={item.title}
 								client={item.client_name}
@@ -121,15 +143,18 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 							/>
 							<div className="mt-2">
 								{isAdmin ? (
-									<button onClick={() => handleClick(item._id!)} className="mt-4 ml-6 h-8">
-										{" "}
-										<MdDelete />{" "}
+									<button
+										onClick={() => handleClick(item._id!)}
+										className="mt-4 ml-6 h-8"
+									>
+										{' '}
+										<MdDelete />{' '}
 									</button>
 								) : null}
 							</div>
 						</div>
 					))}
-					{showWarning && selectedItem !== "" && (
+					{showWarning && selectedItem !== '' && (
 						<Modal
 							alt="Delete Position"
 							classes={true}
@@ -144,5 +169,5 @@ export default function List({ title, items, inactive, isAdmin }: ListProps) {
 				</div>
 			) : null}
 		</>
-	);
+	)
 }

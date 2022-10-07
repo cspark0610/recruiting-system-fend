@@ -3,36 +3,38 @@ import {
 	VIEW_KANBAN,
 	VIEW_OPEN_POSITIONS,
 	VIEW_PROFILE,
-} from "../../config/routes/paths";
-import { useRef, useState } from "react";
+} from '../../config/routes/paths'
+import { useRef, useState } from 'react'
 
-import { FiLogOut } from "react-icons/fi";
-import { LogOut } from "../../redux/users/actions/UserAction";
-import NavItem from "./NavItem";
-import detectOutsideClick from "../../utils/detectOutsideClick";
-import { getStorageItem } from "../../utils/localStorage";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { FiLogOut } from 'react-icons/fi'
+import { LogOut } from '../../redux/users/actions/UserAction'
+import NavItem from './NavItem'
+import detectOutsideClick from '../../utils/detectOutsideClick'
+import { getStorageItem } from '../../utils/localStorage'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { AppDispatch } from '../../redux/store/store'
 
 export default function Navbar() {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>()
+	const navigate = useNavigate()
 
-	const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+	const [showProfileMenu, setShowProfileMenu] =
+		useState<boolean>(false)
 
-	const currentUser = getStorageItem("user");
+	const currentUser = getStorageItem('user')
 
-	const profileMenuRef = useRef<HTMLDivElement>(null);
-	detectOutsideClick(profileMenuRef, [setShowProfileMenu]);
+	const profileMenuRef = useRef<HTMLDivElement>(null)
+	detectOutsideClick(profileMenuRef, [setShowProfileMenu])
 
 	const handleLogout = () => {
-		dispatch(LogOut());
-	};
+		dispatch(LogOut())
+	}
 
 	const handleProfileNavigate = () => {
-		navigate(VIEW_PROFILE);
-		setShowProfileMenu(false);
-	};
+		navigate(VIEW_PROFILE)
+		setShowProfileMenu(false)
+	}
 
 	return (
 		<header className="absolute top-0 left-0 w-full">
@@ -47,28 +49,40 @@ export default function Navbar() {
 							/>
 						) : null}
 						<button
-							onClick={() => setShowProfileMenu(!showProfileMenu)}
+							onClick={() =>
+								setShowProfileMenu(!showProfileMenu)
+							}
 							className="font-semibold font-raleway"
 						>
-							Hello {currentUser?.name.split(" ")[0] || "User"}
+							Hello{' '}
+							{currentUser?.name.split(' ')[0] || 'User'}
 						</button>
 					</div>
 					<div
 						className={
 							showProfileMenu
-								? "transition ease-in-out duration-200 opacity-100 origin-top-left absolute w-52 bg-white mt-2 rounded-md shadow-lg"
-								: "duration-200 opacity-0 invisible absolute w-52 mt-2"
+								? 'transition ease-in-out duration-200 opacity-100 origin-top-left absolute w-52 bg-white mt-2 rounded-md shadow-lg'
+								: 'duration-200 opacity-0 invisible absolute w-52 mt-2'
 						}
 					>
-						<button className="text-black px-3 py-2 font-raleway" onClick={handleProfileNavigate}>
+						<button
+							className="text-black px-3 py-2 font-raleway"
+							onClick={handleProfileNavigate}
+						>
 							My Profile
 						</button>
 					</div>
 				</div>
 				<div className="text-lg text-white mr-16 font-light">
 					<ul className="flex divide-x divide-solid">
-						<NavItem to={VIEW_OPEN_POSITIONS} text="Open Positions" />
-						<NavItem to={VIEW_KANBAN} text="Candidates Status" />
+						<NavItem
+							to={VIEW_OPEN_POSITIONS}
+							text="Open Positions"
+						/>
+						<NavItem
+							to={VIEW_KANBAN}
+							text="Candidates Status"
+						/>
 						<NavItem to={VIEW_EXPERT} text="Expert" />
 					</ul>
 				</div>
@@ -80,5 +94,5 @@ export default function Navbar() {
 				</button>
 			</nav>
 		</header>
-	);
+	)
 }

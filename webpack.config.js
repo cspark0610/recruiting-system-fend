@@ -1,5 +1,7 @@
 module.exports = {
 	resolve: {
-		fallback: { timers: require.resolve("timers-browserify") },
+		fallback: {
+			timers: require.resolve('timers-browserify'),
+		},
 	},
-};
+}
