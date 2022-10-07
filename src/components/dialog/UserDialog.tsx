@@ -41,6 +41,7 @@ const UserDialog: React.FC<Props> = ({
 	const detail: ICandidate = useSelector((state: State) => state.info.detail);
 
 	const success = useSelector((state: State) => state.info.success);
+	const candidateId = detail._id!;
 
 	let main_status = "";
 	detail.postulations!.forEach((p: IPostulation) => {
@@ -56,6 +57,7 @@ const UserDialog: React.FC<Props> = ({
 	const [recandidate, setRecandidate] = useState(false);
 	const [reject, setReject] = useState(false);
 	const [hired, setHired] = useState(false);
+	const [unlink, setUnlink] = useState(false);
 
 	/* STATES OF CONTROL FROM HEADER DIALOG */
 	const [color, setColor] = useState("bg-gray-color");
@@ -113,7 +115,10 @@ const UserDialog: React.FC<Props> = ({
 		if (success.message !== "" && recandidate) {
 			setRecandidate(false);
 		}
-	}, [success, approve, doubting, dismiss, reject, hired, recandidate]);
+		if (success.message !== "" && unlink) {
+			setUnlink(false);
+		}
+	}, [success, approve, doubting, dismiss, reject, hired, recandidate, unlink]);
 
 	// clears the candidate detail when the modal is closed
 	useEffect(() => {
@@ -132,12 +137,22 @@ const UserDialog: React.FC<Props> = ({
 	const isRecandidate = () => setRecandidate(!recandidate);
 	const isReject = () => setReject(!reject);
 	const isHired = () => setHired(!hired);
+	const isUnlink = () => setUnlink(!unlink);
 
 	const isStatusConfirm = (
 		secondary_status: string,
 		postulationId: string,
-		shouldRecandidate: boolean
+		shouldRecandidate = false,
+		shouldUnlink = false
 	) => {
+		// unlink case
+		if (shouldUnlink === true) {
+			batch(() => {
+				dispatch(UpdateCandidateStatus(postulationId, "interested", "new entry"));
+				dispatch(UpdateCandidateEmploymentStatus(candidateId, "former"));
+			});
+		}
+
 		// recandidate case
 		if (shouldRecandidate === true && secondary_status === "new entry") {
 			dispatch(UpdateCandidateStatus(postulationId, "interested", "new entry"));
@@ -206,6 +221,7 @@ const UserDialog: React.FC<Props> = ({
 									isReject={isReject}
 									isHired={isHired}
 									isRecandidate={isRecandidate}
+									isUnlink={isUnlink}
 									isConfirmed={isConfirm}
 									postulationId={postulationId}
 									shouldReload={shouldReload}
@@ -218,7 +234,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="approve"
 									classes={true}
 									image="approve"
-									isVerify={isStatusConfirm("new entry", postulationId, false)}
+									isVerify={isStatusConfirm("new entry", postulationId)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
 									onClick={isApproved}
 									setValue={setApproved}
@@ -231,7 +247,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="doubting"
 									classes={true}
 									image="doubting"
-									isVerify={isStatusConfirm("doubting", postulationId, false)}
+									isVerify={isStatusConfirm("doubting", postulationId)}
 									onClick={isDoubting}
 									setValue={setDoubting}
 									status='"in doubt".'
@@ -244,7 +260,7 @@ const UserDialog: React.FC<Props> = ({
 									alt="dismiss"
 									classes={true}
 									image="dismiss"
-									isVerify={isStatusConfirm("dismissed", postulationId, false)}
+									isVerify={isStatusConfirm("dismissed", postulationId)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isDismiss}
 									setValue={setDismiss}
@@ -257,8 +273,8 @@ const UserDialog: React.FC<Props> = ({
 								<Modal
 									alt="hired"
 									classes={true}
-									image="hired"
-									isVerify={isStatusConfirm("new entry", postulationId, false)}
+									image="approve"
+									isVerify={isStatusConfirm("new entry", postulationId)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isHired}
 									setValue={setHired}
@@ -271,7 +287,7 @@ const UserDialog: React.FC<Props> = ({
 								<Modal
 									alt="recandidate"
 									classes={true}
-									image="recandidate"
+									image="approve"
 									isVerify={isStatusConfirm("new entry", postulationId, true)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isRecandidate}
@@ -281,12 +297,26 @@ const UserDialog: React.FC<Props> = ({
 									value={recandidate}
 								/>
 							)}
+							{unlink && (
+								<Modal
+									alt="inlink"
+									classes={true}
+									image="approve"
+									isVerify={isStatusConfirm("new entry", postulationId, false, true)}
+									message="Remember to fill your motives for this desition in conclusions"
+									onClick={isUnlink}
+									setValue={setUnlink}
+									status="unlinked."
+									title="This candidate has been "
+									value={unlink}
+								/>
+							)}
 							{reject && (
 								<Modal
 									alt="reject"
 									classes={false}
 									image="reject"
-									isVerify={isStatusConfirm("rejected", postulationId, false)}
+									isVerify={isStatusConfirm("rejected", postulationId)}
 									message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
 									onClick={isReject}
 									setValue={setReject}

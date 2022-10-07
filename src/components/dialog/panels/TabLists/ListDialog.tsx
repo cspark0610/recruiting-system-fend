@@ -11,6 +11,7 @@ interface Props {
 	isReject: () => void;
 	isHired: () => void;
 	isRecandidate: () => void;
+	isUnlink: () => void;
 	isConfirmed: boolean;
 	postulationId: string;
 	shouldReload?: boolean;
@@ -28,12 +29,12 @@ const ListDialog: React.FC<Props> = ({
 	isReject,
 	isHired,
 	isRecandidate,
+	isUnlink,
 	isConfirmed,
 	postulationId,
 	shouldReload,
 	hideButtons,
 }) => {
-	/* shouldReload === false, hideButtons === true */
 	const detail = useSelector((state: State) => state.info.detail);
 	const { postulation } = UseGetPostulationById(detail, postulationId);
 	const { main_status, secondary_status } = postulation;
@@ -103,7 +104,7 @@ const ListDialog: React.FC<Props> = ({
 						hideButtons &&
 						(employment_status === "former" || employment_status === "in_process") && (
 							<DialogControl
-								classes="bg-cyan-color"
+								classes={`bg-cyan-color`}
 								onClick={isRecandidate}
 								title="Recandidate"
 								needIcon={false}
@@ -112,8 +113,8 @@ const ListDialog: React.FC<Props> = ({
 					{shouldReload === false && hideButtons && employment_status === "active" && (
 						<DialogControl
 							classes="bg-red-dark"
-							onClick={isDismiss}
-							title="Dismiss"
+							onClick={isUnlink}
+							title="Unlink"
 							needIcon={false}
 						/>
 					)}

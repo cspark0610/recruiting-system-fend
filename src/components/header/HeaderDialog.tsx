@@ -7,6 +7,8 @@ import {
 	getHeaderTopBorderColor,
 	getHeaderTopBorderColorExpert,
 } from "../../utils/candidates";
+import { UseGetPostulationById } from "../../hooks/useGetPostulationById";
+import { IPostulation } from "../../redux/candidates/types/data";
 
 interface Props {
 	isClose: any;
@@ -16,21 +18,33 @@ interface Props {
 }
 
 const HeaderDialog: React.FC<Props> = ({ isClose, color, postulationId, shouldRenderDropdown }) => {
-	const postulation = useSelector((state: State) => state.info.postulation);
+	let _postulation = {} as IPostulation;
 	const detail = useSelector((state: State) => state.info.detail);
+	let { postulation } = UseGetPostulationById(detail, postulationId);
+	const postulationSelectorResult = useSelector((state: State) => state.info.postulation);
+	if (shouldRenderDropdown) {
+		Object.assign(_postulation, postulation);
+	} else {
+		Object.assign(_postulation, postulationSelectorResult);
+	}
 
-	const headerTopBorderColor = shouldRenderDropdown
-		? getHeaderTopBorderColor(postulation.main_status, postulation.secondary_status)
-		: getHeaderTopBorderColorExpert(detail.employment_status);
+	let headerTopBorderColor = "";
 
-	const headerMainText = getDetailHeaderText(postulation.main_status);
+	if (!shouldRenderDropdown) {
+		headerTopBorderColor = getHeaderTopBorderColorExpert(detail.employment_status)!;
+	} else {
+		headerTopBorderColor = getHeaderTopBorderColor(
+			_postulation.main_status,
+			_postulation.secondary_status
+		)!;
+	}
+	const headerMainText = getDetailHeaderText(_postulation.main_status);
 
 	return (
 		<h4 className={headerTopBorderColor ?? color}>
 			<div className="flex justify-center relative">
 				<span className="text-white text-[15px] font-semibold font-raleway uppercase py-2">
-					{shouldRenderDropdown ? headerMainText : detail.name}{" "}
-					{postulation ? postulation.position?.title : "N/A"}
+					{headerMainText} {_postulation.position?.title ?? "N/A"}
 				</span>
 				{shouldRenderDropdown && (
 					<>

@@ -9,6 +9,7 @@ interface Props {
 	isReject: () => void;
 	isHired: () => void;
 	isRecandidate: () => void;
+	isUnlink: () => void;
 	isConfirmed: boolean;
 	postulationId: string;
 	shouldReload?: boolean;
@@ -22,6 +23,7 @@ const Panels: React.FC<Props> = ({
 	isReject,
 	isHired,
 	isRecandidate,
+	isUnlink,
 	isConfirmed,
 	postulationId,
 	shouldReload,
@@ -36,6 +38,7 @@ const Panels: React.FC<Props> = ({
 				isReject={isReject}
 				isHired={isHired}
 				isRecandidate={isRecandidate}
+				isUnlink={isUnlink}
 				isConfirmed={isConfirmed}
 				postulationId={postulationId}
 				shouldReload={shouldReload}
