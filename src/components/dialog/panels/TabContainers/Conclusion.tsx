@@ -1,50 +1,57 @@
-import { useEffect, useState, useRef } from "react";
-import { IoSend } from "react-icons/io5";
-import InputConclusion from "../../../inputs/InputConclusion";
-import LoaderSpinner from "../../../../assets/loaderSpinner";
+import { useEffect, useState, useRef } from 'react'
+import { IoSend } from 'react-icons/io5'
+import InputConclusion from '../../../inputs/InputConclusion'
+import LoaderSpinner from '../../../../assets/loaderSpinner'
 
 /* Redux */
-import { useDispatch, useSelector } from "react-redux";
-import { UpdateCandidateConclusion } from "../../../../redux/candidates/actions/CandidateAction";
-import { AppDispatch, State } from "../../../../redux/store/store";
-import { IConclusionInv } from "../../../../redux/candidates/types/data";
-import { getStorageItem } from "../../../../utils/localStorage";
-import { UseGetPostulationById } from "../../../../hooks/useGetPostulationById";
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateCandidateConclusion } from '../../../../redux/candidates/actions/CandidateAction'
+import {
+	AppDispatch,
+	State,
+} from '../../../../redux/store/store'
+import { IConclusionInv } from '../../../../redux/candidates/types/data'
+import { getStorageItem } from '../../../../utils/localStorage'
+import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
 
 interface Props {
-	postulationId: string;
+	postulationId: string
 }
 
 const Conclusion: React.FC<Props> = ({ postulationId }) => {
 	/*  */
-	const dispatch = useDispatch<AppDispatch>();
-	const [goodComment, setGoodComment] = useState<string>("");
-	const [badComment, setBadComment] = useState<string>("");
+	const dispatch = useDispatch<AppDispatch>()
+	const [goodComment, setGoodComment] = useState<string>('')
+	const [badComment, setBadComment] = useState<string>('')
 
-	const currentCandidate = useSelector((state: State) => state.info.detail);
+	const currentCandidate = useSelector(
+		(state: State) => state.info.detail,
+	)
 	const { postulation } = UseGetPostulationById(
 		currentCandidate,
 		postulationId,
-	);
+	)
 
-	const updating = useSelector((state: State) => state.info.updating);
+	const updating = useSelector(
+		(state: State) => state.info.updating,
+	)
 
-	const lastGoodConclusion = useRef<HTMLDivElement>(null);
-	const lastBadConclusion = useRef<HTMLDivElement>(null);
+	const lastGoodConclusion = useRef<HTMLDivElement>(null)
+	const lastBadConclusion = useRef<HTMLDivElement>(null)
 
-	const { _id, name, conclusions } = currentCandidate;
+	const { _id, name, conclusions } = currentCandidate
 
-	const currentUser = getStorageItem("user");
+	const currentUser = getStorageItem('user')
 
 	const onSubmit = (evt: any) => {
-		evt.preventDefault();
+		evt.preventDefault()
 		if (!goodComment && !badComment) {
-			return;
+			return
 		} else {
 			dispatch(
 				UpdateCandidateConclusion(_id, {
 					good:
-						goodComment !== ""
+						goodComment !== ''
 							? {
 									comment: goodComment,
 									context: postulation.main_status,
@@ -52,7 +59,7 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 							  }
 							: undefined,
 					bad:
-						badComment !== ""
+						badComment !== ''
 							? {
 									comment: badComment,
 									context: postulation.main_status,
@@ -60,20 +67,20 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 							  }
 							: undefined,
 				}),
-			);
+			)
 		}
 		/* clean input field */
-		setGoodComment("");
-		setBadComment("");
-	};
+		setGoodComment('')
+		setBadComment('')
+	}
 
 	useEffect(() => {
-		lastGoodConclusion.current?.scrollIntoView(false);
-	}, [conclusions.good]);
+		lastGoodConclusion.current?.scrollIntoView(false)
+	}, [conclusions.good])
 
 	useEffect(() => {
-		lastBadConclusion.current?.scrollIntoView(false);
-	}, [conclusions.bad]);
+		lastBadConclusion.current?.scrollIntoView(false)
+	}, [conclusions.bad])
 
 	return (
 		<div className="grid justify-items-center">
@@ -91,9 +98,12 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 						<div className="relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
 							<div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
 								{conclusions.good.length === 0
-									? ""
+									? ''
 									: conclusions.good.map(
-											(value: IConclusionInv, index: number) => (
+											(
+												value: IConclusionInv,
+												index: number,
+											) => (
 												<div key={index}>
 													<div className="flex h-[0.7rem] items-center justify-between">
 														<div className="w-36 h-[0.1rem] bg-gray-300"></div>
@@ -118,7 +128,9 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 													</div>
 													<div
 														ref={
-															conclusions.good.indexOf(value) ===
+															conclusions.good.indexOf(
+																value,
+															) ===
 															conclusions.good.length - 1
 																? lastGoodConclusion
 																: null
@@ -140,9 +152,16 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 											setValue={setGoodComment}
 										/>
 									</form>
-									<button onClick={onSubmit} disabled={updating}>
+									<button
+										onClick={onSubmit}
+										disabled={updating}
+									>
 										{updating ? (
-											<LoaderSpinner width="w-5" height="h-5" classes="ml-3" />
+											<LoaderSpinner
+												width="w-5"
+												height="h-5"
+												classes="ml-3"
+											/>
 										) : (
 											<IoSend className="text-gray-color w-[16px] h-[14px] ml-[8px] cursor-pointer" />
 										)}
@@ -160,9 +179,12 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 						<div className="relative bg-light-color border-light-color rounded-[5px] w-[435px] h-[372px]">
 							<div className="absolute top-5 right-[21px] z-10 h-[18rem] space-y-2 overflow-y-auto">
 								{conclusions.bad.length === 0
-									? ""
+									? ''
 									: conclusions.bad.map(
-											(value: IConclusionInv, index: number) => (
+											(
+												value: IConclusionInv,
+												index: number,
+											) => (
 												<div key={index}>
 													<div className="flex h-[0.7rem] items-center justify-between">
 														<div className="w-36 h-[0.1rem] bg-gray-300"></div>
@@ -187,7 +209,9 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 													</div>
 													<div
 														ref={
-															conclusions.bad.indexOf(value) ===
+															conclusions.bad.indexOf(
+																value,
+															) ===
 															conclusions.bad.length - 1
 																? lastBadConclusion
 																: null
@@ -209,9 +233,16 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 											setValue={setBadComment}
 										/>
 									</form>
-									<button onClick={onSubmit} disabled={updating}>
+									<button
+										onClick={onSubmit}
+										disabled={updating}
+									>
 										{updating ? (
-											<LoaderSpinner width="w-5" height="h-5" classes="ml-3" />
+											<LoaderSpinner
+												width="w-5"
+												height="h-5"
+												classes="ml-3"
+											/>
 										) : (
 											<IoSend className="text-gray-color w-[16px] h-[14px] ml-[8px] cursor-pointer" />
 										)}
@@ -223,7 +254,7 @@ const Conclusion: React.FC<Props> = ({ postulationId }) => {
 				</div>
 			</section>
 		</div>
-	);
-};
+	)
+}
 
-export default Conclusion;
+export default Conclusion

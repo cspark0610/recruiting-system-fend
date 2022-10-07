@@ -1,23 +1,23 @@
-import { IUser } from './data';
+import { IUser } from './data'
 
 export type GetUsersResponse = {
-  status: number;
-  allUsers: IUser[];
-};
+	status: number
+	allUsers: IUser[]
+}
 
 export type LoginUserResponse = {
-  status: number;
-  access_token: string;
-  refresh_token: string;
-  user: IUser;
-};
+	status: number
+	access_token: string
+	refresh_token: string
+	user: IUser
+}
 
 export type RefreshTokenResponse = {
-  accessToken: string;
-};
+	accessToken: string
+}
 
 export type UpdateUserInfoResponse = {
-  status: number;
-  message: string;
-  user: IUser;
-};
+	status: number
+	message: string
+	user: IUser
+}

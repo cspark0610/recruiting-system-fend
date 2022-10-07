@@ -1,59 +1,72 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { AppDispatch, State } from "../../redux/store/store";
-import Apply from "../buttons/Apply";
-import { UseGetPostulationById } from "../../hooks/useGetPostulationById";
-import { ICandidate } from "../../redux/candidates/types/data";
-import { AddNewPostulationToCandidate } from "../../redux/candidates/actions/CandidateAction";
-import { IPosition } from "../../redux/positions/types/data";
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { IoIosArrowDropdownCircle } from 'react-icons/io'
+import { AppDispatch, State } from '../../redux/store/store'
+import Apply from '../buttons/Apply'
+import { UseGetPostulationById } from '../../hooks/useGetPostulationById'
+import { ICandidate } from '../../redux/candidates/types/data'
+import { AddNewPostulationToCandidate } from '../../redux/candidates/actions/CandidateAction'
+import { IPosition } from '../../redux/positions/types/data'
 // import { createBrowserHistory } from "history";
 
 interface Props {
-	postulationId: string;
+	postulationId: string
 }
 
 const Dropdown: React.FC<Props> = ({ postulationId }) => {
 	/*  */
-	const [position, setPosition] = useState<Array<string>>([]);
-	const [showDropdown, setShowDropdown] = useState<boolean>(false);
-	const dispatch = useDispatch<AppDispatch>();
+	const [position, setPosition] = useState<Array<string>>(
+		[],
+	)
+	const [showDropdown, setShowDropdown] =
+		useState<boolean>(false)
+	const dispatch = useDispatch<AppDispatch>()
 	// const history = createBrowserHistory();
 
 	const positions: IPosition[] = useSelector(
 		(state: State) => state.positions.data.docs,
-	);
-	const detail = useSelector((state: State) => state.info.detail) as ICandidate;
-	const { postulation } = UseGetPostulationById(detail, postulationId);
+	)
+	const detail = useSelector(
+		(state: State) => state.info.detail,
+	) as ICandidate
+	const { postulation } = UseGetPostulationById(
+		detail,
+		postulationId,
+	)
 
 	const positionsFiltered = positions.filter((position) => {
 		return detail.postulations?.every(
-			(postulation) => position?.title !== postulation.position?.title,
-		);
-	});
+			(postulation) =>
+				position?.title !== postulation.position?.title,
+		)
+	})
 
 	const handleActionDispatch = () => {
-		if (position.length === 0) return;
+		if (position.length === 0) return
 
 		dispatch(
 			AddNewPostulationToCandidate(detail._id!, {
 				_id: position.pop(),
-				linkedin: postulation.linkedin ?? "",
-				portfolio: postulation.portfolio ?? "",
+				linkedin: postulation.linkedin ?? '',
+				portfolio: postulation.portfolio ?? '',
 			}),
-		);
-		setPosition([""]);
-	};
+		)
+		setPosition([''])
+	}
 
 	const handlePositionCaptureCheck = (
 		e: React.ChangeEvent<HTMLInputElement>,
 	) => {
 		if (e.target.checked) {
-			setPosition([...position, e.target.value]);
+			setPosition([...position, e.target.value])
 		} else {
-			setPosition([...position.filter((item) => item !== e.target.value)]);
+			setPosition([
+				...position.filter(
+					(item) => item !== e.target.value,
+				),
+			])
 		}
-	};
+	}
 
 	return (
 		<>
@@ -66,7 +79,7 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 				</button>
 				<div
 					className={`${
-						showDropdown ? "block" : "hidden"
+						showDropdown ? 'block' : 'hidden'
 					}  absolute z-50 laptop:left-0 mobile:right-0 mobile:w-52 laptop:w-60 mt-1 mobile:mr-5 laptop:ml-5 origin-top-left bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
 				>
 					<div className="px-1 py-1">
@@ -84,7 +97,11 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 											className="ml-2 mr-2 focus:outline-none"
 											type="checkbox"
 											name={title}
-											checked={position.indexOf(_id!) !== -1 ? true : false}
+											checked={
+												position.indexOf(_id!) !== -1
+													? true
+													: false
+											}
 											value={_id}
 											onChange={handlePositionCaptureCheck}
 										/>
@@ -92,7 +109,9 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 											className="w-full font-raleway font-light mobile:text-xs laptop:text-[15px]"
 											htmlFor={_id}
 										>
-											<span className="text-gray-color">{title}</span>
+											<span className="text-gray-color">
+												{title}
+											</span>
 										</label>
 									</div>
 								</div>
@@ -103,7 +122,7 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 				</div>
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default Dropdown;
+export default Dropdown

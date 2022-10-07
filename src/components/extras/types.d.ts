@@ -1,3 +1,3 @@
 interface Wrapper {
-	children: React.ReactNode;
+	children: React.ReactNode
 }

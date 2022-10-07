@@ -1,38 +1,42 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { ValidateToken } from "../../redux/candidates/actions/CandidateAction";
-import { VIEW_404 } from "../../config/routes/paths";
-import { AppDispatch, State } from "../../redux/store/store";
-import Lang from "../../components/extras/Lang";
-import QskInterview from "../../components/extras/QskInterview";
-import Header from "../../components/header/Header";
-import Stream from "../../components/recorder/Stream";
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
+import { ValidateToken } from '../../redux/candidates/actions/CandidateAction'
+import { VIEW_404 } from '../../config/routes/paths'
+import { AppDispatch, State } from '../../redux/store/store'
+import Lang from '../../components/extras/Lang'
+import QskInterview from '../../components/extras/QskInterview'
+import Header from '../../components/header/Header'
+import Stream from '../../components/recorder/Stream'
 
 const VideoStart = () => {
-	const dispatch = useDispatch<AppDispatch>();
+	const dispatch = useDispatch<AppDispatch>()
 
-	const [videoCounter, setVideoCounter] = useState(1);
+	const [videoCounter, setVideoCounter] = useState(1)
 
-	const error = useSelector((state: State) => state.info.error);
+	const error = useSelector(
+		(state: State) => state.info.error,
+	)
 
-	const [searchParams] = useSearchParams();
-	const token = searchParams.get("token");
+	const [searchParams] = useSearchParams()
+	const token = searchParams.get('token')
 
 	if (error.status === 401) {
-		window.location.href = VIEW_404;
+		window.location.href = VIEW_404
 	}
 
 	useEffect(() => {
-		dispatch(ValidateToken(token!));
+		dispatch(ValidateToken(token!))
 
 		return () => {
 			window.mediaStreamObject
 				.getTracks()
-				.forEach((track: any) => track.stop());
-		};
-	}, [dispatch, token]);
-	const postulation = useSelector((state: State) => state.info.postulation);
+				.forEach((track: any) => track.stop())
+		}
+	}, [dispatch, token])
+	const postulation = useSelector(
+		(state: State) => state.info.postulation,
+	)
 
 	return (
 		<>
@@ -61,7 +65,7 @@ const VideoStart = () => {
 				</section>
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default VideoStart;
+export default VideoStart

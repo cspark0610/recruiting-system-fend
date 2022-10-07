@@ -1,46 +1,63 @@
 import {
 	GetActivePositions,
 	GetInactivePositions,
-} from "../../../../redux/positions/actions/PositionsActions";
-import { batch, useDispatch, useSelector } from "react-redux";
+} from '../../../../redux/positions/actions/PositionsActions'
+import {
+	batch,
+	useDispatch,
+	useSelector,
+} from 'react-redux'
 
-import CreateNew from "../../../../components/buttons/CreateNew";
-import List from "../../../../components/openPositions/List";
-import LoaderSpinner from "../../../../assets/loaderSpinner";
-import { AppDispatch, State } from "../../../../redux/store/store";
-import { VIEW_CREATE_NEW_POSITION } from "../../../../config/routes/paths";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import CreateNew from '../../../../components/buttons/CreateNew'
+import List from '../../../../components/openPositions/List'
+import LoaderSpinner from '../../../../assets/loaderSpinner'
+import {
+	AppDispatch,
+	State,
+} from '../../../../redux/store/store'
+import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function PositionsList() {
-	const dispatch = useDispatch<AppDispatch>();
-	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>()
+	const navigate = useNavigate()
 
 	const activePositions = useSelector(
 		(state: State) => state.positions.active_positions,
-	);
+	)
 	const inactivePositions = useSelector(
 		(state: State) => state.positions.inactive_positions,
-	);
-	const loading = useSelector((state: State) => state.positions.loading);
-	const success = useSelector((state: State) => state.positions.success);
-	const error = useSelector((state: State) => state.positions.error);
+	)
+	const loading = useSelector(
+		(state: State) => state.positions.loading,
+	)
+	const success = useSelector(
+		(state: State) => state.positions.success,
+	)
+	const error = useSelector(
+		(state: State) => state.positions.error,
+	)
 
-	const isAdmin = true;
+	const isAdmin = true
 
 	useEffect(() => {
-		window.document.title = "WorkAt - Open Positions";
+		window.document.title = 'WorkAt - Open Positions'
 		batch(() => {
-			dispatch(GetActivePositions(6, 1));
-			dispatch(GetInactivePositions(6, 1));
-		});
-	}, [dispatch]);
+			dispatch(GetActivePositions(6, 1))
+			dispatch(GetInactivePositions(6, 1))
+		})
+	}, [dispatch])
 
 	return (
 		<div className="mt-20 pt-12  overflow-x-hidden max-w-[920px] mx-auto w-[95%]">
 			{isAdmin ? (
 				<div className="flex justify-end  pb-6">
-					<CreateNew onClick={() => navigate(VIEW_CREATE_NEW_POSITION)} />
+					<CreateNew
+						onClick={() =>
+							navigate(VIEW_CREATE_NEW_POSITION)
+						}
+					/>
 				</div>
 			) : null}
 			{isAdmin ? (
@@ -76,29 +93,34 @@ export default function PositionsList() {
 			)}
 			<div
 				className={
-					error.message !== "" && error.message.includes("Network")
-						? "transform -translate-y-0 transition ease-in-out duration-200 flex justify-center"
-						: "duration-200 opacity-0 invisible"
+					error.message !== '' &&
+					error.message.includes('Network')
+						? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
+						: 'duration-200 opacity-0 invisible'
 				}
 			>
-				{error.message !== "" && (
+				{error.message !== '' && (
 					<span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
-						There was an error while connecting to the server. Please check your
-						internet connection and try again.
+						There was an error while connecting to the
+						server. Please check your internet connection
+						and try again.
 					</span>
 				)}
 			</div>
 			<div
 				className={
-					success.message !== ""
-						? "absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-75 "
-						: "duration-200 opacity-0 invisible"
+					success.message !== ''
+						? 'absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-75 '
+						: 'duration-200 opacity-0 invisible'
 				}
 			>
-				{success.message !== "" && (
+				{success.message !== '' && (
 					<div className="relative inline-block align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl  w-[613px] h-[330px] flex justify-center items-center flex-col">
 						<img
-							src={process.env.PUBLIC_URL + `/images/approve.svg`}
+							src={
+								process.env.PUBLIC_URL +
+								`/images/approve.svg`
+							}
 							alt="Approved img"
 						/>
 						<p className="mt-10">{success.message}</p>
@@ -106,5 +128,5 @@ export default function PositionsList() {
 				)}
 			</div>
 		</div>
-	);
+	)
 }

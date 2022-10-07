@@ -1,82 +1,105 @@
-import "../../assets/scss/inputs.scss";
+import '../../assets/scss/inputs.scss'
 
 import {
 	UpdateInfo,
 	createPosition,
-} from "../../redux/positions/actions/PositionsActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+} from '../../redux/positions/actions/PositionsActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useRef, useState } from 'react'
 
-import ErrorMessages from "./ErrorMessages";
-import LoaderSpinner from "../../assets/loaderSpinner";
-import MultiSelect from "multiselect-react-dropdown";
-import { AppDispatch, State } from "../../redux/store/store";
-import Text from "../inputs/Text";
-import { VIEW_OPEN_POSITIONS } from "../../config/routes/paths";
-import priorities from "../../config/positions/constants";
-import { useNavigate } from "react-router-dom";
+import ErrorMessages from './ErrorMessages'
+import LoaderSpinner from '../../assets/loaderSpinner'
+import MultiSelect from 'multiselect-react-dropdown'
+import { AppDispatch, State } from '../../redux/store/store'
+import Text from '../inputs/Text'
+import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths'
+import priorities from '../../config/positions/constants'
+import { useNavigate } from 'react-router-dom'
 
 type OptionValues = {
-	id: string;
-	name: string;
-};
+	id: string
+	name: string
+}
 
 type FrmPositionProps = {
-	_id?: string;
-};
+	_id?: string
+}
 
-export default function FrmPosition({ _id }: FrmPositionProps) {
-	const dispatch = useDispatch<AppDispatch>();
-	const navigate = useNavigate();
+export default function FrmPosition({
+	_id,
+}: FrmPositionProps) {
+	const dispatch = useDispatch<AppDispatch>()
+	const navigate = useNavigate()
 
-	const users = useSelector((state: State) => state.user.users);
-	const loading = useSelector((state: State) => state.positions.loading);
-	const updating = useSelector((state: State) => state.positions.updating);
-	const success = useSelector((state: State) => state.positions.success);
-	const error = useSelector((state: State) => state.positions.error);
+	const users = useSelector(
+		(state: State) => state.user.users,
+	)
+	const loading = useSelector(
+		(state: State) => state.positions.loading,
+	)
+	const updating = useSelector(
+		(state: State) => state.positions.updating,
+	)
+	const success = useSelector(
+		(state: State) => state.positions.success,
+	)
+	const error = useSelector(
+		(state: State) => state.positions.error,
+	)
 
-	const multiselectRef = useRef<MultiSelect>(null);
+	const multiselectRef = useRef<MultiSelect>(null)
 
-	const data: OptionValues[] = users.reduce((prev: any, user: any) => {
-		return [...prev, { id: user._id, name: user.name }];
-	}, []);
-
-	const positionInfo = useSelector((state: State) => state.positions.info);
-
-	const currentRecruiters = positionInfo?.designated?.reduce(
+	const data: OptionValues[] = users.reduce(
 		(prev: any, user: any) => {
-			return [...prev, { id: user._id, name: user.name }];
+			return [...prev, { id: user._id, name: user.name }]
 		},
 		[],
-	);
+	)
+
+	const positionInfo = useSelector(
+		(state: State) => state.positions.info,
+	)
+
+	const currentRecruiters =
+		positionInfo?.designated?.reduce(
+			(prev: any, user: any) => {
+				return [...prev, { id: user._id, name: user.name }]
+			},
+			[],
+		)
 
 	const prioritiesWithoutCurrent = _id
-		? priorities.filter((priority) => priority.name !== positionInfo.priority)
-		: priorities;
+		? priorities.filter(
+				(priority) =>
+					priority.name !== positionInfo.priority,
+		  )
+		: priorities
 
-	const [title, setTitle] = useState("");
-	const [clientName, setClientName] = useState("");
-	const [rieLink, setRieLink] = useState("");
-	const [recruiterGuide, setRecruiterGuide] = useState("");
-	const [designated_recruiters, setDesignated_recruiters] = useState<
-		Array<OptionValues>
-	>([]);
+	const [title, setTitle] = useState('')
+	const [clientName, setClientName] = useState('')
+	const [rieLink, setRieLink] = useState('')
+	const [recruiterGuide, setRecruiterGuide] = useState('')
+	const [designated_recruiters, setDesignated_recruiters] =
+		useState<Array<OptionValues>>([])
 
-	const [selectedPriority, setSelectedPriority] = useState("");
+	const [selectedPriority, setSelectedPriority] =
+		useState('')
 
 	/* Regular Expressions */
 	const RegExp = {
 		general: /^\s*/,
 		characters: /[0-9]/g,
 		numbers: /\D/g,
-	};
+	}
 
-	const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-		e.preventDefault();
+	const handleSubmit = (
+		e: React.FormEvent<HTMLButtonElement>,
+	) => {
+		e.preventDefault()
 
 		const recruitersName = designated_recruiters.map(
 			(recruiter) => recruiter.name,
-		);
+		)
 
 		if (!_id) {
 			dispatch(
@@ -88,7 +111,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 					priority: selectedPriority,
 					designated: recruitersName,
 				}),
-			);
+			)
 		} else {
 			dispatch(
 				UpdateInfo(_id, {
@@ -99,27 +122,27 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 					priority: selectedPriority,
 					designated: recruitersName,
 				}),
-			);
+			)
 		}
-	};
+	}
 
 	useEffect(() => {
-		if (success.message !== "") {
-			navigate(VIEW_OPEN_POSITIONS);
+		if (success.message !== '') {
+			navigate(VIEW_OPEN_POSITIONS)
 		}
-	}, [success.message, navigate]);
+	}, [success.message, navigate])
 
 	useEffect(() => {
 		if (_id) {
-			setTitle(positionInfo?.title!);
-			setClientName(positionInfo?.client_name!);
-			setRieLink(positionInfo?.rie_link!);
-			setRecruiterGuide(positionInfo?.recruiter_filter!);
-			setDesignated_recruiters(currentRecruiters!);
-			setSelectedPriority(positionInfo?.priority!);
+			setTitle(positionInfo?.title!)
+			setClientName(positionInfo?.client_name!)
+			setRieLink(positionInfo?.rie_link!)
+			setRecruiterGuide(positionInfo?.recruiter_filter!)
+			setDesignated_recruiters(currentRecruiters!)
+			setSelectedPriority(positionInfo?.priority!)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [positionInfo, _id]);
+	}, [positionInfo, _id])
 
 	return (
 		<div className="flex justify-center max-w-[913px] w-[90%] mx-auto">
@@ -132,7 +155,10 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 					</div>
 					<div className="flex space-x-3">
 						{prioritiesWithoutCurrent.map((priority) => (
-							<div key={priority.id} className="flex items-center">
+							<div
+								key={priority.id}
+								className="flex items-center"
+							>
 								<label
 									className="hover:cursor-pointer font-raleway text-[#475564] text-lg flex items-center "
 									htmlFor={priority.id.toString()}
@@ -143,20 +169,29 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 										className="custom__checkbox"
 										id={priority.id.toString()}
 										value={priority.name}
-										onChange={(e) => setSelectedPriority(e.target.value)}
-										checked={selectedPriority === priority.name ? true : false}
+										onChange={(e) =>
+											setSelectedPriority(e.target.value)
+										}
+										checked={
+											selectedPriority === priority.name
+												? true
+												: false
+										}
 									/>
 									<span className="check-visual"></span>
 									{priority.displayName}
 								</label>
 							</div>
 						))}
-						<ErrorMessages errorTerms={["priority"]} errorState={error} />
+						<ErrorMessages
+							errorTerms={['priority']}
+							errorState={error}
+						/>
 					</div>
 				</div>
 				<div className="flex flex-col">
 					<ErrorMessages
-						errorTerms={["registered"]}
+						errorTerms={['registered']}
 						errorState={error}
 						className="flex justify-center pb-2"
 					/>
@@ -175,7 +210,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								width="w-full pl-0"
 							/>
 							<ErrorMessages
-								errorTerms={["Position"]}
+								errorTerms={['Position']}
 								errorState={error}
 								className="flex flex-col ml-4"
 							/>
@@ -194,7 +229,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								width="w-full pr-0"
 							/>
 							<ErrorMessages
-								errorTerms={["Client"]}
+								errorTerms={['Client']}
 								errorState={error}
 								className="flex flex-col ml-4"
 							/>
@@ -215,7 +250,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								width="w-full pl-0"
 							/>
 							<ErrorMessages
-								errorTerms={["RIE", "rie_link"]}
+								errorTerms={['RIE', 'rie_link']}
 								errorState={error}
 								className="flex flex-col ml-4"
 							/>
@@ -234,12 +269,15 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								width="w-full pr-0"
 							/>
 							<ErrorMessages
-								errorTerms={["Recruiter", "recruiter_filter"]}
+								errorTerms={[
+									'Recruiter',
+									'recruiter_filter',
+								]}
 								errorState={error}
 								className="flex flex-col ml-4"
 							/>
 						</div>
-					</div>{" "}
+					</div>{' '}
 					<div className="mt-2 mx-auto w-full">
 						<div className="flex flex-col ">
 							<MultiSelect
@@ -255,7 +293,7 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								selectedValues={designated_recruiters}
 							/>
 							<ErrorMessages
-								errorTerms={["designate"]}
+								errorTerms={['designate']}
 								errorState={error}
 								className="flex flex-col ml-1"
 							/>
@@ -286,13 +324,13 @@ export default function FrmPosition({ _id }: FrmPositionProps) {
 								fill="white"
 							/>
 						) : _id ? (
-							"Save"
+							'Save'
 						) : (
-							"Create"
+							'Create'
 						)}
 					</button>
 				</div>
 			</section>
 		</div>
-	);
+	)
 }

@@ -1,61 +1,76 @@
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, State } from "../../redux/store/store";
-import { getStorageItem } from "../../utils/localStorage";
-import { UpdateInfo } from "../../redux/users/actions/UserAction";
-import Text from "../inputs/Text";
-import Date from "../inputs/Date";
-import SingleSelect from "../inputs/SingleSelect";
-import Countries from "../../assets/json/Countries.json";
-import LoaderSpinner from "../../assets/loaderSpinner";
+import { useEffect, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, State } from '../../redux/store/store'
+import { getStorageItem } from '../../utils/localStorage'
+import { UpdateInfo } from '../../redux/users/actions/UserAction'
+import Text from '../inputs/Text'
+import Date from '../inputs/Date'
+import SingleSelect from '../inputs/SingleSelect'
+import Countries from '../../assets/json/Countries.json'
+import LoaderSpinner from '../../assets/loaderSpinner'
 
 type FrmProfileProps = {
-	isEditable: boolean;
-	setIsEditable: (isEditable: boolean) => void;
-};
+	isEditable: boolean
+	setIsEditable: (isEditable: boolean) => void
+}
 
 export default function FrmProfile({
 	isEditable,
 	setIsEditable,
 }: FrmProfileProps) {
-	const dispatch = useDispatch<AppDispatch>();
+	const dispatch = useDispatch<AppDispatch>()
 
-	const updating = useSelector((state: State) => state.user.updating);
+	const updating = useSelector(
+		(state: State) => state.user.updating,
+	)
 
-	const [name, setName] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [phone, setPhone] = useState(undefined);
-	const [password, setPassword] = useState<string>("");
-	const [position_name, setPosition_name] = useState<string>("");
-	const [workingSince, setWorkingSince] = useState<string>("");
-	const [confirmPassword, setConfirmPassword] = useState<string>("");
-	const [country, setCountry] = useState({ id: 0, name: "" });
+	const [name, setName] = useState<string>('')
+	const [email, setEmail] = useState<string>('')
+	const [phone, setPhone] = useState(undefined)
+	const [password, setPassword] = useState<string>('')
+	const [position_name, setPosition_name] =
+		useState<string>('')
+	const [workingSince, setWorkingSince] =
+		useState<string>('')
+	const [confirmPassword, setConfirmPassword] =
+		useState<string>('')
+	const [country, setCountry] = useState({
+		id: 0,
+		name: '',
+	})
 
 	/* json file information */
 	const [optionValues] = useState({
 		nation: Countries,
-	});
+	})
 
-	const { nation } = optionValues;
+	const { nation } = optionValues
 
-	const currentUser = getStorageItem("user");
+	const currentUser = getStorageItem('user')
 
 	/* Regular Expressions */
 	const RegExp = {
 		general: /^\s*/,
 		characters: /[0-9]/g,
 		numbers: /\D/g,
-	};
+	}
 
 	const userCountry = useMemo(() => {
 		const getUserCountry = () => {
-			return { id: 0, name: currentUser.country ? currentUser.country : "" };
-		};
-		return getUserCountry();
-	}, [currentUser.country]);
+			return {
+				id: 0,
+				name: currentUser.country
+					? currentUser.country
+					: '',
+			}
+		}
+		return getUserCountry()
+	}, [currentUser.country])
 
-	const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-		e.preventDefault();
+	const handleSubmit = (
+		e: React.FormEvent<HTMLButtonElement>,
+	) => {
+		e.preventDefault()
 
 		dispatch(
 			UpdateInfo(currentUser._id, {
@@ -66,18 +81,26 @@ export default function FrmProfile({
 				working_since: workingSince,
 				country: country.name,
 			}),
-		);
-	};
+		)
+	}
 
 	useEffect(() => {
-		setName(currentUser.name ? currentUser.name : "");
-		setEmail(currentUser.email ? currentUser.email : "");
-		setPhone(currentUser.phone ? currentUser.phone : undefined);
-		setWorkingSince(currentUser.working_since ? currentUser.working_since : "");
+		setName(currentUser.name ? currentUser.name : '')
+		setEmail(currentUser.email ? currentUser.email : '')
+		setPhone(
+			currentUser.phone ? currentUser.phone : undefined,
+		)
+		setWorkingSince(
+			currentUser.working_since
+				? currentUser.working_since
+				: '',
+		)
 		setPosition_name(
-			currentUser.position_name ? currentUser.position_name : "",
-		);
-		setCountry(userCountry);
+			currentUser.position_name
+				? currentUser.position_name
+				: '',
+		)
+		setCountry(userCountry)
 	}, [
 		currentUser.name,
 		currentUser.email,
@@ -85,13 +108,16 @@ export default function FrmProfile({
 		currentUser.working_since,
 		currentUser.position_name,
 		userCountry,
-	]);
+	])
 
 	return (
 		<div className="flex flex-col space-y-4 items-center justify-center">
 			<div className="flex">
 				<div className="flex flex-col">
-					<label htmlFor="name" className="ml-4 font-raleway font-medium">
+					<label
+						htmlFor="name"
+						className="ml-4 font-raleway font-medium"
+					>
 						Name:
 					</label>
 					<Text
@@ -107,10 +133,15 @@ export default function FrmProfile({
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label htmlFor="email" className="ml-4 font-raleway font-medium">
-						Email:{" "}
+					<label
+						htmlFor="email"
+						className="ml-4 font-raleway font-medium"
+					>
+						Email:{' '}
 						{isEditable && currentUser.google_sign_in ? (
-							<span className="text-red-500">*This field cannot be edited</span>
+							<span className="text-red-500">
+								*This field cannot be edited
+							</span>
 						) : null}
 					</label>
 					<Text
@@ -119,7 +150,11 @@ export default function FrmProfile({
 						name="email"
 						RegExp={RegExp.characters}
 						setValue={
-							currentUser.google_sign_in ? false : isEditable ? setEmail : false
+							currentUser.google_sign_in
+								? false
+								: isEditable
+								? setEmail
+								: false
 						}
 						width="w-[26.5rem]"
 						value={email}
@@ -129,7 +164,10 @@ export default function FrmProfile({
 			</div>
 			<div className="flex">
 				<div className="flex flex-col">
-					<label htmlFor="phone" className="ml-4 font-raleway font-medium">
+					<label
+						htmlFor="phone"
+						className="ml-4 font-raleway font-medium"
+					>
 						Phone:
 					</label>
 					<Text
@@ -144,7 +182,10 @@ export default function FrmProfile({
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label htmlFor="Country" className="ml-4 font-raleway font-medium">
+					<label
+						htmlFor="Country"
+						className="ml-4 font-raleway font-medium"
+					>
 						Country:
 					</label>
 					<SingleSelect
@@ -163,7 +204,10 @@ export default function FrmProfile({
 			</div>
 			<div className="flex">
 				<div className="flex flex-col">
-					<label htmlFor="position" className="ml-4 font-raleway font-medium">
+					<label
+						htmlFor="position"
+						className="ml-4 font-raleway font-medium"
+					>
 						Position:
 					</label>
 					<Text
@@ -247,11 +291,11 @@ export default function FrmProfile({
 								fill="white"
 							/>
 						) : (
-							"Save"
+							'Save'
 						)}
 					</button>
 				</div>
 			) : null}
 		</div>
-	);
+	)
 }

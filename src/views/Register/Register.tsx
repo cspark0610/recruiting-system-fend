@@ -1,26 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import Text from "../../components/inputs/Text";
+import Text from '../../components/inputs/Text'
 
-import PhoneInput from "../../components/inputs/PhoneInput";
-import SingleSelect from "../../components/inputs/SingleSelect";
-import Countries from "../../assets/json/Countries.json";
-import Checkbox from "../../components/buttons/Checkbox";
-import Button from "../../components/inputs/Button";
-import Wrapper from "../../components/extras/Wrapper";
+import PhoneInput from '../../components/inputs/PhoneInput'
+import SingleSelect from '../../components/inputs/SingleSelect'
+import Countries from '../../assets/json/Countries.json'
+import Checkbox from '../../components/buttons/Checkbox'
+import Button from '../../components/inputs/Button'
+import Wrapper from '../../components/extras/Wrapper'
 
 const Register = () => {
 	// const { t } = useTranslation()
-	const [password, setPassword] = useState("");
-	const [passwordConfirm, setPasswordConfirm] =
-		useState("");
-	const [phone, setPhone] = useState("");
+	const [password, setPassword] = useState('')
+	const [passwordConfirm, setPasswordConfirm] = useState('')
+	const [phone, setPhone] = useState('')
 	const [country, setCountry] = useState({
 		id: 0,
-		name: "",
-	});
-	const [position, setPosition] = useState("");
-	const [terms, setTerms] = useState(false);
+		name: '',
+	})
+	const [position, setPosition] = useState('')
+	const [terms, setTerms] = useState(false)
 	return (
 		<Wrapper>
 			<h1 className="text-center pt-24 mb-2 text-2xl font-bold text-gray-color">
@@ -35,7 +34,7 @@ const Register = () => {
 				value={password}
 				width="w-full"
 				setValue={setPassword}
-				RegExp={""}
+				RegExp={''}
 				placeholder="Password"
 				type="password"
 			/>
@@ -45,7 +44,7 @@ const Register = () => {
 				value={passwordConfirm}
 				width="w-full"
 				setValue={setPasswordConfirm}
-				RegExp={""}
+				RegExp={''}
 				placeholder="Repeat Password"
 				type="password"
 			/>
@@ -68,7 +67,7 @@ const Register = () => {
 				value={position}
 				width="w-full"
 				setValue={setPosition}
-				RegExp={""}
+				RegExp={''}
 				placeholder="Position"
 				type="text"
 			/>
@@ -84,7 +83,7 @@ const Register = () => {
 				<Button className="min-w-[131px]">Accept</Button>
 			</div>
 		</Wrapper>
-	);
-};
+	)
+}
 
-export default Register;
+export default Register

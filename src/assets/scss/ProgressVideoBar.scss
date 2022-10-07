@@ -1,21 +1,21 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 progress[value] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  width: 397.65px;
-  height: 5px;
-  overflow: hidden;
-  transition: all 2s ease 0.5s;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	width: 397.65px;
+	height: 5px;
+	overflow: hidden;
+	transition: all 2s ease 0.5s;
 }
 
 progress::-webkit-progress-value {
-  background: $red-color;
+	background: $red-color;
 }
 
 progress::-webkit-progress-bar {
-  background-color: transparent;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) inset; /*esta sombra es para simular el borde que he aplicado arriba para Mozilla*/
+	background-color: transparent;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) inset; /*esta sombra es para simular el borde que he aplicado arriba para Mozilla*/
 }

@@ -29,6 +29,7 @@
 		"react-dom": "^17.0.0",
 		"react-i18next": "^11.16.2",
 		"react-icons": "^4.3.1",
+		"react-phone-input-2": "^2.15.1",
 		"react-redux": "^7.2.8",
 		"react-router-dom": "^6.3.0",
 		"react-scripts": "5.0.0",
@@ -42,6 +43,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
+		"format": "prettier --write .",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
@@ -69,6 +71,7 @@
 		"@types/uuidv4": "^5.0.0",
 		"autoprefixer": "^10.4.4",
 		"postcss": "^8.4.12",
+		"prettier": "^2.7.1",
 		"tailwindcss": "^3.0.23"
 	}
 }

@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export function useModal() {
-  /*  */
-  const [openDialog, setOpenDialog] = useState(false);
+	/*  */
+	const [openDialog, setOpenDialog] = useState(false)
 
-  const isOpen = () => {
-    setOpenDialog(true);
-  };
+	const isOpen = () => {
+		setOpenDialog(true)
+	}
 
-  const isClose = () => {
-    setOpenDialog(false);
-  };
+	const isClose = () => {
+		setOpenDialog(false)
+	}
 
-  return {
-    isOpen,
-    isClose,
-    openDialog,
-    setOpenDialog,
-  };
+	return {
+		isOpen,
+		isClose,
+		openDialog,
+		setOpenDialog,
+	}
 }

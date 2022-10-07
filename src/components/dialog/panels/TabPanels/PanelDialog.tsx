@@ -1,13 +1,15 @@
-import { Tab } from "@headlessui/react";
-import Conclusion from "../TabContainers/Conclusion";
-import General from "../TabContainers/General";
-import Videos from "../TabContainers/Videos";
+import { Tab } from '@headlessui/react'
+import Conclusion from '../TabContainers/Conclusion'
+import General from '../TabContainers/General'
+import Videos from '../TabContainers/Videos'
 
 interface Props {
-	postulationId: string;
+	postulationId: string
 }
 
-const PanelDialog: React.FC<Props> = ({ postulationId }) => {
+const PanelDialog: React.FC<Props> = ({
+	postulationId,
+}) => {
 	return (
 		<Tab.Panels className="w-full">
 			<Tab.Panel>
@@ -20,7 +22,7 @@ const PanelDialog: React.FC<Props> = ({ postulationId }) => {
 				<Conclusion postulationId={postulationId} />
 			</Tab.Panel>
 		</Tab.Panels>
-	);
-};
+	)
+}
 
-export default PanelDialog;
+export default PanelDialog
