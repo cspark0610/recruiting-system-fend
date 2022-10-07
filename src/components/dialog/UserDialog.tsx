@@ -44,16 +44,11 @@ const UserDialog = ({
 }: Props) => {
 	const history = createBrowserHistory()
 	const dispatch = useDispatch<AppDispatch>()
-	const isDetailFinishedLoading = useSelector(
-		(state: State) => state.info.detailFinishedLoading,
-	)
-	const detail: ICandidate = useSelector(
-		(state: State) => state.info.detail,
-	)
+	const isDetailFinishedLoading = useSelector((state: State) => state.info.detailFinishedLoading);
+	const detail: ICandidate = useSelector((state: State) => state.info.detail);
 
-	const success = useSelector(
-		(state: State) => state.info.success,
-	)
+	const success = useSelector((state: State) => state.info.success);
+	const candidateId = detail._id!;
 
 	let main_status = ''
 	detail.postulations!.forEach((p: IPostulation) => {
@@ -63,12 +58,15 @@ const UserDialog = ({
 	})
 
 	/* STATES OF CONTROL FROM BUTTONS */
-	const [approve, setApproved] = useState(false)
-	const [doubting, setDoubting] = useState(false)
-	const [dismiss, setDismiss] = useState(false)
-	const [recandidate, setRecandidate] = useState(false)
-	const [reject, setReject] = useState(false)
-	const [hired, setHired] = useState(false)
+
+	const [approve, setApproved] = useState(false);
+	const [doubting, setDoubting] = useState(false);
+	const [dismiss, setDismiss] = useState(false);
+	const [recandidate, setRecandidate] = useState(false);
+	const [reject, setReject] = useState(false);
+	const [hired, setHired] = useState(false);
+	const [unlink, setUnlink] = useState(false);
+
 
 	/* STATES OF CONTROL FROM HEADER DIALOG */
 	const [color, setColor] = useState('bg-gray-color')
@@ -134,15 +132,12 @@ const UserDialog = ({
 		if (success.message !== '' && recandidate) {
 			setRecandidate(false)
 		}
-	}, [
-		success,
-		approve,
-		doubting,
-		dismiss,
-		reject,
-		hired,
-		recandidate,
-	])
+    
+		if (success.message !== "" && unlink) {
+			setUnlink(false);
+		}
+	}, [success, approve, doubting, dismiss, reject, hired, recandidate, unlink]);
+
 
 	// clears the candidate detail when the modal is closed
 	useEffect(() => {
@@ -154,18 +149,31 @@ const UserDialog = ({
 		}
 	}, [dispatch])
 
-	const isApproved = () => setApproved(!approve)
-	const isDoubting = () => setDoubting(!doubting)
-	const isDismiss = () => setDismiss(!dismiss)
-	const isRecandidate = () => setRecandidate(!recandidate)
-	const isReject = () => setReject(!reject)
-	const isHired = () => setHired(!hired)
+
+	const isApproved = () => setApproved(!approve);
+	const isDoubting = () => setDoubting(!doubting);
+	const isDismiss = () => setDismiss(!dismiss);
+	const isRecandidate = () => setRecandidate(!recandidate);
+	const isReject = () => setReject(!reject);
+	const isHired = () => setHired(!hired);
+	const isUnlink = () => setUnlink(!unlink);
+
 
 	const isStatusConfirm = (
 		secondary_status: string,
 		postulationId: string,
+		shouldRecandidate = false,
+		shouldUnlink = false
 		shouldRecandidate: boolean,
 	) => {
+		// unlink case
+		if (shouldUnlink === true) {
+			batch(() => {
+				dispatch(UpdateCandidateStatus(postulationId, "interested", "new entry"));
+				dispatch(UpdateCandidateEmploymentStatus(candidateId, "former"));
+			});
+		}
+
 		// recandidate case
 		if (
 			shouldRecandidate === true &&
@@ -306,6 +314,7 @@ const UserDialog = ({
 									isReject={isReject}
 									isHired={isHired}
 									isRecandidate={isRecandidate}
+									isUnlink={isUnlink}
 									isConfirmed={isConfirm}
 									postulationId={postulationId}
 									shouldReload={shouldReload}
@@ -318,11 +327,7 @@ const UserDialog = ({
 									alt="approve"
 									classes={true}
 									image="approve"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm("new entry", postulationId)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
 									onClick={isApproved}
 									setValue={setApproved}
@@ -335,11 +340,7 @@ const UserDialog = ({
 									alt="doubting"
 									classes={true}
 									image="doubting"
-									isVerify={isStatusConfirm(
-										'doubting',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm("doubting", postulationId)}
 									onClick={isDoubting}
 									setValue={setDoubting}
 									status='"in doubt".'
@@ -352,11 +353,7 @@ const UserDialog = ({
 									alt="dismiss"
 									classes={true}
 									image="dismiss"
-									isVerify={isStatusConfirm(
-										'dismissed',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm("dismissed", postulationId)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isDismiss}
 									setValue={setDismiss}
@@ -369,12 +366,9 @@ const UserDialog = ({
 								<Modal
 									alt="hired"
 									classes={true}
+									image="approve"
+									isVerify={isStatusConfirm("new entry", postulationId)}
 									image="hired"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										false,
-									)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isHired}
 									setValue={setHired}
@@ -387,12 +381,9 @@ const UserDialog = ({
 								<Modal
 									alt="recandidate"
 									classes={true}
+									image="approve"
+									isVerify={isStatusConfirm("new entry", postulationId, true)}
 									image="recandidate"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										true,
-									)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isRecandidate}
 									setValue={setRecandidate}
@@ -401,16 +392,26 @@ const UserDialog = ({
 									value={recandidate}
 								/>
 							)}
+							{unlink && (
+								<Modal
+									alt="inlink"
+									classes={true}
+									image="approve"
+									isVerify={isStatusConfirm("new entry", postulationId, false, true)}
+									message="Remember to fill your motives for this desition in conclusions"
+									onClick={isUnlink}
+									setValue={setUnlink}
+									status="unlinked."
+									title="This candidate has been "
+									value={unlink}
+								/>
+							)}
 							{reject && (
 								<Modal
 									alt="reject"
 									classes={false}
 									image="reject"
-									isVerify={isStatusConfirm(
-										'rejected',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm("rejected", postulationId)}
 									message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
 									onClick={isReject}
 									setValue={setReject}
