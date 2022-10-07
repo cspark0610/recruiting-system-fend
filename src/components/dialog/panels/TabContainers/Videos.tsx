@@ -13,7 +13,7 @@ import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
 interface Props {
 	postulationId: string
 }
-const Videos: React.FC<Props> = ({ postulationId }) => {
+const Videos = ({ postulationId }: Props) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const detail = useSelector(
 		(state: State) => state.info.detail,
@@ -29,7 +29,7 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 		)
 
 	const video_keys: string[] = hasUploaded.map(
-		(h) => h.video_key,
+		h => h.video_key,
 	)
 
 	useEffect(() => {
@@ -37,7 +37,6 @@ const Videos: React.FC<Props> = ({ postulationId }) => {
 			dispatch(GetVideo(video_keys[0]))
 			dispatch(GetVideo(video_keys[1]))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const videos_recorded = useSelector(

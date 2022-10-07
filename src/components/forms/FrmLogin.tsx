@@ -88,11 +88,12 @@ const FrmLogin = () => {
 		dispatch(Login({ tokenId: result.credential }, true))
 	}
 
-	const handleRegister = (evt: {
-		preventDefault: () => void
-	}) => {
-		evt.preventDefault()
-	}
+	//TODO: handle error to use
+	// const handleRegister = (evt: {
+	// 	preventDefault: () => void
+	// }) => {
+	// 	evt.preventDefault()
+	// }
 
 	return (
 		<section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">

@@ -31,7 +31,7 @@ const TableHeader = ({ positions }: TableHeaderProps) => {
 		} else {
 			setPosition([
 				..._position.filter(
-					(item) => item !== e.target.value,
+					item => item !== e.target.value,
 				),
 			])
 		}
@@ -52,18 +52,18 @@ const TableHeader = ({ positions }: TableHeaderProps) => {
 	}
 
 	// adds a checked property to each job object
-	let positionsWithCheck = positions.map((pos) => {
+	const positionsWithCheck = positions.map(pos => {
 		return { ...pos, checked: false }
 	})
 	const handleAllPositionsCheck = (e: any) => {
 		if (!allPositionsSelected) {
 			const positionsChecked = positionsWithCheck.map(
-				(pos) => {
+				pos => {
 					pos.checked = !e.target.checked
 					return pos
 				},
 			)
-			setPosition(positionsChecked.map((pos) => pos._id!))
+			setPosition(positionsChecked.map(pos => pos._id!))
 			setAllPositionsSelected(true)
 		} else {
 			setPosition([])
@@ -112,7 +112,7 @@ const TableHeader = ({ positions }: TableHeaderProps) => {
 					</li>
 
 					{positions &&
-						positions.map((position) => {
+						positions.map(position => {
 							return (
 								<li
 									className="flex flex-end items-center border-b-2 pb-2 pt-2"

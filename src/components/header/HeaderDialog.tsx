@@ -15,12 +15,12 @@ interface Props {
 	shouldRenderDropdown?: boolean
 }
 
-const HeaderDialog: React.FC<Props> = ({
+const HeaderDialog = ({
 	isClose,
 	color,
 	postulationId,
 	shouldRenderDropdown,
-}) => {
+}: Props) => {
 	const postulation = useSelector(
 		(state: State) => state.info.postulation,
 	)

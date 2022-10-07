@@ -6,11 +6,7 @@ interface Props {
 	setValue: any
 }
 
-const TextArea: React.FC<Props> = ({
-	id,
-	value,
-	setValue,
-}) => {
+const TextArea = ({ id, value, setValue }: Props) => {
 	/*  */
 	const { t } = useTranslation()
 

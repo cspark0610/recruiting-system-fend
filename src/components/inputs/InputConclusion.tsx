@@ -6,13 +6,13 @@ interface Props {
 	setValue: any
 }
 
-const InputConclusion: React.FC<Props> = ({
+const InputConclusion = ({
 	id,
 	name,
 	placeholder,
 	value,
 	setValue,
-}) => {
+}: Props) => {
 	/*  */
 	const onChange = (evt: any) => {
 		setValue(evt.target.value)

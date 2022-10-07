@@ -119,7 +119,7 @@ export default function PositionsList() {
 						<img
 							src={
 								process.env.PUBLIC_URL +
-								`/images/approve.svg`
+								'/images/approve.svg'
 							}
 							alt="Approved img"
 						/>

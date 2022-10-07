@@ -97,9 +97,7 @@ export default function List({
 				<div className="flex">
 					<button
 						disabled={items.totalDocs === 0}
-						onClick={
-							isAdmin ? () => setIsOpen(!isOpen) : () => {}
-						}
+						onClick={() => isAdmin && setIsOpen(!isOpen)}
 						className={
 							(inactive && !isAdmin) ||
 							(inactive && isAdmin)
@@ -130,7 +128,7 @@ export default function List({
 			</div>
 			{isOpen ? (
 				<div className="mt-8 ml-10">
-					{itemsSorted.map((item) => (
+					{itemsSorted.map(item => (
 						<div key={item._id} className="flex w-full">
 							<Item
 								positionName={item.title}

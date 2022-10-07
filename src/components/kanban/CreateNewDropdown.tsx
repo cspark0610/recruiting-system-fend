@@ -14,13 +14,11 @@ export default function CreateNewDropdown({
 	let positions = useSelector(
 		(state: State) => state.positions.data.docs,
 	)
-	positions = positions.filter(
-		(pos) => pos.isActive === true,
-	)
+	positions = positions.filter(pos => pos.isActive === true)
 
 	return (
 		<div className="flex flex-col px-4 pt-4 space-y-3 border-b pb-2">
-			{positions.map((pos) => (
+			{positions.map(pos => (
 				<div key={pos._id} className="border-b pb-2 w-48">
 					<a
 						href={`${VIEW_APPLY}?position_id=${pos._id}`}

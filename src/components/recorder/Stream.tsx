@@ -29,12 +29,12 @@ type StreamProps = {
 	postulation: IPostulation
 }
 
-const Stream: React.FC<StreamProps> = ({
+const Stream = ({
 	videoCounter,
 	setVideoCounter,
 	token,
 	postulation,
-}) => {
+}: StreamProps) => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
@@ -108,7 +108,7 @@ const Stream: React.FC<StreamProps> = ({
 	const handleSubmitCapture = useCallback(() => {
 		const postulationFound =
 			currentCandidate.postulations!.find(
-				(p) => p._id === postulationId,
+				p => p._id === postulationId,
 			)
 		const video_questions_list: IPostulation['video_questions_list'] =
 			[]

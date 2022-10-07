@@ -13,7 +13,7 @@ interface Props {
 	postulationId: string
 }
 
-const Dropdown: React.FC<Props> = ({ postulationId }) => {
+const Dropdown = ({ postulationId }: Props) => {
 	/*  */
 	const [position, setPosition] = useState<Array<string>>(
 		[],
@@ -34,9 +34,9 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 		postulationId,
 	)
 
-	const positionsFiltered = positions.filter((position) => {
+	const positionsFiltered = positions.filter(position => {
 		return detail.postulations?.every(
-			(postulation) =>
+			postulation =>
 				position?.title !== postulation.position?.title,
 		)
 	})
@@ -61,9 +61,7 @@ const Dropdown: React.FC<Props> = ({ postulationId }) => {
 			setPosition([...position, e.target.value])
 		} else {
 			setPosition([
-				...position.filter(
-					(item) => item !== e.target.value,
-				),
+				...position.filter(item => item !== e.target.value),
 			])
 		}
 	}

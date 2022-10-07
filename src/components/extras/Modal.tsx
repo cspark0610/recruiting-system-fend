@@ -19,7 +19,7 @@ interface Props {
 	value: boolean
 }
 
-const Modal: React.FC<Props> = ({
+const Modal = ({
 	alt,
 	classes,
 	image,
@@ -30,7 +30,7 @@ const Modal: React.FC<Props> = ({
 	status,
 	title,
 	value,
-}) => {
+}: Props) => {
 	/*  */
 	const { t } = useTranslation()
 

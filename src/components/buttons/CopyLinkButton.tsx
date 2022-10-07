@@ -37,7 +37,7 @@ const CopyLinkButton = ({
 
 	const renderCopyIcon = () => (
 		<img
-			src={process.env.PUBLIC_URL + `/images/linkIcon.svg`}
+			src={process.env.PUBLIC_URL + '/images/linkIcon.svg'}
 			alt="Copy Icon"
 		/>
 	)

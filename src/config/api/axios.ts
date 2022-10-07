@@ -73,7 +73,7 @@ PrivateAxios.interceptors.request.use(
 
 PrivateAxios.interceptors.response.use(
 	(response: AxiosResponse) => response,
-	async (error) => {
+	async error => {
 		const prevRequest = error?.config
 		if (
 			error?.response?.status === 401 &&

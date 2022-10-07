@@ -18,7 +18,7 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ')
 }
 
-const SelectCoin: React.FC<Props> = (props) => {
+const SelectCoin = (props: Props) => {
 	return (
 		<div className="absolute mobile:top-[25px] mobile:left-[10px] tablet:top-[10px] tablet:left-[10px] laptop:top-[10px] laptop:left-[10px] z-10">
 			<div className="relative">

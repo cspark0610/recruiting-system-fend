@@ -7,9 +7,7 @@ interface Props {
 	postulationId: string
 }
 
-const PanelDialog: React.FC<Props> = ({
-	postulationId,
-}) => {
+const PanelDialog = ({ postulationId }: Props) => {
 	return (
 		<Tab.Panels className="w-full">
 			<Tab.Panel>

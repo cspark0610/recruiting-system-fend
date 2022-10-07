@@ -19,7 +19,7 @@ export default function Filters() {
 	)
 
 	// adds a checked property to each job object
-	let positionsWithCheck = positions.map((pos) => {
+	const positionsWithCheck = positions.map(pos => {
 		return { ...pos, checked: false }
 	})
 
@@ -53,9 +53,7 @@ export default function Filters() {
 			setPosition([...position, e.target.value])
 		} else {
 			setPosition([
-				...position.filter(
-					(item) => item !== e.target.value,
-				),
+				...position.filter(item => item !== e.target.value),
 			])
 		}
 	}
@@ -71,7 +69,7 @@ export default function Filters() {
 		} else {
 			setSecondaryStatus([
 				...secondary_status.filter(
-					(status) => status !== e.target.value,
+					status => status !== e.target.value,
 				),
 			])
 		}
@@ -80,12 +78,12 @@ export default function Filters() {
 	const handleAllPositionsCheck = (e: any) => {
 		if (!allPositionsSelected) {
 			const positionsChecked = positionsWithCheck.map(
-				(pos) => {
+				pos => {
 					pos.checked = !e.target.checked
 					return pos
 				},
 			)
-			setPosition(positionsChecked.map((pos) => pos._id!))
+			setPosition(positionsChecked.map(pos => pos._id!))
 			setAllPositionsSelected(true)
 		} else {
 			setPosition([])
@@ -95,14 +93,12 @@ export default function Filters() {
 
 	const handleAllStatusCheck = (e: any) => {
 		if (!allStatusSelected) {
-			const statusChecked = secondaryStatus.map(
-				(status) => {
-					status.checked = !e.target.checked
-					return status
-				},
-			)
+			const statusChecked = secondaryStatus.map(status => {
+				status.checked = !e.target.checked
+				return status
+			})
 			setSecondaryStatus(
-				statusChecked.map((status) => status.value),
+				statusChecked.map(status => status.value),
 			)
 			setAllStatusSelected(true)
 		} else {
@@ -175,7 +171,7 @@ export default function Filters() {
 								? 'Unselect all'
 								: 'Select all'}
 						</button>
-						{positions.map((pos) => (
+						{positions.map(pos => (
 							<div
 								key={pos._id}
 								className="flex justify-between border-b pb-2 w-48"
@@ -242,7 +238,7 @@ export default function Filters() {
 								? 'Unselect all'
 								: 'Select all'}
 						</button>
-						{secondaryStatus.map((status) => (
+						{secondaryStatus.map(status => (
 							<div
 								key={status.id}
 								className="flex justify-between border-b pb-2 w-48"

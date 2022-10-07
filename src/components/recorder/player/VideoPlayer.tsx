@@ -10,12 +10,9 @@ interface Props {
 	onClick: any
 }
 
-const VideoPlayer: React.FC<Props> = ({
-	source,
-	onClick,
-}) => {
+const VideoPlayer = ({ source, onClick }: Props) => {
 	/*  */
-	let video = source //temporal
+	const video = source //temporal
 
 	return (
 		<div

@@ -17,7 +17,7 @@ const NotFound = () => {
 						<img
 							src={
 								process.env.PUBLIC_URL +
-								`/images/Ilustration.svg`
+								'/images/Ilustration.svg'
 							}
 							alt="Page Not Found"
 							className="mobile:hidden tablet:block laptop:block"
@@ -27,7 +27,7 @@ const NotFound = () => {
 						<img
 							src={
 								process.env.PUBLIC_URL +
-								`/images/404 Error.svg`
+								'/images/404 Error.svg'
 							}
 							alt="404 page not found"
 							className="w-60 md:w-full bg-white"

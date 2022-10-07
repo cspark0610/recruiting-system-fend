@@ -8,11 +8,11 @@ interface Props {
 	init: any
 }
 
-const CameraOn: React.FC<Props> = ({
+const CameraOn = ({
 	webcamRef,
 	isCameraOn,
 	init,
-}) => {
+}: Props) => {
 	/*  */
 	const { t } = useTranslation()
 

@@ -15,20 +15,20 @@ interface Props {
 	id: string
 	for: string
 	label: string
+	width: string
 	placeholder: string
 	setValue: any
 	showAlert?: any
 	value: any
-	width: string
 }
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ')
 }
 
-const SingleSelect: React.FC<Props> = (props) => {
+const SingleSelect: React.FC<Props> = (props: Props) => {
 	/*  */
-	const [showValue, setShowValue] = useState('')
+	const [, setShowValue] = useState('')
 
 	const onChange = (evt: any) => {
 		setShowValue(evt.target.value)

@@ -1,11 +1,6 @@
-import {
-	PRODUCTION_PATH,
-	VIEW_APPLY_BY_POSITION_ID,
-	VIEW_EDIT_POSITION,
-} from '../../config/routes/paths'
+import { VIEW_EDIT_POSITION } from '../../config/routes/paths'
 
 import { BiLinkExternal } from 'react-icons/bi'
-import CopyLinkButton from '../buttons/CopyLinkButton'
 import EditButton from '../buttons/EditButton'
 import { IoMdArrowDropright } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'

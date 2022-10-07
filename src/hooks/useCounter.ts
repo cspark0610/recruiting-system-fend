@@ -6,7 +6,7 @@ export function useCounter() {
 		second: 0,
 	})
 	const [intervalWatch, setIntervalWatch] = useState<any>()
-	let [progress, setProgress] = useState(0)
+	const [progress, setProgress] = useState(0)
 
 	let updatedS = time.second - 1
 	let updatedM = time.minute
@@ -20,7 +20,7 @@ export function useCounter() {
 			updatedS = 0
 		}
 		updatedS++
-		setProgress((progress) => progress + 1)
+		setProgress(progress => progress + 1)
 		return setTime({ minute: updatedM, second: updatedS })
 	}
 

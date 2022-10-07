@@ -17,7 +17,7 @@ interface Props {
 	setValue: any
 }
 
-const MultipleSelect: React.FC<Props> = (props) => {
+const MultipleSelect = (props: Props) => {
 	/*  */
 	const onSelection = (selectedList: any) => {
 		props.setValue(selectedList)

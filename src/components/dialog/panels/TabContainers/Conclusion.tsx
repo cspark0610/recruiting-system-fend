@@ -18,7 +18,7 @@ interface Props {
 	postulationId: string
 }
 
-const Conclusion: React.FC<Props> = ({ postulationId }) => {
+const Conclusion = ({ postulationId }: Props) => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
 	const [goodComment, setGoodComment] = useState<string>('')

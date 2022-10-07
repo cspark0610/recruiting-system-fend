@@ -72,27 +72,27 @@ export default function Column({
 								items.map((item: ICandidate) => {
 									return (
 										item.postulations!.length > 0 &&
-										item.postulations!.map(
-											(postulation) => {
-												return (
-													<Card
-														key={postulation._id}
-														postulationId={postulation._id!}
-														_id={item._id!}
-														name={item.name}
-														position={
-															postulation?.position?.title!
-														}
-														secondary_status={
-															postulation.secondary_status
-														}
-														main_status={
-															postulation.main_status
-														}
-													/>
-												)
-											},
-										)
+										item.postulations!.map(postulation => {
+											return (
+												<Card
+													key={postulation._id}
+													postulationId={
+														postulation._id || ''
+													}
+													_id={item._id || ''}
+													name={item.name}
+													position={
+														postulation?.position?.title
+													}
+													secondary_status={
+														postulation.secondary_status
+													}
+													main_status={
+														postulation.main_status
+													}
+												/>
+											)
+										})
 									)
 								})
 							)}

@@ -4,11 +4,7 @@ interface Props {
 	onSubmit?: any
 }
 
-const Submit: React.FC<Props> = ({
-	name,
-	width,
-	onSubmit,
-}) => {
+const Submit = ({ name, width, onSubmit }: Props) => {
 	return (
 		<div className="flex justify-center mb-3 mobile:mt-5 laptop:mt-5 tablet:mt-16">
 			<input

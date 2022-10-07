@@ -17,7 +17,7 @@ interface Props {
 	setCoin: any
 }
 
-const Currency: React.FC<Props> = ({
+const Currency = ({
 	id,
 	placeholder,
 	label,
@@ -29,7 +29,7 @@ const Currency: React.FC<Props> = ({
 	data,
 	coin,
 	setCoin,
-}) => {
+}: Props) => {
 	/*  */
 	const { t } = useTranslation()
 

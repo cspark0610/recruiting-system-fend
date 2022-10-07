@@ -13,7 +13,7 @@ export default function useOutsideAlerter(
 				ref.current &&
 				!ref.current.contains(event.target)
 			) {
-				callbacks.forEach((callback) => callback(false))
+				callbacks.forEach(callback => callback(false))
 			}
 		}
 		// Bind the event listener

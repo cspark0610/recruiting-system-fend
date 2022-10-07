@@ -39,7 +39,7 @@ export default function CandidateStatus() {
 		(state: State) => state.info.candidates,
 	)
 
-	let candidatesSorted = sortByColumn(candidates)
+	const candidatesSorted = sortByColumn(candidates)
 
 	/* only for admin role */
 	// let candidatesChosenAndHired = [...candidatesSorted.chosen, ...candidatesSorted.hired];

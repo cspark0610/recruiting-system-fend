@@ -33,7 +33,7 @@ interface Props {
 	shouldRenderDropdown?: boolean
 }
 
-const UserDialog: React.FC<Props> = ({
+const UserDialog = ({
 	isDialogClose,
 	isModalLoading,
 	setIsModalLoading,
@@ -41,7 +41,7 @@ const UserDialog: React.FC<Props> = ({
 	shouldReload,
 	hideButtons,
 	shouldRenderDropdown,
-}) => {
+}: Props) => {
 	const history = createBrowserHistory()
 	const dispatch = useDispatch<AppDispatch>()
 	const isDetailFinishedLoading = useSelector(
@@ -152,7 +152,6 @@ const UserDialog: React.FC<Props> = ({
 				history.go(0)
 			}
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch])
 
 	const isApproved = () => setApproved(!approve)

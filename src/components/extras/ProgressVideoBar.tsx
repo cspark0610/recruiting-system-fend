@@ -4,7 +4,7 @@ interface Props {
 	value: number
 }
 
-const ProgressVideoBar: React.FC<Props> = ({ value }) => {
+const ProgressVideoBar = ({ value }: Props) => {
 	return (
 		<div className="absolute top-[282px] z-10">
 			<progress

@@ -13,7 +13,7 @@ interface Props {
 	width: string
 }
 
-const Text: React.FC<Props> = ({
+const Text = ({
 	id,
 	label,
 	name,
@@ -24,7 +24,7 @@ const Text: React.FC<Props> = ({
 	type,
 	value,
 	width,
-}) => {
+}: Props) => {
 	/*  */
 	const onChange = (evt: any) => {
 		setValue(evt.target.value.replace(RegExp, ''))

@@ -88,7 +88,7 @@ const FormView = ({
 		} else {
 			setEmploymentStatus([
 				...employment_status.filter(
-					(status) => status !== e.target.value,
+					status => status !== e.target.value,
 				),
 			])
 		}
@@ -98,7 +98,7 @@ const FormView = ({
 		if (!skills.length) return
 		dispatch(
 			GetCandidatesFilteredExpert({
-				skills: skills.filter((i) => i !== ''),
+				skills: skills.filter(i => i !== ''),
 				candidate_name: '',
 				employment_status: [],
 			}),
@@ -112,7 +112,7 @@ const FormView = ({
 				skills: [],
 				candidate_name: name.trim(),
 				employment_status: employment_status.filter(
-					(i) => i !== '',
+					i => i !== '',
 				),
 			}),
 		)

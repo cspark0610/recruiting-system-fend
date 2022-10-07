@@ -21,7 +21,7 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ')
 }
 
-const ListDialog: React.FC<Props> = ({
+const ListDialog = ({
 	isApproved,
 	isDoubting,
 	isDismiss,
@@ -32,7 +32,7 @@ const ListDialog: React.FC<Props> = ({
 	postulationId,
 	shouldReload,
 	hideButtons,
-}) => {
+}: Props) => {
 	/* shouldReload === false, hideButtons === true */
 	const detail = useSelector(
 		(state: State) => state.info.detail,
@@ -55,7 +55,7 @@ const ListDialog: React.FC<Props> = ({
 			<Tab
 				className={({ selected }) =>
 					classNames(
-						`absolute top-[87px] left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none`,
+						'absolute top-[87px] left-[45px] w-[191px] h-[41px] py-2.5 text-sm font-raleway font-medium text-left pl-5 text-gray-color focus:outline-none',
 						selected
 							? 'bg-white rounded-l-[5px] text-cyan-color'
 							: '',

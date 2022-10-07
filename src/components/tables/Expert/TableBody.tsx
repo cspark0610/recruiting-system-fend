@@ -202,10 +202,10 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 	) => {
 		return (
 			candidates &&
-			candidates.map((candidate) => {
+			candidates.map(candidate => {
 				return (
 					candidate.postulations &&
-					candidate.postulations.map((postulation) => {
+					candidate.postulations.map(postulation => {
 						return (
 							<div
 								className="flex items-center border-b-2 border-[#DEE1E6]  py-5 select-none"

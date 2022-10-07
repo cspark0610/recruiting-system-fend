@@ -2,9 +2,9 @@ interface Props {
 	time: { minute: number; second: number }
 }
 
-const CounterDown: React.FC<Props> = ({
+const CounterDown = ({
 	time: { minute, second },
-}) => {
+}: Props) => {
 	return (
 		<div className="relative">
 			<div className="absolute top-5 left-5 z-10 text-white font-raleway">

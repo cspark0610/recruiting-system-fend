@@ -46,7 +46,7 @@ const VideoCompleted = () => {
 	const token = searchParams.get('token')
 
 	useEffect(() => {
-		dispatch(ValidateToken(token!))
+		dispatch(ValidateToken(token || ''))
 	}, [dispatch, token])
 
 	const redirectEdition = () => {
@@ -63,9 +63,11 @@ const VideoCompleted = () => {
 	}
 
 	useEffect(() => {
-		window.mediaStreamObject
-			.getTracks()
-			.forEach((track: any) => track.stop())
+		if (window.mediaStreamObject) {
+			window.mediaStreamObject
+				.getTracks()
+				.forEach(track => track.stop())
+		}
 	}, [])
 
 	return (

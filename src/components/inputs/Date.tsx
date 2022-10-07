@@ -11,7 +11,7 @@ interface Props {
 	width: string
 }
 
-const Date: React.FC<Props> = (props) => {
+const Date = (props: Props) => {
 	/*  */
 	const onChange = (evt: any) => {
 		props.setValue(evt.target.value)
@@ -19,7 +19,7 @@ const Date: React.FC<Props> = (props) => {
 
 	const [text, isText] = useState('text')
 
-	let type = text
+	const type = text
 
 	const onClick = () => {
 		isText('date')

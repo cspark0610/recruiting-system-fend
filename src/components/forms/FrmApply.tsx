@@ -31,7 +31,7 @@ interface Props {
 	_id: string | null
 }
 
-const FrmApply: React.FC<Props> = ({ _id }) => {
+const FrmApply = ({ _id }: Props) => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
 	const { t } = useTranslation()
@@ -176,7 +176,7 @@ const FrmApply: React.FC<Props> = ({ _id }) => {
 		window.location.assign(VIEW_APPLY_THANKS)
 	}
 
-	let job_title = positionInfo.title
+	const job_title = positionInfo.title
 
 	return (
 		<section className="grid justify-items-center mobile:mt-8 mobile:mx-[5px] tablet:mx-0 laptop:mx-0 laptop:mt-0">

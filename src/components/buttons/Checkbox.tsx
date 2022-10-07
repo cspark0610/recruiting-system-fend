@@ -10,7 +10,7 @@ interface Props {
 	width: string
 }
 
-const Checkbox: React.FC<Props> = ({
+const Checkbox = ({
 	id,
 	classes,
 	direction,
@@ -20,7 +20,7 @@ const Checkbox: React.FC<Props> = ({
 	value,
 	setValue,
 	width,
-}) => {
+}: Props) => {
 	/*  */
 	const onChange = (evt: any) => {
 		setValue(evt.target.checked)

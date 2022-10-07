@@ -6,7 +6,7 @@ interface Props {
 	link: string
 }
 
-const Back: React.FC<Props> = ({ link }) => {
+const Back = ({ link }: Props) => {
 	/*  */
 	const navigate = useNavigate()
 	const { t } = useTranslation()

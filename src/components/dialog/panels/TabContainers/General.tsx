@@ -15,7 +15,7 @@ interface Props {
 	postulationId: string
 }
 
-const General: React.FC<Props> = ({ postulationId }) => {
+const General = ({ postulationId }: Props) => {
 	const details = useSelector(
 		(state: State) => state.info.detail,
 	)

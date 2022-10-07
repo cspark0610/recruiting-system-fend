@@ -33,6 +33,7 @@ import { IPosition } from '../types/data'
 import { IUser } from '../../users/types/data'
 import { PrivateAxios } from '../../../config/api/axios'
 import store from '../../store/store'
+import axios from 'axios'
 
 export default function getAllPositions(list: string) {
 	return async function (dispatch: Dispatch) {
@@ -46,16 +47,18 @@ export default function getAllPositions(list: string) {
 				type: ActionTypes.GET_ALL_POSITIONS,
 				payload: data.data,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				}
 			}
 		}
 	}
@@ -84,25 +87,27 @@ export function GetActivePositions(
 				type: ActionTypes.GET_ACTIVE_POSITIONS,
 				payload: data.data,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}
@@ -131,25 +136,27 @@ export function GetInactivePositions(
 				type: ActionTypes.GET_INACTIVE_POSITIONS,
 				payload: data.data,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}
@@ -175,12 +182,14 @@ export function getPositionInfo(_id: string) {
 				type: ActionTypes.GET_POSITION_INFO,
 				payload: data.positionInfo,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}
@@ -215,25 +224,27 @@ export function createPosition(positionInfo: IPosition) {
 				type: ActionTypes.CREATE_POSITION,
 				payload: data.newPosition,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetLoadingAction>({
-					type: ActionTypes.SET_IS_NOT_LOADING,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetLoadingAction>({
+						type: ActionTypes.SET_IS_NOT_LOADING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}
@@ -272,6 +283,7 @@ export function UpdateInfo(
 				newInfo.designated?.includes(user.name),
 			)
 
+			//TODO: Change type any
 			newRecruiters = newRecruiters.reduce(
 				(prev: any, user: any) => {
 					return [
@@ -286,7 +298,7 @@ export function UpdateInfo(
 				type: ActionTypes.UPDATE_INFO,
 				payload: { ...newInfo, designated: newRecruiters },
 			})
-		} catch (error) {
+		} catch (error: any) {
 			if (error.response) {
 				dispatch<SetIsPositionUpdatingAction>({
 					type: ActionTypes.SET_IS_NOT_UPDATING,
@@ -333,25 +345,27 @@ export function SetIsActive(_id: string) {
 				type: ActionTypes.SET_SUCCESS,
 				payload: data,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch<SetIsPositionUpdatingAction>({
-					type: ActionTypes.SET_IS_NOT_UPDATING,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetIsPositionUpdatingAction>({
+						type: ActionTypes.SET_IS_NOT_UPDATING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetIsPositionUpdatingAction>({
-					type: ActionTypes.SET_IS_NOT_UPDATING,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetIsPositionUpdatingAction>({
+						type: ActionTypes.SET_IS_NOT_UPDATING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}
@@ -399,24 +413,26 @@ export function DeletePosition(_id: string) {
 				payload: data,
 			})
 		} catch (error) {
-			if (error.response) {
-				dispatch<SetIsPositionUpdatingAction>({
-					type: ActionTypes.SET_IS_NOT_UPDATING,
-				})
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch<SetIsPositionUpdatingAction>({
+						type: ActionTypes.SET_IS_NOT_UPDATING,
+					})
 
-				dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetIsPositionUpdatingAction>({
-					type: ActionTypes.SET_IS_NOT_UPDATING,
-				})
+					dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetIsPositionUpdatingAction>({
+						type: ActionTypes.SET_IS_NOT_UPDATING,
+					})
 
-				return dispatch<SetPositionErrorAction>({
-					type: ActionTypes.SET_POSITION_ERROR,
-					payload: error,
-				})
+					return dispatch<SetPositionErrorAction>({
+						type: ActionTypes.SET_POSITION_ERROR,
+						payload: error,
+					})
+				}
 			}
 		}
 	}

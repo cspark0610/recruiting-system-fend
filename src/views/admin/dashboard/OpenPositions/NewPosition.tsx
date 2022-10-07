@@ -4,10 +4,7 @@ import {
 	ClearSuccess,
 	getPositionInfo,
 } from '../../../../redux/positions/actions/PositionsActions'
-import {
-	PRODUCTION_PATH,
-	VIEW_OPEN_POSITIONS,
-} from '../../../../config/routes/paths'
+import { VIEW_OPEN_POSITIONS } from '../../../../config/routes/paths'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Back from '../../../../components/buttons/Back'
@@ -51,7 +48,7 @@ export default function NewPosition() {
 
 	useEffect(() => {
 		if (_id) {
-			dispatch(getPositionInfo(_id!))
+			dispatch(getPositionInfo(_id))
 		}
 
 		return () => {

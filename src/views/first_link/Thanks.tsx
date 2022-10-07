@@ -6,11 +6,11 @@ interface Props {
 	SecondLine: string
 }
 
-const Thanks: React.FC<Props> = ({
+const Thanks = ({
 	title,
 	FirstLine,
 	SecondLine,
-}) => {
+}: Props) => {
 	return (
 		<div className="grid justify-center items-center h-screen">
 			<Header

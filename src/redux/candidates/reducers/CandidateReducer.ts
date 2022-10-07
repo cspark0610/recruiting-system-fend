@@ -214,7 +214,7 @@ function CandidateReducer(
 		case ActionTypes.UPDATE_STATUS: {
 			return {
 				...state,
-				candidates: state.candidates.map((candidate) =>
+				candidates: state.candidates.map(candidate =>
 					candidate._id === action.payload._id
 						? {
 								...candidate,
@@ -235,7 +235,7 @@ function CandidateReducer(
 		case ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS: {
 			return {
 				...state,
-				candidates: state.candidates.map((candidate) =>
+				candidates: state.candidates.map(candidate =>
 					candidate._id === action.payload._id
 						? {
 								...candidate,

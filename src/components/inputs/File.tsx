@@ -14,14 +14,14 @@ interface Props {
 	size: boolean
 }
 
-const File: React.FC<Props> = ({
+const File = ({
 	value,
 	upload,
 	onChange,
 	message,
 	color,
 	size,
-}) => {
+}: Props) => {
 	/*  */
 	const { t } = useTranslation()
 

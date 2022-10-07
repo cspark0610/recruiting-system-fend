@@ -38,7 +38,7 @@ type Props = {
 	token: string
 }
 
-const FrmData: React.FC<Props> = ({ token }) => {
+const FrmData = ({ token }: Props) => {
 	/*  */
 	const navigate = useNavigate()
 	const dispatch = useDispatch<AppDispatch>()
@@ -71,20 +71,23 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		postulationDetail && postulationDetail._id
 
 	/* States from the component */
-	let [college, setCollege] = useState({ id: 0, name: '' })
-	let [currency, setCurrency] = useState({
+	const [college, setCollege] = useState({
 		id: 0,
 		name: '',
 	})
-	let [salary, setSalary] = useState('')
-	let [available, setAvailable] = useState({
+	const [currency, setCurrency] = useState({
 		id: 0,
 		name: '',
 	})
-	let [skill, setSkill] = useState<
+	const [salary, setSalary] = useState('')
+	const [available, setAvailable] = useState({
+		id: 0,
+		name: '',
+	})
+	const [skill, setSkill] = useState<
 		{ id: number; name: string }[]
 	>([])
-	let [description, setDescription] = useState('')
+	const [description, setDescription] = useState('')
 
 	/* Values which will be validated */
 	const [isCollegeValid, setIsCollegeValid] =
@@ -135,7 +138,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		if (!college || !currency || !salary || !skill) {
 			return
 		} else {
-			let skills = skill.map((skill) => skill.name)
+			const skills = skill.map(skill => skill.name)
 
 			_UpdatePostulationInfo({
 				academic_training: college.name,
@@ -155,7 +158,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 		if (!salary || !skill) {
 			return
 		} else {
-			let skills = skill.map((skill) => skill.name)
+			const skills = skill.map(skill => skill.name)
 
 			_UpdatePostulationInfo({
 				academic_training: college.name,
@@ -176,14 +179,14 @@ const FrmData: React.FC<Props> = ({ token }) => {
 	useEffect(() => {
 		if (toEdit === 'true') {
 			const collegeToEdit = training.find(
-				(t) => t.name === candidateDetail.academic_training,
+				t => t.name === candidateDetail.academic_training,
 			) || {
 				id: 0,
 				name: college.name,
 			}
 
 			const currencyToEdit = coins.find(
-				(c) =>
+				c =>
 					c.name ===
 					postulationDetail.salary_expectations.split(
 						' ',
@@ -191,7 +194,7 @@ const FrmData: React.FC<Props> = ({ token }) => {
 			)
 
 			const availableToEdit = time.find(
-				(t) => t.name === postulationDetail.available_from,
+				t => t.name === postulationDetail.available_from,
 			)
 
 			const skillsToEdit = postulationDetail.skills.reduce(

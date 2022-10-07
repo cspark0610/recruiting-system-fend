@@ -23,7 +23,7 @@ const Required = () => {
 	}
 
 	useEffect(() => {
-		dispatch(ValidateToken(token!))
+		dispatch(ValidateToken(token || ''))
 	}, [dispatch, token])
 
 	return (
@@ -33,7 +33,7 @@ const Required = () => {
 				width="laptop:w-[97.5px] mobile:w-[113px] tablet:w-[154px]"
 				height="laptop:h-[65px] mobile:h-[75px] tablet:h-[102px]"
 			/>
-			<FrmData token={token!} />
+			<FrmData token={token || ''} />
 		</>
 	)
 }

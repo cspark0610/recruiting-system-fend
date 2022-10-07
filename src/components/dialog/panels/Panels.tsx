@@ -15,7 +15,7 @@ interface Props {
 	hideButtons?: boolean
 }
 
-const Panels: React.FC<Props> = ({
+const Panels = ({
 	isApproved,
 	isDoubting,
 	isDismiss,
@@ -26,7 +26,7 @@ const Panels: React.FC<Props> = ({
 	postulationId,
 	shouldReload,
 	hideButtons,
-}) => {
+}: Props) => {
 	return (
 		<Tab.Group>
 			<ListDialog

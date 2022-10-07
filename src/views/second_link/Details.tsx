@@ -35,7 +35,7 @@ const Details = () => {
 	}
 
 	useEffect(() => {
-		dispatch(ValidateToken(token!))
+		dispatch(ValidateToken(token || ''))
 	}, [dispatch, token])
 
 	return (

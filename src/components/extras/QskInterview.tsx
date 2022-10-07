@@ -10,11 +10,11 @@ type QskInterviewProps = {
 	isRecording?: boolean
 }
 
-const QskInterview: React.FC<QskInterviewProps> = ({
+const QskInterview = ({
 	classes,
 	videoCounter,
 	isRecording,
-}) => {
+}: QskInterviewProps) => {
 	const candidateDetail: ICandidate = useSelector(
 		(state: State) => state.info.detail,
 	)
@@ -31,7 +31,7 @@ const QskInterview: React.FC<QskInterviewProps> = ({
 					(question: IQuestion) => (
 						<div
 							key={question.question_id}
-							className={`step flex items-center`}
+							className={'step flex items-center'}
 						>
 							<div
 								className={

@@ -32,7 +32,6 @@ const ExpertView = () => {
 			dispatch(GetAllCandidates())
 			dispatch(GetAllPositions('all'))
 		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const candidates: ICandidate[] = useSelector(

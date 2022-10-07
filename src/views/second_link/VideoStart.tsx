@@ -26,12 +26,14 @@ const VideoStart = () => {
 	}
 
 	useEffect(() => {
-		dispatch(ValidateToken(token!))
+		dispatch(ValidateToken(token || ''))
 
 		return () => {
-			window.mediaStreamObject
-				.getTracks()
-				.forEach((track: any) => track.stop())
+			if (window.mediaStreamObject) {
+				window.mediaStreamObject
+					.getTracks()
+					.forEach(track => track.stop())
+			}
 		}
 	}, [dispatch, token])
 	const postulation = useSelector(
@@ -51,7 +53,7 @@ const VideoStart = () => {
 						<Stream
 							videoCounter={videoCounter}
 							setVideoCounter={setVideoCounter}
-							token={token!}
+							token={token || ''}
 							postulation={postulation}
 						/>
 					</div>

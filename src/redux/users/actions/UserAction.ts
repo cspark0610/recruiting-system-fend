@@ -28,6 +28,7 @@ import {
 	setStorage,
 	cleanStorage,
 } from '../../../utils/localStorage'
+import axios from 'axios'
 
 export function GetAllUsers() {
 	return async (dispatch: Dispatch) => {
@@ -49,23 +50,28 @@ export function GetAllUsers() {
 				type: ActionTypes.GET_USERS,
 				payload: data.allUsers,
 			})
-		} catch (error: any) {
-			if (error.response) {
-				dispatch({
-					type: ActionTypes.SET_IS_USER_NOT_LOADING,
-				})
-				return dispatch<SetUserErrorAction>({
-					type: ActionTypes.SET_USER_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch<SetUserLoadingAction>({
-					type: ActionTypes.SET_IS_USER_NOT_LOADING,
-				})
-				return dispatch<SetUserErrorAction>({
-					type: ActionTypes.SET_USER_ERROR,
-					payload: error,
-				})
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch({
+						type: ActionTypes.SET_IS_USER_NOT_LOADING,
+					})
+					return dispatch<SetUserErrorAction>({
+						type: ActionTypes.SET_USER_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch<SetUserLoadingAction>({
+						type: ActionTypes.SET_IS_USER_NOT_LOADING,
+					})
+					return dispatch<SetUserErrorAction>({
+						type: ActionTypes.SET_USER_ERROR,
+						payload: {
+							...error,
+							status: Number(error.code),
+						},
+					})
+				}
 			}
 		}
 	}
@@ -96,22 +102,27 @@ export function UpdateInfo(_id: string, newInfo: any) {
 				},
 			})
 		} catch (error) {
-			if (error.response) {
-				dispatch({
-					type: ActionTypes.SET_IS_USER_NOT_LOADING,
-				})
-				return dispatch<SetUserErrorAction>({
-					type: ActionTypes.SET_USER_ERROR,
-					payload: error.response.data,
-				})
-			} else {
-				dispatch({
-					type: ActionTypes.SET_IS_USER_NOT_LOADING,
-				})
-				return dispatch<SetUserErrorAction>({
-					type: ActionTypes.SET_USER_ERROR,
-					payload: error,
-				})
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					dispatch({
+						type: ActionTypes.SET_IS_USER_NOT_LOADING,
+					})
+					return dispatch<SetUserErrorAction>({
+						type: ActionTypes.SET_USER_ERROR,
+						payload: error.response.data,
+					})
+				} else {
+					dispatch({
+						type: ActionTypes.SET_IS_USER_NOT_LOADING,
+					})
+					return dispatch<SetUserErrorAction>({
+						type: ActionTypes.SET_USER_ERROR,
+						payload: {
+							...error,
+							status: Number(error.code),
+						},
+					})
+				}
 			}
 		}
 	}

@@ -4,7 +4,7 @@ interface Props {
 	onClick(): void
 }
 
-const Stop: React.FC<Props> = ({ onClick }) => {
+const Stop = ({ onClick }: Props) => {
 	return (
 		<div className="mt-5 font-raleway mobile:grid mobile:justify-items-center laptop:flex laptop:items-start">
 			<button

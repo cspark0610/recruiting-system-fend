@@ -18,7 +18,7 @@ export default function Collapsable({
 				{info.main_text}
 			</p>
 			<div className="pt-2">
-				{info.status_info.map((status) => (
+				{info.status_info.map(status => (
 					<div
 						key={status.id}
 						className="flex text-xs pb-2 pl-2"

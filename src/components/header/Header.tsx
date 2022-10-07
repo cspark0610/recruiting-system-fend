@@ -4,11 +4,7 @@ interface Props {
 	isInThanks?: boolean
 }
 
-const Header: React.FC<Props> = ({
-	width,
-	height,
-	isInThanks,
-}) => {
+const Header = ({ width, height }: Props) => {
 	return (
 		<div className="relative">
 			<div

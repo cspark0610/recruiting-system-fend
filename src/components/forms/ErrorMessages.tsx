@@ -37,7 +37,7 @@ export default function ErrorMessages({
 			) : (
 				<div className={`${className}`}>
 					{errorMessages.map((msg: any) =>
-						errorTerms.map((err) =>
+						errorTerms.map(err =>
 							msg.includes(err) ? (
 								<span
 									key={msg}

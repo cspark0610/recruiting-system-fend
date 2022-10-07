@@ -6,7 +6,7 @@ interface Props {
 	width: string
 }
 
-const Next: React.FC<Props> = ({ name, link, width }) => {
+const Next = ({ name, link, width }: Props) => {
 	/*  */
 	const navigate = useNavigate()
 

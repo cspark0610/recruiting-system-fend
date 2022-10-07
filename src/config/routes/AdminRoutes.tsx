@@ -27,7 +27,7 @@ export default function AdminRoutes() {
 					className="mx-auto mt-5 w-full max-w-[1440px] hidden"
 					src={
 						process.env.PUBLIC_URL +
-						`/images/Background Cloud.svg`
+						'/images/Background Cloud.svg'
 					}
 					alt="background"
 				/>

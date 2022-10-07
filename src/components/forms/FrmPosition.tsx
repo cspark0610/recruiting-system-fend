@@ -70,8 +70,7 @@ export default function FrmPosition({
 
 	const prioritiesWithoutCurrent = _id
 		? priorities.filter(
-				(priority) =>
-					priority.name !== positionInfo.priority,
+				priority => priority.name !== positionInfo.priority,
 		  )
 		: priorities
 
@@ -98,7 +97,7 @@ export default function FrmPosition({
 		e.preventDefault()
 
 		const recruitersName = designated_recruiters.map(
-			(recruiter) => recruiter.name,
+			recruiter => recruiter.name,
 		)
 
 		if (!_id) {
@@ -134,14 +133,15 @@ export default function FrmPosition({
 
 	useEffect(() => {
 		if (_id) {
-			setTitle(positionInfo?.title!)
-			setClientName(positionInfo?.client_name!)
-			setRieLink(positionInfo?.rie_link!)
-			setRecruiterGuide(positionInfo?.recruiter_filter!)
-			setDesignated_recruiters(currentRecruiters!)
-			setSelectedPriority(positionInfo?.priority!)
+			setTitle(positionInfo?.title || '')
+			setClientName(positionInfo?.client_name || '')
+			setRieLink(positionInfo?.rie_link || '')
+			setRecruiterGuide(
+				positionInfo?.recruiter_filter || '',
+			)
+			setDesignated_recruiters(currentRecruiters || [])
+			setSelectedPriority(positionInfo?.priority || '')
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [positionInfo, _id])
 
 	return (
@@ -154,7 +154,7 @@ export default function FrmPosition({
 						</span>
 					</div>
 					<div className="flex space-x-3">
-						{prioritiesWithoutCurrent.map((priority) => (
+						{prioritiesWithoutCurrent.map(priority => (
 							<div
 								key={priority.id}
 								className="flex items-center"
@@ -169,7 +169,7 @@ export default function FrmPosition({
 										className="custom__checkbox"
 										id={priority.id.toString()}
 										value={priority.name}
-										onChange={(e) =>
+										onChange={e =>
 											setSelectedPriority(e.target.value)
 										}
 										checked={

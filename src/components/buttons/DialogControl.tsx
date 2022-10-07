@@ -7,12 +7,12 @@ interface Props {
 	needIcon: boolean
 }
 
-const DialogControl: React.FC<Props> = ({
+const DialogControl = ({
 	classes,
 	onClick,
 	title,
 	needIcon,
-}) => {
+}: Props) => {
 	return (
 		<button
 			className={`${classes} text-white font-medium cursor-pointer rounded-[5px] text-sm py-1 px-1 w-[96px] h-[30px] mt-[22px]`}

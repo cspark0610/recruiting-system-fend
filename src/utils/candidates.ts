@@ -44,9 +44,8 @@ const cardColor = [
 ]
 
 export function getDetailHeaderText(main_status: string) {
-	return headers.find(
-		(header) => header.key === main_status,
-	)?.text
+	return headers.find(header => header.key === main_status)
+		?.text
 }
 
 export function getTopBorderColor(
@@ -78,7 +77,7 @@ export function getTopBorderColor(
 		return cardColor[3].color
 	}
 	const cardBorderColor = cardColor.find(
-		(item) => item.name === secondary_status,
+		item => item.name === secondary_status,
 	)?.color
 	return cardBorderColor
 }
@@ -112,7 +111,7 @@ export function getHeaderTopBorderColor(
 		return secondaryStatus[2].color
 	}
 	const headerTopBorderColor = secondaryStatus.find(
-		(status) => status.value === secondary_status,
+		status => status.value === secondary_status,
 	)?.color
 	return headerTopBorderColor
 }
@@ -136,9 +135,9 @@ const executeFilterAndSort = (
 	arr: IPostulation[],
 ) => {
 	return arr
-		.filter((p) => p.main_status === filterCriteria)
+		.filter(p => p.main_status === filterCriteria)
 		.sort((a, b) => {
-			if (a.createdAt! > b?.createdAt!) {
+			if (a.createdAt! > b.createdAt!) {
 				return -1
 			}
 			if (a.createdAt! < b.createdAt!) {
@@ -157,10 +156,10 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 
 	// filter first by those candidate that has not been "rejected"
 	candidates = candidates.filter(
-		(candidate) => candidate.isRejected === false,
+		candidate => candidate.isRejected === false,
 	)
 
-	candidates.forEach((candidate) => {
+	candidates.forEach(candidate => {
 		const filteredByInterested = executeFilterAndSort(
 			'interested',
 			candidate.postulations!,

@@ -9,10 +9,7 @@ interface Props {
 	moveSlide(): void
 }
 
-const SliderControl: React.FC<Props> = ({
-	direction,
-	moveSlide,
-}) => {
+const SliderControl = ({ direction, moveSlide }: Props) => {
 	return (
 		<button
 			onClick={moveSlide}
