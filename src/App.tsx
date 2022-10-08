@@ -1,8 +1,17 @@
-import AdminRoutes from './config/routes/AdminRoutes'
-import LoginRoutes from './config/routes/LoginRoutes'
-import PublicRoutes from './config/routes/PublicRoutes'
+import { lazy, Suspense } from 'react'
+// import AdminRoutes from './config/routes/AdminRoutes'
+// import LoginRoutes from './config/routes/LoginRoutes'
+// import PublicRoutes from './config/routes/PublicRoutes'
 import { VIEW_LOGIN } from './config/routes/paths'
-
+const PublicRoutes = lazy(
+	() => import('./config/routes/PublicRoutes'),
+)
+const AdminRoutes = lazy(
+	() => import('./config/routes/AdminRoutes'),
+)
+const LoginRoutes = lazy(
+	() => import('./config/routes/LoginRoutes'),
+)
 const App = () => {
 	const currentUrl = window.location.pathname.split('/')
 

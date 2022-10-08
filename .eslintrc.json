@@ -33,5 +33,6 @@
 		"linebreak-style": ["error", "unix"],
 		"prettier/prettier": ["error"],
 		"@typescript-eslint/no-non-null-assertion": "off"
-	}
+	},
+	"ignorePatterns": ["build/**/*", "node_modules/**/*"]
 }

@@ -14,7 +14,7 @@
 		"extends": "react-app"
 	},
 	"dependencies": {
-		"@headlessui/react": "^1.5.0",
+		"@headlessui/react": "^1.7.3",
 		"@redux-devtools/extension": "^3.2.2",
 		"@reduxjs/toolkit": "^1.8.1",
 		"@types/dom-mediacapture-record": "^1.0.11",

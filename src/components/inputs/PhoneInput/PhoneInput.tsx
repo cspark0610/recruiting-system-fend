@@ -1,5 +1,10 @@
-import ReactPhoneInput from 'react-phone-input-2'
+import RPI from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+
+// this breaks on production, so I added a simple validation
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const ReactPhoneInput = RPI.default ? RPI.default : RPI
 
 import './PhoneInput.scss'
 const PhoneInput = ({ value, onChange }: PhoneInput) => {

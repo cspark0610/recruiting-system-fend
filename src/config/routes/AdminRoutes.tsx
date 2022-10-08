@@ -16,7 +16,7 @@ import Navbar from '../../components/kanban/Navbar'
 import NewPosition from '../../views/admin/dashboard/OpenPositions/NewPosition'
 import PositionsList from '../../views/admin/dashboard/OpenPositions/PositionsList'
 import PrivateRoute from '../../components/Routes/PrivateRoute'
-import Profile from '../../views/admin/dashboard/Profile/Profile'
+import { Profile } from '../../views/admin/dashboard/Profile/Profile'
 
 export default function AdminRoutes() {
 	return (

@@ -5,7 +5,7 @@ import { State } from '../../../../redux/store/store'
 import FrmProfile from '../../../../components/forms/FrmProfile'
 import { ClearUserSuccess } from '../../../../redux/users/actions/UserAction'
 
-export default function Profile() {
+export function Profile() {
 	const dispatch = useDispatch()
 
 	const [isEditable, setIsEditable] =
