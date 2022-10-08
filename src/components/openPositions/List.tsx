@@ -1,3 +1,4 @@
+import { AppDispatch, State } from '../../redux/store/store'
 import {
 	ClearSuccess,
 	DeletePosition,
@@ -11,7 +12,6 @@ import { MdDelete } from 'react-icons/md'
 import Modal from '../extras/Modal'
 import Pagination from './Pagination'
 import PaginationData from '../../config/types/paginationData'
-import { AppDispatch, State } from '../../redux/store/store'
 
 type ListProps = {
 	title: string
@@ -42,7 +42,6 @@ export default function List({
 		useState<boolean>(false)
 	const [selectedItem, setSelectedItem] =
 		useState<string>('')
-	const [itemsSorted, setItemSorted] = useState<any[]>([])
 
 	const success = useSelector(
 		(state: State) => state.positions.success,
@@ -76,20 +75,6 @@ export default function List({
 		setSelectedItem('')
 		setShowWarning(false)
 	}, [success.message])
-
-	useEffect(() => {
-		const sorted = items.docs.sort((a, b) => {
-			if (
-				priorityLevel[a.priority] <
-				priorityLevel[b.priority]
-			) {
-				return 1
-			} else {
-				return -1
-			}
-		})
-		setItemSorted(sorted)
-	}, [items.docs])
 
 	return (
 		<>
@@ -128,7 +113,7 @@ export default function List({
 			</div>
 			{isOpen ? (
 				<div className="mt-8 ml-10">
-					{itemsSorted.map(item => (
+					{items.docs.map(item => (
 						<div key={item._id} className="flex w-full">
 							<Item
 								positionName={item.title}
