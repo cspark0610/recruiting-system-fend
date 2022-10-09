@@ -1,4 +1,7 @@
-import { VIEW_EDIT_POSITION } from '../../config/routes/paths'
+import {
+	VIEW_EDIT_POSITION,
+	VIEW_OPEN_POSITIONS,
+} from '../../config/routes/paths'
 
 import { BiLinkExternal } from 'react-icons/bi'
 import EditButton from '../buttons/EditButton'
@@ -63,7 +66,14 @@ export default function SubMenu({
 					<span>
 						<IoMdArrowDropright className="mt-1" />
 					</span>
-					<span className="font-raleway">
+					<span
+						className="font-raleway cursor-pointer"
+						onClick={() => {
+							navigate(
+								`${VIEW_OPEN_POSITIONS}/${_id}/video-questions`,
+							)
+						}}
+					>
 						Video Questions
 					</span>
 				</div>

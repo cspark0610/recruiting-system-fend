@@ -20,13 +20,6 @@ type ListProps = {
 	isAdmin?: boolean
 }
 
-const priorityLevel: { [key: string]: number } = {
-	Low: 0,
-	Normal: 1,
-	High: 2,
-	Urgent: 3,
-}
-
 export default function List({
 	title,
 	items,
@@ -34,8 +27,6 @@ export default function List({
 	isAdmin,
 }: ListProps) {
 	const dispatch = useDispatch<AppDispatch>()
-
-	//console.log(items);
 
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [showWarning, setShowWarning] =

@@ -1,0 +1,3 @@
+interface questionary {
+	name: string
+}

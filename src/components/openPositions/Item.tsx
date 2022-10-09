@@ -80,8 +80,8 @@ export default function Item({
 
 						<div className="flex flex-nowrap w-full divide-x divide-black mt-4">
 							{designated && designated.length > 0
-								? designated.map((user: any) => (
-										<div key={user._id}>
+								? designated.map((user: any, i) => (
+										<div key={i}>
 											<p className="text-sm px-2 font-raleway">
 												{user.name}
 											</p>
