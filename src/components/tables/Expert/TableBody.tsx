@@ -9,7 +9,7 @@ import { AiOutlineFilePdf as CVIcon } from 'react-icons/ai'
 import { BsPlay as PlayIcon } from 'react-icons/bs'
 // import { IoMicCircleOutline as AudioIcon } from "react-icons/io5";
 // import { GiSoundWaves as RecordIcon } from "react-icons/gi";
-import uuid from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 import { useState } from 'react'
 import { batch, useDispatch } from 'react-redux'
 import {
@@ -106,8 +106,7 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 		return (
 			<div className="w-1/3" key={uuid()}>
 				{/* TODO: verify if candidate is available */}
-				{candidate.available_from?.toLocaleDateString() ??
-					'No availability'}
+				{candidate.available_from || 'No availability'}
 			</div>
 		)
 	}
