@@ -165,6 +165,8 @@ const UserDialog = ({
 		secondary_status: string,
 		postulationId: string,
 		shouldRecandidate: boolean,
+		shouldRecandidate = false,
+		shouldUnlink = false
 	) => {
 		// recandidate case
 		if (
