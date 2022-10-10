@@ -1,6 +1,8 @@
+import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { VIEW_KANBAN, VIEW_LOGIN } from './paths'
-import Login from '@/views/login/Login'
+
+const Login = lazy(() => import('@/views/login/Login'))
 
 const LoginRoutes = () => {
 	const accessToken = window.localStorage.getItem('access')
