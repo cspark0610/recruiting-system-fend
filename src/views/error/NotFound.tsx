@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import Header from '../../components/header/Header'
+import Header from '@/components/header/Header'
 
 const NotFound = () => {
 	/*  */

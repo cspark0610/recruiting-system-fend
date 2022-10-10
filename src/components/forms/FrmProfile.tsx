@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, State } from '../../redux/store/store'
-import { getStorageItem } from '../../utils/localStorage'
-import { UpdateInfo } from '../../redux/users/actions/UserAction'
+import { AppDispatch, State } from '@/redux/store/store'
+import { getStorageItem } from '@/utils/localStorage'
+import { UpdateInfo } from '@/redux/users/actions/UserAction'
 import Text from '../inputs/Text'
 import Date from '../inputs/Date'
 import SingleSelect from '../inputs/SingleSelect'
-import Countries from '../../assets/json/Countries.json'
-import LoaderSpinner from '../../assets/loaderSpinner'
+import Countries from '@/assets/json/Countries.json'
+import LoaderSpinner from '@/assets/loaderSpinner'
 
 type FrmProfileProps = {
 	isEditable: boolean

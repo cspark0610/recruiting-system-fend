@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IoIosArrowDropdownCircle } from 'react-icons/io'
-import { AppDispatch, State } from '../../redux/store/store'
+import { AppDispatch, State } from '@/redux/store/store'
 import Apply from '../buttons/Apply'
-import { UseGetPostulationById } from '../../hooks/useGetPostulationById'
-import { ICandidate } from '../../redux/candidates/types/data'
-import { AddNewPostulationToCandidate } from '../../redux/candidates/actions/CandidateAction'
-import { IPosition } from '../../redux/positions/types/data'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
+import { ICandidate } from '@/redux/candidates/types/data'
+import { AddNewPostulationToCandidate } from '@/redux/candidates/actions/CandidateAction'
+import { IPosition } from '@/redux/positions/types/data'
 // import { createBrowserHistory } from "history";
 
 interface Props {

@@ -1,8 +1,8 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import { Fragment, useState } from 'react'
-import './../../assets/scss/Shrink.scss'
-import Alert from '../extras/Alert'
+import '@/assets/scss/Shrink.scss'
+import Alert from '@/components/extras/Alert'
 
 interface OptionValues {
 	id: number

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction'
+import { GetCandidatesFiltered } from '@/redux/candidates/actions/CandidateAction'
 import { AiOutlineDown } from 'react-icons/ai'
-import { AppDispatch, State } from '../../redux/store/store'
-import GetAllPositions from '../../redux/positions/actions/PositionsActions'
-import detectOutsideClick from '../../utils/detectOutsideClick'
-import secondaryStatus from '../../config/kanban/constants'
+import { AppDispatch, State } from '@/redux/store/store'
+import GetAllPositions from '@/redux/positions/actions/PositionsActions'
+import detectOutsideClick from '@/utils/detectOutsideClick'
+import secondaryStatus from '@/config/kanban/constants'
 import Apply from '../buttons/Apply'
 
 export default function Filters() {

@@ -1,12 +1,11 @@
 import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-
-import Loading from './components/extras/Loading'
-import './assets/scss/index.scss'
-
-import store from './redux/store/store'
 import { Provider } from 'react-redux'
 
+import Loading from '@/components/extras/Loading'
+import '@/assets/scss/index.scss'
+
+import store from '@/redux/store/store'
 import './i18n'
 
 import React from 'react'

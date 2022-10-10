@@ -1,5 +1,5 @@
-import { VIEW_LOGIN } from '../../config/routes/paths'
-import { getStorageItem } from '../../utils/localStorage'
+import { VIEW_LOGIN } from '@/config/routes/paths'
+import { getStorageItem } from '@/utils/localStorage'
 
 type PrivateRouteProps = {
 	children: any

@@ -1,4 +1,4 @@
-import './../../assets/scss/CopyLink.scss'
+import '@/assets/scss/CopyLink.scss'
 
 import { useEffect, useState } from 'react'
 

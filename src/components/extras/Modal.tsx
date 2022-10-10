@@ -3,8 +3,8 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useTranslation } from 'react-i18next'
 import { IoCloseCircleOutline } from 'react-icons/io5'
-import LoaderSpinner from '../../assets/loaderSpinner'
-import { State } from '../../redux/store/store'
+import LoaderSpinner from '@/assets/loaderSpinner'
+import { State } from '@/redux/store/store'
 
 interface Props {
 	alt: string

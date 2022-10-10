@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AiOutlineDown } from 'react-icons/ai'
-import { IColumnInfo } from '../../config/kanban/columnGuideInfo'
-import { ICandidate } from '../../redux/candidates/types/data'
-import { State } from '../../redux/store/store'
+import { IColumnInfo } from '@/config/kanban/columnGuideInfo'
+import { ICandidate } from '@/redux/candidates/types/data'
+import { State } from '@/redux/store/store'
 import Collapsable from './Collapsable'
 import Card from './Card'
-import LoaderSpinner from '../../assets/loaderSpinner'
+import LoaderSpinner from '@/assets/loaderSpinner'
 
 type ColumnProps = {
 	title: string

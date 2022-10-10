@@ -1,7 +1,7 @@
-import { useSlider } from '../../hooks/useSlider'
-import SliderControl from '../buttons/SliderControl'
-import SliderData from './../../assets/json/SliderData.json'
-import './../../assets/scss/Slider.scss'
+import { useSlider } from '@/hooks/useSlider'
+import SliderData from '@/assets/json/SliderData.json'
+import '@/assets/scss/Slider.scss'
+import SliderControl from '@/components/buttons/SliderControl'
 
 const Slider = () => {
 	/*  */

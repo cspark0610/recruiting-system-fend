@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { FiUpload } from 'react-icons/fi'
 import { AiOutlineFileDone } from 'react-icons/ai'
-import Notification from '../extras/Notification'
+import Notification from '@/components/extras/Notification'
 
 interface Props {
 	value: any

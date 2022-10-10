@@ -1,7 +1,4 @@
-import { lazy, Suspense } from 'react'
-// import AdminRoutes from './config/routes/AdminRoutes'
-// import LoginRoutes from './config/routes/LoginRoutes'
-// import PublicRoutes from './config/routes/PublicRoutes'
+import { lazy } from 'react'
 import { VIEW_LOGIN } from './config/routes/paths'
 const PublicRoutes = lazy(
 	() => import('./config/routes/PublicRoutes'),

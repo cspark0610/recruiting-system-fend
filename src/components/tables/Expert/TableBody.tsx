@@ -1,8 +1,8 @@
 import {
 	ICandidate,
 	IPostulation,
-} from '../../../redux/candidates/types/data'
-import { calculateCandidateAge } from '../../../utils/candidates'
+} from '@/redux/candidates/types/data'
+import { calculateCandidateAge } from '@/utils/candidates'
 import { IoMail as EmailIcon } from 'react-icons/io5'
 import { BsFillTelephoneFill as PhoneIcon } from 'react-icons/bs'
 import { AiOutlineFilePdf as CVIcon } from 'react-icons/ai'
@@ -15,9 +15,9 @@ import { batch, useDispatch } from 'react-redux'
 import {
 	GetCandidateInfo,
 	GetPostulationById,
-} from '../../../redux/candidates/actions/CandidateAction'
+} from '@/redux/candidates/actions/CandidateAction'
 import UserDialog from '../../dialog/UserDialog'
-import { AppDispatch } from '../../../redux/store/store'
+import { AppDispatch } from '@/redux/store/store'
 
 interface TableBodyProps {
 	candidates: ICandidate[]

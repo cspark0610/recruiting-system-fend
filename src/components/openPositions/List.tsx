@@ -1,7 +1,7 @@
 import {
 	ClearSuccess,
 	DeletePosition,
-} from '../../redux/positions/actions/PositionsActions'
+} from '@/redux/positions/actions/PositionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -10,8 +10,8 @@ import Item from '../openPositions/Item'
 import { MdDelete } from 'react-icons/md'
 import Modal from '../extras/Modal'
 import Pagination from './Pagination'
-import PaginationData from '../../config/types/paginationData'
-import { AppDispatch, State } from '../../redux/store/store'
+import PaginationData from '@/config/types/paginationData'
+import { AppDispatch, State } from '@/redux/store/store'
 
 type ListProps = {
 	title: string

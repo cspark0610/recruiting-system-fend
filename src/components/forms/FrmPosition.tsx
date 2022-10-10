@@ -1,19 +1,19 @@
-import '../../assets/scss/inputs.scss'
+import '@/assets/scss/inputs.scss'
 
 import {
 	UpdateInfo,
 	createPosition,
-} from '../../redux/positions/actions/PositionsActions'
+} from '@/redux/positions/actions/PositionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
 import ErrorMessages from './ErrorMessages'
-import LoaderSpinner from '../../assets/loaderSpinner'
+import LoaderSpinner from '@/assets/loaderSpinner'
 import MultiSelect from 'multiselect-react-dropdown'
-import { AppDispatch, State } from '../../redux/store/store'
+import { AppDispatch, State } from '@/redux/store/store'
 import Text from '../inputs/Text'
-import { VIEW_OPEN_POSITIONS } from '../../config/routes/paths'
-import priorities from '../../config/positions/constants'
+import { VIEW_OPEN_POSITIONS } from '@/config/routes/paths'
+import priorities from '@/config/positions/constants'
 import { useNavigate } from 'react-router-dom'
 
 type OptionValues = {

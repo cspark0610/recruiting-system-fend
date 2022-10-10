@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { FiClock } from 'react-icons/fi'
-import { GetCandidateInfo } from '../../redux/candidates/actions/CandidateAction'
-import UserDialog from '../dialog/UserDialog'
-import '../../assets/scss/Card.scss'
-import { getTopBorderColor } from '../../utils/candidates'
-import { AppDispatch } from '../../redux/store/store'
+import { GetCandidateInfo } from '@/redux/candidates/actions/CandidateAction'
+import '@/assets/scss/Card.scss'
+import { getTopBorderColor } from '@/utils/candidates'
+import { AppDispatch } from '@/redux/store/store'
+import UserDialog from '@/components/dialog/UserDialog'
 
 type CardProps = {
 	_id: string

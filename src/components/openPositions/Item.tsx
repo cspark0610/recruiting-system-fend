@@ -1,15 +1,15 @@
 import {
 	PRODUCTION_PATH,
 	VIEW_APPLY_BY_POSITION_ID,
-} from '../../config/routes/paths'
+} from '@/config/routes/paths'
 
 import { AiOutlineDown } from 'react-icons/ai'
 import CopyLinkButton from '../buttons/CopyLinkButton'
-import LoaderSpinner from '../../assets/loaderSpinner'
-import { State } from '../../redux/store/store'
+import LoaderSpinner from '@/assets/loaderSpinner'
+import { State } from '@/redux/store/store'
 import SubMenu from './SubMenu'
 import Toggle from './Toggle'
-import getPriorityColor from '../../utils/positions'
+import getPriorityColor from '@/utils/positions'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 

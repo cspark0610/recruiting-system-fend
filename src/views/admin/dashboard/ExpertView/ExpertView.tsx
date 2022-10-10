@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react'
-import FormView from '../../../../components/forms/FormView'
+import FormView from '@/components/forms/FormView'
 import {
 	RiDownloadFill as DonwloadIcon,
 	RiArrowLeftRightFill as SwitchIcon,
 } from 'react-icons/ri'
-import TableExpert from '../../../../components/tables/Expert/TableExpert'
+import TableExpert from '@/components/tables/Expert/TableExpert'
 //import { CircularProgress as DownloadingProgressIcon } from "@material-ui/core";
 import {
 	batch,
 	useDispatch,
 	useSelector,
 } from 'react-redux'
-import { GetAllCandidates } from '../../../../redux/candidates/actions/CandidateAction'
-import GetAllPositions from '../../../../redux/positions/actions/PositionsActions'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
-import { IPosition } from '../../../../redux/positions/types/data'
-import { ICandidate } from '../../../../redux/candidates/types/data'
+import { GetAllCandidates } from '@/redux/candidates/actions/CandidateAction'
+import GetAllPositions from '@/redux/positions/actions/PositionsActions'
+import { AppDispatch, State } from '@/redux/store/store'
+import { IPosition } from '@/redux/positions/types/data'
+import { ICandidate } from '@/redux/candidates/types/data'
 
 const ExpertView = () => {
 	const dispatch = useDispatch<AppDispatch>()

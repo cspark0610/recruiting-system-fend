@@ -1,21 +1,18 @@
 import {
 	GetActivePositions,
 	GetInactivePositions,
-} from '../../../../redux/positions/actions/PositionsActions'
+} from '@/redux/positions/actions/PositionsActions'
 import {
 	batch,
 	useDispatch,
 	useSelector,
 } from 'react-redux'
 
-import CreateNew from '../../../../components/buttons/CreateNew'
-import List from '../../../../components/openPositions/List'
-import LoaderSpinner from '../../../../assets/loaderSpinner'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
-import { VIEW_CREATE_NEW_POSITION } from '../../../../config/routes/paths'
+import CreateNew from '@/components/buttons/CreateNew'
+import List from '@/components/openPositions/List'
+import LoaderSpinner from '@/assets/loaderSpinner'
+import { AppDispatch, State } from '@/redux/store/store'
+import { VIEW_CREATE_NEW_POSITION } from '@/config/routes/paths'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 

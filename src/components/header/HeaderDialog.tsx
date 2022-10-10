@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux'
 import { IoCloseCircleOutline } from 'react-icons/io5'
-import { State } from '../../redux/store/store'
+import { State } from '@/redux/store/store'
 import Dropdown from '../inputs/Dropdown'
 import {
 	getDetailHeaderText,
 	getHeaderTopBorderColor,
 	getHeaderTopBorderColorExpert,
-} from '../../utils/candidates'
-import { UseGetPostulationById } from '../../hooks/useGetPostulationById'
-import { IPostulation } from '../../redux/candidates/types/data'
+} from '@/utils/candidates'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
+import { IPostulation } from '@/redux/candidates/types/data'
 
 interface Props {
 	isClose: any

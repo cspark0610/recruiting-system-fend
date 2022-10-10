@@ -4,10 +4,10 @@ import {
 	AiOutlineDown as ArrowDown,
 } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
-import { GetCandidatesFiltered } from '../../../redux/candidates/actions/CandidateAction'
-import { IPosition } from '../../../redux/positions/types/data'
-import { AppDispatch } from '../../../redux/store/store'
-import Apply from '../../buttons/Apply'
+import { GetCandidatesFiltered } from '@/redux/candidates/actions/CandidateAction'
+import { IPosition } from '@/redux/positions/types/data'
+import { AppDispatch } from '@/redux/store/store'
+import Apply from '@/components/buttons/Apply'
 
 interface TableHeaderProps {
 	positions: IPosition[]

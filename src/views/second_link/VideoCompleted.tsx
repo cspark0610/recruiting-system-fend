@@ -5,23 +5,23 @@ import {
 } from 'react-router-dom'
 import { RiEdit2Fill } from 'react-icons/ri'
 
-import Submit from '../../components/buttons/Submit'
-import Lang from '../../components/extras/Lang'
-import Header from '../../components/header/Header'
+import Submit from '@/components/buttons/Submit'
+import Lang from '@/components/extras/Lang'
+import Header from '@/components/header/Header'
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
-import { ValidateToken } from '../../redux/candidates/actions/CandidateAction'
+import { ValidateToken } from '@/redux/candidates/actions/CandidateAction'
 import {
 	VIEW_BEFORE_STARTING,
 	VIEW_REQUIRED_STEPS,
 	VIEW_WELCOME_THANKS,
-} from '../../config/routes/paths'
-import { AppDispatch, State } from '../../redux/store/store'
+} from '@/config/routes/paths'
+import { AppDispatch, State } from '@/redux/store/store'
 
 import { useTranslation } from 'react-i18next'
-import VideoPlayer from '../../components/recorder/player/VideoPlayer'
-import { IPostulation } from '../../redux/candidates/types/data'
+import VideoPlayer from '@/components/recorder/player/VideoPlayer'
+import { IPostulation } from '@/redux/candidates/types/data'
 
 const VideoCompleted = () => {
 	/*  */

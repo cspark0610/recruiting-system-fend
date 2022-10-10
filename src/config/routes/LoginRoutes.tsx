@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { VIEW_KANBAN, VIEW_LOGIN } from './paths'
-import Login from '../../views/login/Login'
+import Login from '@/views/login/Login'
 
 const LoginRoutes = () => {
 	const accessToken = window.localStorage.getItem('access')
