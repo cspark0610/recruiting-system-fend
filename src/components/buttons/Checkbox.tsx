@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 interface Props {
 	id: string
 	classes?: string
@@ -22,7 +24,7 @@ const Checkbox = ({
 	width,
 }: Props) => {
 	/*  */
-	const onChange = (evt: any) => {
+	const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
 		setValue(evt.target.checked)
 	}
 
@@ -36,7 +38,7 @@ const Checkbox = ({
 					className="ml-2 mr-2 focus:outline-none"
 					type="checkbox"
 					checked={value}
-					onChange={onChange}
+					onChange={evt => onChange(evt)}
 				/>
 				<label
 					className={`${width} font-raleway font-light mobile:text-xs laptop:text-[15px]`}

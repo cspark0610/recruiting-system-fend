@@ -11,6 +11,7 @@ interface Props {
 	type: string
 	value: any
 	width: string
+	autoComplete?: string
 }
 
 const Text = ({
@@ -24,6 +25,7 @@ const Text = ({
 	type,
 	value,
 	width,
+	autoComplete,
 }: Props) => {
 	/*  */
 	const onChange = (evt: any) => {
@@ -55,6 +57,7 @@ const Text = ({
 					placeholder={placeholder}
 					value={value}
 					onChange={onChange}
+					autoComplete={autoComplete}
 				/>
 			</div>
 		</div>
