@@ -1,4 +1,4 @@
-import './../../assets/scss/Blink.scss'
+import '@/assets/scss/Blink.scss'
 import { BsFillRecordFill } from 'react-icons/bs'
 
 const Recording = () => {

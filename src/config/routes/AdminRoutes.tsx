@@ -8,15 +8,43 @@ import {
 	VIEW_OPEN_POSITIONS,
 	VIEW_PROFILE,
 } from './paths'
+import { lazy } from 'react'
 
-import CandidateStatus from '../../views/admin/dashboard/CandidateStatus/CandidateStatus'
-import ComparingView from '../../views/admin/dashboard/ExpertView/ComparingView'
-import ExpertView from '../../views/admin/dashboard/ExpertView/ExpertView'
-import Navbar from '../../components/kanban/Navbar'
-import NewPosition from '../../views/admin/dashboard/OpenPositions/NewPosition'
-import PositionsList from '../../views/admin/dashboard/OpenPositions/PositionsList'
-import PrivateRoute from '../../components/Routes/PrivateRoute'
-import Profile from '../../views/admin/dashboard/Profile/Profile'
+import PrivateRoute from '@/components/Routes/PrivateRoute'
+const CandidateStatus = lazy(
+	() =>
+		import(
+			'@/views/admin/dashboard/CandidateStatus/CandidateStatus'
+		),
+)
+const ComparingView = lazy(
+	() =>
+		import(
+			'@/views/admin/dashboard/ExpertView/ComparingView'
+		),
+)
+const ExpertView = lazy(
+	() =>
+		import('@/views/admin/dashboard/ExpertView/ExpertView'),
+)
+const Navbar = lazy(
+	() => import('@/components/kanban/Navbar'),
+)
+const NewPosition = lazy(
+	() =>
+		import(
+			'@/views/admin/dashboard/OpenPositions/NewPosition'
+		),
+)
+const PositionsList = lazy(
+	() =>
+		import(
+			'@/views/admin/dashboard/OpenPositions/PositionsList'
+		),
+)
+const Profile = lazy(
+	() => import('@/views/admin/dashboard/Profile/Profile'),
+)
 
 export default function AdminRoutes() {
 	return (
@@ -25,10 +53,7 @@ export default function AdminRoutes() {
 			<div className="absolute w-full  left-0 h-full -z-10">
 				<img
 					className="mx-auto mt-5 w-full max-w-[1440px] hidden"
-					src={
-						process.env.PUBLIC_URL +
-						'/images/Background Cloud.svg'
-					}
+					src={'/images/Background Cloud.svg'}
 					alt="background"
 				/>
 			</div>

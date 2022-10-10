@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 import { Tab } from '@headlessui/react'
-import DialogControl from '../../../buttons/DialogControl'
-import { State } from '../../../../redux/store/store'
-import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
+import DialogControl from '@/components/buttons/DialogControl'
+import { State } from '@/redux/store/store'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
 
 interface Props {
 	isApproved: () => void

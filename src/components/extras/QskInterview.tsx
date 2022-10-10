@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { ICandidate } from '../../redux/candidates/types/data'
-import { IQuestion } from '../../redux/positions/types/data'
-import { State } from '../../redux/store/store'
-import './../../assets/scss/CircleBar.scss'
+import { ICandidate } from '@/redux/candidates/types/data'
+import { IQuestion } from '@/redux/positions/types/data'
+import { State } from '@/redux/store/store'
+import '@/assets/scss/CircleBar.scss'
 
 type QskInterviewProps = {
 	classes: string

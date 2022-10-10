@@ -6,33 +6,33 @@ import {
 import { useTranslation } from 'react-i18next'
 
 /* Components */
-import Loading from '../extras/Loading'
-import Submit from '../buttons/Submit'
-import SingleSelect from '../inputs/SingleSelect'
-import TextArea from '../inputs/TextArea'
-import Currency from '../inputs/Currency'
+import Loading from '@/components/extras/Loading'
+import Submit from '@/components/buttons/Submit'
+import SingleSelect from '@/components/inputs/SingleSelect'
+import TextArea from '@/components/inputs/TextArea'
+import Currency from '@/components/inputs/Currency'
 
 /* Paths */
 import {
 	VIEW_DETAILS,
 	VIEW_VIDEO_COMPLETED,
-} from '../../config/routes/paths'
+} from '@/config/routes/paths'
 
 /* Json files */
-import Training from '../../assets/json/College.json'
-import Available from '../../assets/json/Available.json'
-import Skills from '../../assets/json/Skills.json'
-import Coins from '../../assets/json/Coin.json'
+import Training from '@/assets/json/College.json'
+import Available from '@/assets/json/Available.json'
+import Skills from '@/assets/json/Skills.json'
+import Coins from '@/assets/json/Coin.json'
 
 /* Redux */
-import { AppDispatch, State } from '../../redux/store/store'
+import { AppDispatch, State } from '@/redux/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	ClearCandidateSuccess,
 	UpdatePostulationInfo,
-} from '../../redux/candidates/actions/CandidateAction'
+} from '@/redux/candidates/actions/CandidateAction'
 import MultipleSelect from '../inputs/MultipleSelect'
-import { UpdatePostulationInfoAction } from '../../redux/candidates/types/dispatchActions'
+import { UpdatePostulationInfoAction } from '@/redux/candidates/types/dispatchActions'
 
 type Props = {
 	token: string

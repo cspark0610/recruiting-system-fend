@@ -4,7 +4,7 @@ import {
 	GET_ALL_POSITIONS,
 	SET_IS_ACTIVE,
 	UPDATE_POSITION,
-} from '../../../config/routes/endpoints'
+} from '@/config/routes/endpoints'
 import {
 	CleanPositionErrorAction,
 	ClearSuccessAction,
@@ -30,10 +30,10 @@ import {
 import { ActionTypes } from '../types/actionNames'
 import { Dispatch } from 'redux'
 import { IPosition } from '../types/data'
-import { IUser } from '../../users/types/data'
-import { PrivateAxios } from '../../../config/api/axios'
-import store from '../../store/store'
+import { PrivateAxios } from '@/config/api/axios'
 import axios from 'axios'
+import store from '@/redux/store/store'
+import { IUser } from '@/redux/users/types/data'
 
 export default function getAllPositions(list: string) {
 	return async function (dispatch: Dispatch) {

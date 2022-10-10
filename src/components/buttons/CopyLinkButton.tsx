@@ -1,4 +1,4 @@
-import './../../assets/scss/CopyLink.scss'
+import '@/assets/scss/CopyLink.scss'
 
 import { useEffect, useState } from 'react'
 
@@ -36,10 +36,7 @@ const CopyLinkButton = ({
 	}, [copied])
 
 	const renderCopyIcon = () => (
-		<img
-			src={process.env.PUBLIC_URL + '/images/linkIcon.svg'}
-			alt="Copy Icon"
-		/>
+		<img src={'/images/linkIcon.svg'} alt="Copy Icon" />
 	)
 	const renderCopyText = () =>
 		copied ? 'Copied!' : 'Copy Link'

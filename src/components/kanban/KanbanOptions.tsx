@@ -5,13 +5,13 @@ import {
 	GetAllCandidates,
 	CleanCandidateErrors,
 	CleanFilters,
-} from '../../redux/candidates/actions/CandidateAction'
+} from '@/redux/candidates/actions/CandidateAction'
 import Filters from './Filters'
 import Search from './Search'
 import CreateNewDropdown from './CreateNewDropdown'
 import CreateNew from '../buttons/CreateNew'
-import detectOutsideClick from '../../utils/detectOutsideClick'
-import { AppDispatch } from '../../redux/store/store'
+import detectOutsideClick from '@/utils/detectOutsideClick'
+import { AppDispatch } from '@/redux/store/store'
 
 export default function KanbanOptions() {
 	const dispatch = useDispatch<AppDispatch>()

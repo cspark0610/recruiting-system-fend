@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 //import { BsPlay } from "react-icons/bs";
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
-import { IQuestion } from '../../../../redux/positions/types/data'
-import QskInterview from '../../../extras/QskInterview'
-import { GetVideo } from '../../../../redux/candidates/actions/CandidateAction'
+import { AppDispatch, State } from '@/redux/store/store'
+import { IQuestion } from '@/redux/positions/types/data'
+import QskInterview from '@/components/extras/QskInterview'
+import { GetVideo } from '@/redux/candidates/actions/CandidateAction'
 import { useEffect } from 'react'
-import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
 
 interface Props {
 	postulationId: string

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BsSearch } from 'react-icons/bs'
-import { GetCandidatesFiltered } from '../../redux/candidates/actions/CandidateAction'
-import { AppDispatch, State } from '../../redux/store/store'
+import { GetCandidatesFiltered } from '@/redux/candidates/actions/CandidateAction'
+import { AppDispatch, State } from '@/redux/store/store'
 
 export default function Search() {
 	const [query, setQuery] = useState<string>('')

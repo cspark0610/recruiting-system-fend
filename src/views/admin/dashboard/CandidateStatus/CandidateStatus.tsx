@@ -4,24 +4,21 @@ import {
 	useDispatch,
 	useSelector,
 } from 'react-redux'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
+import { AppDispatch, State } from '@/redux/store/store'
 import {
 	CleanCandidateErrors,
 	ClearCandidateSuccess,
 	GetAllCandidates,
-} from '../../../../redux/candidates/actions/CandidateAction'
-import Column from '../../../../components/kanban/Column'
-import KanbanOptions from '../../../../components/kanban/KanbanOptions'
+} from '@/redux/candidates/actions/CandidateAction'
+import Column from '@/components/kanban/Column'
+import KanbanOptions from '@/components/kanban/KanbanOptions'
 import {
 	InterestedInfo,
 	ApplyingInfo,
 	MeetingInfo,
 	ChosenInfo,
-} from '../../../../config/kanban/columnGuideInfo'
-import { sortByColumn } from '../../../../utils/candidates'
+} from '@/config/kanban/columnGuideInfo'
+import { sortByColumn } from '@/utils/candidates'
 
 export default function CandidateStatus() {
 	const dispatch = useDispatch<AppDispatch>()

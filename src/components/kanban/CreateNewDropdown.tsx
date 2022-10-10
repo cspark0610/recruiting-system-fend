@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { State } from '../../redux/store/store'
-import { VIEW_APPLY } from '../../config/routes/paths'
+import { State } from '@/redux/store/store'
+import { VIEW_APPLY } from '@/config/routes/paths'
 
 type CreateNewDropdownProps = {
 	setShowCreateDropdown: (
