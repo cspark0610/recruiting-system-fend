@@ -50,7 +50,7 @@ export type ICandidate = {
 	country: string
 	academic_training?: string
 	//salary_expectations?: string;
-	available_from?: Date
+	available_from?: string
 	english_level: string
 	//skills?: Array<string>;
 	//linkedin?: string;
