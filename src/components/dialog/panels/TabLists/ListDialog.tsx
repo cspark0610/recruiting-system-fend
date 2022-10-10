@@ -5,17 +5,16 @@ import { State } from '../../../../redux/store/store'
 import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
 
 interface Props {
-	isApproved: () => void;
-	isDoubting: () => void;
-	isDismiss: () => void;
-	isReject: () => void;
-	isHired: () => void;
-	isRecandidate: () => void;
-	isUnlink: () => void;
-	isConfirmed: boolean;
-	postulationId: string;
-	shouldReload?: boolean;
-	hideButtons?: boolean;
+	isApproved: () => void
+	isDoubting: () => void
+	isDismiss: () => void
+	isReject: () => void
+	isHired: () => void
+	isRecandidate: () => void
+	isConfirmed: boolean
+	postulationId: string
+	shouldReload?: boolean
+	hideButtons?: boolean
 }
 
 function classNames(...classes: string[]) {
@@ -29,17 +28,21 @@ const ListDialog = ({
 	isReject,
 	isHired,
 	isRecandidate,
-	isUnlink,
 	isConfirmed,
 	postulationId,
 	shouldReload,
 	hideButtons,
 }: Props) => {
-	const detail = useSelector((state: State) => state.info.detail);
-	const { postulation } = UseGetPostulationById(detail, postulationId);
+	/* shouldReload === false, hideButtons === true */
+	const detail = useSelector(
+		(state: State) => state.info.detail,
+	)
+	const { postulation } = UseGetPostulationById(
+		detail,
+		postulationId,
+	)
 	const { main_status, secondary_status } = postulation
 	const employment_status = detail.employment_status
-
 
 	return (
 		<Tab.List className="relative flex flex-col bg-light-gray-color w-[206px] h-screen">
@@ -124,21 +127,22 @@ const ListDialog = ({
 						(employment_status === 'former' ||
 							employment_status === 'in_process') && (
 							<DialogControl
-								classes={`bg-cyan-color`}
+								classes="bg-cyan-color"
 								onClick={isRecandidate}
 								title="Recandidate"
 								needIcon={false}
 							/>
 						)}
-
-					{shouldReload === false && hideButtons && employment_status === "active" && (
-						<DialogControl
-							classes="bg-red-dark"
-							onClick={isUnlink}
-							title="Unlink"
-							needIcon={false}
-						/>
-					)}
+					{shouldReload === false &&
+						hideButtons &&
+						employment_status === 'active' && (
+							<DialogControl
+								classes="bg-red-dark"
+								onClick={isDismiss}
+								title="Dismiss"
+								needIcon={false}
+							/>
+						)}
 
 					{main_status === 'chosen' && !hideButtons ? (
 						<>
