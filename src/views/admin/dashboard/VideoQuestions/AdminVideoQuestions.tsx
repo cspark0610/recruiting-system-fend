@@ -17,7 +17,7 @@ import {
 
 function AdminVideoQuestions() {
 	const dispatch = useDispatch<AppDispatch>()
-	const [questionarySelected, setquestionarySelected] =
+	const [questionarySelected, setQuestionarySelected] =
 		useState<questionary | null>({
 			name: 'Questions for UX Designers',
 		})
