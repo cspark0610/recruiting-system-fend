@@ -34,11 +34,6 @@ const ListDialog = ({
 	postulationId,
 	shouldReload,
 	hideButtons,
-}) => {
-	const detail = useSelector((state: State) => state.info.detail);
-	const { postulation } = UseGetPostulationById(detail, postulationId);
-	const { main_status, secondary_status } = postulation;
-	const employment_status = detail.employment_status;
 }: Props) => {
 	const detail = useSelector((state: State) => state.info.detail);
 	const { postulation } = UseGetPostulationById(detail, postulationId);

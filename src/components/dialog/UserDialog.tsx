@@ -162,9 +162,9 @@ const UserDialog = ({
 	const isStatusConfirm = (
 		secondary_status: string,
 		postulationId: string,
+		shouldRecandidate: boolean,
 		shouldRecandidate = false,
 		shouldUnlink = false
-		shouldRecandidate: boolean,
 	) => {
 		// unlink case
 		if (shouldUnlink === true) {
