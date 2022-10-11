@@ -3,7 +3,7 @@ import Text from '../../components/inputs/Text'
 function Header() {
 	const [title, setTitle] = useState('')
 	return (
-		<div className="flex justify-between w-full items-center">
+		<div className="flex justify-between w-full items-center mb-[28px]">
 			<input
 				type="text"
 				name="title"
@@ -13,7 +13,7 @@ function Header() {
 				onChange={evt => {
 					setTitle(evt.target.value)
 				}}
-				className="bg-[#FFFFFF] text-[#BABCBE] border rounded-sm border-[#E9E9E9] px-[24px] py-[18px] placeholder:text-center focus:placeholder:opacity-0 focus:outline-none focus:bg-white"
+				className="bg-[#FFFFFF] placeholder:text-[#BABCBE] border rounded-sm border-[#E9E9E9] px-[24px] py-[18px] placeholder:text-center focus:placeholder:opacity-0 focus:outline-none focus:bg-white"
 			/>
 			<div className="">
 				<button className="text-[#00ADEF] underline">
