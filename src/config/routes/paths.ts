@@ -31,6 +31,10 @@ export const VIEW_CREATE_NEW_POSITION =
 	'/admin/dashboard/open-positions/new'
 export const VIEW_EDIT_POSITION =
 	'/admin/dashboard/open-positions/edit'
+export const VIEW_VIDEOQUESTIONS_BY_POSITION =
+	'/admin/dashboard/open-positions/:_id/video-questions'
+export const NEW_VIDEOQUESTION =
+	'/admin/dashboard/open-positions/:_id/video-questions/new/'
 export const VIEW_USER_DIALOG =
 	'/admin/dashboard/candidate-status/details'
 export const VIEW_EXPERT = '/admin/dashboard/expert-view'

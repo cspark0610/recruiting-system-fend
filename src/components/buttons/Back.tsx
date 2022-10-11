@@ -16,7 +16,7 @@ const Back = ({ link }: Props) => {
 	}
 
 	return (
-		<div className=" pl-8  px-4 pb-6 sm:px-6 mobile:w-full laptop:w-9/12 tablet:w-11/12 mx-auto">
+		<div className=" pl-8  px-4 pb-6 sm:px-6 w-full max-w-[1200px] mx-auto">
 			<button
 				className="flex items-center text-gray-color font-raleway font-bold mobile:text-xs laptop:text-sm desktop:text-base border-none focus:outline-none bg-white"
 				onClick={onClick}

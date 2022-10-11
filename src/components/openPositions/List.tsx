@@ -20,13 +20,6 @@ type ListProps = {
 	isAdmin?: boolean
 }
 
-const priorityLevel: { [key: string]: number } = {
-	Low: 0,
-	Normal: 1,
-	High: 2,
-	Urgent: 3,
-}
-
 export default function List({
 	title,
 	items,
@@ -35,14 +28,11 @@ export default function List({
 }: ListProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
-	//console.log(items);
-
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [showWarning, setShowWarning] =
 		useState<boolean>(false)
 	const [selectedItem, setSelectedItem] =
 		useState<string>('')
-	const [itemsSorted, setItemSorted] = useState<any[]>([])
 
 	const success = useSelector(
 		(state: State) => state.positions.success,
@@ -76,20 +66,6 @@ export default function List({
 		setSelectedItem('')
 		setShowWarning(false)
 	}, [success.message])
-
-	useEffect(() => {
-		const sorted = items.docs.sort((a, b) => {
-			if (
-				priorityLevel[a.priority] <
-				priorityLevel[b.priority]
-			) {
-				return 1
-			} else {
-				return -1
-			}
-		})
-		setItemSorted(sorted)
-	}, [items.docs])
 
 	return (
 		<>
@@ -128,32 +104,36 @@ export default function List({
 			</div>
 			{isOpen ? (
 				<div className="mt-8 ml-10">
-					{itemsSorted.map(item => (
-						<div key={item._id} className="flex w-full">
-							<Item
-								positionName={item.title}
-								client={item.client_name}
-								designated={item.designated}
-								inactive={inactive}
-								rie_link={item.rie_link}
-								recruiter_filter={item.recruiter_filter}
-								priority={item.priority}
-								_id={item._id!}
-								isAdmin={isAdmin}
-							/>
-							<div className="mt-2">
-								{isAdmin ? (
-									<button
-										onClick={() => handleClick(item._id!)}
-										className="mt-4 ml-6 h-8"
-									>
-										{' '}
-										<MdDelete />{' '}
-									</button>
-								) : null}
+					{items.docs.map(item => {
+						console.log(item)
+
+						return (
+							<div key={item._id} className="flex w-full">
+								<Item
+									positionName={item.title}
+									client={item.client_name}
+									designated={item.designated}
+									inactive={inactive}
+									rie_link={item.rie_link}
+									recruiter_filter={item.recruiter_filter}
+									priority={item.priority}
+									_id={item._id!}
+									isAdmin={isAdmin}
+								/>
+								<div className="mt-2">
+									{isAdmin ? (
+										<button
+											onClick={() => handleClick(item._id!)}
+											className="mt-4 ml-6 h-8"
+										>
+											{' '}
+											<MdDelete />{' '}
+										</button>
+									) : null}
+								</div>
 							</div>
-						</div>
-					))}
+						)
+					})}
 					{showWarning && selectedItem !== '' && (
 						<Modal
 							alt="Delete Position"

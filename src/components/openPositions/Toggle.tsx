@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
 import {
 	ClearSuccess,
 	SetIsActive,
 } from '@/redux/positions/actions/PositionsActions'
 import { AppDispatch, State } from '@/redux/store/store'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 type ToggleProps = {
 	inactive: boolean
@@ -43,19 +44,20 @@ export default function Toggle({
 			/>
 			{inactive ? (
 				<span
-					className={
+					className={`before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[""] before:w-[1.5rem] before:h-[1.5rem] cursor-pointer before:transition ease-in-out duration-1100 before:rounded-full ${
 						isToggled && !updating
-							? 'before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[""] before:w-[1.5rem] before:h-[1.5rem] cursor-pointer before:bg-[#00ADEF] before:transition ease-in-out duration-1100 before:transform before:translate-x-8 before:rounded-full'
-							: 'before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[""] before:w-[1.5rem] before:h-[1.5rem] cursor-pointer before:bg-[#475564] before:transition ease-in-out duration-1100 before:rounded-full before:transform before:translate-x-0'
-					}
+							? ' before:bg-[#00ADEF] before:transform before:translate-x-8'
+							: ' before:bg-[#475564] before:transform before:translate-x-0'
+					}`}
 				/>
 			) : (
 				<span
-					className={
+					className={`before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem]  cursor-pointer before:transition ease-in-out duration-1100 before:rounded-full before:transform ${
 						isToggled && !updating
-							? "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#475564] before:transition ease-in-out duration-1100 before:transform before:translate-x-0 before:rounded-full"
-							: "before:absolute before:top-0.5 before:left-[4px] before:bottom-[4px] before:content-[''] before:w-[1.5rem] before:h-[1.5rem] before:bg-white cursor-pointer before:bg-[#00ADEF] before:transition ease-in-out duration-1100 before:rounded-full before:transform before:translate-x-8"
+							? 'before:bg-[#475564] before:translate-x-0 '
+							: 'before:bg-[#00ADEF] before:translate-x-8'
 					}
+					`}
 				/>
 			)}
 		</label>
