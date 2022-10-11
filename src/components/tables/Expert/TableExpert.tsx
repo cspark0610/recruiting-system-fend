@@ -1,5 +1,5 @@
-import { ICandidate } from '../../../redux/candidates/types/data'
-import { IPosition } from '../../../redux/positions/types/data'
+import { ICandidate } from '@/redux/candidates/types/data'
+import { IPosition } from '@/redux/positions/types/data'
 import TableBody from './TableBody'
 import TableHeader from './TableHeader'
 

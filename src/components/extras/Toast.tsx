@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './../../assets/scss/Toast.scss'
+import '@/assets/scss/Toast.scss'
 
 interface Props {
 	message: string

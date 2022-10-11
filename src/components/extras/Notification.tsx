@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './../../assets/scss/Notificaction.scss'
+import '@/assets/scss/Notificaction.scss'
 
 type Props = {
 	message: string

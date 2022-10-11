@@ -4,12 +4,12 @@ import {
 } from 'react-icons/fa'
 
 import { BsFillTelephoneFill } from 'react-icons/bs'
-import CopyLinkButton from '../../../buttons/CopyLinkButton'
+import CopyLinkButton from '@/components/buttons/CopyLinkButton'
 import { HiMail } from 'react-icons/hi'
-import { State } from '../../../../redux/store/store'
-import { isValidURL } from '../../../../utils/general'
+import { State } from '@/redux/store/store'
+import { isValidURL } from '@/utils/general'
 import { useSelector } from 'react-redux'
-import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
 
 interface Props {
 	postulationId: string

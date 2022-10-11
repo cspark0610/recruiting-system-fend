@@ -1,7 +1,7 @@
-import { useSlider } from '../../hooks/useSlider'
-import SliderControl from '../buttons/SliderControl'
-import SliderData from './../../assets/json/SliderData.json'
-import './../../assets/scss/Slider.scss'
+import { useSlider } from '@/hooks/useSlider'
+import SliderData from '@/assets/json/SliderData.json'
+import '@/assets/scss/Slider.scss'
+import SliderControl from '@/components/buttons/SliderControl'
 
 const Slider = () => {
 	/*  */
@@ -21,10 +21,7 @@ const Slider = () => {
 							}
 						>
 							<img
-								src={
-									process.env.PUBLIC_URL +
-									`/images/Rule ${index + 1}.svg`
-								}
+								src={`/images/Rule ${index + 1}.svg`}
 								alt={obj.description}
 								className="mobile:w-[288px] mobile:h-[237px] laptop:w-[288px] laptop:h-[237px]"
 							/>

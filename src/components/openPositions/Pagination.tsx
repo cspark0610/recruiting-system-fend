@@ -3,12 +3,12 @@ import {
 	AiOutlineLeft,
 	AiOutlineRight,
 } from 'react-icons/ai'
-import PaginationData from '../../config/types/paginationData'
+import PaginationData from '@/config/types/paginationData'
 import {
 	GetActivePositions,
 	GetInactivePositions,
-} from '../../redux/positions/actions/PositionsActions'
-import { AppDispatch } from '../../redux/store/store'
+} from '@/redux/positions/actions/PositionsActions'
+import { AppDispatch } from '@/redux/store/store'
 
 type PaginationProps = {
 	title: string

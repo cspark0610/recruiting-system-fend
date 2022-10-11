@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './../../assets/scss/Shrink.scss'
+import '@/assets/scss/Shrink.scss'
 
 interface Props {
 	id: string

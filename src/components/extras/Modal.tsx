@@ -3,8 +3,8 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useTranslation } from 'react-i18next'
 import { IoCloseCircleOutline } from 'react-icons/io5'
-import LoaderSpinner from '../../assets/loaderSpinner'
-import { State } from '../../redux/store/store'
+import LoaderSpinner from '@/assets/loaderSpinner'
+import { State } from '@/redux/store/store'
 
 interface Props {
 	alt: string
@@ -85,10 +85,7 @@ const Modal = ({
 											className="mb-[15px]"
 										>
 											<img
-												src={
-													process.env.PUBLIC_URL +
-													`/images/${image}.svg`
-												}
+												src={`/images/${image}.svg`}
 												alt={alt}
 												className="w-[104px] h-[104px]"
 											/>

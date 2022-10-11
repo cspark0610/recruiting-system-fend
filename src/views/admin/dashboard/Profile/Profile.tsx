@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AiFillEdit } from 'react-icons/ai'
-import { State } from '../../../../redux/store/store'
-import FrmProfile from '../../../../components/forms/FrmProfile'
-import { ClearUserSuccess } from '../../../../redux/users/actions/UserAction'
+import { State } from '@/redux/store/store'
+import FrmProfile from '@/components/forms/FrmProfile'
+import { ClearUserSuccess } from '@/redux/users/actions/UserAction'
 
 export default function Profile() {
 	const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import Header from '../../components/header/Header'
+import Header from '@/components/header/Header'
 
 const NotFound = () => {
 	/*  */
@@ -15,20 +15,14 @@ const NotFound = () => {
 				<section className="grid justify-items-center gap-20 grid-rows-1 mobile:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-2">
 					<div>
 						<img
-							src={
-								process.env.PUBLIC_URL +
-								'/images/Ilustration.svg'
-							}
+							src={'/images/Ilustration.svg'}
 							alt="Page Not Found"
 							className="mobile:hidden tablet:block laptop:block"
 						/>
 					</div>
 					<div>
 						<img
-							src={
-								process.env.PUBLIC_URL +
-								'/images/404 Error.svg'
-							}
+							src={'/images/404 Error.svg'}
 							alt="404 page not found"
 							className="w-60 md:w-full bg-white"
 						/>

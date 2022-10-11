@@ -1,23 +1,23 @@
 import {
 	ICandidate,
 	IPostulation,
-} from '../../../redux/candidates/types/data'
-import { calculateCandidateAge } from '../../../utils/candidates'
+} from '@/redux/candidates/types/data'
+import { calculateCandidateAge } from '@/utils/candidates'
 import { IoMail as EmailIcon } from 'react-icons/io5'
 import { BsFillTelephoneFill as PhoneIcon } from 'react-icons/bs'
 import { AiOutlineFilePdf as CVIcon } from 'react-icons/ai'
 import { BsPlay as PlayIcon } from 'react-icons/bs'
 // import { IoMicCircleOutline as AudioIcon } from "react-icons/io5";
 // import { GiSoundWaves as RecordIcon } from "react-icons/gi";
-import uuid from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 import { useState } from 'react'
 import { batch, useDispatch } from 'react-redux'
 import {
 	GetCandidateInfo,
 	GetPostulationById,
-} from '../../../redux/candidates/actions/CandidateAction'
+} from '@/redux/candidates/actions/CandidateAction'
 import UserDialog from '../../dialog/UserDialog'
-import { AppDispatch } from '../../../redux/store/store'
+import { AppDispatch } from '@/redux/store/store'
 
 interface TableBodyProps {
 	candidates: ICandidate[]
@@ -105,7 +105,8 @@ const TableBody = ({ candidates }: TableBodyProps) => {
 	) => {
 		return (
 			<div className="w-1/3" key={uuid()}>
-				{candidate.available_from ?? 'No availability'}
+				{/* TODO: verify if candidate is available */}
+				{candidate.available_from || 'No availability'}
 			</div>
 		)
 	}

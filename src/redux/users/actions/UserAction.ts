@@ -16,18 +16,18 @@ import {
 } from '../types/dispatchActions'
 import ClientAxios, {
 	PrivateAxios,
-} from '../../../config/api/axios'
+} from '@/config/api/axios'
 import {
 	GET_ALL_USERS,
 	LOGIN_USER,
 	LOGOUT_USER,
 	UPDATE_USER,
-} from '../../../config/routes/endpoints'
-import { VIEW_LOGIN } from '../../../config/routes/paths'
+} from '@/config/routes/endpoints'
+import { VIEW_LOGIN } from '@/config/routes/paths'
 import {
 	setStorage,
 	cleanStorage,
-} from '../../../utils/localStorage'
+} from '@/utils/localStorage'
 import axios from 'axios'
 
 export function GetAllUsers() {

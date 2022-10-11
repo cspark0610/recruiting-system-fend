@@ -1,9 +1,10 @@
-import { AppDispatch, State } from '../../redux/store/store'
 import {
 	ClearSuccess,
 	SetIsActive,
-} from '../../redux/positions/actions/PositionsActions'
-import { useDispatch, useSelector } from 'react-redux'
+} from '@/redux/positions/actions/PositionsActions'
+import { AppDispatch, State } from '@/redux/store/store'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 type ToggleProps = {
 	inactive: boolean

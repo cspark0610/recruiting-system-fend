@@ -3,17 +3,17 @@ import {
 	VIEW_KANBAN,
 	VIEW_OPEN_POSITIONS,
 	VIEW_PROFILE,
-} from '../../config/routes/paths'
+} from '@/config/routes/paths'
 import { useRef, useState } from 'react'
 
 import { FiLogOut } from 'react-icons/fi'
-import { LogOut } from '../../redux/users/actions/UserAction'
+import { LogOut } from '@/redux/users/actions/UserAction'
 import NavItem from './NavItem'
-import detectOutsideClick from '../../utils/detectOutsideClick'
-import { getStorageItem } from '../../utils/localStorage'
+import detectOutsideClick from '@/utils/detectOutsideClick'
+import { getStorageItem } from '@/utils/localStorage'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { AppDispatch } from '../../redux/store/store'
+import { AppDispatch } from '@/redux/store/store'
 
 export default function Navbar() {
 	const dispatch = useDispatch<AppDispatch>()

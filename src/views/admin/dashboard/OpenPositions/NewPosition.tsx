@@ -3,17 +3,14 @@ import {
 	ClearInfo,
 	ClearSuccess,
 	getPositionInfo,
-} from '../../../../redux/positions/actions/PositionsActions'
-import { VIEW_OPEN_POSITIONS } from '../../../../config/routes/paths'
+} from '@/redux/positions/actions/PositionsActions'
+import { VIEW_OPEN_POSITIONS } from '@/config/routes/paths'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Back from '../../../../components/buttons/Back'
-import FrmPosition from '../../../../components/forms/FrmPosition'
-import { GetAllUsers } from '../../../../redux/users/actions/UserAction'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
+import Back from '@/components/buttons/Back'
+import FrmPosition from '@/components/forms/FrmPosition'
+import { GetAllUsers } from '@/redux/users/actions/UserAction'
+import { AppDispatch, State } from '@/redux/store/store'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 

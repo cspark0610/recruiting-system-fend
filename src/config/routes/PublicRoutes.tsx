@@ -1,3 +1,4 @@
+import { lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Route, Routes } from 'react-router-dom'
 
@@ -15,16 +16,32 @@ import {
 	VIEW_REGISTER,
 } from './paths'
 
-import Data from '../../views/first_link/Data'
-import Thanks from '../../views/first_link/Thanks'
-import Welcome from '../../views/second_link/Welcome'
-import Instructions from '../../views/second_link/Instructions'
-import Required from '../../views/second_link/Required'
-import NotFound from '../../views/error/NotFound'
-import Details from '../../views/second_link/Details'
-import VideoStart from '../../views/second_link/VideoStart'
-import VideoCompleted from '../../views/second_link/VideoCompleted'
-import Register from '../../views/Register'
+const Data = lazy(() => import('@/views/first_link/Data'))
+const Thanks = lazy(
+	() => import('@/views/first_link/Thanks'),
+)
+const Welcome = lazy(
+	() => import('@/views/second_link/Welcome'),
+)
+const Instructions = lazy(
+	() => import('@/views/second_link/Instructions'),
+)
+const Required = lazy(
+	() => import('@/views/second_link/Required'),
+)
+const NotFound = lazy(
+	() => import('@/views/error/NotFound'),
+)
+const Details = lazy(
+	() => import('@/views/second_link/Details'),
+)
+const VideoStart = lazy(
+	() => import('@/views/second_link/VideoStart'),
+)
+const VideoCompleted = lazy(
+	() => import('@/views/second_link/VideoCompleted'),
+)
+const Register = lazy(() => import('@/views/Register'))
 
 const PublicRoutes = () => {
 	/*  */

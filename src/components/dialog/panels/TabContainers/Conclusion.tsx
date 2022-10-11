@@ -1,18 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
 import { IoSend } from 'react-icons/io5'
-import InputConclusion from '../../../inputs/InputConclusion'
-import LoaderSpinner from '../../../../assets/loaderSpinner'
+import InputConclusion from '@/components/inputs/InputConclusion'
+import LoaderSpinner from '@/assets/loaderSpinner'
 
 /* Redux */
 import { useDispatch, useSelector } from 'react-redux'
-import { UpdateCandidateConclusion } from '../../../../redux/candidates/actions/CandidateAction'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
-import { IConclusionInv } from '../../../../redux/candidates/types/data'
-import { getStorageItem } from '../../../../utils/localStorage'
-import { UseGetPostulationById } from '../../../../hooks/useGetPostulationById'
+import { UpdateCandidateConclusion } from '@/redux/candidates/actions/CandidateAction'
+import { AppDispatch, State } from '@/redux/store/store'
+import { IConclusionInv } from '@/redux/candidates/types/data'
+import { getStorageItem } from '@/utils/localStorage'
+import { UseGetPostulationById } from '@/hooks/useGetPostulationById'
 
 interface Props {
 	postulationId: string

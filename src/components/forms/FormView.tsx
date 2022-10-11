@@ -5,13 +5,13 @@ import {
 	AiOutlineDown as ArrowDown,
 } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
-import { GetCandidatesFilteredExpert } from '../../redux/candidates/actions/CandidateAction'
-import { AppDispatch } from '../../redux/store/store'
+import { GetCandidatesFilteredExpert } from '@/redux/candidates/actions/CandidateAction'
+import { AppDispatch } from '@/redux/store/store'
 import {
 	EMPLOYMENT_STATUS,
 	EMPLOYMENT_STATUS_ALLOWED,
-} from '../../utils/candidates'
-import Apply from '../buttons/Apply'
+} from '@/utils/candidates'
+import Apply from '@/components/buttons/Apply'
 
 interface Props {
 	toggleStatus: boolean

@@ -1,7 +1,7 @@
+import Alert from '@/components/extras/Alert'
+import SelectCoin from '@/components/inputs/SelectCoin'
 import CurrencyInput from 'react-currency-input-field'
 import { useTranslation } from 'react-i18next'
-import Alert from '../extras/Alert'
-import SelectCoin from './SelectCoin'
 
 interface Props {
 	id: string

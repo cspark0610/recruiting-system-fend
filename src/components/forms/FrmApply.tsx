@@ -2,30 +2,30 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 /* Components */
-import Text from '../inputs/Text'
-import SingleSelect from '../inputs/SingleSelect'
-import File from '../inputs/File'
-import Checkbox from '../buttons/Checkbox'
-import Submit from '../buttons/Submit'
-import Loading from '../extras/Loading'
-import Date from '../inputs/Date'
-import ErrorMessages from '../forms/ErrorMessages'
+import Text from '@/components/inputs/Text'
+import SingleSelect from '@/components/inputs/SingleSelect'
+import File from '@/components/inputs/File'
+import Checkbox from '@/components/buttons/Checkbox'
+import Submit from '@/components/buttons/Submit'
+import Loading from '@/components/extras/Loading'
+import Date from '@/components/inputs/Date'
+import ErrorMessages from '@/components/forms/ErrorMessages'
 
 /* Paths */
-import { VIEW_APPLY_THANKS } from '../../config/routes/paths'
+import { VIEW_APPLY_THANKS } from '@/config/routes/paths'
 
 /* Json files */
-import Countries from '../../assets/json/Countries.json'
-import English from '../../assets/json/Language.json'
+import Countries from '@/assets/json/Countries.json'
+import English from '@/assets/json/Language.json'
 
 /* Redux */
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, State } from '../../redux/store/store'
+import { AppDispatch, State } from '@/redux/store/store'
 import {
 	CleanCandidateErrors,
 	CreateCandidate,
-} from '../../redux/candidates/actions/CandidateAction'
-import { getPositionInfo } from '../../redux/positions/actions/PositionsActions'
+} from '@/redux/candidates/actions/CandidateAction'
+import { getPositionInfo } from '@/redux/positions/actions/PositionsActions'
 
 interface Props {
 	_id: string | null

@@ -5,16 +5,16 @@ import {
 	useSearchParams,
 } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ValidateToken } from '../../redux/candidates/actions/CandidateAction'
+import { ValidateToken } from '@/redux/candidates/actions/CandidateAction'
 import {
 	VIEW_404,
 	VIEW_BEFORE_STARTING,
-} from '../../config/routes/paths'
-import { AppDispatch, State } from '../../redux/store/store'
-import { UseCamera } from '../../hooks/useCamera'
-import Lang from '../../components/extras/Lang'
-import Header from '../../components/header/Header'
-import CameraOn from '../../components/recorder/CameraOn'
+} from '@/config/routes/paths'
+import { AppDispatch, State } from '@/redux/store/store'
+import { UseCamera } from '@/hooks/useCamera'
+import Lang from '@/components/extras/Lang'
+import Header from '@/components/header/Header'
+import CameraOn from '@/components/recorder/CameraOn'
 
 const Details = () => {
 	/*  */

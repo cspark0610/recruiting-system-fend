@@ -2,14 +2,14 @@ import axios, {
 	AxiosResponse,
 	AxiosRequestConfig,
 } from 'axios'
-import store from '../../redux/store/store'
-import { setStorage } from '../../utils/localStorage'
+import store from '@/redux/store/store'
+import { setStorage } from '@/utils/localStorage'
 import { REFRESH_TOKENS } from '../routes/endpoints'
-import { LogOut } from '../../redux/users/actions/UserAction'
-import { RefreshTokenResponse } from '../../redux/users/types/axiosResponses'
-import { getStorageItem } from '../../utils/localStorage'
+import { LogOut } from '@/redux/users/actions/UserAction'
+import { RefreshTokenResponse } from '@/redux/users/types/axiosResponses'
+import { getStorageItem } from '@/utils/localStorage'
 
-const { NODE_ENV } = process.env
+const { MODE: NODE_ENV } = import.meta.env
 
 const { dispatch } = store
 

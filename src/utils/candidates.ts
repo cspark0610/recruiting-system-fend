@@ -22,6 +22,10 @@ const headers = [
 		key: 'chosen',
 		text: 'Chosen for',
 	},
+	{
+		key: 'hired',
+		text: 'Hired for',
+	},
 ]
 
 const cardColor = [

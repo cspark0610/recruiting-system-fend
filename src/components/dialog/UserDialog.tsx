@@ -11,17 +11,17 @@ import {
 	RejectCandidate,
 	UpdateCandidateEmploymentStatus,
 	UpdateCandidateStatus,
-} from '../../redux/candidates/actions/CandidateAction'
-import { AppDispatch, State } from '../../redux/store/store'
+} from '@/redux/candidates/actions/CandidateAction'
+import { AppDispatch, State } from '@/redux/store/store'
 import Panels from './panels/Panels'
 import HeaderDialog from '../header/HeaderDialog'
-import Modal from '../extras/Modal'
-import LoaderSpinner from '../../assets/loaderSpinner'
+import Modal from '@/components/extras/Modal'
+import LoaderSpinner from '@/assets/loaderSpinner'
 import {
 	ICandidate,
 	IPostulation,
-} from '../../redux/candidates/types/data'
-import { MAIN_STATUS_ALLOWED } from '../../utils/candidates'
+} from '@/redux/candidates/types/data'
+import { MAIN_STATUS_ALLOWED } from '@/utils/candidates'
 
 interface Props {
 	isDialogClose: any
@@ -164,7 +164,8 @@ const UserDialog = ({
 	const isStatusConfirm = (
 		secondary_status: string,
 		postulationId: string,
-		shouldRecandidate: boolean,
+		shouldRecandidate = false,
+		shouldUnlink = false,
 	) => {
 		// recandidate case
 		if (

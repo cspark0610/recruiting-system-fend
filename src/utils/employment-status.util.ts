@@ -12,8 +12,7 @@ const employmentStatus: EmploymentStatus = [
 		displayName: 'Former',
 		value: 'former',
 		checked: false,
-		//tdv no definido el color momentaneamente en rojo
-		color: 'bg-[#F84D44]',
+		color: 'bg-[#7ECAE2]',
 	},
 	{
 		id: 2,
