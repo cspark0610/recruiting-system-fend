@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-	useNavigate,
-	useSearchParams,
-} from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 /* Components */
@@ -13,10 +10,7 @@ import TextArea from '@/components/inputs/TextArea'
 import Currency from '@/components/inputs/Currency'
 
 /* Paths */
-import {
-	VIEW_DETAILS,
-	VIEW_VIDEO_COMPLETED,
-} from '@/config/routes/paths'
+import { VIEW_DETAILS, VIEW_VIDEO_COMPLETED } from '@/config/routes/paths'
 
 /* Json files */
 import Training from '@/assets/json/College.json'
@@ -59,16 +53,11 @@ const FrmData = ({ token }: Props) => {
 
 	const { skills, training, time, coins } = optionValues
 
-	const candidateDetail = useSelector(
-		(state: State) => state.info.detail,
-	)
-	const postulationDetail = useSelector(
-		(state: State) => state.info.postulation,
-	)
+	const candidateDetail = useSelector((state: State) => state.info.detail)
+	const postulationDetail = useSelector((state: State) => state.info.postulation)
 
 	//const candidateId = candidateDetail && candidateDetail._id;
-	const postulationId =
-		postulationDetail && postulationDetail._id
+	const postulationId = postulationDetail && postulationDetail._id
 
 	/* States from the component */
 	const [college, setCollege] = useState({
@@ -84,17 +73,13 @@ const FrmData = ({ token }: Props) => {
 		id: 0,
 		name: '',
 	})
-	const [skill, setSkill] = useState<
-		{ id: number; name: string }[]
-	>([])
+	const [skill, setSkill] = useState<{ id: number; name: string }[]>([])
 	const [description, setDescription] = useState('')
 
 	/* Values which will be validated */
-	const [isCollegeValid, setIsCollegeValid] =
-		useState(false)
+	const [isCollegeValid, setIsCollegeValid] = useState(false)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [isCurrencyValid, setIsCurrencyValid] =
-		useState(false)
+	const [isCurrencyValid, setIsCurrencyValid] = useState(false)
 	const [isSalaryValid, setIsSalaryValid] = useState(false)
 	const [isSkillValid, setIsSkillValid] = useState(false)
 
@@ -103,29 +88,17 @@ const FrmData = ({ token }: Props) => {
 	const toEdit = searchParams.get('edit')
 
 	/*  */
-	const _UpdatePostulationInfo = (
-		newInfo: UpdatePostulationInfoAction['payload'],
-	) =>
+	const _UpdatePostulationInfo = (newInfo: UpdatePostulationInfoAction['payload']) =>
 		dispatch(UpdatePostulationInfo(postulationId, newInfo))
 
-	const loading = useSelector(
-		(state: State) => state.info.loading,
-	)
-	const success = useSelector(
-		(state: State) => state.info.success,
-	)
+	const loading = useSelector((state: State) => state.info.loading)
+	const success = useSelector((state: State) => state.info.success)
 
 	/* Function to store validation */
 	const isFormValid = () => {
-		college.name === ''
-			? setIsCollegeValid(true)
-			: setIsCollegeValid(false)
-		currency.name === ''
-			? setIsCurrencyValid(true)
-			: setIsCurrencyValid(false)
-		salary === ''
-			? setIsSalaryValid(true)
-			: setIsSalaryValid(false)
+		college.name === '' ? setIsCollegeValid(true) : setIsCollegeValid(false)
+		currency.name === '' ? setIsCurrencyValid(true) : setIsCurrencyValid(false)
+		salary === '' ? setIsSalaryValid(true) : setIsSalaryValid(false)
 		!skill ? setIsSkillValid(true) : setIsSkillValid(false)
 	}
 
@@ -186,29 +159,18 @@ const FrmData = ({ token }: Props) => {
 			}
 
 			const currencyToEdit = coins.find(
-				c =>
-					c.name ===
-					postulationDetail.salary_expectations.split(
-						' ',
-					)[0],
+				c => c.name === postulationDetail.salary_expectations.split(' ')[0],
 			)
 
-			const availableToEdit = time.find(
-				t => t.name === postulationDetail.available_from,
-			)
+			const availableToEdit = time.find(t => t.name === postulationDetail.available_from)
 
-			const skillsToEdit = postulationDetail.skills.reduce(
-				(prev: any, skill: any) => {
-					return [...prev, { id: 0, name: skill }]
-				},
-				[],
-			)
+			const skillsToEdit = postulationDetail.skills.reduce((prev: any, skill: any) => {
+				return [...prev, { id: 0, name: skill }]
+			}, [])
 
 			setDescription(postulationDetail.working_reason)
 			setCollege(collegeToEdit!)
-			setSalary(
-				postulationDetail.salary_expectations.split(' ')[1],
-			)
+			setSalary(postulationDetail.salary_expectations.split(' ')[1])
 			setCurrency(currencyToEdit!)
 			setAvailable(availableToEdit!)
 			setSkill(skillsToEdit!)
@@ -224,17 +186,9 @@ const FrmData = ({ token }: Props) => {
 	])
 
 	useEffect(() => {
-		if (
-			!loading &&
-			success.message !== '' &&
-			toEdit === 'true'
-		) {
+		if (!loading && success.message !== '' && toEdit === 'true') {
 			navigate(`${VIEW_VIDEO_COMPLETED}?token=${token}`)
-		} else if (
-			!loading &&
-			success.message !== '' &&
-			!toEdit
-		) {
+		} else if (!loading && success.message !== '' && !toEdit) {
 			navigate(`${VIEW_DETAILS}?token=${token}`)
 		}
 	}, [loading, success, toEdit, token, navigate])
@@ -296,11 +250,7 @@ const FrmData = ({ token }: Props) => {
 						setValue={setSkill}
 						width="laptop:w-full mobile:w-full tablet:w-full"
 					/>
-					<TextArea
-						id="description"
-						setValue={setDescription}
-						value={description}
-					/>
+					<TextArea id="description" setValue={setDescription} value={description} />
 				</div>
 				{!toEdit ? (
 					<Submit

@@ -12,22 +12,14 @@ interface Props {
 }
 const Videos = ({ postulationId }: Props) => {
 	const dispatch = useDispatch<AppDispatch>()
-	const detail = useSelector(
-		(state: State) => state.info.detail,
-	)
-	const { postulation } = UseGetPostulationById(
-		detail,
-		postulationId,
+	const detail = useSelector((state: State) => state.info.detail)
+	const { postulation } = UseGetPostulationById(detail, postulationId)
+
+	const hasUploaded: IQuestion[] = postulation?.video_questions_list!.filter(
+		(video: IQuestion) => video.video_key !== '',
 	)
 
-	const hasUploaded: IQuestion[] =
-		postulation?.video_questions_list!.filter(
-			(video: IQuestion) => video.video_key !== '',
-		)
-
-	const video_keys: string[] = hasUploaded.map(
-		h => h.video_key,
-	)
+	const video_keys: string[] = hasUploaded.map(h => h.video_key)
 
 	useEffect(() => {
 		if (video_keys.length === 2) {
@@ -37,8 +29,7 @@ const Videos = ({ postulationId }: Props) => {
 	}, [])
 
 	const videos_recorded = useSelector(
-		(state: State) =>
-			state.info.postulation.videos_recorded,
+		(state: State) => state.info.postulation.videos_recorded,
 	)
 
 	return (
@@ -61,19 +52,11 @@ const Videos = ({ postulationId }: Props) => {
 							{/* only 2 videos */}
 							{videos_recorded.length > 0 && (
 								<>
-									<video
-										id="video-interview"
-										controls
-										src={`${videos_recorded[0]}`}
-									>
+									<video id="video-interview" controls src={`${videos_recorded[0]}`}>
 										<source type="video/mp4" />
 									</video>
 
-									<video
-										id="video-interview"
-										controls
-										src={`${videos_recorded[1]}`}
-									>
+									<video id="video-interview" controls src={`${videos_recorded[1]}`}>
 										<source type="video/mp4" />
 									</video>
 								</>
@@ -81,8 +64,7 @@ const Videos = ({ postulationId }: Props) => {
 						</div>
 						{!hasUploaded && (
 							<p className="relative font-raleway text-gray-color text-sm mt-[17px]">
-								*This candidate has not uploaded any video
-								yet.
+								*This candidate has not uploaded any video yet.
 							</p>
 						)}
 					</div>

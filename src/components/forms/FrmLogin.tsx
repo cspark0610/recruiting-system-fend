@@ -12,28 +12,18 @@ const FrmLogin = () => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
 
-	const loading = useSelector(
-		(state: State) => state.user.loading,
-	)
-	const success = useSelector(
-		(state: State) => state.user.success,
-	)
-	const error = useSelector(
-		(state: State) => state.user.error,
-	)
+	const loading = useSelector((state: State) => state.user.loading)
+	const success = useSelector((state: State) => state.user.success)
+	const error = useSelector((state: State) => state.user.error)
 
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
-	const [hidePassword, setHidePassword] =
-		useState<string>('password')
+	const [hidePassword, setHidePassword] = useState<string>('password')
 	const typePassword = hidePassword
-	const [usernameValid, setUsernameValid] =
-		useState<boolean>(false)
-	const [passwordValid, setPasswordValid] =
-		useState<boolean>(false)
+	const [usernameValid, setUsernameValid] = useState<boolean>(false)
+	const [passwordValid, setPasswordValid] = useState<boolean>(false)
 
-	const expiredSessionError =
-		window.localStorage.getItem('refresh_error')
+	const expiredSessionError = window.localStorage.getItem('refresh_error')
 
 	useEffect(() => {
 		window.document.title = 'WorkAt - Login'
@@ -52,12 +42,8 @@ const FrmLogin = () => {
 	}
 
 	const isFormValid = () => {
-		!username
-			? setUsernameValid(true)
-			: setUsernameValid(false)
-		!password
-			? setPasswordValid(true)
-			: setPasswordValid(false)
+		!username ? setUsernameValid(true) : setUsernameValid(false)
+		!password ? setPasswordValid(true) : setPasswordValid(false)
 	}
 
 	const handleUsername = (evt: any) => {
@@ -68,9 +54,7 @@ const FrmLogin = () => {
 		setPassword(evt.target.value.replace(RegExp, ''))
 	}
 
-	const handleLogin = (evt: {
-		preventDefault: () => void
-	}) => {
+	const handleLogin = (evt: { preventDefault: () => void }) => {
 		evt.preventDefault()
 		isFormValid()
 
@@ -124,8 +108,7 @@ const FrmLogin = () => {
 									? 'bg-white border-red-color border'
 									: 'bg-light-color border-light-color'
 							} ${
-								username &&
-								'!border-cyan-color bg-light-blue'
+								username && '!border-cyan-color bg-light-blue'
 							} focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
 							type="text"
 							id="username"
@@ -134,11 +117,7 @@ const FrmLogin = () => {
 							onChange={handleUsername}
 						/>
 						<ErrorMessages
-							errorTerms={[
-								'Email',
-								'must be an email',
-								'FullTimeForce',
-							]}
+							errorTerms={['Email', 'must be an email', 'FullTimeForce']}
 							errorState={error}
 							className="flex flex-col mt-2"
 						/>
@@ -162,8 +141,7 @@ const FrmLogin = () => {
 										? 'bg-white border-red-color border'
 										: 'bg-light-color border-light-color'
 								} ${
-									password &&
-									'!border-cyan-color bg-light-blue'
+									password && '!border-cyan-color bg-light-blue'
 								} focus:outline-none focus:bg-white block appearance-none rounded-[6px] py-3 px-4 min-w-full laptop:w-[448px] laptop:h-[64px] mobile:w-[162px] mobile:h-[35px] tablet:w-[241px] tablet:h-[54px] leading-tight mobile:text-xs tablet:text-[15px] laptop:text-[15px] font-light font-raleway text-gray-color focus:border-cyan-color border`}
 								type={typePassword}
 								id="password"
@@ -200,25 +178,14 @@ const FrmLogin = () => {
 					*/}
 					<div className="flex justify-center mb-3 mobile:mt-5 laptop:mt-5 tablet:mt-16">
 						{loading ? (
-							<LoaderSpinner
-								height="h-8"
-								width="w-[8.2rem]"
-								classes="mt-2"
-							/>
+							<LoaderSpinner height="h-8" width="w-[8.2rem]" classes="mt-2" />
 						) : (
 							<button
 								disabled={loading}
 								onClick={handleLogin}
 								className="w-[132px] h-[54px] cursor-pointer rounded-[10px] bg-cyan-color hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway focus:outline-none"
 							>
-								{loading ? (
-									<LoaderSpinner
-										height="h-8"
-										width="w-[8.2rem]"
-									/>
-								) : (
-									'Log In'
-								)}
+								{loading ? <LoaderSpinner height="h-8" width="w-[8.2rem]" /> : 'Log In'}
 							</button>
 						)}
 					</div>

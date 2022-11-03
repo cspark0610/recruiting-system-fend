@@ -14,9 +14,7 @@ const VideoStart = () => {
 
 	const [videoCounter, setVideoCounter] = useState(1)
 
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const error = useSelector((state: State) => state.info.error)
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')
@@ -30,15 +28,11 @@ const VideoStart = () => {
 
 		return () => {
 			if (window.mediaStreamObject) {
-				window.mediaStreamObject
-					.getTracks()
-					.forEach(track => track.stop())
+				window.mediaStreamObject.getTracks().forEach(track => track.stop())
 			}
 		}
 	}, [dispatch, token])
-	const postulation = useSelector(
-		(state: State) => state.info.postulation,
-	)
+	const postulation = useSelector((state: State) => state.info.postulation)
 
 	return (
 		<>

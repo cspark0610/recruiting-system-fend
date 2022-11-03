@@ -1,7 +1,4 @@
-import {
-	VIEW_EDIT_POSITION,
-	VIEW_OPEN_POSITIONS,
-} from '../../config/routes/paths'
+import { VIEW_EDIT_POSITION, VIEW_OPEN_POSITIONS } from '../../config/routes/paths'
 
 import { BiLinkExternal } from 'react-icons/bi'
 import EditButton from '../buttons/EditButton'
@@ -14,11 +11,7 @@ type SubMenuProps = {
 	recruiter_filter: string
 }
 
-export default function SubMenu({
-	_id,
-	rie_link,
-	recruiter_filter,
-}: SubMenuProps) {
+export default function SubMenu({ _id, rie_link, recruiter_filter }: SubMenuProps) {
 	const navigate = useNavigate()
 
 	return (
@@ -26,9 +19,7 @@ export default function SubMenu({
 			<div className="flex justify-end pr-12">
 				<EditButton
 					className="bg-[#00ADEF] text-white w-fit px-2 rounded-md"
-					onClick={() =>
-						navigate(`${VIEW_EDIT_POSITION}/${_id}`)
-					}
+					onClick={() => navigate(`${VIEW_EDIT_POSITION}/${_id}`)}
 				>
 					Edit
 				</EditButton>
@@ -39,11 +30,7 @@ export default function SubMenu({
 						<IoMdArrowDropright className="mt-1" />
 					</span>
 					<span className="font-raleway">RIE</span>
-					<a
-						href={rie_link}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={rie_link} target="_blank" rel="noopener noreferrer">
 						<BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
 					</a>
 				</div>
@@ -51,14 +38,8 @@ export default function SubMenu({
 					<span>
 						<IoMdArrowDropright className="mt-1" />
 					</span>
-					<span className="font-raleway">
-						Recruiter Filter
-					</span>
-					<a
-						href={recruiter_filter}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<span className="font-raleway">Recruiter Filter</span>
+					<a href={recruiter_filter} target="_blank" rel="noopener noreferrer">
 						<BiLinkExternal className="mt-1 ml-3 hover:cursor-pointer text-[#00ADEF]" />
 					</a>
 				</div>
@@ -69,9 +50,7 @@ export default function SubMenu({
 					<span
 						className="font-raleway cursor-pointer"
 						onClick={() => {
-							navigate(
-								`${VIEW_OPEN_POSITIONS}/${_id}/video-questions`,
-							)
+							navigate(`${VIEW_OPEN_POSITIONS}/${_id}/video-questions`)
 						}}
 					>
 						Video Questions

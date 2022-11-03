@@ -14,26 +14,18 @@ type FrmProfileProps = {
 	setIsEditable: (isEditable: boolean) => void
 }
 
-export default function FrmProfile({
-	isEditable,
-	setIsEditable,
-}: FrmProfileProps) {
+export default function FrmProfile({ isEditable, setIsEditable }: FrmProfileProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const updating = useSelector(
-		(state: State) => state.user.updating,
-	)
+	const updating = useSelector((state: State) => state.user.updating)
 
 	const [name, setName] = useState<string>('')
 	const [email, setEmail] = useState<string>('')
 	const [phone, setPhone] = useState(undefined)
 	const [password, setPassword] = useState<string>('')
-	const [position_name, setPosition_name] =
-		useState<string>('')
-	const [workingSince, setWorkingSince] =
-		useState<string>('')
-	const [confirmPassword, setConfirmPassword] =
-		useState<string>('')
+	const [position_name, setPosition_name] = useState<string>('')
+	const [workingSince, setWorkingSince] = useState<string>('')
+	const [confirmPassword, setConfirmPassword] = useState<string>('')
 	const [country, setCountry] = useState({
 		id: 0,
 		name: '',
@@ -59,17 +51,13 @@ export default function FrmProfile({
 		const getUserCountry = () => {
 			return {
 				id: 0,
-				name: currentUser.country
-					? currentUser.country
-					: '',
+				name: currentUser.country ? currentUser.country : '',
 			}
 		}
 		return getUserCountry()
 	}, [currentUser.country])
 
-	const handleSubmit = (
-		e: React.FormEvent<HTMLButtonElement>,
-	) => {
+	const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
 		dispatch(
@@ -87,19 +75,9 @@ export default function FrmProfile({
 	useEffect(() => {
 		setName(currentUser.name ? currentUser.name : '')
 		setEmail(currentUser.email ? currentUser.email : '')
-		setPhone(
-			currentUser.phone ? currentUser.phone : undefined,
-		)
-		setWorkingSince(
-			currentUser.working_since
-				? currentUser.working_since
-				: '',
-		)
-		setPosition_name(
-			currentUser.position_name
-				? currentUser.position_name
-				: '',
-		)
+		setPhone(currentUser.phone ? currentUser.phone : undefined)
+		setWorkingSince(currentUser.working_since ? currentUser.working_since : '')
+		setPosition_name(currentUser.position_name ? currentUser.position_name : '')
 		setCountry(userCountry)
 	}, [
 		currentUser.name,
@@ -114,10 +92,7 @@ export default function FrmProfile({
 		<div className="flex flex-col space-y-4 items-center justify-center">
 			<div className="flex">
 				<div className="flex flex-col">
-					<label
-						htmlFor="name"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="name" className="ml-4 font-raleway font-medium">
 						Name:
 					</label>
 					<Text
@@ -133,15 +108,10 @@ export default function FrmProfile({
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label
-						htmlFor="email"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="email" className="ml-4 font-raleway font-medium">
 						Email:{' '}
 						{isEditable && currentUser.google_sign_in ? (
-							<span className="text-red-500">
-								*This field cannot be edited
-							</span>
+							<span className="text-red-500">*This field cannot be edited</span>
 						) : null}
 					</label>
 					<Text
@@ -149,13 +119,7 @@ export default function FrmProfile({
 						type="email"
 						name="email"
 						RegExp={RegExp.characters}
-						setValue={
-							currentUser.google_sign_in
-								? false
-								: isEditable
-								? setEmail
-								: false
-						}
+						setValue={currentUser.google_sign_in ? false : isEditable ? setEmail : false}
 						width="w-[26.5rem]"
 						value={email}
 						placeholder="Email"
@@ -164,10 +128,7 @@ export default function FrmProfile({
 			</div>
 			<div className="flex">
 				<div className="flex flex-col">
-					<label
-						htmlFor="phone"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="phone" className="ml-4 font-raleway font-medium">
 						Phone:
 					</label>
 					<Text
@@ -182,10 +143,7 @@ export default function FrmProfile({
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label
-						htmlFor="Country"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="Country" className="ml-4 font-raleway font-medium">
 						Country:
 					</label>
 					<SingleSelect
@@ -204,10 +162,7 @@ export default function FrmProfile({
 			</div>
 			<div className="flex">
 				<div className="flex flex-col">
-					<label
-						htmlFor="position"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="position" className="ml-4 font-raleway font-medium">
 						Position:
 					</label>
 					<Text
@@ -222,10 +177,7 @@ export default function FrmProfile({
 					/>
 				</div>
 				<div className="flex flex-col">
-					<label
-						htmlFor="workingSince"
-						className="ml-4 font-raleway font-medium"
-					>
+					<label htmlFor="workingSince" className="ml-4 font-raleway font-medium">
 						Working Since:
 					</label>
 					<Date
@@ -284,12 +236,7 @@ export default function FrmProfile({
 						className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
 					>
 						{updating ? (
-							<LoaderSpinner
-								width="w-7"
-								height="h-7"
-								stroke="white"
-								fill="white"
-							/>
+							<LoaderSpinner width="w-7" height="h-7" stroke="white" fill="white" />
 						) : (
 							'Save'
 						)}

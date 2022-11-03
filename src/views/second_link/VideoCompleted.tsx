@@ -1,8 +1,5 @@
 import { useEffect } from 'react'
-import {
-	useNavigate,
-	useSearchParams,
-} from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { RiEdit2Fill } from 'react-icons/ri'
 
 import Submit from '@/components/buttons/Submit'
@@ -29,18 +26,14 @@ const VideoCompleted = () => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { t } = useTranslation()
 
-	const candidateDetail = useSelector(
-		(state: State) => state.info.detail,
-	)
+	const candidateDetail = useSelector((state: State) => state.info.detail)
 	const postulationDetail: IPostulation = useSelector(
 		(state: State) => state.info.postulation,
 	)
 
-	const { academic_training, available_from } =
-		candidateDetail
+	const { academic_training, available_from } = candidateDetail
 
-	const { skills, salary_expectations, working_reason } =
-		postulationDetail
+	const { skills, salary_expectations, working_reason } = postulationDetail
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')
@@ -64,9 +57,7 @@ const VideoCompleted = () => {
 
 	useEffect(() => {
 		if (window.mediaStreamObject) {
-			window.mediaStreamObject
-				.getTracks()
-				.forEach(track => track.stop())
+			window.mediaStreamObject.getTracks().forEach(track => track.stop())
 		}
 	}, [])
 
@@ -93,9 +84,7 @@ const VideoCompleted = () => {
 							<hr className="w-ful my-5" />
 							<p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
 								{t('video-completed.studies')}{' '}
-								<span className="text-cyan-color font-bold">
-									{academic_training}
-								</span>
+								<span className="text-cyan-color font-bold">{academic_training}</span>
 								<button
 									type="submit"
 									onClick={redirectEdition}
@@ -126,21 +115,18 @@ const VideoCompleted = () => {
 							</p>
 							<div className="grid grid-cols-2 gap-2 mt-2">
 								{skills &&
-									skills.map(
-										(ability: string, index: number) => (
-											<span
-												key={index}
-												className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36"
-											>
-												{skills && ability}
-											</span>
-										),
-									)}
+									skills.map((ability: string, index: number) => (
+										<span
+											key={index}
+											className="bg-cyan-color/90 rounded-2xl p-1 text-white text-center text-xs font-light font-raleway w-36"
+										>
+											{skills && ability}
+										</span>
+									))}
 							</div>
 							<hr className="w-ful my-5" />
 							<p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-								{t('video-completed.salary-title')}{' '}
-								{salary_expectations}
+								{t('video-completed.salary-title')} {salary_expectations}
 								<button
 									type="submit"
 									onClick={redirectEdition}
@@ -151,8 +137,7 @@ const VideoCompleted = () => {
 							</p>
 							<hr className="w-ful my-5" />
 							<p className="mobile:text-xs laptop:text-sm flex flex-row justify-between">
-								{t('video-completed.available-title')}{' '}
-								{available_from}
+								{t('video-completed.available-title')} {available_from}
 								<button
 									type="submit"
 									onClick={redirectEdition}

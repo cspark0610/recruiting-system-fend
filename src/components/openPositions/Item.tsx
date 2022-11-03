@@ -1,7 +1,4 @@
-import {
-	PRODUCTION_PATH,
-	VIEW_APPLY_BY_POSITION_ID,
-} from '@/config/routes/paths'
+import { PRODUCTION_PATH, VIEW_APPLY_BY_POSITION_ID } from '@/config/routes/paths'
 
 import { AiOutlineDown } from 'react-icons/ai'
 import CopyLinkButton from '../buttons/CopyLinkButton'
@@ -39,9 +36,7 @@ export default function Item({
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [isToggled, setIsToggled] = useState<boolean>(false)
 
-	const updating = useSelector(
-		(state: State) => state.positions.updating,
-	)
+	const updating = useSelector((state: State) => state.positions.updating)
 	const priorityClass = getPriorityColor(priority)
 
 	return (
@@ -58,11 +53,7 @@ export default function Item({
 						/>
 					) : null}
 					{updating && isToggled ? (
-						<LoaderSpinner
-							width="w-7"
-							height="h-7"
-							classes="mt-3"
-						/>
+						<LoaderSpinner width="w-7" height="h-7" classes="mt-3" />
 					) : null}
 					<div className="w-2/4">
 						<a
@@ -71,10 +62,7 @@ export default function Item({
 							rel="noreferrer"
 						>
 							<p className="ml-2 font-raleway w-full ">
-								{positionName} for{' '}
-								<span className="font-semibold">
-									{client}
-								</span>
+								{positionName} for <span className="font-semibold">{client}</span>
 							</p>
 						</a>
 
@@ -82,9 +70,7 @@ export default function Item({
 							{designated && designated.length > 0
 								? designated.map((user: any, i) => (
 										<div key={i}>
-											<p className="text-sm px-2 font-raleway">
-												{user.name}
-											</p>
+											<p className="text-sm px-2 font-raleway">{user.name}</p>
 										</div>
 								  ))
 								: null}
@@ -109,22 +95,13 @@ export default function Item({
 						</div>
 					) : null}
 					<span className="font-raleway">March 15</span>
-					<button
-						onClick={() => setIsOpen(!isOpen)}
-						className="font-raleway"
-					>
-						<AiOutlineDown
-							className={isOpen ? ' rotate-180' : ''}
-						/>
+					<button onClick={() => setIsOpen(!isOpen)} className="font-raleway">
+						<AiOutlineDown className={isOpen ? ' rotate-180' : ''} />
 					</button>
 				</div>
 			</div>
 			{isOpen && (
-				<SubMenu
-					_id={_id}
-					rie_link={rie_link}
-					recruiter_filter={recruiter_filter}
-				/>
+				<SubMenu _id={_id} rie_link={rie_link} recruiter_filter={recruiter_filter} />
 			)}
 		</div>
 	)

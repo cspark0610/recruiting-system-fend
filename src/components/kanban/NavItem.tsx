@@ -5,10 +5,7 @@ type NavItemProps = {
 	text: string
 }
 
-export default function NavItem({
-	to,
-	text,
-}: NavItemProps) {
+export default function NavItem({ to, text }: NavItemProps) {
 	return (
 		<NavLink
 			to={to}

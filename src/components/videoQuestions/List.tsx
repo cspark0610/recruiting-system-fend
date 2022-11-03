@@ -12,10 +12,7 @@ function List({ questionaries }: listQuestionaries) {
 				onClick={() => setisVisible(!isVisible)}
 			>
 				<p>Assigned a saved questionary</p>
-				<BsChevronDown
-					size={'1.2rem'}
-					className={isVisible ? ' rotate-180' : ''}
-				/>
+				<BsChevronDown size={'1.2rem'} className={isVisible ? ' rotate-180' : ''} />
 			</div>
 			{isVisible && (
 				<ul>

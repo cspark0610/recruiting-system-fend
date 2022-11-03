@@ -1,8 +1,5 @@
 import secondaryStatus from '../config/kanban/constants'
-import {
-	ICandidate,
-	IPostulation,
-} from '../redux/candidates/types/data'
+import { ICandidate, IPostulation } from '../redux/candidates/types/data'
 import employmentStatus from './employment-status.util'
 
 const headers = [
@@ -48,70 +45,37 @@ const cardColor = [
 ]
 
 export function getDetailHeaderText(main_status: string) {
-	return headers.find(header => header.key === main_status)
-		?.text
+	return headers.find(header => header.key === main_status)?.text
 }
 
-export function getTopBorderColor(
-	main_status: string,
-	secondary_status: string,
-) {
-	if (
-		main_status === 'interested' &&
-		secondary_status === 'new entry'
-	) {
+export function getTopBorderColor(main_status: string, secondary_status: string) {
+	if (main_status === 'interested' && secondary_status === 'new entry') {
 		return cardColor[0].color
 	}
-	if (
-		main_status === 'applying' &&
-		secondary_status === 'new entry'
-	) {
+	if (main_status === 'applying' && secondary_status === 'new entry') {
 		return cardColor[0].color
 	}
-	if (
-		main_status === 'meeting' &&
-		secondary_status === 'new entry'
-	) {
+	if (main_status === 'meeting' && secondary_status === 'new entry') {
 		return cardColor[0].color
 	}
-	if (
-		main_status === 'chosen' &&
-		secondary_status === 'approved'
-	) {
+	if (main_status === 'chosen' && secondary_status === 'approved') {
 		return cardColor[3].color
 	}
-	const cardBorderColor = cardColor.find(
-		item => item.name === secondary_status,
-	)?.color
+	const cardBorderColor = cardColor.find(item => item.name === secondary_status)?.color
 	return cardBorderColor
 }
 
-export function getHeaderTopBorderColor(
-	main_status: string,
-	secondary_status: string,
-) {
-	if (
-		main_status === 'interested' &&
-		secondary_status === 'new entry'
-	) {
+export function getHeaderTopBorderColor(main_status: string, secondary_status: string) {
+	if (main_status === 'interested' && secondary_status === 'new entry') {
 		return secondaryStatus[3].color
 	}
-	if (
-		main_status === 'applying' &&
-		secondary_status === 'new entry'
-	) {
+	if (main_status === 'applying' && secondary_status === 'new entry') {
 		return secondaryStatus[3].color
 	}
-	if (
-		main_status === 'meeting' &&
-		secondary_status === 'new entry'
-	) {
+	if (main_status === 'meeting' && secondary_status === 'new entry') {
 		return secondaryStatus[3].color
 	}
-	if (
-		main_status === 'chosen' &&
-		secondary_status === 'approved'
-	) {
+	if (main_status === 'chosen' && secondary_status === 'approved') {
 		return secondaryStatus[2].color
 	}
 	const headerTopBorderColor = secondaryStatus.find(
@@ -120,9 +84,7 @@ export function getHeaderTopBorderColor(
 	return headerTopBorderColor
 }
 
-export function getHeaderTopBorderColorExpert(
-	employment_status: string,
-) {
+export function getHeaderTopBorderColorExpert(employment_status: string) {
 	if (employment_status === 'former') {
 		return employmentStatus[0].color
 	}
@@ -134,10 +96,7 @@ export function getHeaderTopBorderColorExpert(
 	}
 }
 
-const executeFilterAndSort = (
-	filterCriteria: string,
-	arr: IPostulation[],
-) => {
+const executeFilterAndSort = (filterCriteria: string, arr: IPostulation[]) => {
 	return arr
 		.filter(p => p.main_status === filterCriteria)
 		.sort((a, b) => {
@@ -159,31 +118,17 @@ export const sortByColumn = (candidates: ICandidate[]) => {
 	const hired: ICandidate[] = []
 
 	// filter first by those candidate that has not been "rejected"
-	candidates = candidates.filter(
-		candidate => candidate.isRejected === false,
-	)
+	candidates = candidates.filter(candidate => candidate.isRejected === false)
 
 	candidates.forEach(candidate => {
 		const filteredByInterested = executeFilterAndSort(
 			'interested',
 			candidate.postulations!,
 		)
-		const filteredByApplying = executeFilterAndSort(
-			'applying',
-			candidate.postulations!,
-		)
-		const filteredByMeeting = executeFilterAndSort(
-			'meeting',
-			candidate.postulations!,
-		)
-		const filteredByChosen = executeFilterAndSort(
-			'chosen',
-			candidate.postulations!,
-		)
-		const filteredByHired = executeFilterAndSort(
-			'hired',
-			candidate.postulations!,
-		)
+		const filteredByApplying = executeFilterAndSort('applying', candidate.postulations!)
+		const filteredByMeeting = executeFilterAndSort('meeting', candidate.postulations!)
+		const filteredByChosen = executeFilterAndSort('chosen', candidate.postulations!)
+		const filteredByHired = executeFilterAndSort('hired', candidate.postulations!)
 
 		filteredByInterested.length &&
 			interested.push({
@@ -228,20 +173,10 @@ export const MAIN_STATUS_ALLOWED = [
 	'chosen',
 	'hired',
 ]
-export const EMPLOYMENT_STATUS_ALLOWED = [
-	'Active',
-	'Former',
-	'In Process',
-]
-export const EMPLOYMENT_STATUS = [
-	'active',
-	'former',
-	'in_process',
-]
+export const EMPLOYMENT_STATUS_ALLOWED = ['Active', 'Former', 'In Process']
+export const EMPLOYMENT_STATUS = ['active', 'former', 'in_process']
 
-export const calculateCandidateAge = (
-	birth_date: string,
-) => {
+export const calculateCandidateAge = (birth_date: string) => {
 	const birthYear = birth_date.split('-')[0]
 	const age = new Date().getFullYear() - Number(birthYear)
 	return age

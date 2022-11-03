@@ -12,8 +12,7 @@ const Stop = ({ onClick }: Props) => {
 				onClick={onClick}
 			>
 				<div className="flex items-center justify-between">
-					Stop &nbsp;{' '}
-					<FaRegStopCircle className="text-gray-color w-[20px] h-[20px]" />
+					Stop &nbsp; <FaRegStopCircle className="text-gray-color w-[20px] h-[20px]" />
 				</div>
 			</button>
 		</div>

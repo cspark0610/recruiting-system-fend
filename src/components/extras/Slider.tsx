@@ -5,21 +5,14 @@ import SliderControl from '@/components/buttons/SliderControl'
 
 const Slider = () => {
 	/*  */
-	const { nextSlide, prevSlide, moveDot, slideIndex } =
-		useSlider()
+	const { nextSlide, prevSlide, moveDot, slideIndex } = useSlider()
 
 	return (
 		<div className="container-slider mt-10">
 			{SliderData.map((obj, index) => {
 				return (
 					<div key={obj.id}>
-						<div
-							className={
-								slideIndex === index + 1
-									? 'slide active-anim'
-									: 'slide'
-							}
-						>
+						<div className={slideIndex === index + 1 ? 'slide active-anim' : 'slide'}>
 							<img
 								src={`/images/Rule ${index + 1}.svg`}
 								alt={obj.description}
@@ -27,15 +20,9 @@ const Slider = () => {
 							/>
 						</div>
 						{slideIndex === 1 ? (
-							<SliderControl
-								moveSlide={nextSlide}
-								direction={'next'}
-							/>
+							<SliderControl moveSlide={nextSlide} direction={'next'} />
 						) : (
-							<SliderControl
-								moveSlide={prevSlide}
-								direction={'prev'}
-							/>
+							<SliderControl moveSlide={prevSlide} direction={'prev'} />
 						)}
 					</div>
 				)
@@ -46,11 +33,7 @@ const Slider = () => {
 					<div
 						key={index}
 						onClick={() => moveDot(index + 1)}
-						className={
-							slideIndex === index + 1
-								? 'dot active'
-								: 'dot'
-						}
+						className={slideIndex === index + 1 ? 'dot active' : 'dot'}
 					></div>
 				))}
 			</div>

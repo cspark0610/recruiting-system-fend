@@ -1,7 +1,4 @@
-export function getStorageItem(
-	key: string,
-	isPrimitive?: boolean,
-) {
+export function getStorageItem(key: string, isPrimitive?: boolean) {
 	return isPrimitive
 		? window.localStorage.getItem(key)
 		: window.localStorage.getItem(key)

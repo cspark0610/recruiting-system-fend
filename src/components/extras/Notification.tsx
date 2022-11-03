@@ -7,11 +7,7 @@ type Props = {
 	sizeFile?: boolean
 }
 
-const Notification = ({
-	message,
-	color,
-	sizeFile,
-}: Props) => {
+const Notification = ({ message, color, sizeFile }: Props) => {
 	/*  */
 	const [isDisplay, setIsDisplay] = useState(true)
 

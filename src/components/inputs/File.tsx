@@ -14,14 +14,7 @@ interface Props {
 	size: boolean
 }
 
-const File = ({
-	value,
-	upload,
-	onChange,
-	message,
-	color,
-	size,
-}: Props) => {
+const File = ({ value, upload, onChange, message, color, size }: Props) => {
 	/*  */
 	const { t } = useTranslation()
 
@@ -33,13 +26,11 @@ const File = ({
 			>
 				{!upload ? (
 					<div className="flex flex-row items-center justify-center mobile:text-xs laptop:text-[15px]">
-						<FiUpload className="h-5 w-5" /> &nbsp;{' '}
-						{t('file_title')}
+						<FiUpload className="h-5 w-5" /> &nbsp; {t('file_title')}
 					</div>
 				) : (
 					<div className="flex flex-row items-center justify-center text-green-color mobile:text-xs laptop:text-[15px]">
-						<AiOutlineFileDone className="h-6 w-6" /> &nbsp;{' '}
-						{value.name}
+						<AiOutlineFileDone className="h-6 w-6" /> &nbsp; {value.name}
 					</div>
 				)}
 			</label>
@@ -52,13 +43,7 @@ const File = ({
 				hidden
 				onChange={onChange}
 			/>
-			{upload && size && (
-				<Notification
-					message={message}
-					color={color}
-					sizeFile={size}
-				/>
-			)}
+			{upload && size && <Notification message={message} color={color} sizeFile={size} />}
 		</div>
 	)
 }

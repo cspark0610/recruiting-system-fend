@@ -81,15 +81,11 @@ export type SetDetailFinishedLoadingAction = {
 }
 
 export type SetCandidateLoadingAction = {
-	type:
-		| ActionTypes.SET_IS_CANDIDATE_LOADING
-		| ActionTypes.SET_IS_NOT_CANDIDATE_LOADING
+	type: ActionTypes.SET_IS_CANDIDATE_LOADING | ActionTypes.SET_IS_NOT_CANDIDATE_LOADING
 }
 
 export type SetUpdatingCandidateAction = {
-	type:
-		| ActionTypes.SET_IS_CANDIDATE_UPDATING
-		| ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING
+	type: ActionTypes.SET_IS_CANDIDATE_UPDATING | ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING
 }
 
 export type SetCandidateErrorAction = {

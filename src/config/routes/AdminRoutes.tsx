@@ -14,50 +14,25 @@ import { lazy } from 'react'
 
 import PrivateRoute from '@/components/Routes/PrivateRoute'
 const CandidateStatus = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/CandidateStatus/CandidateStatus'
-		),
+	() => import('@/views/admin/dashboard/CandidateStatus/CandidateStatus'),
 )
 const ComparingView = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/ExpertView/ComparingView'
-		),
+	() => import('@/views/admin/dashboard/ExpertView/ComparingView'),
 )
-const ExpertView = lazy(
-	() =>
-		import('@/views/admin/dashboard/ExpertView/ExpertView'),
-)
-const Navbar = lazy(
-	() => import('@/components/kanban/Navbar'),
-)
+const ExpertView = lazy(() => import('@/views/admin/dashboard/ExpertView/ExpertView'))
+const Navbar = lazy(() => import('@/components/kanban/Navbar'))
 const NewPosition = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/OpenPositions/NewPosition'
-		),
+	() => import('@/views/admin/dashboard/OpenPositions/NewPosition'),
 )
 const PositionsList = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/OpenPositions/PositionsList'
-		),
+	() => import('@/views/admin/dashboard/OpenPositions/PositionsList'),
 )
-const Profile = lazy(
-	() => import('@/views/admin/dashboard/Profile/Profile'),
-)
+const Profile = lazy(() => import('@/views/admin/dashboard/Profile/Profile'))
 const AdminVideoQuestions = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/VideoQuestions/AdminVideoQuestions'
-		),
+	() => import('@/views/admin/dashboard/VideoQuestions/AdminVideoQuestions'),
 )
 const NewVideoQuestions = lazy(
-	() =>
-		import(
-			'@/views/admin/dashboard/VideoQuestions/NewVideoQuestions'
-		),
+	() => import('@/views/admin/dashboard/VideoQuestions/NewVideoQuestions'),
 )
 
 export default function AdminRoutes() {

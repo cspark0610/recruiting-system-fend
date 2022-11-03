@@ -11,78 +11,50 @@ import Apply from '../buttons/Apply'
 export default function Filters() {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const positions = useSelector(
-		(state: State) => state.positions.data.docs,
-	)
-	const currentFilters = useSelector(
-		(state: State) => state.info.currentFilters,
-	)
+	const positions = useSelector((state: State) => state.positions.data.docs)
+	const currentFilters = useSelector((state: State) => state.info.currentFilters)
 
 	// adds a checked property to each job object
 	const positionsWithCheck = positions.map(pos => {
 		return { ...pos, checked: false }
 	})
 
-	const [position, setPosition] = useState<Array<string>>(
-		[],
-	)
-	const [secondary_status, setSecondaryStatus] = useState<
-		Array<string>
-	>([])
+	const [position, setPosition] = useState<Array<string>>([])
+	const [secondary_status, setSecondaryStatus] = useState<Array<string>>([])
 
-	const [showPositionFilter, setShowPositionFilter] =
-		useState<boolean>(false)
-	const [showStatusFilter, setShowStatusFilter] =
-		useState<boolean>(false)
+	const [showPositionFilter, setShowPositionFilter] = useState<boolean>(false)
+	const [showStatusFilter, setShowStatusFilter] = useState<boolean>(false)
 
-	const [allPositionsSelected, setAllPositionsSelected] =
-		useState<boolean>(false)
-	const [allStatusSelected, setAllStatusSelected] =
-		useState<boolean>(false)
+	const [allPositionsSelected, setAllPositionsSelected] = useState<boolean>(false)
+	const [allStatusSelected, setAllStatusSelected] = useState<boolean>(false)
 
 	const wraperRef = useRef<HTMLDivElement>(null)
-	detectOutsideClick(wraperRef, [
-		setShowPositionFilter,
-		setShowStatusFilter,
-	])
+	detectOutsideClick(wraperRef, [setShowPositionFilter, setShowStatusFilter])
 
-	const handlePositionCheck = (
-		e: React.ChangeEvent<HTMLInputElement>,
-	) => {
+	const handlePositionCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
 			setPosition([...position, e.target.value])
 		} else {
-			setPosition([
-				...position.filter(item => item !== e.target.value),
-			])
+			setPosition([...position.filter(item => item !== e.target.value)])
 		}
 	}
 
-	const handleStatusCheck = (
-		e: React.ChangeEvent<HTMLInputElement>,
-	) => {
+	const handleStatusCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
-			setSecondaryStatus([
-				...secondary_status,
-				e.target.value,
-			])
+			setSecondaryStatus([...secondary_status, e.target.value])
 		} else {
 			setSecondaryStatus([
-				...secondary_status.filter(
-					status => status !== e.target.value,
-				),
+				...secondary_status.filter(status => status !== e.target.value),
 			])
 		}
 	}
 
 	const handleAllPositionsCheck = (e: any) => {
 		if (!allPositionsSelected) {
-			const positionsChecked = positionsWithCheck.map(
-				pos => {
-					pos.checked = !e.target.checked
-					return pos
-				},
-			)
+			const positionsChecked = positionsWithCheck.map(pos => {
+				pos.checked = !e.target.checked
+				return pos
+			})
 			setPosition(positionsChecked.map(pos => pos._id!))
 			setAllPositionsSelected(true)
 		} else {
@@ -97,9 +69,7 @@ export default function Filters() {
 				status.checked = !e.target.checked
 				return status
 			})
-			setSecondaryStatus(
-				statusChecked.map(status => status.value),
-			)
+			setSecondaryStatus(statusChecked.map(status => status.value))
 			setAllStatusSelected(true)
 		} else {
 			setSecondaryStatus([])
@@ -108,11 +78,7 @@ export default function Filters() {
 	}
 
 	const handleActionDispatch = () => {
-		if (
-			position.length === 0 &&
-			secondary_status.length === 0
-		)
-			return // if no filters selected, no action is dispatched
+		if (position.length === 0 && secondary_status.length === 0) return // if no filters selected, no action is dispatched
 
 		dispatch(
 			GetCandidatesFiltered({
@@ -140,9 +106,7 @@ export default function Filters() {
 				<div className="flex gap-4">
 					<span className="font-raleway">Positions</span>
 					<button
-						onClick={() =>
-							setShowPositionFilter(!showPositionFilter)
-						}
+						onClick={() => setShowPositionFilter(!showPositionFilter)}
 						className="pr-4"
 					>
 						<AiOutlineDown
@@ -172,14 +136,8 @@ export default function Filters() {
 								: 'Select all'}
 						</button>
 						{positions.map(pos => (
-							<div
-								key={pos._id}
-								className="flex justify-between border-b pb-2 w-48"
-							>
-								<label
-									htmlFor={pos._id}
-									className="font-raleway"
-								>
+							<div key={pos._id} className="flex justify-between border-b pb-2 w-48">
+								<label htmlFor={pos._id} className="font-raleway">
 									{pos.title}
 								</label>
 								<input
@@ -187,11 +145,7 @@ export default function Filters() {
 									className="mt-2 ml-2 hover:cursor-pointer"
 									name={pos.title}
 									id={pos._id}
-									checked={
-										position.indexOf(pos._id!) !== -1
-											? true
-											: false
-									}
+									checked={position.indexOf(pos._id!) !== -1 ? true : false}
 									value={pos._id!}
 									onChange={handlePositionCheck}
 								/>
@@ -206,12 +160,7 @@ export default function Filters() {
 				{/* aca */}
 				<div className="flex gap-4">
 					<span className="font-raleway">Status</span>
-					<button
-						onClick={() =>
-							setShowStatusFilter(!showStatusFilter)
-						}
-						className="pr-3"
-					>
+					<button onClick={() => setShowStatusFilter(!showStatusFilter)} className="pr-3">
 						<AiOutlineDown
 							className={
 								showStatusFilter
@@ -233,24 +182,15 @@ export default function Filters() {
 							className="flex justify-end text-sm text-cyan-500 font-raleway"
 							onClick={handleAllStatusCheck}
 						>
-							{allStatusSelected &&
-							secondary_status.length !== 0
+							{allStatusSelected && secondary_status.length !== 0
 								? 'Unselect all'
 								: 'Select all'}
 						</button>
 						{secondaryStatus.map(status => (
-							<div
-								key={status.id}
-								className="flex justify-between border-b pb-2 w-48"
-							>
+							<div key={status.id} className="flex justify-between border-b pb-2 w-48">
 								<div className="flex">
-									<div
-										className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}
-									></div>
-									<label
-										htmlFor={status.id.toString()}
-										className="ml-3 font-raleway"
-									>
+									<div className={`mt-[0.3rem] w-4 h-4 rounded-xl ${status.color}`}></div>
+									<label htmlFor={status.id.toString()} className="ml-3 font-raleway">
 										{status.displayName}
 									</label>
 								</div>
@@ -259,13 +199,7 @@ export default function Filters() {
 									className="mt-2 ml-2 hover:cursor-pointer"
 									name={status.displayName}
 									id={status.id.toString()}
-									checked={
-										secondary_status.indexOf(
-											status.value,
-										) !== -1
-											? true
-											: false
-									}
+									checked={secondary_status.indexOf(status.value) !== -1 ? true : false}
 									value={status.value}
 									onChange={handleStatusCheck}
 								/>

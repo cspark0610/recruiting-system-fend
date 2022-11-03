@@ -52,10 +52,7 @@ const MultipleSelect = (props: Props) => {
 				<span
 					className={`mobile:${props.display} laptop:hidden ml-3 absolute mobile:inset-y-[42px] tablet:inset-y-7 laptop:inset-y-7 right-0 items-center pr-2 pointer-events-none`}
 				>
-					<RiArrowDropDownLine
-						className="h-8 w-8 text-gray-color"
-						aria-hidden="true"
-					/>
+					<RiArrowDropDownLine className="h-8 w-8 text-gray-color" aria-hidden="true" />
 				</span>
 			</div>
 		</div>

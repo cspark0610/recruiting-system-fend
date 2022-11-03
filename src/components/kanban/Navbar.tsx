@@ -19,8 +19,7 @@ export default function Navbar() {
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
 
-	const [showProfileMenu, setShowProfileMenu] =
-		useState<boolean>(false)
+	const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false)
 
 	const currentUser = getStorageItem('user')
 
@@ -49,13 +48,10 @@ export default function Navbar() {
 							/>
 						) : null}
 						<button
-							onClick={() =>
-								setShowProfileMenu(!showProfileMenu)
-							}
+							onClick={() => setShowProfileMenu(!showProfileMenu)}
 							className="font-semibold font-raleway"
 						>
-							Hello{' '}
-							{currentUser?.name.split(' ')[0] || 'User'}
+							Hello {currentUser?.name.split(' ')[0] || 'User'}
 						</button>
 					</div>
 					<div
@@ -75,14 +71,8 @@ export default function Navbar() {
 				</div>
 				<div className="text-lg text-white mr-16 font-light">
 					<ul className="flex divide-x divide-solid">
-						<NavItem
-							to={VIEW_OPEN_POSITIONS}
-							text="Open Positions"
-						/>
-						<NavItem
-							to={VIEW_KANBAN}
-							text="Candidates Status"
-						/>
+						<NavItem to={VIEW_OPEN_POSITIONS} text="Open Positions" />
+						<NavItem to={VIEW_KANBAN} text="Candidates Status" />
 						<NavItem to={VIEW_EXPERT} text="Expert" />
 					</ul>
 				</div>

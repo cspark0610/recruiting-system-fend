@@ -1,106 +1,106 @@
-import { createBrowserHistory } from 'history';
-import { useState } from 'react';
-import { AiOutlineUp as ArrowUp, AiOutlineDown as ArrowDown } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { GetCandidatesFilteredExpert } from '@/redux/candidates/actions/CandidateAction';
-import { AppDispatch } from '@/redux/store/store';
-import { EMPLOYMENT_STATUS, EMPLOYMENT_STATUS_ALLOWED } from '@/utils/candidates';
-import Apply from '@/components/buttons/Apply';
+import { createBrowserHistory } from 'history'
+import { useState } from 'react'
+import { AiOutlineUp as ArrowUp, AiOutlineDown as ArrowDown } from 'react-icons/ai'
+import { useDispatch } from 'react-redux'
+import { GetCandidatesFilteredExpert } from '@/redux/candidates/actions/CandidateAction'
+import { AppDispatch } from '@/redux/store/store'
+import { EMPLOYMENT_STATUS, EMPLOYMENT_STATUS_ALLOWED } from '@/utils/candidates'
+import Apply from '@/components/buttons/Apply'
 
 interface Props {
-	toggleStatus: boolean;
-	setToggleStatus: any;
+	toggleStatus: boolean
+	setToggleStatus: any
 }
 
 const FormView = ({ toggleStatus, setToggleStatus }: Props) => {
-	const history = createBrowserHistory();
-	const dispatch = useDispatch<AppDispatch>();
-	const [name, setName] = useState<string>('');
-	const [basicSkill, setBasicSkill] = useState<string>('');
-	const [intermediateSkill, setIntermediateSkill] = useState<string>('');
-	const [advancedSkill, setAdvancedSkill] = useState<string>('');
-	const [skills, setSkills] = useState<string[]>(['']);
-	const [employment_status, setEmploymentStatus] = useState<string[]>(['']);
+	const history = createBrowserHistory()
+	const dispatch = useDispatch<AppDispatch>()
+	const [name, setName] = useState<string>('')
+	const [basicSkill, setBasicSkill] = useState<string>('')
+	const [intermediateSkill, setIntermediateSkill] = useState<string>('')
+	const [advancedSkill, setAdvancedSkill] = useState<string>('')
+	const [skills, setSkills] = useState<string[]>([''])
+	const [employment_status, setEmploymentStatus] = useState<string[]>([''])
 
 	const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setName(e.target.value);
-	};
+		setName(e.target.value)
+	}
 
 	const handleBasicSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setBasicSkill(e.target.value);
-		setSkills([...skills, e.target.value]);
-	};
+		setBasicSkill(e.target.value)
+		setSkills([...skills, e.target.value])
+	}
 
 	const handleIntermediateSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setIntermediateSkill(e.target.value);
-		setSkills([...skills, e.target.value]);
-	};
+		setIntermediateSkill(e.target.value)
+		setSkills([...skills, e.target.value])
+	}
 
 	const handleAdvancedSkill = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAdvancedSkill(e.target.value);
-		setSkills([...skills, e.target.value]);
-	};
+		setAdvancedSkill(e.target.value)
+		setSkills([...skills, e.target.value])
+	}
 
 	const handleClickFirstApply = () => {
-		handleActionDispatchFirstApply();
+		handleActionDispatchFirstApply()
 
-		setBasicSkill('');
-		setIntermediateSkill('');
-		setAdvancedSkill('');
-		setSkills(['']);
-	};
+		setBasicSkill('')
+		setIntermediateSkill('')
+		setAdvancedSkill('')
+		setSkills([''])
+	}
 
 	const handleClickSecondApply = () => {
-		handleActionDispatchSecondApply();
-		setName('');
-		setEmploymentStatus(['']);
-	};
+		handleActionDispatchSecondApply()
+		setName('')
+		setEmploymentStatus([''])
+	}
 
 	const handleEmploymentStatusCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
-			setEmploymentStatus([...employment_status, e.target.value]);
+			setEmploymentStatus([...employment_status, e.target.value])
 		} else {
 			setEmploymentStatus([
 				...employment_status.filter(status => status !== e.target.value),
-			]);
+			])
 		}
-	};
+	}
 
 	const handleActionDispatchFirstApply = () => {
-		if (!skills.length) return;
+		if (!skills.length) return
 		dispatch(
 			GetCandidatesFilteredExpert({
 				skills: skills.filter(i => i !== ''),
 				candidate_name: '',
 				employment_status: [],
 			}),
-		);
-	};
+		)
+	}
 
 	const handleActionDispatchSecondApply = () => {
-		if (name === '' && !employment_status.length) return;
+		if (name === '' && !employment_status.length) return
 		dispatch(
 			GetCandidatesFilteredExpert({
 				skills: [],
 				candidate_name: name.trim(),
 				employment_status: employment_status.filter(i => i !== ''),
 			}),
-		);
-	};
+		)
+	}
 	const renderStatus = (status: string) => {
-		if (status === 'active') return EMPLOYMENT_STATUS_ALLOWED[0];
-		if (status === 'former') return EMPLOYMENT_STATUS_ALLOWED[1];
-		if (status === 'in_process') return EMPLOYMENT_STATUS_ALLOWED[2];
-	};
+		if (status === 'active') return EMPLOYMENT_STATUS_ALLOWED[0]
+		if (status === 'former') return EMPLOYMENT_STATUS_ALLOWED[1]
+		if (status === 'in_process') return EMPLOYMENT_STATUS_ALLOWED[2]
+	}
 	const renderClassnameStatus = (status: string) => {
-		if (status === 'active') return 'text-[#00ADEF] font-semibold';
-		if (status === 'former') return 'text-[#475564] font-semibold';
-		if (status === 'in_process') return 'text-[#475564] font-normal';
-	};
+		if (status === 'active') return 'text-[#00ADEF] font-semibold'
+		if (status === 'former') return 'text-[#475564] font-semibold'
+		if (status === 'in_process') return 'text-[#475564] font-normal'
+	}
 
 	const handleCleanFilters = () => {
-		history.go(0);
-	};
+		history.go(0)
+	}
 
 	return (
 		<div className="flex flex-col mx-20 border-2 rounded-3xl">
@@ -199,7 +199,7 @@ const FormView = ({ toggleStatus, setToggleStatus }: Props) => {
 														onChange={handleEmploymentStatusCheck}
 													/>
 												</li>
-											);
+											)
 										})}
 
 										<li
@@ -243,7 +243,7 @@ const FormView = ({ toggleStatus, setToggleStatus }: Props) => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default FormView;
+export default FormView

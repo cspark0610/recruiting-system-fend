@@ -16,12 +16,8 @@ import { useParams } from 'react-router-dom'
 
 export default function NewPosition() {
 	const dispatch = useDispatch<AppDispatch>()
-	const success = useSelector(
-		(state: State) => state.positions.success,
-	)
-	const error = useSelector(
-		(state: State) => state.positions.error,
-	)
+	const success = useSelector((state: State) => state.positions.success)
+	const error = useSelector((state: State) => state.positions.error)
 
 	const { _id } = useParams()
 
@@ -62,17 +58,15 @@ export default function NewPosition() {
 			<FrmPosition _id={!isAdd ? _id : undefined} />
 			<div
 				className={
-					error.message !== '' &&
-					error.message.includes('Network Error')
+					error.message !== '' && error.message.includes('Network Error')
 						? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center mt-20'
 						: 'duration-200 opacity-0 invisible'
 				}
 			>
 				{error.message !== '' && (
 					<span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
-						There was an error while connecting to the
-						server. Please check your internet connection
-						and try again.
+						There was an error while connecting to the server. Please check your internet
+						connection and try again.
 					</span>
 				)}
 			</div>

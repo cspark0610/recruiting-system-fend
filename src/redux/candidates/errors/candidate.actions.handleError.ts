@@ -7,10 +7,7 @@ import {
 export function handleErrorsInCatch(
 	error: any,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	dispatch: <T>(arg0: {
-		type: ActionTypes
-		payload?: any
-	}) => void,
+	dispatch: <T>(arg0: { type: ActionTypes; payload?: any }) => void,
 ) {
 	if (error.response) {
 		dispatch<SetCandidateLoadingAction>({
@@ -35,10 +32,7 @@ export function handleErrorsInCatch(
 export function handleErrorsInCatchNoLoading(
 	error: any,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	dispatch: <T>(arg0: {
-		type: ActionTypes
-		payload?: any
-	}) => void,
+	dispatch: <T>(arg0: { type: ActionTypes; payload?: any }) => void,
 ) {
 	if (error.response) {
 		return dispatch<SetCandidateErrorAction>({
@@ -59,10 +53,7 @@ export function handleErrorsInCatchNoLoading(
 export function handleErrorsInCatchCandidateUpdating(
 	error: any,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	dispatch: <T>(arg0: {
-		type: ActionTypes
-		payload?: any
-	}) => void,
+	dispatch: <T>(arg0: { type: ActionTypes; payload?: any }) => void,
 ) {
 	if (error.response) {
 		dispatch<SetCandidateLoadingAction>({

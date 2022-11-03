@@ -28,12 +28,10 @@ const NotFound = () => {
 						/>
 						<div className="font-raleway text-gray-color font-normal text-base tracking-wide bg-white mobile:my-5 laptop:my-0">
 							<p className="mb-4">
-								{t('404.line_1.p1')} <br />{' '}
-								{t('404.line_1.p2')}
+								{t('404.line_1.p1')} <br /> {t('404.line_1.p2')}
 							</p>
 							<p>
-								{t('404.line_2.p1')} <br />{' '}
-								{t('404.line_2.p2')}
+								{t('404.line_2.p1')} <br /> {t('404.line_2.p2')}
 							</p>
 						</div>
 					</div>

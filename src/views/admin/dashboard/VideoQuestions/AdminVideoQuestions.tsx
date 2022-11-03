@@ -10,20 +10,14 @@ import {
 	ClearInfo,
 	getPositionInfo,
 } from '../../../../redux/positions/actions/PositionsActions'
-import {
-	AppDispatch,
-	State,
-} from '../../../../redux/store/store'
+import { AppDispatch, State } from '../../../../redux/store/store'
 
 function AdminVideoQuestions() {
 	const dispatch = useDispatch<AppDispatch>()
-	const [questionarySelected, setQuestionarySelected] =
-		useState<questionary | null>({
-			name: 'Questions for UX Designers',
-		})
-	const [questionaries, setQuestionaries] = useState<
-		questionary[]
-	>([
+	const [questionarySelected, setQuestionarySelected] = useState<questionary | null>({
+		name: 'Questions for UX Designers',
+	})
+	const [questionaries, setQuestionaries] = useState<questionary[]>([
 		{
 			name: 'Questions for UX Designers',
 		},
@@ -39,9 +33,7 @@ function AdminVideoQuestions() {
 	])
 
 	const { _id } = useParams()
-	const positionInfo = useSelector(
-		(state: State) => state.positions.info,
-	)
+	const positionInfo = useSelector((state: State) => state.positions.info)
 
 	useEffect(() => {
 		if (_id) {
@@ -59,18 +51,10 @@ function AdminVideoQuestions() {
 			<div className="max-w-[993px] w-[95%] mx-auto">
 				<h1 className=" text-[#475564] text-2xl font-raleway font-semibold ">
 					Video Questions for
-					<span className="text-[#00ADEF]">
-						{` ${positionInfo.title}`}
-					</span>
-					:
+					<span className="text-[#00ADEF]">{` ${positionInfo.title}`}</span>:
 				</h1>
-				<Header
-					questionarySelected={questionarySelected}
-					position={positionInfo}
-				/>
-				{questionaries.length === 0 ? null : (
-					<List questionaries={questionaries} />
-				)}
+				<Header questionarySelected={questionarySelected} position={positionInfo} />
+				{questionaries.length === 0 ? null : <List questionaries={questionaries} />}
 			</div>
 		</div>
 	)

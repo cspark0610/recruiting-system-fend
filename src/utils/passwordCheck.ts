@@ -19,8 +19,7 @@ export default function passwordCheck(value: string) {
 		return 'Password must contain at least one Digit.'
 	}
 
-	const isContainsSymbol =
-		/^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹])/
+	const isContainsSymbol = /^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹])/
 	if (!isContainsSymbol.test(value)) {
 		return 'Password must contain at least one Special Symbol.'
 	}

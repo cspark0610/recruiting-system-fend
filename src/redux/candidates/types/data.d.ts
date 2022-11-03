@@ -1,7 +1,4 @@
-import {
-	IPosition,
-	IQuestion,
-} from '../../positions/types/data'
+import { IPosition, IQuestion } from '../../positions/types/data'
 
 export type IConclusionInv = {
 	comment: string

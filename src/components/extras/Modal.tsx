@@ -34,20 +34,12 @@ const Modal = ({
 	/*  */
 	const { t } = useTranslation()
 
-	const updatingCandidate = useSelector(
-		(state: State) => state.info.updating,
-	)
-	const updatingPosition = useSelector(
-		(state: State) => state.positions.updating,
-	)
+	const updatingCandidate = useSelector((state: State) => state.info.updating)
+	const updatingPosition = useSelector((state: State) => state.positions.updating)
 
 	return (
 		<Transition.Root show={value} as={Fragment}>
-			<Dialog
-				as="div"
-				className="fixed z-20 inset-0 overflow-y-auto"
-				onClose={setValue}
-			>
+			<Dialog as="div" className="fixed z-20 inset-0 overflow-y-auto" onClose={setValue}>
 				<div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
 					<Transition.Child
 						as={Fragment}
@@ -80,10 +72,7 @@ const Modal = ({
 							<div className="bg-white px-4 pt-5 pb-4">
 								<div className="w-full">
 									<div className="relative mt-[10px] grid justify-items-center">
-										<Dialog.Title
-											as="div"
-											className="mb-[15px]"
-										>
+										<Dialog.Title as="div" className="mb-[15px]">
 											<img
 												src={`/images/${image}.svg`}
 												alt={alt}
@@ -95,9 +84,7 @@ const Modal = ({
 												{title}
 												<span
 													className={`${
-														classes
-															? 'font-bold text-gray-color'
-															: 'hidden'
+														classes ? 'font-bold text-gray-color' : 'hidden'
 													}`}
 												>
 													{status}
@@ -127,12 +114,7 @@ const Modal = ({
 									onClick={isVerify}
 								>
 									{updatingCandidate || updatingPosition ? (
-										<LoaderSpinner
-											height="h-7"
-											width="w-7"
-											stroke="white"
-											fill="white"
-										/>
+										<LoaderSpinner height="h-7" width="w-7" stroke="white" fill="white" />
 									) : (
 										'Continue'
 									)}

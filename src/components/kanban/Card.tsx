@@ -26,14 +26,9 @@ export default function Card({
 }: CardProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const card = getTopBorderColor(
-		main_status,
-		secondary_status,
-	)
-	const [openDialog, setOpenDialog] =
-		useState<boolean>(false)
-	const [isModalLoading, setIsModalLoading] =
-		useState<boolean>(false)
+	const card = getTopBorderColor(main_status, secondary_status)
+	const [openDialog, setOpenDialog] = useState<boolean>(false)
+	const [isModalLoading, setIsModalLoading] = useState<boolean>(false)
 
 	const isOpen = () => {
 		dispatch(GetCandidateInfo(_id))
@@ -48,16 +43,13 @@ export default function Card({
 	return (
 		<article className={card}>
 			<div className="ml-4">
-				<p className="text-lg font-raleway font-semibold">
-					{name}
-				</p>
+				<p className="text-lg font-raleway font-semibold">{name}</p>
 				<p className="font-light font-raleway">
 					{position ? position : 'No position applied to'}
 				</p>
 				<section className="flex flex-row gap-20 pt-4 pb-4">
 					<span className="flex font-raleway pt-4">
-						<FiClock className="mt-[0.25rem] mr-[0.5rem] text-lg" />{' '}
-						1 week
+						<FiClock className="mt-[0.25rem] mr-[0.5rem] text-lg" /> 1 week
 					</span>
 					<button
 						onClick={isOpen}

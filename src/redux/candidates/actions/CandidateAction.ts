@@ -77,15 +77,8 @@ import {
 	ADD_POSTULATION_TO_CANDIDATE,
 	GET_ALL_POSTULATIONS,
 } from '../../../config/routes/endpoints'
-import ClientAxios, {
-	PrivateAxios,
-} from '../../../config/api/axios'
-import {
-	Filters,
-	FiltersExpert,
-	IConclusionInv,
-	IPostulation,
-} from '../types/data'
+import ClientAxios, { PrivateAxios } from '../../../config/api/axios'
+import { Filters, FiltersExpert, IConclusionInv, IPostulation } from '../types/data'
 // import { IError } from "../../users/types/data";
 import {
 	handleErrorsInCatch,
@@ -100,9 +93,7 @@ export function GetAllCandidates() {
 		})
 
 		try {
-			const { data } = await PrivateAxios.get(
-				GET_ALL_CANDIDATES,
-			)
+			const { data } = await PrivateAxios.get(GET_ALL_CANDIDATES)
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -121,10 +112,9 @@ export function GetAllCandidates() {
 export function GetCandidateInfo(_id: string) {
 	return async function (dispatch: Dispatch) {
 		try {
-			const { data } =
-				await PrivateAxios.get<GetCandidateInfoResponse>(
-					`${GET_ALL_CANDIDATES}/${_id}`,
-				)
+			const { data } = await PrivateAxios.get<GetCandidateInfoResponse>(
+				`${GET_ALL_CANDIDATES}/${_id}`,
+			)
 
 			dispatch<SetDetailFinishedLoadingAction>({
 				type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
@@ -142,10 +132,9 @@ export function GetCandidateInfo(_id: string) {
 export function GetPostulationById(_id: string) {
 	return async function (dispatch: Dispatch) {
 		try {
-			const { data } =
-				await PrivateAxios.get<GetPostulationInfoResponse>(
-					`${GET_ALL_POSTULATIONS}/${_id}`,
-				)
+			const { data } = await PrivateAxios.get<GetPostulationInfoResponse>(
+				`${GET_ALL_POSTULATIONS}/${_id}`,
+			)
 
 			return dispatch<GetPostulationAction>({
 				type: ActionTypes.GET_POSTULATION,
@@ -174,11 +163,10 @@ export function GetCandidatesFiltered(filters: Filters) {
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.post<GetCandidatesFilteredResponse>(
-					GET_ALL_CANDIDATES_FILTERED,
-					filters,
-				)
+			const { data } = await PrivateAxios.post<GetCandidatesFilteredResponse>(
+				GET_ALL_CANDIDATES_FILTERED,
+				filters,
+			)
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -229,9 +217,7 @@ export function GetCandidatesFiltered(filters: Filters) {
 	}
 }
 
-export function GetCandidatesFilteredExpert(
-	filters: FiltersExpert,
-) {
+export function GetCandidatesFilteredExpert(filters: FiltersExpert) {
 	return async function (dispatch: Dispatch) {
 		dispatch<SetCandidateLoadingAction>({
 			type: ActionTypes.SET_IS_CANDIDATE_LOADING,
@@ -299,11 +285,10 @@ export function CreateCandidate(candidateInfo: any) {
 				type: ActionTypes.SET_IS_CANDIDATE_LOADING,
 			})
 
-			const { data } =
-				await ClientAxios.post<CreateCandidateResponse>(
-					CREATE_CANDIDATE,
-					candidateInfo,
-				)
+			const { data } = await ClientAxios.post<CreateCandidateResponse>(
+				CREATE_CANDIDATE,
+				candidateInfo,
+			)
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -345,12 +330,9 @@ export function AddNewPostulationToCandidate(
 		try {
 			const {
 				data: { data },
-			} = await PrivateAxios.put(
-				`${ADD_POSTULATION_TO_CANDIDATE}/${_id}`,
-				{
-					...newPostulationBody,
-				},
-			)
+			} = await PrivateAxios.put(`${ADD_POSTULATION_TO_CANDIDATE}/${_id}`, {
+				...newPostulationBody,
+			})
 
 			return dispatch<AddNewPostulationToCandidateAction>({
 				type: ActionTypes.ADD_POSTULATION_TO_CANDIDATE,
@@ -382,10 +364,7 @@ export function UpdatePostulationInfo(
 				type: ActionTypes.SET_IS_CANDIDATE_LOADING,
 			})
 
-			await ClientAxios.put(
-				`${UPDATE_POSTULATION_INFO}/${_id}`,
-				newInfo,
-			)
+			await ClientAxios.put(`${UPDATE_POSTULATION_INFO}/${_id}`, newInfo)
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -419,10 +398,7 @@ export function UpdateCandidateInfo(
 				type: ActionTypes.SET_IS_CANDIDATE_LOADING,
 			})
 
-			await ClientAxios.put(
-				`${UPDATE_CANDIDATE_INFO}/${_id}`,
-				newInfo,
-			)
+			await ClientAxios.put(`${UPDATE_CANDIDATE_INFO}/${_id}`, newInfo)
 
 			dispatch<SetCandidateLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_LOADING,
@@ -474,14 +450,13 @@ export function UpdateCandidateStatus(
 
 		try {
 			//  "/postulation/status/update"
-			const { data } =
-				await PrivateAxios.put<UpdateCandidateStatusResponse>(
-					`${UPDATE_STATUS}/${_id}`,
-					{
-						main_status,
-						secondary_status,
-					},
-				)
+			const { data } = await PrivateAxios.put<UpdateCandidateStatusResponse>(
+				`${UPDATE_STATUS}/${_id}`,
+				{
+					main_status,
+					secondary_status,
+				},
+			)
 
 			dispatch<SetUpdatingCandidateAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
@@ -509,22 +484,18 @@ export function UpdateCandidateStatus(
 	}
 }
 
-export function UpdateCandidateEmploymentStatus(
-	_id: string,
-	employment_status: string,
-) {
+export function UpdateCandidateEmploymentStatus(_id: string, employment_status: string) {
 	return async function (dispatch: Dispatch) {
 		dispatch<SetUpdatingCandidateAction>({
 			type: ActionTypes.SET_IS_CANDIDATE_UPDATING,
 		})
 		try {
-			const { data } =
-				await PrivateAxios.put<UpdateCandidateEmploymentStatusResponse>(
-					`${UPDATE_CANDIDATE_EMPLOYMENT_STATUS}/${_id}`,
-					{
-						employment_status,
-					},
-				)
+			const { data } = await PrivateAxios.put<UpdateCandidateEmploymentStatusResponse>(
+				`${UPDATE_CANDIDATE_EMPLOYMENT_STATUS}/${_id}`,
+				{
+					employment_status,
+				},
+			)
 
 			dispatch<SetUpdatingCandidateAction>({
 				type: ActionTypes.SET_IS_NOT_CANDIDATE_UPDATING,
@@ -539,15 +510,13 @@ export function UpdateCandidateEmploymentStatus(
 			})
 
 			// va al reducer
-			return dispatch<UpdateCandidateEmploymentStatusAction>(
-				{
-					type: ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
-					payload: {
-						_id,
-						employment_status: data.employment_status,
-					},
+			return dispatch<UpdateCandidateEmploymentStatusAction>({
+				type: ActionTypes.UPDATE_CANDIDATE_EMPLOYMENT_STATUS,
+				payload: {
+					_id,
+					employment_status: data.employment_status,
 				},
-			)
+			})
 		} catch (error) {
 			handleErrorsInCatchNoLoading(error, dispatch)
 		}
@@ -589,10 +558,9 @@ export function UpdateCandidateConclusion(
 export function ValidateToken(token: string) {
 	return async function (dispatch: Dispatch) {
 		try {
-			const { data } =
-				await ClientAxios.post<ValidateTokenResponse>(
-					`${VALIDATE_TOKEN}?token=${token}`,
-				)
+			const { data } = await ClientAxios.post<ValidateTokenResponse>(
+				`${VALIDATE_TOKEN}?token=${token}`,
+			)
 
 			return dispatch<ValidateTokenAction>({
 				type: ActionTypes.VALIDATE_TOKEN,
@@ -612,10 +580,7 @@ export function ValidateToken(token: string) {
 export function SendVideo(_id: string, formData: FormData) {
 	return async function (dispatch: Dispatch) {
 		try {
-			await ClientAxios.post(
-				`${SEND_VIDEO}/${_id}`,
-				formData,
-			)
+			await ClientAxios.post(`${SEND_VIDEO}/${_id}`, formData)
 		} catch (error) {
 			handleErrorsInCatchCandidateUpdating(error, dispatch)
 		}
@@ -625,9 +590,7 @@ export function SendVideo(_id: string, formData: FormData) {
 export function GetVideo(video_key: string) {
 	return async function (dispatch: Dispatch) {
 		try {
-			const { data } = await PrivateAxios.get(
-				`${GET_VIDEO}/${video_key}`,
-			)
+			const { data } = await PrivateAxios.get(`${GET_VIDEO}/${video_key}`)
 
 			dispatch<SetDetailFinishedLoadingAction>({
 				type: ActionTypes.SET_DETAIL_FINISHED_LOADING,
@@ -699,9 +662,7 @@ export function GetData(id: number) {
 	return async (dispatch: any) => {
 		dispatch(GetDataLoad(true))
 		try {
-			const response = await ClientAxios.get(
-				`${POST_CANDIDATE}/${id}`,
-			)
+			const response = await ClientAxios.get(`${POST_CANDIDATE}/${id}`)
 			dispatch(GetDataSuccess(response.data))
 		} catch (error) {
 			dispatch(GetDataError(true))

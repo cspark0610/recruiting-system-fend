@@ -14,19 +14,11 @@ type ColumnProps = {
 	items: ICandidate[]
 }
 
-export default function Column({
-	title,
-	column_info,
-	items,
-}: ColumnProps) {
+export default function Column({ title, column_info, items }: ColumnProps) {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const isLoading = useSelector(
-		(state: State) => state.info.loading,
-	)
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const isLoading = useSelector((state: State) => state.info.loading)
+	const error = useSelector((state: State) => state.info.error)
 
 	return (
 		<div className="w-80 relative">
@@ -53,11 +45,7 @@ export default function Column({
 					}
 				>
 					{isLoading ? (
-						<LoaderSpinner
-							height="h-14"
-							width="w-12"
-							classes="absolute top-40 left-32"
-						/>
+						<LoaderSpinner height="h-14" width="w-12" classes="absolute top-40 left-32" />
 					) : (
 						<>
 							{items.length === 0 && !error.message ? (
@@ -76,20 +64,12 @@ export default function Column({
 											return (
 												<Card
 													key={postulation._id}
-													postulationId={
-														postulation._id || ''
-													}
+													postulationId={postulation._id || ''}
 													_id={item._id || ''}
 													name={item.name}
-													position={
-														postulation?.position?.title
-													}
-													secondary_status={
-														postulation.secondary_status
-													}
-													main_status={
-														postulation.main_status
-													}
+													position={postulation?.position?.title}
+													secondary_status={postulation.secondary_status}
+													main_status={postulation.main_status}
 												/>
 											)
 										})

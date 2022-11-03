@@ -38,10 +38,9 @@ import { IUser } from '@/redux/users/types/data'
 export default function getAllPositions(list: string) {
 	return async function (dispatch: Dispatch) {
 		try {
-			const { data } =
-				await PrivateAxios.get<GetAllPositionsResponse>(
-					`${GET_ALL_POSITIONS}?list=${list}`,
-				)
+			const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
+				`${GET_ALL_POSITIONS}?list=${list}`,
+			)
 
 			return dispatch<GetAllPositionsAction>({
 				type: ActionTypes.GET_ALL_POSITIONS,
@@ -64,20 +63,16 @@ export default function getAllPositions(list: string) {
 	}
 }
 
-export function GetActivePositions(
-	limit: number,
-	page?: number,
-) {
+export function GetActivePositions(limit: number, page?: number) {
 	return async function (dispatch: Dispatch) {
 		dispatch<SetLoadingAction>({
 			type: ActionTypes.SET_IS_LOADING,
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.get<GetAllPositionsResponse>(
-					`${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=active`,
-				)
+			const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
+				`${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=active`,
+			)
 
 			dispatch<SetLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_LOADING,
@@ -113,20 +108,16 @@ export function GetActivePositions(
 	}
 }
 
-export function GetInactivePositions(
-	limit: number,
-	page?: number,
-) {
+export function GetInactivePositions(limit: number, page?: number) {
 	return async function (dispatch: Dispatch) {
 		dispatch<SetLoadingAction>({
 			type: ActionTypes.SET_IS_LOADING,
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.get<GetAllPositionsResponse>(
-					`${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=inactive`,
-				)
+			const { data } = await PrivateAxios.get<GetAllPositionsResponse>(
+				`${GET_ALL_POSITIONS}?page=${page}&limit=${limit}&list=inactive`,
+			)
 
 			dispatch<SetLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_LOADING,
@@ -169,10 +160,9 @@ export function getPositionInfo(_id: string) {
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.get<GetPositionResponse>(
-					`${GET_ALL_POSITIONS}/${_id}`,
-				)
+			const { data } = await PrivateAxios.get<GetPositionResponse>(
+				`${GET_ALL_POSITIONS}/${_id}`,
+			)
 
 			dispatch<SetLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_LOADING,
@@ -202,11 +192,10 @@ export function createPosition(positionInfo: IPosition) {
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.post<CreatePositionResponse>(
-					CREATE_POSITION,
-					positionInfo,
-				)
+			const { data } = await PrivateAxios.post<CreatePositionResponse>(
+				CREATE_POSITION,
+				positionInfo,
+			)
 
 			dispatch<SetLoadingAction>({
 				type: ActionTypes.SET_IS_NOT_LOADING,
@@ -250,20 +239,14 @@ export function createPosition(positionInfo: IPosition) {
 	}
 }
 
-export function UpdateInfo(
-	_id: string,
-	newInfo: IPosition,
-) {
+export function UpdateInfo(_id: string, newInfo: IPosition) {
 	return async function (dispatch: Dispatch) {
 		try {
 			dispatch<SetIsPositionUpdatingAction>({
 				type: ActionTypes.SET_IS_UPDATING,
 			})
 
-			await PrivateAxios.put<UpdatePositionResponse>(
-				`${UPDATE_POSITION}/${_id}`,
-				newInfo,
-			)
+			await PrivateAxios.put<UpdatePositionResponse>(`${UPDATE_POSITION}/${_id}`, newInfo)
 
 			dispatch<SetIsPositionUpdatingAction>({
 				type: ActionTypes.SET_IS_NOT_UPDATING,
@@ -284,15 +267,9 @@ export function UpdateInfo(
 			)
 
 			//TODO: Change type any
-			newRecruiters = newRecruiters.reduce(
-				(prev: any, user: any) => {
-					return [
-						...prev,
-						{ _id: user._id, name: user.name },
-					]
-				},
-				[],
-			)
+			newRecruiters = newRecruiters.reduce((prev: any, user: any) => {
+				return [...prev, { _id: user._id, name: user.name }]
+			}, [])
 
 			return dispatch({
 				type: ActionTypes.UPDATE_INFO,
@@ -329,10 +306,9 @@ export function SetIsActive(_id: string) {
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.put<SetIsActiveResponse>(
-					`${SET_IS_ACTIVE}/${_id}`,
-				)
+			const { data } = await PrivateAxios.put<SetIsActiveResponse>(
+				`${SET_IS_ACTIVE}/${_id}`,
+			)
 
 			dispatch<SetIsPositionUpdatingAction>({
 				type: ActionTypes.SET_IS_NOT_UPDATING,
@@ -396,10 +372,9 @@ export function DeletePosition(_id: string) {
 		})
 
 		try {
-			const { data } =
-				await PrivateAxios.delete<DeletePositionResponse>(
-					`${DELETE_POSITION}/${_id}`,
-				)
+			const { data } = await PrivateAxios.delete<DeletePositionResponse>(
+				`${DELETE_POSITION}/${_id}`,
+			)
 
 			dispatch<SetIsPositionUpdatingAction>({
 				type: ActionTypes.SET_IS_NOT_UPDATING,

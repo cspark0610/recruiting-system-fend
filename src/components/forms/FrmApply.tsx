@@ -37,12 +37,8 @@ const FrmApply = ({ _id }: Props) => {
 	const { t } = useTranslation()
 	const maxFileSize = 10000000
 
-	const positionInfo = useSelector(
-		(state: State) => state.positions.info,
-	)
-	const candidateError = useSelector(
-		(state: State) => state.info.error,
-	)
+	const positionInfo = useSelector((state: State) => state.positions.info)
+	const candidateError = useSelector((state: State) => state.info.error)
 
 	/* Regular Expressions */
 	const RegExp = {
@@ -90,24 +86,12 @@ const FrmApply = ({ _id }: Props) => {
 
 	/* Function to store validation */
 	const isFormValid = () => {
-		name === ''
-			? setIsNameValid(true)
-			: setIsNameValid(false)
-		email === ''
-			? setIsEmailValid(true)
-			: setIsEmailValid(false)
-		phone === ''
-			? setIsPhoneValid(true)
-			: setIsPhoneValid(false)
-		idiom.name === ''
-			? setIsIdiomValid(true)
-			: setIsIdiomValid(false)
-		nation.name === ''
-			? setIsNationValid(true)
-			: setIsNationValid(false)
-		terms === false
-			? setIsTermsValid(!isTermsValid)
-			: setIsTermsValid(isTermsValid)
+		name === '' ? setIsNameValid(true) : setIsNameValid(false)
+		email === '' ? setIsEmailValid(true) : setIsEmailValid(false)
+		phone === '' ? setIsPhoneValid(true) : setIsPhoneValid(false)
+		idiom.name === '' ? setIsIdiomValid(true) : setIsIdiomValid(false)
+		nation.name === '' ? setIsNationValid(true) : setIsNationValid(false)
+		terms === false ? setIsTermsValid(!isTermsValid) : setIsTermsValid(isTermsValid)
 	}
 
 	const onChange = (evt: any) => {
@@ -123,9 +107,7 @@ const FrmApply = ({ _id }: Props) => {
 			setUpload(true)
 			if (file.size > maxFileSize) {
 				setIsFileHigh(true)
-				setMessage(
-					'File is too large. Maximum file size is 10MB',
-				)
+				setMessage('File is too large. Maximum file size is 10MB')
 			} else if (file.type === 'application/pdf') {
 				dispatch(CleanCandidateErrors(dispatch))
 			} else {
@@ -139,12 +121,8 @@ const FrmApply = ({ _id }: Props) => {
 	}, [file, dispatch, terms])
 
 	/*  */
-	const loading = useSelector(
-		(state: State) => state.info.loading,
-	)
-	const success = useSelector(
-		(state: State) => state.info.success,
-	)
+	const loading = useSelector((state: State) => state.info.loading)
+	const success = useSelector((state: State) => state.info.success)
 
 	/* OnSubmit */
 	const onSubmit = (evt: any) => {
@@ -297,10 +275,7 @@ const FrmApply = ({ _id }: Props) => {
 						size={isFileHigh}
 					/>
 					<div className="mx-auto py-5">
-						<ErrorMessages
-							errorState={candidateError}
-							errorTerms={['pdf']}
-						/>
+						<ErrorMessages errorState={candidateError} errorTerms={['pdf']} />
 					</div>
 					<Checkbox
 						id="terms"
@@ -313,10 +288,7 @@ const FrmApply = ({ _id }: Props) => {
 						width="w-auto"
 					/>
 					<div className="mx-auto py-5">
-						<ErrorMessages
-							errorState={candidateError}
-							errorTerms={['terms']}
-						/>
+						<ErrorMessages errorState={candidateError} errorTerms={['terms']} />
 					</div>
 				</div>
 				<Submit

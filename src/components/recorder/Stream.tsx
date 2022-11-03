@@ -1,9 +1,4 @@
-import {
-	useCallback,
-	useRef,
-	useState,
-	useEffect,
-} from 'react'
+import { useCallback, useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { MdRestartAlt } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
@@ -16,10 +11,7 @@ import { UseCamera } from '../../hooks/useCamera'
 import ProgressVideoBar from '../extras/ProgressVideoBar'
 import Recording from '../extras/Recording'
 import { SendVideo } from '../../redux/candidates/actions/CandidateAction'
-import {
-	ICandidate,
-	IPostulation,
-} from '../../redux/candidates/types/data'
+import { ICandidate, IPostulation } from '../../redux/candidates/types/data'
 import { IQuestion } from '../../redux/positions/types/data'
 
 type StreamProps = {
@@ -29,12 +21,7 @@ type StreamProps = {
 	postulation: IPostulation
 }
 
-const Stream = ({
-	videoCounter,
-	setVideoCounter,
-	token,
-	postulation,
-}: StreamProps) => {
+const Stream = ({ videoCounter, setVideoCounter, token, postulation }: StreamProps) => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
@@ -42,18 +29,10 @@ const Stream = ({
 	const [capture, setCapture] = useState(false)
 	const [isStopped, setIsStopped] = useState(false)
 
-	const currentCandidate = useSelector(
-		(state: State) => state.info.detail,
-	) as ICandidate
+	const currentCandidate = useSelector((state: State) => state.info.detail) as ICandidate
 	const postulationId = postulation._id
 
-	const {
-		time,
-		startTimer,
-		stopTimer,
-		resetTimer,
-		progress,
-	} = useCounter()
+	const { time, startTimer, stopTimer, resetTimer, progress } = useCounter()
 	const { isCameraOn, init } = UseCamera()
 
 	const webcamRef = useRef<any>(null)
@@ -69,12 +48,9 @@ const Stream = ({
 	const handleStartCaptureClick = useCallback(() => {
 		setCapture(true)
 		startTimer()
-		mediaRecorderRef.current = new MediaRecorder(
-			webcamRef.current.stream,
-			{
-				mimeType: 'video/webm',
-			},
-		)
+		mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+			mimeType: 'video/webm',
+		})
 
 		mediaRecorderRef.current.start()
 
@@ -106,18 +82,14 @@ const Stream = ({
 	}, [handleStartCaptureClick, resetTimer])
 
 	const handleSubmitCapture = useCallback(() => {
-		const postulationFound =
-			currentCandidate.postulations!.find(
-				p => p._id === postulationId,
-			)
-		const video_questions_list: IPostulation['video_questions_list'] =
-			[]
-
-		postulationFound!.video_questions_list!.forEach(
-			(videoQuestionObj: IQuestion) => {
-				video_questions_list.push(videoQuestionObj)
-			},
+		const postulationFound = currentCandidate.postulations!.find(
+			p => p._id === postulationId,
 		)
+		const video_questions_list: IPostulation['video_questions_list'] = []
+
+		postulationFound!.video_questions_list!.forEach((videoQuestionObj: IQuestion) => {
+			video_questions_list.push(videoQuestionObj)
+		})
 		//console.log(videoChunks, "videoChunks");
 
 		if (videoChunks.current) {
@@ -126,24 +98,18 @@ const Stream = ({
 					type: 'video/mp4',
 				})
 
-				const currentCandidateQuestionsLength =
-					video_questions_list.length
+				const currentCandidateQuestionsLength = video_questions_list.length
 
 				const video_url = URL.createObjectURL(blob)
 				const formData = new FormData()
 
 				formData.append('video_recording_url', video_url)
 
-				if (
-					videoCounter === currentCandidateQuestionsLength
-				) {
+				if (videoCounter === currentCandidateQuestionsLength) {
 					formData.append('video', blob)
 					formData.append(
 						'question_id',
-						String(
-							video_questions_list[videoCounter - 1]
-								.question_id,
-						),
+						String(video_questions_list[videoCounter - 1].question_id),
 					)
 					dispatch(SendVideo(postulationId!, formData))
 
@@ -154,10 +120,7 @@ const Stream = ({
 					formData.append('video', blob)
 					formData.append(
 						'question_id',
-						String(
-							video_questions_list[videoCounter - 1]
-								.question_id,
-						),
+						String(video_questions_list[videoCounter - 1].question_id),
 					)
 
 					videoChunks.current = []
@@ -206,11 +169,7 @@ const Stream = ({
 			</div>
 
 			{/* CAMERA */}
-			<CameraOn
-				webcamRef={webcamRef}
-				isCameraOn={isCameraOn}
-				init={init}
-			/>
+			<CameraOn webcamRef={webcamRef} isCameraOn={isCameraOn} init={init} />
 
 			{/* VALIDATION IF RECORDING */}
 			{
@@ -227,8 +186,7 @@ const Stream = ({
 						onClick={handleRemakeCaptureClick}
 					>
 						<div className="flex items-center justify-between">
-							Remake &nbsp;{' '}
-							<MdRestartAlt className="text-gray-color w-[20px] h-[20px]" />
+							Remake &nbsp; <MdRestartAlt className="text-gray-color w-[20px] h-[20px]" />
 						</div>
 					</button>
 

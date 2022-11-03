@@ -3,17 +3,13 @@ import { State } from '@/redux/store/store'
 import { VIEW_APPLY } from '@/config/routes/paths'
 
 type CreateNewDropdownProps = {
-	setShowCreateDropdown: (
-		showCreateDropdown: boolean,
-	) => void
+	setShowCreateDropdown: (showCreateDropdown: boolean) => void
 }
 
 export default function CreateNewDropdown({
 	setShowCreateDropdown,
 }: CreateNewDropdownProps) {
-	let positions = useSelector(
-		(state: State) => state.positions.data.docs,
-	)
+	let positions = useSelector((state: State) => state.positions.data.docs)
 	positions = positions.filter(pos => pos.isActive === true)
 
 	return (

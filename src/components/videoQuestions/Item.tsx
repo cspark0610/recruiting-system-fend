@@ -8,9 +8,7 @@ function Item({ questionary }: itemQuestionary) {
 				<p>{questionary.name}</p>
 				<p>March 15</p>
 			</div>
-			<button className="text-[#00ADEF] cursor-pointer ">
-				Clone
-			</button>
+			<button className="text-[#00ADEF] cursor-pointer ">Clone</button>
 		</li>
 	)
 }

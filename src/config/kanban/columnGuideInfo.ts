@@ -1,11 +1,11 @@
 export type IColumnInfo = {
-	main_text: string
+	main_text: string;
 	status_info: {
-		text: string
-		id: number
-		color: string
-	}[]
-}
+		text: string;
+		id: number;
+		color: string;
+	}[];
+};
 
 export const InterestedInfo: IColumnInfo = {
 	main_text:
@@ -27,7 +27,7 @@ export const InterestedInfo: IColumnInfo = {
 			color: 'bg-[#F84D44]',
 		},
 	],
-}
+};
 
 export const ApplyingInfo: IColumnInfo = {
 	main_text:
@@ -49,7 +49,7 @@ export const ApplyingInfo: IColumnInfo = {
 			color: 'bg-[#F84D44]',
 		},
 	],
-}
+};
 
 export const MeetingInfo: IColumnInfo = {
 	main_text:
@@ -71,7 +71,7 @@ export const MeetingInfo: IColumnInfo = {
 			color: 'bg-[#F84D44]',
 		},
 	],
-}
+};
 
 export const ChosenInfo: IColumnInfo = {
 	main_text:
@@ -98,4 +98,4 @@ export const ChosenInfo: IColumnInfo = {
 			color: 'bg-[#F84D44]',
 		},
 	],
-}
+};

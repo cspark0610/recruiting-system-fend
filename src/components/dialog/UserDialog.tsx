@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-	useDispatch,
-	useSelector,
-	batch,
-} from 'react-redux'
+import { useDispatch, useSelector, batch } from 'react-redux'
 import { createBrowserHistory } from 'history'
 import {
 	ClearCandidateDetail,
@@ -17,10 +13,7 @@ import Panels from './panels/Panels'
 import HeaderDialog from '../header/HeaderDialog'
 import Modal from '@/components/extras/Modal'
 import LoaderSpinner from '@/assets/loaderSpinner'
-import {
-	ICandidate,
-	IPostulation,
-} from '@/redux/candidates/types/data'
+import { ICandidate, IPostulation } from '@/redux/candidates/types/data'
 import { MAIN_STATUS_ALLOWED } from '@/utils/candidates'
 
 interface Props {
@@ -47,13 +40,9 @@ const UserDialog = ({
 	const isDetailFinishedLoading = useSelector(
 		(state: State) => state.info.detailFinishedLoading,
 	)
-	const detail: ICandidate = useSelector(
-		(state: State) => state.info.detail,
-	)
+	const detail: ICandidate = useSelector((state: State) => state.info.detail)
 
-	const success = useSelector(
-		(state: State) => state.info.success,
-	)
+	const success = useSelector((state: State) => state.info.success)
 
 	let main_status = ''
 	detail.postulations!.forEach((p: IPostulation) => {
@@ -97,15 +86,7 @@ const UserDialog = ({
 				}
 			}
 		}
-	}, [
-		approve,
-		doubting,
-		dismiss,
-		reject,
-		isConfirm,
-		color,
-		dispatch,
-	])
+	}, [approve, doubting, dismiss, reject, isConfirm, color, dispatch])
 
 	// stops the loading spinner when details finished loading
 	useEffect(() => {
@@ -134,15 +115,7 @@ const UserDialog = ({
 		if (success.message !== '' && recandidate) {
 			setRecandidate(false)
 		}
-	}, [
-		success,
-		approve,
-		doubting,
-		dismiss,
-		reject,
-		hired,
-		recandidate,
-	])
+	}, [success, approve, doubting, dismiss, reject, hired, recandidate])
 
 	// clears the candidate detail when the modal is closed
 	useEffect(() => {
@@ -168,110 +141,42 @@ const UserDialog = ({
 		shouldUnlink = false,
 	) => {
 		// recandidate case
-		if (
-			shouldRecandidate === true &&
-			secondary_status === 'new entry'
-		) {
-			dispatch(
-				UpdateCandidateStatus(
-					postulationId,
-					'interested',
-					'new entry',
-				),
-			)
+		if (shouldRecandidate === true && secondary_status === 'new entry') {
+			dispatch(UpdateCandidateStatus(postulationId, 'interested', 'new entry'))
 		}
 
 		if (secondary_status === 'rejected') {
 			dispatch(RejectCandidate(detail._id!))
 		}
 
-		if (
-			main_status === 'interested' &&
-			secondary_status === 'new entry'
-		) {
+		if (main_status === 'interested' && secondary_status === 'new entry') {
 			batch(() => {
 				dispatch(GenerateUrl(postulationId))
-				dispatch(
-					UpdateCandidateStatus(
-						postulationId,
-						'applying',
-						'new entry',
-					),
-				)
+				dispatch(UpdateCandidateStatus(postulationId, 'applying', 'new entry'))
 			})
 		}
 
-		if (
-			main_status === 'applying' &&
-			secondary_status === 'new entry'
-		) {
-			dispatch(
-				UpdateCandidateStatus(
-					postulationId,
-					'meeting',
-					'new entry',
-				),
-			)
+		if (main_status === 'applying' && secondary_status === 'new entry') {
+			dispatch(UpdateCandidateStatus(postulationId, 'meeting', 'new entry'))
 		}
 
-		if (
-			main_status === 'meeting' &&
-			secondary_status === 'new entry'
-		) {
-			dispatch(
-				UpdateCandidateStatus(
-					postulationId,
-					'chosen',
-					'new entry',
-				),
-			)
+		if (main_status === 'meeting' && secondary_status === 'new entry') {
+			dispatch(UpdateCandidateStatus(postulationId, 'chosen', 'new entry'))
 		}
 
-		if (
-			main_status === 'chosen' &&
-			secondary_status === 'new entry'
-		) {
+		if (main_status === 'chosen' && secondary_status === 'new entry') {
 			batch(() => {
-				dispatch(
-					UpdateCandidateStatus(
-						postulationId,
-						'hired',
-						'approved',
-					),
-				)
-				dispatch(
-					UpdateCandidateEmploymentStatus(
-						detail._id!,
-						'active',
-					),
-				)
+				dispatch(UpdateCandidateStatus(postulationId, 'hired', 'approved'))
+				dispatch(UpdateCandidateEmploymentStatus(detail._id!, 'active'))
 			})
 		}
 
-		if (
-			MAIN_STATUS_ALLOWED.includes(main_status) &&
-			secondary_status === 'doubting'
-		) {
-			dispatch(
-				UpdateCandidateStatus(
-					postulationId,
-					main_status,
-					'doubting',
-				),
-			)
+		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === 'doubting') {
+			dispatch(UpdateCandidateStatus(postulationId, main_status, 'doubting'))
 		}
 
-		if (
-			MAIN_STATUS_ALLOWED.includes(main_status) &&
-			secondary_status === 'dismissed'
-		) {
-			dispatch(
-				UpdateCandidateStatus(
-					postulationId,
-					main_status,
-					'dismissed',
-				),
-			)
+		if (MAIN_STATUS_ALLOWED.includes(main_status) && secondary_status === 'dismissed') {
+			dispatch(UpdateCandidateStatus(postulationId, main_status, 'dismissed'))
 		}
 	}
 
@@ -285,11 +190,7 @@ const UserDialog = ({
 							{isModalLoading ? (
 								<div className="absolute z-10 bg-white h-full w-full bg-opacity-75">
 									<div className="flex items-center justify-center">
-										<LoaderSpinner
-											height="h-14"
-											width="w-12"
-											classes="mt-48"
-										/>
+										<LoaderSpinner height="h-14" width="w-12" classes="mt-48" />
 									</div>
 								</div>
 							) : null}
@@ -319,11 +220,7 @@ const UserDialog = ({
 									alt="approve"
 									classes={true}
 									image="approve"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm('new entry', postulationId, false)}
 									message="An automatic email is going to be send to this candidate with instructions for next step."
 									onClick={isApproved}
 									setValue={setApproved}
@@ -336,11 +233,7 @@ const UserDialog = ({
 									alt="doubting"
 									classes={true}
 									image="doubting"
-									isVerify={isStatusConfirm(
-										'doubting',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm('doubting', postulationId, false)}
 									onClick={isDoubting}
 									setValue={setDoubting}
 									status='"in doubt".'
@@ -353,11 +246,7 @@ const UserDialog = ({
 									alt="dismiss"
 									classes={true}
 									image="dismiss"
-									isVerify={isStatusConfirm(
-										'dismissed',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm('dismissed', postulationId, false)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isDismiss}
 									setValue={setDismiss}
@@ -371,11 +260,7 @@ const UserDialog = ({
 									alt="hired"
 									classes={true}
 									image="hired"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm('new entry', postulationId, false)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isHired}
 									setValue={setHired}
@@ -389,11 +274,7 @@ const UserDialog = ({
 									alt="recandidate"
 									classes={true}
 									image="recandidate"
-									isVerify={isStatusConfirm(
-										'new entry',
-										postulationId,
-										true,
-									)}
+									isVerify={isStatusConfirm('new entry', postulationId, true)}
 									message="Remember to fill your motives for this desition in conclusions"
 									onClick={isRecandidate}
 									setValue={setRecandidate}
@@ -407,11 +288,7 @@ const UserDialog = ({
 									alt="reject"
 									classes={false}
 									image="reject"
-									isVerify={isStatusConfirm(
-										'rejected',
-										postulationId,
-										false,
-									)}
+									isVerify={isStatusConfirm('rejected', postulationId, false)}
 									message="This candidate won’t be able to apply for any position ever again. Please, explain your decition here:"
 									onClick={isReject}
 									setValue={setReject}

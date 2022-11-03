@@ -18,6 +18,5 @@ const priorityColors = [
 ]
 
 export default function getPriorityColor(priority: string) {
-	return priorityColors.find(p => p.name === priority)
-		?.color
+	return priorityColors.find(p => p.name === priority)?.color
 }

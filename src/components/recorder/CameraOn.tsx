@@ -8,11 +8,7 @@ interface Props {
 	init: any
 }
 
-const CameraOn = ({
-	webcamRef,
-	isCameraOn,
-	init,
-}: Props) => {
+const CameraOn = ({ webcamRef, isCameraOn, init }: Props) => {
 	/*  */
 	const { t } = useTranslation()
 
@@ -39,12 +35,7 @@ const CameraOn = ({
 			} relative`}
 		>
 			<div className="z-10">
-				<Webcam
-					audio={true}
-					ref={webcamRef}
-					height={320}
-					width={400}
-				/>
+				<Webcam audio={true} ref={webcamRef} height={320} width={400} />
 			</div>
 			<div
 				className={`${

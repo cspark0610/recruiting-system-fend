@@ -16,10 +16,8 @@ import { AppDispatch } from '@/redux/store/store'
 export default function KanbanOptions() {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const [showSearch, setShowSearch] =
-		useState<boolean>(false)
-	const [showCreateDropdown, setShowCreateDropdown] =
-		useState<boolean>(false)
+	const [showSearch, setShowSearch] = useState<boolean>(false)
+	const [showCreateDropdown, setShowCreateDropdown] = useState<boolean>(false)
 
 	const wrapperRef = useRef<HTMLDivElement>(null)
 	detectOutsideClick(wrapperRef, [setShowCreateDropdown])
@@ -43,11 +41,7 @@ export default function KanbanOptions() {
 				>
 					<label
 						htmlFor="query"
-						className={
-							showSearch
-								? 'hidden'
-								: 'mt-[0.75rem] hover:cursor-pointer'
-						}
+						className={showSearch ? 'hidden' : 'mt-[0.75rem] hover:cursor-pointer'}
 						onClick={() => setShowSearch(!showSearch)}
 					>
 						{' '}
@@ -63,11 +57,7 @@ export default function KanbanOptions() {
 				</button>
 			</div>
 			<div className="mr-16 relative" ref={wrapperRef}>
-				<CreateNew
-					onClick={() =>
-						setShowCreateDropdown(!showCreateDropdown)
-					}
-				/>
+				<CreateNew onClick={() => setShowCreateDropdown(!showCreateDropdown)} />
 				<div
 					className={
 						showCreateDropdown
@@ -75,9 +65,7 @@ export default function KanbanOptions() {
 							: 'duration-200 opacity-0 invisible absolute z-10 rounded-sm mt-2 bg-white shadow-md'
 					}
 				>
-					<CreateNewDropdown
-						setShowCreateDropdown={setShowCreateDropdown}
-					/>
+					<CreateNewDropdown setShowCreateDropdown={setShowCreateDropdown} />
 				</div>
 			</div>
 		</div>

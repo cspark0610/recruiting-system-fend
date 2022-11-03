@@ -1,15 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	useNavigate,
-	useSearchParams,
-} from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ValidateToken } from '@/redux/candidates/actions/CandidateAction'
-import {
-	VIEW_404,
-	VIEW_BEFORE_STARTING,
-} from '@/config/routes/paths'
+import { VIEW_404, VIEW_BEFORE_STARTING } from '@/config/routes/paths'
 import { AppDispatch, State } from '@/redux/store/store'
 import { UseCamera } from '@/hooks/useCamera'
 import Lang from '@/components/extras/Lang'
@@ -23,9 +17,7 @@ const Details = () => {
 	const navigate = useNavigate()
 	const { isCameraOn, init } = UseCamera()
 
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const error = useSelector((state: State) => state.info.error)
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')
@@ -59,35 +51,21 @@ const Details = () => {
 							<br /> {t('details.sub-title.line_2')}
 						</p>
 						<ul className="list-disc font-raleway text-gray-color mobile:text-sm laptop:text-xs ml-5 mt-5 w-[283px]">
-							<li className="my-2">
-								{t('details.rules.line_1')}
-							</li>
-							<li className="my-2">
-								{t('details.rules.line_2')}
-							</li>
-							<li className="my-2">
-								{t('details.rules.line_3')}
-							</li>
-							<li className="my-2">
-								{t('details.rules.line_4')}
-							</li>
+							<li className="my-2">{t('details.rules.line_1')}</li>
+							<li className="my-2">{t('details.rules.line_2')}</li>
+							<li className="my-2">{t('details.rules.line_3')}</li>
+							<li className="my-2">{t('details.rules.line_4')}</li>
 						</ul>
 						<div className="grid place-content-start w-full">
 							<div className="flex justify-center my-8">
 								<input
 									className={`${
-										!isCameraOn
-											? 'cursor-not-allowed'
-											: 'cursor-pointer'
+										!isCameraOn ? 'cursor-not-allowed' : 'cursor-pointer'
 									} laptop:w-[155px] laptop:h-[59px] mobile:w-[155px] mobile:h-[59px] rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold focus:outline-none`}
 									type="submit"
 									value="Get Started"
 									disabled={!isCameraOn ? true : false}
-									onClick={() =>
-										navigate(
-											`${VIEW_BEFORE_STARTING}?token=${token}`,
-										)
-									}
+									onClick={() => navigate(`${VIEW_BEFORE_STARTING}?token=${token}`)}
 								/>
 							</div>
 						</div>

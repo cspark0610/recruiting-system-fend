@@ -11,9 +11,7 @@ import Header from '@/components/header/Header'
 const Required = () => {
 	/*  */
 	const dispatch = useDispatch<AppDispatch>()
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const error = useSelector((state: State) => state.info.error)
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')

@@ -1,9 +1,6 @@
 import { BsPlay } from 'react-icons/bs'
 import { MdRestartAlt } from 'react-icons/md'
-import {
-	RiArrowLeftSLine,
-	RiArrowRightSLine,
-} from 'react-icons/ri'
+import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'
 
 interface Props {
 	source?: string
@@ -17,8 +14,7 @@ const VideoPlayer = ({ source, onClick }: Props) => {
 	return (
 		<div
 			className={`relative ${
-				!video &&
-				'bg-gradient-to-b from-gray-color to-light-color border-light-color'
+				!video && 'bg-gradient-to-b from-gray-color to-light-color border-light-color'
 			} rounded-[10px] max-w-full mobile:w-[350px] mobile:h-[236px] tablet:w-[400px] tablet:h-[320px] laptop:w-[400px] laptop:h-[320px] mobile:my-[35px] tablet:my-0 laptop:my-0`}
 		>
 			{/* QUESTION */}
@@ -64,10 +60,7 @@ const VideoPlayer = ({ source, onClick }: Props) => {
 					video && 'hidden'
 				} absolute mobile:top-[100px] mobile:left-[150px] tablet:top-[135px] tablet:left-[175px] laptop:top-[135px] laptop:left-[175px]`}
 			>
-				<button
-					className="font-raleway text-gray-color text-xs"
-					id="play-button"
-				>
+				<button className="font-raleway text-gray-color text-xs" id="play-button">
 					<BsPlay className="w-[41px] h-[45px] text-white" />
 				</button>
 			</div>
@@ -75,10 +68,7 @@ const VideoPlayer = ({ source, onClick }: Props) => {
 			{/* VIDEO SOURCE */}
 			{video && (
 				<video id="video-interview" controls>
-					<source
-						src={video}
-						type="video/webm;codecs=vp9,opus"
-					/>
+					<source src={video} type="video/webm;codecs=vp9,opus" />
 				</video>
 			)}
 		</div>

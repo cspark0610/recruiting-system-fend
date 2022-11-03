@@ -1,9 +1,6 @@
 import '@/assets/scss/inputs.scss'
 
-import {
-	UpdateInfo,
-	createPosition,
-} from '@/redux/positions/actions/PositionsActions'
+import { UpdateInfo, createPosition } from '@/redux/positions/actions/PositionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
@@ -25,64 +22,41 @@ type FrmPositionProps = {
 	_id?: string
 }
 
-export default function FrmPosition({
-	_id,
-}: FrmPositionProps) {
+export default function FrmPosition({ _id }: FrmPositionProps) {
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
 
-	const users = useSelector(
-		(state: State) => state.user.users,
-	)
-	const loading = useSelector(
-		(state: State) => state.positions.loading,
-	)
-	const updating = useSelector(
-		(state: State) => state.positions.updating,
-	)
-	const success = useSelector(
-		(state: State) => state.positions.success,
-	)
-	const error = useSelector(
-		(state: State) => state.positions.error,
-	)
+	const users = useSelector((state: State) => state.user.users)
+	const loading = useSelector((state: State) => state.positions.loading)
+	const updating = useSelector((state: State) => state.positions.updating)
+	const success = useSelector((state: State) => state.positions.success)
+	const error = useSelector((state: State) => state.positions.error)
 
 	const multiselectRef = useRef<MultiSelect>(null)
 
-	const data: OptionValues[] = users.reduce(
-		(prev: any, user: any) => {
-			return [...prev, { id: user._id, name: user.name }]
-		},
-		[],
-	)
+	const data: OptionValues[] = users.reduce((prev: any, user: any) => {
+		return [...prev, { id: user._id, name: user.name }]
+	}, [])
 
-	const positionInfo = useSelector(
-		(state: State) => state.positions.info,
-	)
+	const positionInfo = useSelector((state: State) => state.positions.info)
 
-	const currentRecruiters =
-		positionInfo?.designated?.reduce(
-			(prev: any, user: any) => {
-				return [...prev, { id: user._id, name: user.name }]
-			},
-			[],
-		)
+	const currentRecruiters = positionInfo?.designated?.reduce((prev: any, user: any) => {
+		return [...prev, { id: user._id, name: user.name }]
+	}, [])
 
 	const prioritiesWithoutCurrent = _id
-		? priorities.filter(
-				priority => priority.name !== positionInfo.priority,
-		  )
+		? priorities.filter(priority => priority.name !== positionInfo.priority)
 		: priorities
 
 	const [title, setTitle] = useState('')
 	const [clientName, setClientName] = useState('')
 	const [rieLink, setRieLink] = useState('')
 	const [recruiterGuide, setRecruiterGuide] = useState('')
-	const [designated_recruiters, setDesignated_recruiters] =
-		useState<Array<OptionValues>>([])
+	const [designated_recruiters, setDesignated_recruiters] = useState<Array<OptionValues>>(
+		[],
+	)
 
-	const [selectedPriority, setSelectedPriority] =
-		useState('')
+	const [selectedPriority, setSelectedPriority] = useState('')
 
 	/* Regular Expressions */
 	const RegExp = {
@@ -91,14 +65,10 @@ export default function FrmPosition({
 		numbers: /\D/g,
 	}
 
-	const handleSubmit = (
-		e: React.FormEvent<HTMLButtonElement>,
-	) => {
+	const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
-		const recruitersName = designated_recruiters.map(
-			recruiter => recruiter.name,
-		)
+		const recruitersName = designated_recruiters.map(recruiter => recruiter.name)
 
 		if (!_id) {
 			dispatch(
@@ -136,9 +106,7 @@ export default function FrmPosition({
 			setTitle(positionInfo?.title || '')
 			setClientName(positionInfo?.client_name || '')
 			setRieLink(positionInfo?.rie_link || '')
-			setRecruiterGuide(
-				positionInfo?.recruiter_filter || '',
-			)
+			setRecruiterGuide(positionInfo?.recruiter_filter || '')
 			setDesignated_recruiters(currentRecruiters || [])
 			setSelectedPriority(positionInfo?.priority || '')
 		}
@@ -155,10 +123,7 @@ export default function FrmPosition({
 					</div>
 					<div className="flex space-x-3">
 						{prioritiesWithoutCurrent.map(priority => (
-							<div
-								key={priority.id}
-								className="flex items-center"
-							>
+							<div key={priority.id} className="flex items-center">
 								<label
 									className="hover:cursor-pointer font-raleway text-[#475564] text-lg flex items-center "
 									htmlFor={priority.id.toString()}
@@ -169,24 +134,15 @@ export default function FrmPosition({
 										className="custom__checkbox"
 										id={priority.id.toString()}
 										value={priority.name}
-										onChange={e =>
-											setSelectedPriority(e.target.value)
-										}
-										checked={
-											selectedPriority === priority.name
-												? true
-												: false
-										}
+										onChange={e => setSelectedPriority(e.target.value)}
+										checked={selectedPriority === priority.name ? true : false}
 									/>
 									<span className="check-visual"></span>
 									{priority.displayName}
 								</label>
 							</div>
 						))}
-						<ErrorMessages
-							errorTerms={['priority']}
-							errorState={error}
-						/>
+						<ErrorMessages errorTerms={['priority']} errorState={error} />
 					</div>
 				</div>
 				<div className="flex flex-col">
@@ -269,10 +225,7 @@ export default function FrmPosition({
 								width="w-full pr-0"
 							/>
 							<ErrorMessages
-								errorTerms={[
-									'Recruiter',
-									'recruiter_filter',
-								]}
+								errorTerms={['Recruiter', 'recruiter_filter']}
 								errorState={error}
 								className="flex flex-col ml-4"
 							/>
@@ -317,12 +270,7 @@ export default function FrmPosition({
 						className="flex items-center justify-center cursor-pointer rounded-2xl bg-cyan-color shadow-cyan-color/50 hover:bg-cyan-color/80 shadow-lg text-white font-semibold font-raleway mobile:py-2 mobile:h-[59px] mobile:w-[106px] laptop:h-[59px] laptop:w-[106px] focus:outline-none"
 					>
 						{loading || updating ? (
-							<LoaderSpinner
-								width="w-7"
-								height="h-7"
-								stroke="white"
-								fill="white"
-							/>
+							<LoaderSpinner width="w-7" height="h-7" stroke="white" fill="white" />
 						) : _id ? (
 							'Save'
 						) : (

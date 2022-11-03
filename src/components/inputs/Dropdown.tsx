@@ -15,29 +15,18 @@ interface Props {
 
 const Dropdown = ({ postulationId }: Props) => {
 	/*  */
-	const [position, setPosition] = useState<Array<string>>(
-		[],
-	)
-	const [showDropdown, setShowDropdown] =
-		useState<boolean>(false)
+	const [position, setPosition] = useState<Array<string>>([])
+	const [showDropdown, setShowDropdown] = useState<boolean>(false)
 	const dispatch = useDispatch<AppDispatch>()
 	// const history = createBrowserHistory();
 
-	const positions: IPosition[] = useSelector(
-		(state: State) => state.positions.data.docs,
-	)
-	const detail = useSelector(
-		(state: State) => state.info.detail,
-	) as ICandidate
-	const { postulation } = UseGetPostulationById(
-		detail,
-		postulationId,
-	)
+	const positions: IPosition[] = useSelector((state: State) => state.positions.data.docs)
+	const detail = useSelector((state: State) => state.info.detail) as ICandidate
+	const { postulation } = UseGetPostulationById(detail, postulationId)
 
 	const positionsFiltered = positions.filter(position => {
 		return detail.postulations?.every(
-			postulation =>
-				position?.title !== postulation.position?.title,
+			postulation => position?.title !== postulation.position?.title,
 		)
 	})
 
@@ -54,15 +43,11 @@ const Dropdown = ({ postulationId }: Props) => {
 		setPosition([''])
 	}
 
-	const handlePositionCaptureCheck = (
-		e: React.ChangeEvent<HTMLInputElement>,
-	) => {
+	const handlePositionCaptureCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
 			setPosition([...position, e.target.value])
 		} else {
-			setPosition([
-				...position.filter(item => item !== e.target.value),
-			])
+			setPosition([...position.filter(item => item !== e.target.value)])
 		}
 	}
 
@@ -95,11 +80,7 @@ const Dropdown = ({ postulationId }: Props) => {
 											className="ml-2 mr-2 focus:outline-none"
 											type="checkbox"
 											name={title}
-											checked={
-												position.indexOf(_id!) !== -1
-													? true
-													: false
-											}
+											checked={position.indexOf(_id!) !== -1 ? true : false}
 											value={_id}
 											onChange={handlePositionCaptureCheck}
 										/>
@@ -107,9 +88,7 @@ const Dropdown = ({ postulationId }: Props) => {
 											className="w-full font-raleway font-light mobile:text-xs laptop:text-[15px]"
 											htmlFor={_id}
 										>
-											<span className="text-gray-color">
-												{title}
-											</span>
+											<span className="text-gray-color">{title}</span>
 										</label>
 									</div>
 								</div>

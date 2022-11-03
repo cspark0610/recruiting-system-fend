@@ -1,7 +1,4 @@
-import {
-	ClearSuccess,
-	SetIsActive,
-} from '@/redux/positions/actions/PositionsActions'
+import { ClearSuccess, SetIsActive } from '@/redux/positions/actions/PositionsActions'
 import { AppDispatch, State } from '@/redux/store/store'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
@@ -13,17 +10,10 @@ type ToggleProps = {
 	setIsToggled: (isToggled: boolean) => void
 }
 
-export default function Toggle({
-	inactive,
-	_id,
-	isToggled,
-	setIsToggled,
-}: ToggleProps) {
+export default function Toggle({ inactive, _id, isToggled, setIsToggled }: ToggleProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const updating = useSelector(
-		(state: State) => state.positions.updating,
-	)
+	const updating = useSelector((state: State) => state.positions.updating)
 
 	const handleToggle = () => {
 		setIsToggled(!isToggled)

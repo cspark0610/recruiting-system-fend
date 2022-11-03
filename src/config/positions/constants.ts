@@ -1,8 +1,8 @@
 type Priority = {
-	id: number
-	name: string
-	displayName: string
-}
+	id: number;
+	name: string;
+	displayName: string;
+};
 
 const priorities: Priority[] = [
 	{
@@ -25,6 +25,6 @@ const priorities: Priority[] = [
 		name: 'Low',
 		displayName: 'Low',
 	},
-]
+];
 
-export default priorities
+export default priorities;

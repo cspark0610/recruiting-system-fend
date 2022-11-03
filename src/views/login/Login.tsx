@@ -10,9 +10,7 @@ const Login = () => {
 			/>
 			<div className="flex flex-col align-middle justify-center mx-auto -mt-[46px]">
 				<div className="font-raleway text-gray-color text-center">
-					<h5 className="font-bold text-[24px] leading-[28.18px]">
-						Welcome to WorkAt!
-					</h5>
+					<h5 className="font-bold text-[24px] leading-[28.18px]">Welcome to WorkAt!</h5>
 					<p className="font-normal text-[15px] leading-[17.61px]">
 						Please, Log in to start:
 					</p>

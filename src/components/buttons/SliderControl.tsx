@@ -1,7 +1,4 @@
-import {
-	RiArrowRightSLine,
-	RiArrowLeftSLine,
-} from 'react-icons/ri'
+import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 import '@/assets/scss/Slider.scss'
 
 interface Props {

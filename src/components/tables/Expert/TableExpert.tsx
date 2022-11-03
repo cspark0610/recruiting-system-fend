@@ -10,10 +10,7 @@ interface TableExpertProps {
 	positions: IPosition[]
 }
 
-const TableExpert = ({
-	candidates,
-	positions,
-}: TableExpertProps) => {
+const TableExpert = ({ candidates, positions }: TableExpertProps) => {
 	return (
 		<div className="h-[50vh] w-screen text-[#313A4E] absolute left-0">
 			<TableHeader positions={positions} />

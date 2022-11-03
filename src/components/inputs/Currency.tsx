@@ -66,12 +66,7 @@ const Currency = ({
 					value={value}
 					onChange={onChange}
 				/>
-				<SelectCoin
-					data={data}
-					value={coin}
-					setValue={setCoin}
-					placeholder="U$D"
-				/>
+				<SelectCoin data={data} value={coin} setValue={setCoin} placeholder="U$D" />
 			</div>
 		</div>
 	)

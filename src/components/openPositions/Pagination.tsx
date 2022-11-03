@@ -1,8 +1,5 @@
 import { useDispatch } from 'react-redux'
-import {
-	AiOutlineLeft,
-	AiOutlineRight,
-} from 'react-icons/ai'
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import PaginationData from '@/config/types/paginationData'
 import {
 	GetActivePositions,
@@ -15,35 +12,24 @@ type PaginationProps = {
 	items: PaginationData
 }
 
-export default function Pagination({
-	title,
-	items,
-}: PaginationProps) {
+export default function Pagination({ title, items }: PaginationProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
 	const itemsLimit = items.pagingCounter - 1 + items.limit
 
 	const handleNextPage = () => {
 		if (title.includes('Active')) {
-			dispatch(
-				GetActivePositions(items.limit, items.nextPage),
-			)
+			dispatch(GetActivePositions(items.limit, items.nextPage))
 		} else {
-			dispatch(
-				GetInactivePositions(items.limit, items.nextPage),
-			)
+			dispatch(GetInactivePositions(items.limit, items.nextPage))
 		}
 	}
 
 	const handlePrevPage = () => {
 		if (title.includes('Active')) {
-			dispatch(
-				GetActivePositions(items.limit, items.prevPage),
-			)
+			dispatch(GetActivePositions(items.limit, items.prevPage))
 		} else {
-			dispatch(
-				GetInactivePositions(items.limit, items.prevPage),
-			)
+			dispatch(GetInactivePositions(items.limit, items.prevPage))
 		}
 	}
 
@@ -51,10 +37,7 @@ export default function Pagination({
 		<div className="flex mt-2 space-x-12">
 			<span className="font-raleway">
 				{items.pagingCounter}-
-				{itemsLimit < items.totalDocs
-					? itemsLimit
-					: items.totalDocs}{' '}
-				of {items.totalDocs}
+				{itemsLimit < items.totalDocs ? itemsLimit : items.totalDocs} of {items.totalDocs}
 			</span>
 			<div className="flex mt-1 gap-x-4 text-xl">
 				<button

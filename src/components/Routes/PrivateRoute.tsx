@@ -5,12 +5,8 @@ type PrivateRouteProps = {
 	children: any
 }
 
-export default function PrivateRoute({
-	children,
-}: PrivateRouteProps) {
+export default function PrivateRoute({ children }: PrivateRouteProps) {
 	const accessToken = getStorageItem('access', true)
 
-	return accessToken && accessToken !== ''
-		? children
-		: window.location.assign(VIEW_LOGIN)
+	return accessToken && accessToken !== '' ? children : window.location.assign(VIEW_LOGIN)
 }

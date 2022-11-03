@@ -7,10 +7,7 @@ import { ValidateToken } from '@/redux/candidates/actions/CandidateAction'
 import Next from '@/components/buttons/Next'
 import Lang from '@/components/extras/Lang'
 import Header from '@/components/header/Header'
-import {
-	VIEW_404,
-	VIEW_REQUIRED_STEPS,
-} from '@/config/routes/paths'
+import { VIEW_404, VIEW_REQUIRED_STEPS } from '@/config/routes/paths'
 import { AppDispatch, State } from '@/redux/store/store'
 
 const Instructions = () => {
@@ -18,9 +15,7 @@ const Instructions = () => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { t } = useTranslation()
 
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const error = useSelector((state: State) => state.info.error)
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')

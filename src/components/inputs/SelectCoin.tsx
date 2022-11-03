@@ -33,9 +33,7 @@ const SelectCoin = (props: Props) => {
 							<div className="relative">
 								<Listbox.Button className="flex items-center bg-transparent w-[50px] p-2 leading-tight text-gray-color font-light text-left font-raleway mobile:text-xs tablet:text-[15px] laptop:text-[15px] cursor-pointer focus:outline-none">
 									<span className="block truncate">
-										{props.value
-											? props.value.name
-											: props.placeholder}
+										{props.value ? props.value.name : props.placeholder}
 									</span>
 									<span className="absolute pointer-events-none">
 										<RiArrowDropDownLine
@@ -55,39 +53,35 @@ const SelectCoin = (props: Props) => {
 									<Listbox.Options className="absolute z-10 mt-[16px] w-[50px] bg-white shadow-lg max-h-56 rounded-md py-2 overflow-auto focus:outline-none">
 										<div className="grid">
 											{props.data &&
-												props.data.map(
-													(data: OptionValues) => (
-														<Listbox.Option
-															key={data.id}
-															className={({ active }) =>
-																classNames(
-																	active
-																		? 'text-white bg-cyan-color/70 border-transparent'
-																		: 'text-gray-color',
-																	'cursor-default select-none relative py-2 mobile:text-xs laptop:text-sm font-raleway w-full',
-																)
-															}
-															value={data}
-														>
-															{({ selected }) => (
-																<>
-																	<div className="flex items-center">
-																		<span
-																			className={classNames(
-																				selected
-																					? 'font-semibold'
-																					: 'font-normal',
-																				'ml-3 block truncate',
-																			)}
-																		>
-																			{data.name}
-																		</span>
-																	</div>
-																</>
-															)}
-														</Listbox.Option>
-													),
-												)}
+												props.data.map((data: OptionValues) => (
+													<Listbox.Option
+														key={data.id}
+														className={({ active }) =>
+															classNames(
+																active
+																	? 'text-white bg-cyan-color/70 border-transparent'
+																	: 'text-gray-color',
+																'cursor-default select-none relative py-2 mobile:text-xs laptop:text-sm font-raleway w-full',
+															)
+														}
+														value={data}
+													>
+														{({ selected }) => (
+															<>
+																<div className="flex items-center">
+																	<span
+																		className={classNames(
+																			selected ? 'font-semibold' : 'font-normal',
+																			'ml-3 block truncate',
+																		)}
+																	>
+																		{data.name}
+																	</span>
+																</div>
+															</>
+														)}
+													</Listbox.Option>
+												))}
 										</div>
 									</Listbox.Options>
 								</Transition>

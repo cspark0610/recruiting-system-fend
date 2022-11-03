@@ -2,11 +2,7 @@ import { useEffect, useRef } from 'react'
 
 type GoogleButtonProps = {
 	CLIENT_ID: string
-	text:
-		| 'signin_with'
-		| 'signup_with'
-		| 'continue_with'
-		| undefined
+	text: 'signin_with' | 'signup_with' | 'continue_with' | undefined
 	handleSuccess: (result: any) => void
 }
 
@@ -18,11 +14,7 @@ export default function GoogleButton({
 	const divRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		if (
-			typeof window === 'undefined' ||
-			!window.google ||
-			!divRef.current
-		) {
+		if (typeof window === 'undefined' || !window.google || !divRef.current) {
 			return
 		}
 
@@ -31,24 +23,16 @@ export default function GoogleButton({
 				client_id: CLIENT_ID,
 				callback: handleSuccess,
 			})
-			window.google.accounts.id.renderButton(
-				divRef.current,
-				{
-					type: 'standard',
-					theme: 'outline',
-					text,
-					size: 'large',
-				},
-			)
+			window.google.accounts.id.renderButton(divRef.current, {
+				type: 'standard',
+				theme: 'outline',
+				text,
+				size: 'large',
+			})
 		} catch (error) {
 			console.error(error)
 		}
 	}, [CLIENT_ID, handleSuccess, text])
 
-	return (
-		<div
-			ref={divRef}
-			className="flex justify-center mt-4"
-		></div>
-	)
+	return <div ref={divRef} className="flex justify-center mt-4"></div>
 }

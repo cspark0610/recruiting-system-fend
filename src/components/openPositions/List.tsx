@@ -1,7 +1,4 @@
-import {
-	ClearSuccess,
-	DeletePosition,
-} from '@/redux/positions/actions/PositionsActions'
+import { ClearSuccess, DeletePosition } from '@/redux/positions/actions/PositionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -20,23 +17,14 @@ type ListProps = {
 	isAdmin?: boolean
 }
 
-export default function List({
-	title,
-	items,
-	inactive,
-	isAdmin,
-}: ListProps) {
+export default function List({ title, items, inactive, isAdmin }: ListProps) {
 	const dispatch = useDispatch<AppDispatch>()
 
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const [showWarning, setShowWarning] =
-		useState<boolean>(false)
-	const [selectedItem, setSelectedItem] =
-		useState<string>('')
+	const [showWarning, setShowWarning] = useState<boolean>(false)
+	const [selectedItem, setSelectedItem] = useState<string>('')
 
-	const success = useSelector(
-		(state: State) => state.positions.success,
-	)
+	const success = useSelector((state: State) => state.positions.success)
 
 	const handleClick = (_id: string) => {
 		setSelectedItem(_id)
@@ -75,19 +63,14 @@ export default function List({
 						disabled={items.totalDocs === 0}
 						onClick={() => isAdmin && setIsOpen(!isOpen)}
 						className={
-							(inactive && !isAdmin) ||
-							(inactive && isAdmin)
+							(inactive && !isAdmin) || (inactive && isAdmin)
 								? 'flex text-[#475564] gap-5 text-2xl font-raleway font-semibold'
 								: 'flex text-[#00ADEF] gap-5 text-2xl font-raleway font-semibold'
 						}
 					>
 						{isAdmin ? (
 							<AiOutlineRight
-								className={
-									isOpen && items.totalDocs > 0
-										? 'mt-1 rotate-90 '
-										: 'mt-1 '
-								}
+								className={isOpen && items.totalDocs > 0 ? 'mt-1 rotate-90 ' : 'mt-1 '}
 							/>
 						) : null}
 						{title}

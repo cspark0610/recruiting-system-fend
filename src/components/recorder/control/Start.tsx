@@ -13,16 +13,13 @@ const Start = ({ onClick, classes, isCameraOn }: Props) => {
 		>
 			<button
 				className={`${
-					!isCameraOn
-						? 'cursor-not-allowed'
-						: 'cursor-pointer'
+					!isCameraOn ? 'cursor-not-allowed' : 'cursor-pointer'
 				} text-cyan-color border-cyan-color rounded-2xl bg-white font-bold text-sm py-3 px-7 laptop:w-[145px] laptop:h-[54px] shadow-lg border mt-5`}
 				onClick={onClick}
 				disabled={!isCameraOn ? true : false}
 			>
 				<div className="flex items-center justify-between">
-					Record &nbsp;{' '}
-					<BsFillRecordFill className="w-[20px] h-[20px] text-red-color" />
+					Record &nbsp; <BsFillRecordFill className="w-[20px] h-[20px] text-red-color" />
 				</div>
 			</button>
 		</div>

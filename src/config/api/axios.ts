@@ -1,7 +1,4 @@
-import axios, {
-	AxiosResponse,
-	AxiosRequestConfig,
-} from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import store from '@/redux/store/store'
 import { setStorage } from '@/utils/localStorage'
 import { REFRESH_TOKENS } from '../routes/endpoints'
@@ -17,23 +14,16 @@ const accessToken = getStorageItem('access', true)
 
 const refresh = async () => {
 	try {
-		const { data } =
-			await PrivateAxios.post<RefreshTokenResponse>(
-				REFRESH_TOKENS,
-			)
+		const { data } = await PrivateAxios.post<RefreshTokenResponse>(REFRESH_TOKENS)
 		setStorage({ access: data.accessToken })
 
 		return data.accessToken
 	} catch (error: any) {
 		if (error.response) {
-			if (
-				error.response.status === 401 ||
-				error.response.status === 400
-			) {
+			if (error.response.status === 401 || error.response.status === 400) {
 				dispatch(LogOut())
 				setStorage({
-					refresh_error:
-						'Your session has expired. Please login again.',
+					refresh_error: 'Your session has expired. Please login again.',
 				})
 			}
 		}
@@ -61,9 +51,7 @@ const PrivateAxios = axios.create({
 PrivateAxios.interceptors.request.use(
 	(config: AxiosRequestConfig) => {
 		if (!config.headers!['Authorization']) {
-			config.headers![
-				'Authorization'
-			] = `Bearer ${accessToken}`
+			config.headers!['Authorization'] = `Bearer ${accessToken}`
 		}
 		config.withCredentials = true
 		return config
@@ -75,15 +63,10 @@ PrivateAxios.interceptors.response.use(
 	(response: AxiosResponse) => response,
 	async error => {
 		const prevRequest = error?.config
-		if (
-			error?.response?.status === 401 &&
-			!prevRequest?.sent
-		) {
+		if (error?.response?.status === 401 && !prevRequest?.sent) {
 			prevRequest.sent = true
 			const newAccessToken = await refresh()
-			prevRequest.headers[
-				'Authorization'
-			] = `Bearer ${newAccessToken}`
+			prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
 			return PrivateAxios(prevRequest)
 		}
 

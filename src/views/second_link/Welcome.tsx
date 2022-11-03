@@ -7,22 +7,16 @@ import Next from '@/components/buttons/Next'
 import Lang from '@/components/extras/Lang'
 import Slider from '@/components/extras/Slider'
 import Header from '@/components/header/Header'
-import {
-	VIEW_404,
-	VIEW_INSTRUCTIONS,
-} from '@/config/routes/paths'
+import { VIEW_404, VIEW_INSTRUCTIONS } from '@/config/routes/paths'
 import { AppDispatch, State } from '@/redux/store/store'
 
 const Welcome = () => {
 	/*  */
-	const dispatch: (...args: unknown[]) => unknown =
-		useDispatch<AppDispatch>()
+	const dispatch: (...args: unknown[]) => unknown = useDispatch<AppDispatch>()
 
 	const { t } = useTranslation()
 
-	const error = useSelector(
-		(state: State) => state.info.error,
-	)
+	const error = useSelector((state: State) => state.info.error)
 
 	const [searchParams] = useSearchParams()
 	const token = searchParams.get('token')

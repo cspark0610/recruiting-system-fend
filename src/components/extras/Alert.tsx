@@ -18,10 +18,7 @@ const Alert = () => {
 		<>
 			{isDisplay && (
 				<div className="container-tooltip">
-					<div
-						className="tooltip"
-						data-tooltip="tooltip-test"
-					>
+					<div className="tooltip" data-tooltip="tooltip-test">
 						<p>{t('alert_message')}</p>
 					</div>
 					<div className="vector"></div>

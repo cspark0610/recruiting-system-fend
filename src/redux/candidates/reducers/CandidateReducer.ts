@@ -108,10 +108,7 @@ const initialState: InitialState = {
 	// },
 }
 
-function CandidateReducer(
-	state = initialState,
-	action: Action,
-) {
+function CandidateReducer(state = initialState, action: Action) {
 	switch (action.type) {
 		case ActionTypes.GET_CANDIDATES: {
 			return {
@@ -139,10 +136,7 @@ function CandidateReducer(
 				...state,
 				postulation: {
 					...state.postulation,
-					videos_recorded: [
-						...state.postulation.videos_recorded,
-						action.payload,
-					],
+					videos_recorded: [...state.postulation.videos_recorded, action.payload],
 				},
 			}
 		}
@@ -184,14 +178,10 @@ function CandidateReducer(
 					...state.detail,
 					conclusions: {
 						good: action.payload.good
-							? state.detail.conclusions?.good.concat(
-									action.payload.good,
-							  )
+							? state.detail.conclusions?.good.concat(action.payload.good)
 							: state.detail.conclusions?.good,
 						bad: action.payload.bad
-							? state.detail.conclusions?.bad.concat(
-									action.payload.bad,
-							  )
+							? state.detail.conclusions?.bad.concat(action.payload.bad)
 							: state.detail.conclusions?.bad,
 					},
 				},
@@ -203,10 +193,7 @@ function CandidateReducer(
 				...state,
 				detail: {
 					...state.detail,
-					postulations: [
-						...state.detail.postulations!,
-						action.payload,
-					],
+					postulations: [...state.detail.postulations!, action.payload],
 				},
 			}
 		}
@@ -219,8 +206,7 @@ function CandidateReducer(
 						? {
 								...candidate,
 								main_status: action.payload.main_status,
-								secondary_status:
-									action.payload.secondary_status,
+								secondary_status: action.payload.secondary_status,
 						  }
 						: candidate,
 				),
@@ -239,15 +225,13 @@ function CandidateReducer(
 					candidate._id === action.payload._id
 						? {
 								...candidate,
-								employment_status:
-									action.payload.employment_status,
+								employment_status: action.payload.employment_status,
 						  }
 						: candidate,
 				),
 				detail: {
 					...state.detail,
-					employment_status:
-						action.payload.employment_status,
+					employment_status: action.payload.employment_status,
 				},
 			}
 		}

@@ -66,10 +66,7 @@ const initialState: InitialState = {
 	loading: false,
 }
 
-const PositionsReducer = (
-	state = initialState,
-	action: Action,
-) => {
+const PositionsReducer = (state = initialState, action: Action) => {
 	switch (action.type) {
 		case ActionTypes.GET_ALL_POSITIONS: {
 			return {

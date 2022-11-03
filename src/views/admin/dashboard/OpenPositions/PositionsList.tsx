@@ -2,11 +2,7 @@ import {
 	GetActivePositions,
 	GetInactivePositions,
 } from '@/redux/positions/actions/PositionsActions'
-import {
-	batch,
-	useDispatch,
-	useSelector,
-} from 'react-redux'
+import { batch, useDispatch, useSelector } from 'react-redux'
 
 import CreateNew from '@/components/buttons/CreateNew'
 import List from '@/components/openPositions/List'
@@ -20,21 +16,13 @@ export default function PositionsList() {
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
 
-	const activePositions = useSelector(
-		(state: State) => state.positions.active_positions,
-	)
+	const activePositions = useSelector((state: State) => state.positions.active_positions)
 	const inactivePositions = useSelector(
 		(state: State) => state.positions.inactive_positions,
 	)
-	const loading = useSelector(
-		(state: State) => state.positions.loading,
-	)
-	const success = useSelector(
-		(state: State) => state.positions.success,
-	)
-	const error = useSelector(
-		(state: State) => state.positions.error,
-	)
+	const loading = useSelector((state: State) => state.positions.loading)
+	const success = useSelector((state: State) => state.positions.success)
+	const error = useSelector((state: State) => state.positions.error)
 
 	const isAdmin = true
 
@@ -50,11 +38,7 @@ export default function PositionsList() {
 		<div className="mt-20 pt-12  overflow-x-hidden max-w-[920px] mx-auto w-[95%]">
 			{isAdmin ? (
 				<div className="flex justify-end  pb-6">
-					<CreateNew
-						onClick={() =>
-							navigate(VIEW_CREATE_NEW_POSITION)
-						}
-					/>
+					<CreateNew onClick={() => navigate(VIEW_CREATE_NEW_POSITION)} />
 				</div>
 			) : null}
 			{isAdmin ? (
@@ -82,25 +66,19 @@ export default function PositionsList() {
 					/>
 				</div>
 			) : (
-				<List
-					title="Your Active Searches"
-					items={activePositions}
-					inactive={true}
-				/>
+				<List title="Your Active Searches" items={activePositions} inactive={true} />
 			)}
 			<div
 				className={
-					error.message !== '' &&
-					error.message.includes('Network')
+					error.message !== '' && error.message.includes('Network')
 						? 'transform -translate-y-0 transition ease-in-out duration-200 flex justify-center'
 						: 'duration-200 opacity-0 invisible'
 				}
 			>
 				{error.message !== '' && (
 					<span className="p-2 px-3 bg-[#F84D44] rounded-full text-white text-center font-raleway font-seibold">
-						There was an error while connecting to the
-						server. Please check your internet connection
-						and try again.
+						There was an error while connecting to the server. Please check your internet
+						connection and try again.
 					</span>
 				)}
 			</div>
@@ -113,10 +91,7 @@ export default function PositionsList() {
 			>
 				{success.message !== '' && (
 					<div className="relative align-middle bg-white rounded-lg text-center overflow-hidden shadow-xl  w-[613px] h-[330px] flex justify-center items-center flex-col">
-						<img
-							src={'/images/approve.svg'}
-							alt="Approved img"
-						/>
+						<img src={'/images/approve.svg'} alt="Approved img" />
 						<p className="mt-10">{success.message}</p>
 					</div>
 				)}

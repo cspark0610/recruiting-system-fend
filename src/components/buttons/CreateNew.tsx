@@ -4,9 +4,7 @@ type CreateNewProps = {
 	onClick: () => void
 }
 
-export default function CreateNew({
-	onClick,
-}: CreateNewProps) {
+export default function CreateNew({ onClick }: CreateNewProps) {
 	return (
 		<button
 			onClick={onClick}

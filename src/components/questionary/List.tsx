@@ -3,10 +3,7 @@ import { BsPlusLg } from 'react-icons/bs'
 import Item from './Item'
 
 function List() {
-	const [questions, setQuestions] = useState<string[]>([
-		'question',
-		'question',
-	])
+	const [questions, setQuestions] = useState<string[]>(['question', 'question'])
 
 	const handleAddQuestion = () => {
 		setQuestions([...questions, ''])
@@ -14,18 +11,9 @@ function List() {
 	return (
 		<>
 			{questions.map((question, i) => {
-				return (
-					<Item
-						key={i}
-						position={i + 1}
-						content={question}
-					/>
-				)
+				return <Item key={i} position={i + 1} content={question} />
 			})}
-			<button
-				className="bg-[#00ADEF] p-[5px] rounded-full"
-				onClick={handleAddQuestion}
-			>
+			<button className="bg-[#00ADEF] p-[5px] rounded-full" onClick={handleAddQuestion}>
 				<BsPlusLg color="#FFFFFF" />
 			</button>
 		</>

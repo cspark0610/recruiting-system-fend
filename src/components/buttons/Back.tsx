@@ -21,8 +21,7 @@ const Back = ({ link }: Props) => {
 				className="flex items-center text-gray-color font-raleway font-bold mobile:text-xs laptop:text-sm desktop:text-base border-none focus:outline-none bg-white"
 				onClick={onClick}
 			>
-				<MdOutlineArrowBackIosNew className="h-4 w-4" />{' '}
-				&nbsp; {t('back_button.name')}
+				<MdOutlineArrowBackIosNew className="h-4 w-4" /> &nbsp; {t('back_button.name')}
 			</button>
 		</div>
 	)

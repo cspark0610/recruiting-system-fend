@@ -9,19 +9,13 @@ export default function Search() {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const currentFilters = useSelector(
-		(state: State) => state.info.currentFilters,
-	)
+	const currentFilters = useSelector((state: State) => state.info.currentFilters)
 
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement>,
-	) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(e.target.value)
 	}
 
-	const handleSubmit = (
-		e: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
-	) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
 		e.preventDefault()
 
 		if (query === '') return
@@ -41,14 +35,8 @@ export default function Search() {
 
 	return (
 		<div className="inline-block pt-1">
-			<form
-				onSubmit={handleSubmit}
-				className="relative space-x-4"
-			>
-				<button
-					onClick={handleSubmit}
-					className="absolute top-2 font-raleway"
-				>
+			<form onSubmit={handleSubmit} className="relative space-x-4">
+				<button onClick={handleSubmit} className="absolute top-2 font-raleway">
 					<BsSearch className="text-slate-400" />
 				</button>
 				<input
