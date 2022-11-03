@@ -22,17 +22,11 @@
 			"version": "detect"
 		}
 	},
-	"plugins": [
-		"react",
-		"@typescript-eslint",
-		"prettier",
-		"eslint-plugin-prettier"
-	],
+	"plugins": ["react", "@typescript-eslint", "prettier", "eslint-plugin-prettier"],
 	"rules": {
 		"react/react-in-jsx-scope": "off",
-		"linebreak-style": ["error", "unix"],
-		"prettier/prettier": ["error"],
-		"@typescript-eslint/no-non-null-assertion": "off"
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-explicit-any": "off"
 	},
 	"ignorePatterns": ["build/**/*", "node_modules/**/*"]
 }
